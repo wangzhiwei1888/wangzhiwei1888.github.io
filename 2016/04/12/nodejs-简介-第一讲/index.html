@@ -21,7 +21,7 @@
 1.1 Node的诞生2009年3月，Ryan Da">
 <meta property="og:image" content="https://nodejs.org/static/images/logos/nodejs-new-white-pantone.png">
 <meta property="og:image" content="http://yoursite.com/img/node01.jpg">
-<meta property="og:updated_time" content="2016-04-13T01:27:44.000Z">
+<meta property="og:updated_time" content="2016-04-13T01:53:43.000Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="nodejs 简介(第一讲)">
 <meta name="twitter:description" content="1.1 Node的诞生1.2 Node 的命名1.3 Node 给 javascript 带来的意义1.4 node的特点 1、异步I/O 2、事件与回调函数 3、单线程 4、跨平台
@@ -69,7 +69,7 @@
         
           <a id="nav-rss-link" class="nav-icon" href="/atom.xml" title="RSS Feed"></a>
         
-        <a id="nav-search-btn" class="nav-icon" title="Søk"></a>
+        <a id="nav-search-btn" class="nav-icon" title="Search"></a>
       </nav>
       <div id="search-form-wrap">
         <form action="//google.com/search" method="get" accept-charset="UTF-8" class="search-form"><input type="search" name="q" results="0" class="search-form-input" placeholder="Search"><button type="submit" class="search-form-submit">&#xF002;</button><input type="hidden" name="sitesearch" value="http://yoursite.com"></form>
@@ -111,7 +111,11 @@
 <p>node-webkit 的出现<br>工具类<br>grunt<br>gulp<br>webpack<br>browserify</p>
 <p><strong>1.4 node的特点</strong><br>1.4.1、异步I/O<br><a href="https://www.zhihu.com/question/19732473" target="_blank" rel="external">https://www.zhihu.com/question/19732473</a><br><a href="https://cnodejs.org/topic/4f16442ccae1f4aa2700113b" target="_blank" rel="external">https://cnodejs.org/topic/4f16442ccae1f4aa2700113b</a></p>
 <p>1.4.2、事件与回调函数<br>事件<br><a href="http://blog.csdn.net/kandyer/article/details/8187613" target="_blank" rel="external">http://blog.csdn.net/kandyer/article/details/8187613</a><br>回调函数<br><a href="http://www.jb51.net/article/55598.htm" target="_blank" rel="external">http://www.jb51.net/article/55598.htm</a></p>
-<p>1.4.3、单线程<br><a href="http://www.360doc.com/content/12/0926/15/9579107_238274731.shtml" target="_blank" rel="external">http://www.360doc.com/content/12/0926/15/9579107_238274731.shtml</a></p>
+<p>1.4.3、单线程</p>
+<p>优点：不用像多线程那样处处在意状态的同步问题，这里没有死锁的存在，也没有上下文交互所带来的性能的开销。</p>
+<p>缺点：<br>1、无法利用多核CPU<br>2、错误会引起整个应该退出，应用的健壮性值得考虑。<br>3、大量计算占用CPU导致无法继续调用异步I/O.</p>
+<p>一些解决方案。<br>process.nextTick<br>nodejs的单线程让群中有些朋友很不满，他们认为如果我们需要进行一些密集计算（比如while(true)这样的），岂不是把整个线程等卡死了？我在一些资料上看到，的确是有这个担心，所以nodejs不适合用来开发cpu密集运算的程序，而适合做那些IO操作比较多，但本身不需要计算太多的程序。因为IO操作通过都是通过异步由nodejs在其它线程中完成，所以不会影响到主线程。<br><a href="http://www.360doc.com/content/12/0926/15/9579107_238274731.shtml" target="_blank" rel="external">http://www.360doc.com/content/12/0926/15/9579107_238274731.shtml</a></p>
+<p>node 采用了 与 H5 里面的 web workers 相同的思路来解决单线程中大量计算的问题：child_process</p>
 <p>1.4.4、跨平台<br><a href="http://www.ghostchina.com/writing-cross-platform-node-js/" target="_blank" rel="external">http://www.ghostchina.com/writing-cross-platform-node-js/</a></p>
 <p><strong>1.5 node的应用场景</strong><br>1.5.1、I/O密集型<br><a href="http://www.zhihu.com/question/29927678?sort=created" target="_blank" rel="external">http://www.zhihu.com/question/29927678?sort=created</a><br>1.5.2、是否不擅长 CPU密集型业务<br>v8很快，如何合理调度cpu<br>1.5.3、与遗留系统和平共处<br>linkedin taobao 雪球财经 都是在之前的系统上面 用node 做一块业务。取长补短。<br>1.5.4、分布式应用<br><a href="http://baike.baidu.com/link?url=okc9v_tZoSaJcqazY1HJANHg4KjvSSRfdHMiWckKN2gafnKZVctdpU_EAHbVVnts9McgIbjSeVwAr91QUFSxLq" target="_blank" rel="external">http://baike.baidu.com/link?url=okc9v_tZoSaJcqazY1HJANHg4KjvSSRfdHMiWckKN2gafnKZVctdpU_EAHbVVnts9McgIbjSeVwAr91QUFSxLq</a><br><a href="http://developer.51cto.com/art/201507/485041.htm" target="_blank" rel="external">http://developer.51cto.com/art/201507/485041.htm</a><br><a href="https://github.com/ty4z2008/Qix" target="_blank" rel="external">https://github.com/ty4z2008/Qix</a><br><a href="https://github.com/NetEase/pomelo" target="_blank" rel="external">https://github.com/NetEase/pomelo</a><br><a href="https://github.com/NetEase/pomelo/wiki/Home-in-Chinese" target="_blank" rel="external">https://github.com/NetEase/pomelo/wiki/Home-in-Chinese</a><br><a href="https://github.com/rvagg/node-worker-farm" target="_blank" rel="external">https://github.com/rvagg/node-worker-farm</a><br><a href="https://github.com/lloyd/node-compute-cluster" target="_blank" rel="external">https://github.com/lloyd/node-compute-cluster</a><br>Reliable 是分布式架构的持续集成系统，由 Macaca 团队的成员开发。适用于集成构建、集成构建等场景。她是典型的主从结构，分为 reliable-master 与 reliable-slave 两部分。<br><a href="http://www.oschina.net/p/reliable" target="_blank" rel="external">http://www.oschina.net/p/reliable</a><br>Write End-to-End tests in Node.js and run against a Webdriver server.<br><a href="https://github.com/alibaba/macaca" target="_blank" rel="external">https://github.com/alibaba/macaca</a><br><a href="http://macacajs.github.io/macaca/" target="_blank" rel="external">http://macacajs.github.io/macaca/</a><br><a href="https://github.com/reliablejs/reliable-master" target="_blank" rel="external">https://github.com/reliablejs/reliable-master</a></p>
 <p><strong>1.7 参考资源</strong></p>
@@ -121,7 +125,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2016/04/12/nodejs-简介-第一讲/" data-id="cimy6gyph0000moub154p6xzx" class="article-share-link">Share</a>
+      <a data-url="http://yoursite.com/2016/04/12/nodejs-简介-第一讲/" data-id="cimy7e31f0001o6ubea6peowj" class="article-share-link">Share</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/node/">node</a></li></ul>
@@ -171,7 +175,7 @@
   
     
   <div class="widget-wrap">
-    <h3 class="widget-title">Arkiv</h3>
+    <h3 class="widget-title">Archives</h3>
     <div class="widget">
       <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/04/">April 2016</a></li></ul>
     </div>
@@ -181,7 +185,7 @@
   
     
   <div class="widget-wrap">
-    <h3 class="widget-title">Siste innlegg</h3>
+    <h3 class="widget-title">Recent Posts</h3>
     <div class="widget">
       <ul>
         
