@@ -971,6 +971,7 @@ a {
 }
 .article-entry p {
   margin-top: 10px;
+  word-wrap: break-word;
 }
 .article-entry p code,
 .article-entry li code {
