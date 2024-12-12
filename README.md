@@ -8,4 +8,6 @@ hexo g
 部署
 hexo d
 
+构建+部署
+npm run build && npm run deploy
 ```
