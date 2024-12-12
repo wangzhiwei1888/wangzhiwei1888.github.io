@@ -3,12 +3,12 @@
 ## Source: https://github.com/hexojs/hexo/
 
 # Site
-title: Hexo
-subtitle: ''
-description: ''
-keywords:
-author: John Doe
-language: en
+title: WBlog
+subtitle: wangzhiwei blog
+description: javascript nodejs web developer...
+keywords: javascript nodejs web developer fe engineer
+author: wangzhiwei
+language: zh-CN
 timezone: ''
 
 # URL
@@ -92,6 +92,12 @@ pagination_dir: page
 include:
 exclude:
 ignore:
+
+menu:
+  Home: /
+  Archives: /archives
+  Categories: /categories
+  Tags: /tags
 
 # Extensions
 ## Plugins: https://hexo.io/plugins/
