@@ -6,6 +6,9 @@ categories:
   - JavaScript
 ---
 
+
+![](../images/test.png)
+
 ```
 var b = 1;
 
