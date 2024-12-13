@@ -35,7 +35,7 @@
 <meta property="og:image" content="http://example.com/images/20201014155433.png">
 <meta property="og:image" content="http://example.com/images/20201008163022.png">
 <meta property="article:published_time" content="2024-12-12T03:01:14.000Z">
-<meta property="article:modified_time" content="2024-12-13T03:20:02.702Z">
+<meta property="article:modified_time" content="2024-12-13T06:11:07.129Z">
 <meta property="article:author" content="wangzhiwei">
 <meta property="article:tag" content="vue2 vue3">
 <meta name="twitter:card" content="summary">
@@ -190,7 +190,7 @@
                   <i class="fa fa-calendar-check-o"></i>
                 </span>
                 <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2024-12-13 11:20:02" itemprop="dateModified" datetime="2024-12-13T11:20:02+08:00">2024-12-13</time>
+                <time title="修改时间：2024-12-13 14:11:07" itemprop="dateModified" datetime="2024-12-13T14:11:07+08:00">2024-12-13</time>
               </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
@@ -431,6 +431,143 @@
 <h2 id="降低心智负担"><a href="#降低心智负担" class="headerlink" title="降低心智负担"></a>降低心智负担</h2><p>所有的<code>composition function</code>均以<code>ref</code>的结果返回，以保证<code>setup</code>函数的返回结果中不包含<code>reactive</code>或<code>readonly</code>直接产生的数据</p>
 <figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">function</span> <span class="title function_">usePos</span>(<span class="params"></span>)&#123;</span><br><span class="line">  <span class="keyword">const</span> pos = <span class="title function_">reactive</span>(&#123; <span class="attr">x</span>:<span class="number">0</span>, <span class="attr">y</span>:<span class="number">0</span> &#125;);</span><br><span class="line">  <span class="keyword">return</span> <span class="title function_">toRefs</span>(pos); <span class="comment">//  &#123;x: refObj, y: refObj&#125;</span></span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">function</span> <span class="title function_">useBooks</span>(<span class="params"></span>)&#123;</span><br><span class="line">  <span class="keyword">const</span> books = <span class="title function_">ref</span>([]);</span><br><span class="line">  <span class="keyword">return</span> &#123;</span><br><span class="line">    books <span class="comment">// books is refObj</span></span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">function</span> <span class="title function_">useLoginUser</span>(<span class="params"></span>)&#123;</span><br><span class="line">  <span class="keyword">const</span> user = <span class="title function_">readonly</span>(&#123;</span><br><span class="line">    <span class="attr">isLogin</span>: <span class="literal">false</span>,</span><br><span class="line">    <span class="attr">loginId</span>: <span class="literal">null</span></span><br><span class="line">  &#125;);</span><br><span class="line">  <span class="keyword">return</span> <span class="title function_">toRefs</span>(user); <span class="comment">// &#123; isLogin: refObj, loginId: refObj &#125;  all ref is readonly</span></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="title function_">setup</span>(<span class="params"></span>)&#123;</span><br><span class="line">  <span class="comment">// 在setup函数中，尽量保证解构、展开出来的所有响应式数据均是ref</span></span><br><span class="line">  <span class="keyword">return</span> &#123;</span><br><span class="line">    ...<span class="title function_">usePos</span>(),</span><br><span class="line">    ...<span class="title function_">useBooks</span>(),</span><br><span class="line">    ...<span class="title function_">useLoginUser</span>()</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 
+
+<h1 id="CompositionApi"><a href="#CompositionApi" class="headerlink" title="CompositionApi"></a>CompositionApi</h1><blockquote>
+<p>面试题：composition api相比于option api有哪些优势？</p>
+</blockquote>
+<p>不同于reactivity api，composition api提供的函数很多是与组件深度绑定的，不能脱离组件而存在。</p>
+<h2 id="setup"><a href="#setup" class="headerlink" title="setup"></a>setup</h2><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// component</span></span><br><span class="line"><span class="keyword">export</span> <span class="keyword">default</span> &#123;</span><br><span class="line">  <span class="title function_">setup</span>(<span class="params">props, context</span>)&#123;</span><br><span class="line">    <span class="comment">// 该函数在组件属性被赋值后立即执行，早于所有生命周期钩子函数</span></span><br><span class="line">    <span class="comment">// props 是一个对象，包含了所有的组件属性值</span></span><br><span class="line">    <span class="comment">// context 是一个对象，提供了组件所需的上下文信息</span></span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>context对象的成员</p>
+<table>
+<thead>
+<tr>
+<th>成员</th>
+<th>类型</th>
+<th>说明</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>attrs</td>
+<td>对象</td>
+<td>同<code>vue2</code>的<code>this.$attrs</code></td>
+</tr>
+<tr>
+<td>slots</td>
+<td>对象</td>
+<td>同<code>vue2</code>的<code>this.$slots</code></td>
+</tr>
+<tr>
+<td>emit</td>
+<td>方法</td>
+<td>同<code>vue2</code>的<code>this.$emit</code></td>
+</tr>
+</tbody></table>
+<h2 id="生命周期函数"><a href="#生命周期函数" class="headerlink" title="生命周期函数"></a>生命周期函数</h2><table>
+<thead>
+<tr>
+<th>vue2 option api</th>
+<th>vue3 option api</th>
+<th>vue 3 composition api</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>beforeCreate</td>
+<td>beforeCreate</td>
+<td>不再需要，代码可直接置于setup中</td>
+</tr>
+<tr>
+<td>created</td>
+<td>created</td>
+<td>不再需要，代码可直接置于setup中</td>
+</tr>
+<tr>
+<td>beforeMount</td>
+<td>beforeMount</td>
+<td>onBeforeMount</td>
+</tr>
+<tr>
+<td>mounted</td>
+<td>mounted</td>
+<td>onMounted</td>
+</tr>
+<tr>
+<td>beforeUpdate</td>
+<td>beforeUpdate</td>
+<td>onBeforeUpdate</td>
+</tr>
+<tr>
+<td>updated</td>
+<td>updated</td>
+<td>onUpdated</td>
+</tr>
+<tr>
+<td>beforeDestroy</td>
+<td>&#x3D;&#x3D;改&#x3D;&#x3D; beforeUnmount</td>
+<td>onBeforeUnmount</td>
+</tr>
+<tr>
+<td>destroyed</td>
+<td>&#x3D;&#x3D;改&#x3D;&#x3D;unmounted</td>
+<td>onUnmounted</td>
+</tr>
+<tr>
+<td>errorCaptured</td>
+<td>errorCaptured</td>
+<td>onErrorCaptured</td>
+</tr>
+<tr>
+<td>-</td>
+<td>&#x3D;&#x3D;新&#x3D;&#x3D;renderTracked</td>
+<td>onRenderTracked</td>
+</tr>
+<tr>
+<td>-</td>
+<td>&#x3D;&#x3D;新&#x3D;&#x3D;renderTriggered</td>
+<td>onRenderTriggered</td>
+</tr>
+</tbody></table>
+<p>新增钩子函数说明：</p>
+<table>
+<thead>
+<tr>
+<th>钩子函数</th>
+<th>参数</th>
+<th>执行时机</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>renderTracked</td>
+<td>DebuggerEvent</td>
+<td>渲染vdom收集到的每一次依赖时</td>
+</tr>
+<tr>
+<td>renderTriggered</td>
+<td>DebuggerEvent</td>
+<td>某个依赖变化导致组件重新渲染时</td>
+</tr>
+</tbody></table>
+<p>DebuggerEvent:</p>
+<ul>
+<li>target: 跟踪或触发渲染的对象</li>
+<li>key: 跟踪或触发渲染的属性</li>
+<li>type: 跟踪或触发渲染的方式</li>
+</ul>
+<h2 id="面试题参考答案-1"><a href="#面试题参考答案-1" class="headerlink" title="面试题参考答案"></a>面试题参考答案</h2><p>面试题：composition api相比于option api有哪些优势？</p>
+<blockquote>
+<p>从两个方面回答：</p>
+<ol>
+<li>为了更好的逻辑复用和代码组织</li>
+<li>更好的类型推导</li>
+</ol>
+</blockquote>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">有了composition api，配合reactivity api，可以在组件内部进行更加细粒度的控制，使得组件中不同的功能高度聚合，提升了代码的可维护性。对于不同组件的相同功能，也能够更好的复用。</span><br><span class="line">相比于option api，composition api中没有了指向奇怪的this，所有的api变得更加函数式，这有利于和类型推断系统比如TS深度配合。</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br><span class="line">100</span><br><span class="line">101</span><br><span class="line">102</span><br><span class="line">103</span><br><span class="line">104</span><br><span class="line">105</span><br><span class="line">106</span><br><span class="line">107</span><br><span class="line">108</span><br><span class="line">109</span><br></pre></td><td class="code"><pre><span class="line">useBar.js</span><br><span class="line"></span><br><span class="line">import &#123; computed, ref, watch &#125; from &quot;vue&quot;;</span><br><span class="line">import gsap from &quot;gsap&quot;;</span><br><span class="line">const colors = [&quot;#334552&quot;, &quot;#B34335&quot;, &quot;#6E9FA5&quot;, &quot;#A2C3AC&quot;, &quot;#C8846C&quot;];</span><br><span class="line">export default function useGdpBar(maxSize, gdp) &#123;</span><br><span class="line">  const max = computed(() =&gt; &#123;</span><br><span class="line">    if (gdp.value.length) &#123;</span><br><span class="line">      return Math.max(...gdp.value.map((it) =&gt; it.value));</span><br><span class="line">    &#125;</span><br><span class="line">    return 0;</span><br><span class="line">  &#125;);</span><br><span class="line">  const bars = ref([]);</span><br><span class="line">  const targetBars = computed(() =&gt;</span><br><span class="line">    gdp.value.map((it, i) =&gt; &#123;</span><br><span class="line">      let size = (it.value / max.value) * maxSize;</span><br><span class="line">      return &#123;</span><br><span class="line">        size,</span><br><span class="line">        color: colors[i % colors.length],</span><br><span class="line">        ...it,</span><br><span class="line">      &#125;;</span><br><span class="line">    &#125;)</span><br><span class="line">  );</span><br><span class="line">  watch(</span><br><span class="line">    targetBars,</span><br><span class="line">    (newValue) =&gt; &#123;</span><br><span class="line">      for (let i = 0; i &lt; newValue.length; i++) &#123;</span><br><span class="line">        if (!bars.value[i]) &#123;</span><br><span class="line">          bars.value[i] = &#123;</span><br><span class="line">            ...newValue[i],</span><br><span class="line">            size: 0,</span><br><span class="line">            value: 0,</span><br><span class="line">          &#125;;</span><br><span class="line">        &#125;</span><br><span class="line">        gsap.to(bars.value[i], &#123;</span><br><span class="line">          ...newValue[i],</span><br><span class="line">          duration: 1,</span><br><span class="line">        &#125;);</span><br><span class="line">      &#125;</span><br><span class="line">    &#125;,</span><br><span class="line">    &#123;</span><br><span class="line">      deep: true,</span><br><span class="line">    &#125;</span><br><span class="line">  );</span><br><span class="line">  return &#123;</span><br><span class="line">    bars,</span><br><span class="line">  &#125;;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">Bar1.vue</span><br><span class="line"></span><br><span class="line">&lt;template&gt;</span><br><span class="line">  &lt;div class=&quot;bar1&quot;&gt;</span><br><span class="line">    &lt;div class=&quot;item&quot; v-for=&quot;item in bars&quot;&gt;</span><br><span class="line">      &lt;label&gt;&#123;&#123; item.country &#125;&#125;&lt;/label&gt;</span><br><span class="line">      &lt;div</span><br><span class="line">        class=&quot;bar&quot;</span><br><span class="line">        :style=&quot;&#123; background: item.color, width: item.size + &#x27;px&#x27; &#125;&quot;</span><br><span class="line">      &gt;&lt;/div&gt;</span><br><span class="line">      &lt;div class=&quot;value&quot;&gt;&#123;&#123; item.value &#125;&#125;万亿&lt;/div&gt;</span><br><span class="line">    &lt;/div&gt;</span><br><span class="line">  &lt;/div&gt;</span><br><span class="line">&lt;/template&gt;</span><br><span class="line"></span><br><span class="line">&lt;script&gt;</span><br><span class="line">import useBar from &quot;../composition/useBar&quot;;</span><br><span class="line">import &#123; computed &#125; from &quot;vue&quot;;</span><br><span class="line">export default &#123;</span><br><span class="line">  props: [&quot;gdp&quot;],</span><br><span class="line">  setup(props) &#123;</span><br><span class="line">    const gdp = computed(() =&gt; props.gdp);</span><br><span class="line">    return &#123;</span><br><span class="line">      ...useBar(400, gdp),</span><br><span class="line">    &#125;;</span><br><span class="line">  &#125;,</span><br><span class="line">&#125;;</span><br><span class="line">&lt;/script&gt;</span><br><span class="line"></span><br><span class="line">&lt;style scoped&gt;</span><br><span class="line">.bar1 &#123;</span><br><span class="line">  width: 500px;</span><br><span class="line">  box-sizing: border-box;</span><br><span class="line">  margin: 3em;</span><br><span class="line">  border-left: 1px solid #333;</span><br><span class="line">&#125;</span><br><span class="line">.item &#123;</span><br><span class="line">  display: flex;</span><br><span class="line">  height: 35px;</span><br><span class="line">  line-height: 35px;</span><br><span class="line">  margin: 1em 0;</span><br><span class="line">  position: relative;</span><br><span class="line">&#125;</span><br><span class="line">.bar &#123;</span><br><span class="line">  width: 100px;</span><br><span class="line">  height: 100%;</span><br><span class="line">  margin-right: 1em;</span><br><span class="line">  flex: 0 0 auto;</span><br><span class="line">&#125;</span><br><span class="line">.item label &#123;</span><br><span class="line">  position: absolute;</span><br><span class="line">  left: -50px;</span><br><span class="line">&#125;</span><br><span class="line">.value &#123;</span><br><span class="line">  flex: 0 0 auto;</span><br><span class="line">&#125;</span><br><span class="line">&lt;/style&gt;</span><br><span class="line"></span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<h1 id="其他"><a href="#其他" class="headerlink" title="其他"></a>其他</h1><p>图片引用</p>
+<p>创建 URL 对象：调用 new URL 构造函数。<br>解析相对路径：使用 import.meta.url 解析 .&#x2F;assets&#x2F;Wallpaper1.jpg 的相对路径。打包后，图片会存放在 public 目录下。<br>new URL(<code>./assets/Wallpaper1.jpg</code>, import.meta.url),</p>
+
     </div>
 
     
@@ -451,7 +588,10 @@
     <a href="/2024/12/12/vite-%E5%8E%9F%E7%90%86/" rel="prev" title="vite 原理">
       <i class="fa fa-chevron-left"></i> vite 原理
     </a></div>
-      <div class="post-nav-item"></div>
+      <div class="post-nav-item">
+    <a href="/2024/12/13/vue3%20%E5%85%B1%E4%BA%AB%E6%95%B0%E6%8D%AE/" rel="next" title="vue3 共享数据">
+      vue3 共享数据 <i class="fa fa-chevron-right"></i>
+    </a></div>
     </div>
       </footer>
     
@@ -510,7 +650,7 @@
 
       <!--noindex-->
       <div class="post-toc-wrap sidebar-panel">
-          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#%E6%95%88%E7%8E%87%E7%9A%84%E6%8F%90%E5%8D%87"><span class="nav-number">1.</span> <span class="nav-text">效率的提升</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E9%9D%99%E6%80%81%E6%8F%90%E5%8D%87"><span class="nav-number">1.1.</span> <span class="nav-text">静态提升</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E9%A2%84%E5%AD%97%E7%AC%A6%E4%B8%B2%E5%8C%96"><span class="nav-number">1.2.</span> <span class="nav-text">预字符串化</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E7%BC%93%E5%AD%98%E4%BA%8B%E4%BB%B6%E5%A4%84%E7%90%86%E5%87%BD%E6%95%B0"><span class="nav-number">1.3.</span> <span class="nav-text">缓存事件处理函数</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Block-Tree"><span class="nav-number">1.4.</span> <span class="nav-text">Block Tree</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#PatchFlag"><span class="nav-number">1.5.</span> <span class="nav-text">PatchFlag</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E6%95%B0%E6%8D%AE%E5%93%8D%E5%BA%94%E5%BC%8F%E5%92%8CAPI%E7%9A%84%E5%8F%98%E5%8C%96"><span class="nav-number">2.</span> <span class="nav-text">数据响应式和API的变化</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%8E%BB%E6%8E%89%E4%BA%86Vue%E6%9E%84%E9%80%A0%E5%87%BD%E6%95%B0"><span class="nav-number">2.1.</span> <span class="nav-text">去掉了Vue构造函数</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E7%BB%84%E4%BB%B6%E5%AE%9E%E4%BE%8B%E4%B8%AD%E7%9A%84API"><span class="nav-number">2.2.</span> <span class="nav-text">组件实例中的API</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%AF%B9%E6%AF%94%E6%95%B0%E6%8D%AE%E5%93%8D%E5%BA%94%E5%BC%8F"><span class="nav-number">2.3.</span> <span class="nav-text">对比数据响应式</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E9%9D%A2%E8%AF%95%E9%A2%98%E5%8F%82%E8%80%83%E7%AD%94%E6%A1%88"><span class="nav-number">2.4.</span> <span class="nav-text">面试题参考答案</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E6%A8%A1%E6%9D%BF%E4%B8%AD%E7%9A%84%E5%8F%98%E5%8C%96"><span class="nav-number">3.</span> <span class="nav-text">模板中的变化</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#v-model"><span class="nav-number">3.1.</span> <span class="nav-text">v-model</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#v-if-v-for"><span class="nav-number">3.2.</span> <span class="nav-text">v-if v-for</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#key"><span class="nav-number">3.3.</span> <span class="nav-text">key</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Fragment"><span class="nav-number">3.4.</span> <span class="nav-text">Fragment</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E7%BB%84%E4%BB%B6%E7%9A%84%E5%8F%98%E5%8C%96"><span class="nav-number">4.</span> <span class="nav-text">组件的变化</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#Teleport"><span class="nav-number">4.1.</span> <span class="nav-text">Teleport</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#asyncComponent"><span class="nav-number">4.2.</span> <span class="nav-text">asyncComponent</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#ReactivityApi"><span class="nav-number">5.</span> <span class="nav-text">ReactivityApi</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E8%8E%B7%E5%8F%96%E5%93%8D%E5%BA%94%E5%BC%8F%E6%95%B0%E6%8D%AE"><span class="nav-number">5.1.</span> <span class="nav-text">获取响应式数据</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E7%9B%91%E5%90%AC%E6%95%B0%E6%8D%AE%E5%8F%98%E5%8C%96"><span class="nav-number">5.2.</span> <span class="nav-text">监听数据变化</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%88%A4%E6%96%AD"><span class="nav-number">5.3.</span> <span class="nav-text">判断</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E8%BD%AC%E6%8D%A2"><span class="nav-number">5.4.</span> <span class="nav-text">转换</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E9%99%8D%E4%BD%8E%E5%BF%83%E6%99%BA%E8%B4%9F%E6%8B%85"><span class="nav-number">5.5.</span> <span class="nav-text">降低心智负担</span></a></li></ol></li></ol></div>
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#%E6%95%88%E7%8E%87%E7%9A%84%E6%8F%90%E5%8D%87"><span class="nav-number">1.</span> <span class="nav-text">效率的提升</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E9%9D%99%E6%80%81%E6%8F%90%E5%8D%87"><span class="nav-number">1.1.</span> <span class="nav-text">静态提升</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E9%A2%84%E5%AD%97%E7%AC%A6%E4%B8%B2%E5%8C%96"><span class="nav-number">1.2.</span> <span class="nav-text">预字符串化</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E7%BC%93%E5%AD%98%E4%BA%8B%E4%BB%B6%E5%A4%84%E7%90%86%E5%87%BD%E6%95%B0"><span class="nav-number">1.3.</span> <span class="nav-text">缓存事件处理函数</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Block-Tree"><span class="nav-number">1.4.</span> <span class="nav-text">Block Tree</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#PatchFlag"><span class="nav-number">1.5.</span> <span class="nav-text">PatchFlag</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E6%95%B0%E6%8D%AE%E5%93%8D%E5%BA%94%E5%BC%8F%E5%92%8CAPI%E7%9A%84%E5%8F%98%E5%8C%96"><span class="nav-number">2.</span> <span class="nav-text">数据响应式和API的变化</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%8E%BB%E6%8E%89%E4%BA%86Vue%E6%9E%84%E9%80%A0%E5%87%BD%E6%95%B0"><span class="nav-number">2.1.</span> <span class="nav-text">去掉了Vue构造函数</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E7%BB%84%E4%BB%B6%E5%AE%9E%E4%BE%8B%E4%B8%AD%E7%9A%84API"><span class="nav-number">2.2.</span> <span class="nav-text">组件实例中的API</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%AF%B9%E6%AF%94%E6%95%B0%E6%8D%AE%E5%93%8D%E5%BA%94%E5%BC%8F"><span class="nav-number">2.3.</span> <span class="nav-text">对比数据响应式</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E9%9D%A2%E8%AF%95%E9%A2%98%E5%8F%82%E8%80%83%E7%AD%94%E6%A1%88"><span class="nav-number">2.4.</span> <span class="nav-text">面试题参考答案</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E6%A8%A1%E6%9D%BF%E4%B8%AD%E7%9A%84%E5%8F%98%E5%8C%96"><span class="nav-number">3.</span> <span class="nav-text">模板中的变化</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#v-model"><span class="nav-number">3.1.</span> <span class="nav-text">v-model</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#v-if-v-for"><span class="nav-number">3.2.</span> <span class="nav-text">v-if v-for</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#key"><span class="nav-number">3.3.</span> <span class="nav-text">key</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Fragment"><span class="nav-number">3.4.</span> <span class="nav-text">Fragment</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E7%BB%84%E4%BB%B6%E7%9A%84%E5%8F%98%E5%8C%96"><span class="nav-number">4.</span> <span class="nav-text">组件的变化</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#Teleport"><span class="nav-number">4.1.</span> <span class="nav-text">Teleport</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#asyncComponent"><span class="nav-number">4.2.</span> <span class="nav-text">asyncComponent</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#ReactivityApi"><span class="nav-number">5.</span> <span class="nav-text">ReactivityApi</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E8%8E%B7%E5%8F%96%E5%93%8D%E5%BA%94%E5%BC%8F%E6%95%B0%E6%8D%AE"><span class="nav-number">5.1.</span> <span class="nav-text">获取响应式数据</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E7%9B%91%E5%90%AC%E6%95%B0%E6%8D%AE%E5%8F%98%E5%8C%96"><span class="nav-number">5.2.</span> <span class="nav-text">监听数据变化</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%88%A4%E6%96%AD"><span class="nav-number">5.3.</span> <span class="nav-text">判断</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E8%BD%AC%E6%8D%A2"><span class="nav-number">5.4.</span> <span class="nav-text">转换</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E9%99%8D%E4%BD%8E%E5%BF%83%E6%99%BA%E8%B4%9F%E6%8B%85"><span class="nav-number">5.5.</span> <span class="nav-text">降低心智负担</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#CompositionApi"><span class="nav-number">6.</span> <span class="nav-text">CompositionApi</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#setup"><span class="nav-number">6.1.</span> <span class="nav-text">setup</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E7%94%9F%E5%91%BD%E5%91%A8%E6%9C%9F%E5%87%BD%E6%95%B0"><span class="nav-number">6.2.</span> <span class="nav-text">生命周期函数</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E9%9D%A2%E8%AF%95%E9%A2%98%E5%8F%82%E8%80%83%E7%AD%94%E6%A1%88-1"><span class="nav-number">6.3.</span> <span class="nav-text">面试题参考答案</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E5%85%B6%E4%BB%96"><span class="nav-number">7.</span> <span class="nav-text">其他</span></a></li></ol></div>
       </div>
       <!--/noindex-->
 
@@ -524,7 +664,7 @@
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">6</span>
+          <span class="site-state-item-count">8</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>
