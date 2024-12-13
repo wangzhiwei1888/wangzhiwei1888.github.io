@@ -293,4 +293,488 @@ vue3不再使用Object.defineProperty的方式定义完成数据响应式，而�
 
 ## Teleport
 
+```
+
+import Modal from "../components/Modal.vue";
+
+
+<Teleport to="body">
+  <Modal v-if="modalVisible">
+    <button @click="modalVisible = false">关闭朦层</button>
+  </Modal>
+</Teleport>
+
+
+<template>
+  <div class="modal">
+    <slot></slot>
+  </div>
+</template>
+
+<style scoped>
+.modal {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  position: fixed;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.3);
+  left: 0;
+  top: 0;
+}
+</style>
+
+```
+
 ## asyncComponent
+
+```
+
+utils.js
+定义 getAsyncComponent 方法加载异步组件  定义 delay 通过 await delay(); 延迟加载
+
+
+import { defineAsyncComponent, h } from "vue";
+import Loading from "../components/Loading.vue";
+import Error from "../components/Error.vue";
+import NProgress from "nprogress";
+import "nprogress/nprogress.css";
+NProgress.configure({
+  trickleSpeed: 50,
+  showSpinner: false,
+});
+export function delay(duration) {
+  if (!duration) {
+    duration = random(1000, 5000);
+  }
+  return new Promise((resolve) => {
+    setTimeout(() => {
+      resolve();
+    }, duration);
+  });
+}
+
+export function random(min, max) {
+  return Math.floor(Math.random() * (max - min) + min);
+}
+
+export function getAsyncPage(path) {
+  return defineAsyncComponent({
+    loader: async () => {
+      NProgress.start();
+      await delay();
+      const comp = await import(path);
+      NProgress.done();
+      return comp;
+    },
+    loadingComponent: Loading,
+  });
+}
+
+export function getAsyncComponent(path) {
+  return defineAsyncComponent({
+    loader: async () => {
+      await delay();
+      if (Math.random() < 0.5) {
+        return import(path);
+      }
+      throw new Error();
+    },
+    loadingComponent: Loading,
+    errorComponent: {
+      render() {
+        return h(Error, "组件加载出错");
+      },
+    },
+  });
+}
+
+
+
+import { getAsyncPage } from "../util";
+
+export default [
+  {
+    path: "/",
+    name: "Home",
+    component: getAsyncPage("../views/Home.vue"),
+  },
+  {
+    path: "/about",
+    name: "About",
+    component: getAsyncPage("../views/About.vue"),
+  },
+];
+
+
+```
+
+# ReactivityApi
+
+
+> reactivity api: https://v3.vuejs.org/api/reactivity-api
+
+## 获取响应式数据
+
+| API        | 传入                      | 返回             | 备注                                                         |
+| :--------- | ------------------------- | ---------------- | ------------------------------------------------------------ |
+| `reactive` | `plain-object`            | `对象代理`       | 深度代理对象中的所有成员                                     |
+| `readonly` | `plain-object` or `proxy` | `对象代理`       | 只能读取代理对象中的成员，不可修改                           |
+| `ref`      | `any`                     | `{ value: ... }` | 对value的访问是响应式的<br />如果给value的值是一个对象，<br />则会通过`reactive`函数进行代理<br />如果已经是代理，则直接使用代理 |
+| `computed` | `function`                | `{ value: ... }` | 当读取value值时，<br />会**根据情况**决定是否要运行函数      |
+
+应用：
+
+- 如果想要让一个对象变为响应式数据，可以使用`reactive`或`ref`
+- 如果想要让一个对象的所有属性只读，使用`readonly`
+- 如果想要让一个非对象数据变为响应式数据，使用`ref`
+- 如果想要根据已知的响应式数据得到一个新的响应式数据，使用`computed`
+
+笔试题1：下面的代码输出结果是什么？
+
+```js
+import { reactive, readonly, ref, computed } from "vue";
+
+const state = reactive({
+  firstName: "Xu Ming",
+  lastName: "Deng",
+});
+const fullName = computed(() => {
+  console.log("changed");
+  return `${state.lastName}, ${state.firstName}`;
+});
+console.log("state ready");
+console.log("fullname is", fullName.value);
+console.log("fullname is", fullName.value);
+const imState = readonly(state);
+console.log(imState === state);
+
+const stateRef = ref(state);
+console.log(stateRef.value === state);
+
+state.firstName = "Cheng";
+state.lastName = "Ji";
+
+console.log(imState.firstName, imState.lastName);
+console.log("fullname is", fullName.value);
+console.log("fullname is", fullName.value);
+
+const imState2 = readonly(stateRef);
+console.log(imState2.value === stateRef.value);
+
+```
+
+笔试题2：按照下面的要求完成函数
+
+```js
+
+import { readonly, reactive } from "vue";
+function useUser(){
+  // 在这里补全函数
+  // const userOrigin = reactive({})
+  // const user = readonly(userOrigin)
+  // const setUserName = (name) => {
+  //   userOrigin.name = name
+  // }
+
+  // const setUserAge = (age) => {
+  //   userOrigin.age = age
+  // }
+  
+  return {
+    user, // 这是一个只读的用户对象，响应式数据，默认为一个空对象
+    setUserName, // 这是一个函数，传入用户姓名，用于修改用户的名称
+    setUserAge, // 这是一个函数，传入用户年龄，用户修改用户的年龄
+  }
+}
+```
+
+笔试题3：按照下面的要求完成函数
+
+```js
+
+import { readonly, reactive } from "vue";
+
+function useDebounce(obj, duration){
+  // 在这里补全函数
+  const valueOrigin = reactive(obj);
+  const value = readonly(valueOrigin);
+  
+  let timer = null;
+  const setValue = (newValue) => {
+
+    clearTimeout(timer);
+    timer = setTimeout(() => {
+      Object.entries(newValue).forEach(([key, value]) => {
+        valueOrigin[key] = value;
+      })
+    },duration)
+    
+  }
+
+  return {
+    value, // 这里是一个只读对象，响应式数据，默认值为参数值
+    setValue // 这里是一个函数，传入一个新的对象，需要把新对象中的属性混合到原始对象中，混合操作需要在duration的时间中防抖
+  }
+}
+
+const {value, setValue} = useDebounceValue({a:1,b:2},5000)
+
+window.value = value;
+window.setValue = setValue;
+
+```
+
+
+
+## 监听数据变化
+
+**watchEffect**
+
+```js
+
+const stats = reactive({a:1, b:2})
+const count =ref(0)
+
+// watchEffect 会自动收集用到的依赖，依赖的数据改变后，会重新执行回调函数
+const stop = watchEffect(() => {
+
+  console.log('count', count.value);
+  console.log('stats', stats.a);
+  // 该函数会立即执行，然后追中函数中用到的响应式数据，响应式数据变化后会再次执行
+})
+
+// 修改数据，后会自动执行watchEffect函数
+state.a++;
+state.a++;
+state.a++;
+state.a++;
+state.a++;
+state.a++;
+count.value++;
+count.value++;
+count.value++;
+count.value++;
+count.value++;
+
+//因为会进入微队列，所以会执行一次 watchEffect 
+
+
+// 通过调用stop函数，会停止监听
+stop(); // 停止监听
+```
+
+**watch**
+
+```js
+// 等效于vue2的$watch
+
+// 监听单个数据的变化
+const state = reactive({ count: 0 })
+const options = { immediate: true } //会立即执行一次回调函数 
+
+// watch 默认不执行回调函数，只有值发生变化才会执行回调函数
+// 不可以直接传state.count 需要 () => state.count
+watch(() => state.count, (newValue, oldValue) => {
+  // ...
+}, options)
+
+const countRef = ref(0);
+watch(countRef, (newValue, oldValue) => {
+  // ...
+}, options)
+
+// 监听多个数据的变化
+watch([() => state.count, countRef], ([new1, new2], [old1, old2]) => {
+  // ...
+});
+
+// watch 也是延迟执行的
+
+```
+
+
+
+**注意：无论是`watchEffect`还是`watch`，当依赖项变化时，回调函数的运行都是异步的（微队列）**
+
+应用：除非遇到下面的场景，否则均建议选择`watchEffect`
+
+- 不希望回调函数一开始就执行
+- 数据改变时，需要参考旧值
+- 需要监控一些回调函数中不会用到的数据
+
+笔试题: 下面的代码输出结果是什么？
+
+```js
+import { reactive, watchEffect, watch } from "vue";
+const state = reactive({
+  count: 0,
+});
+watchEffect(() => {
+  console.log("watchEffect", state.count);
+});
+watch(
+  () => state.count,
+  (count, oldCount) => {
+    console.log("watch", count, oldCount);
+  }
+);
+console.log("start");
+
+//宏队列
+setTimeout(() => {
+  console.log("time out");
+  state.count++; //微队列
+  state.count++;
+});
+state.count++;//微队列
+state.count++;
+
+console.log("end");
+
+// 输出结果
+// watchEffect 0
+// start
+// end
+// watchEffect 2
+// watch 2 0
+// time out
+// watchEffect 4
+// watch 4 2
+
+```
+
+
+
+## 判断
+
+| API          | 含义                                                         |
+| ------------ | ------------------------------------------------------------ |
+| `isProxy`    | 判断某个数据是否是由`reactive`或`readonly`                   |
+| `isReactive` | 判断某个数据是否是通过`reactive`创建的<br />详细:https://v3.vuejs.org/api/basic-reactivity.html#isreactive |
+| `isReadonly` | 判断某个数据是否是通过`readonly`创建的                       |
+| `isRef`      | 判断某个数据是否是一个`ref`对象                              |
+
+
+
+## 转换
+
+**unref**
+
+等同于：`isRef(val) ? val.value : val`
+
+应用：
+
+```js
+function useNewTodo(todos){
+  todos = unref(todos);
+  // ...
+}
+```
+
+
+
+**toRef**
+
+得到一个响应式对象某个属性的ref格式
+
+```js
+const state = reactive({
+  foo: 1,
+  bar: 2
+})
+
+const fooRef = toRef(state, 'foo'); // fooRef: {value: ...}
+
+fooRef.value++
+console.log(state.foo) // 2
+
+state.foo++
+console.log(fooRef.value) // 3
+```
+
+**toRefs**
+
+把一个响应式对象的所有属性转换为ref格式，然后包装到一个`plain-object`中返回
+
+```js
+const state = reactive({
+  foo: 1,
+  bar: 2
+})
+
+const stateAsRefs = toRefs(state)
+/*
+stateAsRefs: not a proxy
+{
+  foo: { value: ... },
+  bar: { value: ... }
+}
+*/
+```
+
+应用：
+
+```js
+setup(){
+  const state1 = reactive({a:1, b:2});
+  const state2 = reactive({c:3, d:4});
+  return {
+    ...state1, // lost reactivity
+    ...state2 // lost reactivity
+  }
+}
+
+setup(){
+  const state1 = reactive({a:1, b:2});
+  const state2 = reactive({c:3, d:4});
+  return {
+    ...toRefs(state1), // reactivity
+    ...toRefs(state2) // reactivity
+  }
+}
+// composition function
+function usePos(){
+  const pos = reactive({x:0, y:0});
+  return pos;
+}
+
+setup(){
+  const {x, y} = usePos(); // lost reactivity
+  const {x, y} = toRefs(usePos()); // reactivity
+}
+```
+
+## 降低心智负担
+
+所有的`composition function`均以`ref`的结果返回，以保证`setup`函数的返回结果中不包含`reactive`或`readonly`直接产生的数据
+
+```js
+function usePos(){
+  const pos = reactive({ x:0, y:0 });
+  return toRefs(pos); //  {x: refObj, y: refObj}
+}
+function useBooks(){
+  const books = ref([]);
+  return {
+    books // books is refObj
+  }
+}
+function useLoginUser(){
+  const user = readonly({
+    isLogin: false,
+    loginId: null
+  });
+  return toRefs(user); // { isLogin: refObj, loginId: refObj }  all ref is readonly
+}
+
+setup(){
+  // 在setup函数中，尽量保证解构、展开出来的所有响应式数据均是ref
+  return {
+    ...usePos(),
+    ...useBooks(),
+    ...useLoginUser()
+  }
+}
+```
