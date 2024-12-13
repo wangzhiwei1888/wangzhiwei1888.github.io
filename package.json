@@ -6,7 +6,9 @@
     "build": "hexo generate",
     "clean": "hexo clean",
     "deploy": "hexo deploy",
-    "server": "hexo server"
+    "server": "hexo server",
+    "dev": "npm run server",
+    "prod": "npm run build && npm run deploy"
   },
   "hexo": {
     "version": "7.3.0"

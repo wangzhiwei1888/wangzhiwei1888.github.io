@@ -778,3 +778,195 @@ setup(){
   }
 }
 ```
+
+
+# CompositionApi
+
+
+> 面试题：composition api相比于option api有哪些优势？
+
+不同于reactivity api，composition api提供的函数很多是与组件深度绑定的，不能脱离组件而存在。
+
+## setup
+
+```js
+// component
+export default {
+  setup(props, context){
+    // 该函数在组件属性被赋值后立即执行，早于所有生命周期钩子函数
+    // props 是一个对象，包含了所有的组件属性值
+    // context 是一个对象，提供了组件所需的上下文信息
+  }
+}
+```
+
+context对象的成员
+
+| 成员  | 类型 | 说明                    |
+| ----- | ---- | ----------------------- |
+| attrs | 对象 | 同`vue2`的`this.$attrs` |
+| slots | 对象 | 同`vue2`的`this.$slots` |
+| emit  | 方法 | 同`vue2`的`this.$emit`  |
+
+## 生命周期函数
+
+| vue2 option api | vue3 option api       | vue 3 composition api           |
+| --------------- | --------------------- | ------------------------------- |
+| beforeCreate    | beforeCreate          | 不再需要，代码可直接置于setup中 |
+| created         | created               | 不再需要，代码可直接置于setup中 |
+| beforeMount     | beforeMount           | onBeforeMount                   |
+| mounted         | mounted               | onMounted                       |
+| beforeUpdate    | beforeUpdate          | onBeforeUpdate                  |
+| updated         | updated               | onUpdated                       |
+| beforeDestroy   | ==改== beforeUnmount  | onBeforeUnmount                 |
+| destroyed       | ==改==unmounted       | onUnmounted                     |
+| errorCaptured   | errorCaptured         | onErrorCaptured                 |
+| -               | ==新==renderTracked   | onRenderTracked                 |
+| -               | ==新==renderTriggered | onRenderTriggered               |
+
+新增钩子函数说明：
+
+| 钩子函数        | 参数          | 执行时机                       |
+| --------------- | ------------- | ------------------------------ |
+| renderTracked   | DebuggerEvent | 渲染vdom收集到的每一次依赖时   |
+| renderTriggered | DebuggerEvent | 某个依赖变化导致组件重新渲染时 |
+
+DebuggerEvent:
+
+- target: 跟踪或触发渲染的对象
+- key: 跟踪或触发渲染的属性
+- type: 跟踪或触发渲染的方式
+
+## 面试题参考答案
+
+面试题：composition api相比于option api有哪些优势？
+
+> 从两个方面回答：
+>
+> 1. 为了更好的逻辑复用和代码组织
+> 2. 更好的类型推导
+
+```
+有了composition api，配合reactivity api，可以在组件内部进行更加细粒度的控制，使得组件中不同的功能高度聚合，提升了代码的可维护性。对于不同组件的相同功能，也能够更好的复用。
+相比于option api，composition api中没有了指向奇怪的this，所有的api变得更加函数式，这有利于和类型推断系统比如TS深度配合。
+```
+
+```
+useBar.js
+
+import { computed, ref, watch } from "vue";
+import gsap from "gsap";
+const colors = ["#334552", "#B34335", "#6E9FA5", "#A2C3AC", "#C8846C"];
+export default function useGdpBar(maxSize, gdp) {
+  const max = computed(() => {
+    if (gdp.value.length) {
+      return Math.max(...gdp.value.map((it) => it.value));
+    }
+    return 0;
+  });
+  const bars = ref([]);
+  const targetBars = computed(() =>
+    gdp.value.map((it, i) => {
+      let size = (it.value / max.value) * maxSize;
+      return {
+        size,
+        color: colors[i % colors.length],
+        ...it,
+      };
+    })
+  );
+  watch(
+    targetBars,
+    (newValue) => {
+      for (let i = 0; i < newValue.length; i++) {
+        if (!bars.value[i]) {
+          bars.value[i] = {
+            ...newValue[i],
+            size: 0,
+            value: 0,
+          };
+        }
+        gsap.to(bars.value[i], {
+          ...newValue[i],
+          duration: 1,
+        });
+      }
+    },
+    {
+      deep: true,
+    }
+  );
+  return {
+    bars,
+  };
+}
+
+
+Bar1.vue
+
+<template>
+  <div class="bar1">
+    <div class="item" v-for="item in bars">
+      <label>{{ item.country }}</label>
+      <div
+        class="bar"
+        :style="{ background: item.color, width: item.size + 'px' }"
+      ></div>
+      <div class="value">{{ item.value }}万亿</div>
+    </div>
+  </div>
+</template>
+
+<script>
+import useBar from "../composition/useBar";
+import { computed } from "vue";
+export default {
+  props: ["gdp"],
+  setup(props) {
+    const gdp = computed(() => props.gdp);
+    return {
+      ...useBar(400, gdp),
+    };
+  },
+};
+</script>
+
+<style scoped>
+.bar1 {
+  width: 500px;
+  box-sizing: border-box;
+  margin: 3em;
+  border-left: 1px solid #333;
+}
+.item {
+  display: flex;
+  height: 35px;
+  line-height: 35px;
+  margin: 1em 0;
+  position: relative;
+}
+.bar {
+  width: 100px;
+  height: 100%;
+  margin-right: 1em;
+  flex: 0 0 auto;
+}
+.item label {
+  position: absolute;
+  left: -50px;
+}
+.value {
+  flex: 0 0 auto;
+}
+</style>
+
+
+```
+
+# 其他
+
+图片引用
+
+创建 URL 对象：调用 new URL 构造函数。
+解析相对路径：使用 import.meta.url 解析 ./assets/Wallpaper1.jpg 的相对路径。打包后，图片会存放在 public 目录下。
+new URL(`./assets/Wallpaper1.jpg`, import.meta.url),
