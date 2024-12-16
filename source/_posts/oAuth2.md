@@ -207,6 +207,9 @@ B 网站验证通过以后，就会颁发新的令牌
 
 ![](../images/oauth2_02.png)
 
+![](../images/oauth2_03.png)
+
+
 ```
 const Koa = require("koa");
 const router = require("koa-router")();
