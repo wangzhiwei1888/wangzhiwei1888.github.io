@@ -183,4 +183,7 @@ app.use(async (ctx, next) => {
 
 
 参考：
+libuv book
+https://luohaha.github.io/Chinese-uvbook/source/introduction.html
+
 https://www.bilibili.com/video/BV1GfywY7Ebs?spm_id_from=333.788.videopod.episodes&vd_source=ffda878df0ed45bee1ade91d8f451048&p=43
