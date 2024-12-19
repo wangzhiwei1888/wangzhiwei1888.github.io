@@ -28,8 +28,9 @@ Pinia 是由 Vue 官方团队中的一个成员开发的，最早是在 2019 年
 
 pinia 官网：https://pinia.vuejs.org/
 
-<img src="https://xiejie-typora.oss-cn-chengdu.aliyuncs.com/2023-03-21-093840.png" alt="image-20230321173840739" style="zoom:50%;" />
 
+
+![](../images/2023-03-21-093840.png)
 
 
 ## Pinia 优势
@@ -643,11 +644,12 @@ pinia.use(myPiniaPlugin4);
 
 没有使用状态管理库：
 
-<img src="https://xiejie-typora.oss-cn-chengdu.aliyuncs.com/2022-11-04-023144.png" alt="image-20221104103143856" style="zoom:50%;" />
+
+![](../images/2022-11-04-023144.png)
 
 使用状态管理库之后：
 
-<img src="https://xiejie-typora.oss-cn-chengdu.aliyuncs.com/2022-11-04-023459.png" alt="image-20221104103459131" style="zoom:50%;" />
+![](../images/2022-11-04-023459.png)
 
 但是需要注意一点，并非所有的 Vue 应用都需要使用状态管理库，这个取决于我们所开发的应用的规模大小。如果只是小规模的 Vue 应用，使用状态管理库反而显得更麻烦。
 

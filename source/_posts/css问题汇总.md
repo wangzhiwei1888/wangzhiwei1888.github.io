@@ -235,8 +235,8 @@ categories:
 >
 > 如图所示：
 >
-> <img src="https://xiejie-typora.oss-cn-chengdu.aliyuncs.com/2021-11-03-010805.png" alt="image-20210816161354713" style="zoom:50%;" />
 
+![](../images/2021-11-03-010805.png)
 
 
 ### 11. *CSS3* 中 *transition* 和 *animation* 的属性分别有哪些（哔哩哔哩）
@@ -352,8 +352,8 @@ categories:
 >
 > 具体的层叠等级如下图：
 >
-> <img src="https://xiejie-typora.oss-cn-chengdu.aliyuncs.com/2021-11-03-010804.png" alt="image-20210816174742449" style="zoom:50%;" />
 
+![](../images/2021-11-03-010804.png)
 
 
 ### 14. 分析比较 *opacity: 0、visibility: hidden、display: none* 优劣和适用场景
@@ -627,7 +627,10 @@ categories:
 >
 > *!important* 最高，\* 为0，行内样式 A 组加一，id 选择器 B 组加一，类、伪类、属性选择器 C 组加一，元素、伪元素 D 组加一。
 >
-> <img src="https://xiejie-typora.oss-cn-chengdu.aliyuncs.com/2021-11-03-10806.png" alt="image-20210816194530798" style="zoom:50%;" />
+
+
+![](../images/2021-11-03-10806.png)
+
 >
 > 其中 A 组权重值为 1000，B 组权重值为 100，C 组权重值为 10，D 组权重值为 1。
 
@@ -2488,8 +2491,9 @@ D.  Class > !important > id > tag
 >
 > 关于 *CSS* 选择器的优先级，具体可以参阅下图：
 >
-> <img src="https://xiejie-typora.oss-cn-chengdu.aliyuncs.com/2021-11-03-10806.png" alt="image-20210816194530798" style="zoom:50%;" />
 
+
+![](../images/2021-11-03-10806.png)
 
 
 ### 137. 如何产生带有正方形项目的列表

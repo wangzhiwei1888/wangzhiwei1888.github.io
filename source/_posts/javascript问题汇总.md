@@ -403,13 +403,17 @@ export class ButtonWrapper {
 >
 > 组合模式（伪经典模式）下的继承示意图：
 >
-> <img src="https://xiejie-typora.oss-cn-chengdu.aliyuncs.com/2021-08-08-022111.png" alt="image-20210808102111003" style="zoom:50%;" />
+
+![](../images/2021-08-08-022111.png)
+
 >
 > 圣杯模式下的继承示意图：
 >
 > 
 >
-> <img src="https://xiejie-typora.oss-cn-chengdu.aliyuncs.com/2021-08-08-021304.png" alt="image-20210808101303180" style="zoom:50%;" />
+
+![](../images/2021-08-08-021304.png)
+
 >
 > 
 
@@ -931,7 +935,9 @@ export class ButtonWrapper {
 >
 > 如下图：
 >
-> <img src="https://xiejie-typora.oss-cn-chengdu.aliyuncs.com/2021-08-12-081402.png" alt="image-20210812161401493" style="zoom: 45%;" />
+
+![](../images/2021-08-12-081402.png)
+
 >
 > 每个对象都有自己的原型对象，而原型对象本身，也有自己的原型对象，从而形成了一条原型链条。
 >
@@ -1307,8 +1313,8 @@ console.log(a instanceof B) // true of false ?
 > - 内部排序：指将需要处理的所有数据都加载到**内部存储器(内存)**中进行排序。
 > - 外部排序：**数据量过大**，无法全部加载到内存中，需要借助**外部存储(文件等)**进行排序。
 >
-> <img src="https://xiejie-typora.oss-cn-chengdu.aliyuncs.com/2021-08-13-054747.png" alt="image-20210813134746501" style="zoom:50%;" />
 
+![](../images/2021-08-13-054747.png)
 
 
 ### 53. 浏览器事件循环和 *node* 事件循环（搜狗）
@@ -1769,8 +1775,9 @@ try {
 >- 基本类型： `null`，`undefined`，`boolean`，`number`，`string`，`symbol`
 >- 引用类型Object： `Array` ，`Function`， `Date`， `RegExp`等
 >
-><img src="https://xiejie-typora.oss-cn-chengdu.aliyuncs.com/2021-08-13-073833.png" alt="image-20210813153833385" style="zoom:50%;" />
->
+
+![](../images/2021-08-13-073833.png)
+
 >基本类型和引用类型的主要区别有以下几点：
 >
 >**存放位置：**
@@ -1778,8 +1785,9 @@ try {
 >- 基本数据类型：基本类型值在内存中占据固定大小，直接存储在**栈内存**中的数据
 >- 引用数据类型：引用类型在栈中存储了指针，这个指针指向堆内存中的地址，真实的数据存放在**堆内存**里。
 >
-><img src="https://xiejie-typora.oss-cn-chengdu.aliyuncs.com/2021-08-13-074040.png" alt="image-20210813154040287" style="zoom:50%;" />
->
+
+![](../images/2021-08-13-074040.png)
+
 >**值的可变性：**
 >
 >- 基本数据类型： 值不可变，*javascript* 中的原始值（*undefined、null*、布尔值、数字和字符串）是不可更改的
@@ -2677,20 +2685,27 @@ try {
 >
 > （2）ToBoolean ( argument )
 >
-> <img src="https://xiejie-typora.oss-cn-chengdu.aliyuncs.com/2021-08-19-084743.png" alt="image-20210819164742154" style="zoom:50%;" />
+>
+
+![](../images/2021-08-19-084743.png)
+
 >
 > 只需要记忆 *0, null, undefined, NaN, ""* 返回 *false* 就可以了，其他一律返回 *true*。
 >
 > （3）ToNumber ( argument )
 >
-> <img src="https://xiejie-typora.oss-cn-chengdu.aliyuncs.com/2021-08-19-084928.png" alt="image-20210819164927980" style="zoom:50%;" />
+
+
+![](../images/2021-08-19-084928.png)
+
 >
 > ToNumber的转化并不总是成功，有时会转化成NaN，有时则直接抛出异常。
 >
 > （4）ToString ( argument )
 >
-> <img src="https://xiejie-typora.oss-cn-chengdu.aliyuncs.com/2021-08-19-085006.png" alt="image-20210819165004906" style="zoom:50%;" />
->
+
+![](../images/2021-08-19-085006.png)
+
 > 当js期望得到某种类型的值，而实际在那里的值是其他的类型，就会发生隐式类型转换。系统内部会自动调用我们前面说ToBoolean ( argument )、ToNumber ( argument )、ToString ( argument )，尝试转换成期望的数据类型。
 
 
@@ -5302,7 +5317,9 @@ console.log('script end');
 >
 > *Array* 的常用方法很多，挑选几个自己在实际开发中用的比较多的方法回答即可。
 >
-> <img src="https://xiejie-typora.oss-cn-chengdu.aliyuncs.com/2021-08-17-151325.png" alt="image-20210817231325109" style="zoom:50%;" />
+
+![](../images/2021-08-17-151325.png)
+
 >
 > 更多 *Array* 相关用法可以参阅：*https://www.w3school.com.cn/jsref/jsref_obj_array.asp*
 
@@ -6082,7 +6099,9 @@ Promise.resolve().then(() => {
 >
 > 在 *JavaScript* 中，数组不是以一段连续的区域存储在内存中，而是一种哈希映射的形式存储在堆内容里面。它可以通过多种数据结构实现，其中一种是链表。如下图所示：
 >
-> <img src="https://xiejie-typora.oss-cn-chengdu.aliyuncs.com/2021-08-18-125006.png" alt="image-20210818205006459" style="zoom:50%;" />
+
+![](../images/2021-08-18-125006.png)
+
 >
 > JavaScript 中的函数是存储在堆内存中的，具体的步骤如下：
 >
@@ -6596,7 +6615,9 @@ Promise.resolve().then(() => {
 > *Unicode* **为世界上所有字符都分配了一个唯一的数字编号**，这个编号范围从 *0x000000* 到 *0x10FFFF* (十六进制)，有 *110* 多万，每个字符都有一个唯一的 *Unicode* 编号，这个编号一般写成 *16* 进制，在前面加上 U+。例如：“马”的 *Unicode* 是 *U+9A6C*。
 > *Unicode* 就相当于一张表，建立了字符与编号之间的联系。
 >
-> <img src="https://xiejie-typora.oss-cn-chengdu.aliyuncs.com/2021-08-17-080125.png" alt="image-20210817160125144" style="zoom:50%;" />
+
+![](../images/2021-08-17-080125.png)
+
 >
 > ***Unicode* 本身只规定了每个字符的数字编号是多少，并没有规定这个编号如何存储。**
 >

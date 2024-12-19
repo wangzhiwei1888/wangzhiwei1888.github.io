@@ -695,7 +695,10 @@ categories:
 >
 >通过 *display* 属性对行内元素和块级元素进行切换(主要看第 *2、3、4* 个值)：
 >
-><img src="https://xiejie-typora.oss-cn-chengdu.aliyuncs.com/2021-08-16-062732.png" alt="image-20210816142732193" style="zoom:50%;" />
+
+
+![](../images/2021-08-16-062732.png)
+
 >
 >*html* 中常见的块级元素：*p、div、form、ul、ol、table*
 >
