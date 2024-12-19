@@ -245,7 +245,6 @@ NexT.utils = {
           scrollTop: offset + 10
         });
       });
-      
       return document.getElementById(link.getAttribute('href') && link.getAttribute('href').replace('#', ''));
     });
 

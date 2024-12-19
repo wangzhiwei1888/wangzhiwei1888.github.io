@@ -27,15 +27,15 @@
 <meta property="og:site_name" content="WBlog">
 <meta property="og:description" content="Pinia基本概念 面试题：Pinia 相比 Vuex 有什么样的优点？为什么现在官方推荐使用 Pinia ？  Pinia，是一个 Vue 阵营的新的状态管理库，现在 Vue 官方已经推荐使用 Pinia 来代替 Vuex，或者你可以把 Pinia 看作是 Vuex 的最新的版本。  Pinia 的基本介绍 Pinia 优势  Pinia 的基本介绍Pinia 是一个西班牙语的单词，表示“菠萝”">
 <meta property="og:locale" content="zh_CN">
-<meta property="og:image" content="https://xiejie-typora.oss-cn-chengdu.aliyuncs.com/2023-03-21-093840.png">
-<meta property="og:image" content="https://xiejie-typora.oss-cn-chengdu.aliyuncs.com/2022-11-04-023144.png">
-<meta property="og:image" content="https://xiejie-typora.oss-cn-chengdu.aliyuncs.com/2022-11-04-023459.png">
+<meta property="og:image" content="http://example.com/images/2023-03-21-093840.png">
+<meta property="og:image" content="http://example.com/images/2022-11-04-023144.png">
+<meta property="og:image" content="http://example.com/images/2022-11-04-023459.png">
 <meta property="article:published_time" content="2024-12-13T06:14:10.000Z">
-<meta property="article:modified_time" content="2024-12-13T06:20:57.786Z">
+<meta property="article:modified_time" content="2024-12-19T02:50:44.184Z">
 <meta property="article:author" content="wangzhiwei">
 <meta property="article:tag" content="vue2 vue3">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:image" content="https://xiejie-typora.oss-cn-chengdu.aliyuncs.com/2023-03-21-093840.png">
+<meta name="twitter:image" content="http://example.com/images/2023-03-21-093840.png">
 
 <link rel="canonical" href="http://example.com/2024/12/13/Pinia-vue-%E6%96%B0%E7%9A%84%E7%8A%B6%E6%80%81%E7%AE%A1%E7%90%86%E5%BA%93/">
 
@@ -178,10 +178,16 @@
                 <i class="fa fa-calendar-o"></i>
               </span>
               <span class="post-meta-item-text">发表于</span>
-              
 
-              <time title="创建时间：2024-12-13 14:14:10 / 修改时间：14:20:57" itemprop="dateCreated datePublished" datetime="2024-12-13T14:14:10+08:00">2024-12-13</time>
+              <time title="创建时间：2024-12-13 14:14:10" itemprop="dateCreated datePublished" datetime="2024-12-13T14:14:10+08:00">2024-12-13</time>
             </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-calendar-check-o"></i>
+                </span>
+                <span class="post-meta-item-text">更新于</span>
+                <time title="修改时间：2024-12-19 10:50:44" itemprop="dateModified" datetime="2024-12-19T10:50:44+08:00">2024-12-19</time>
+              </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
                 <i class="fa fa-folder-o"></i>
@@ -215,10 +221,7 @@
 <p>Pinia 是由 Vue 官方团队中的一个成员开发的，最早是在 2019 年 11 左右作为一项实验性工作所提出的，当时的目的是将组合 API 融入到 Vuex 中，探索新版本的 Vuex 应有的形态，随着探索的进行，最终发现 Pinia 已经实现了 Vuex5 大部分的提案，因此 Pinia 就作为了最新版本的 Vuex，但是为了尊重作者本人，名字保持不变，仍然叫做 Pinia。</p>
 <p>相比 Vuex，Pinia 的 API 更少而且更简单，还支持组合式 API，还可以和 Typescript 一起使用来做类型的推断。</p>
 <p>pinia 官网：<a target="_blank" rel="noopener" href="https://pinia.vuejs.org/">https://pinia.vuejs.org/</a></p>
-<img src="https://xiejie-typora.oss-cn-chengdu.aliyuncs.com/2023-03-21-093840.png" alt="image-20230321173840739" style="zoom:50%;" />
-
-
-
+<p><img src="/../images/2023-03-21-093840.png"></p>
 <h2 id="Pinia-优势"><a href="#Pinia-优势" class="headerlink" title="Pinia 优势"></a>Pinia 优势</h2><ol>
 <li>在 Pinia 中，已经不存在 mutations，只有 state、getters、actions</li>
 </ol>
@@ -398,11 +401,9 @@
 </ul>
 <p>实际上这个就是我们使用状态管理库的目的，我们使用状态管理库，就是为了将组件的状态分离出来，这样可以方便我们维护，也方便组件之间进行状态的共享。</p>
 <p>没有使用状态管理库：</p>
-<img src="https://xiejie-typora.oss-cn-chengdu.aliyuncs.com/2022-11-04-023144.png" alt="image-20221104103143856" style="zoom:50%;" />
-
+<p><img src="/../images/2022-11-04-023144.png"></p>
 <p>使用状态管理库之后：</p>
-<img src="https://xiejie-typora.oss-cn-chengdu.aliyuncs.com/2022-11-04-023459.png" alt="image-20221104103459131" style="zoom:50%;" />
-
+<p><img src="/../images/2022-11-04-023459.png"></p>
 <p>但是需要注意一点，并非所有的 Vue 应用都需要使用状态管理库，这个取决于我们所开发的应用的规模大小。如果只是小规模的 Vue 应用，使用状态管理库反而显得更麻烦。</p>
 <ul>
 <li>选择 Pinia 来进行状态管理</li>

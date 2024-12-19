@@ -2911,7 +2911,7 @@
               <span class="post-meta-item-text">发表于</span>
               
 
-              <time title="创建时间：2024-12-19 09:14:59 / 修改时间：09:14:42" itemprop="dateCreated datePublished" datetime="2024-12-19T09:14:59+08:00">2024-12-19</time>
+              <time title="创建时间：2024-12-19 09:14:59 / 修改时间：10:42:44" itemprop="dateCreated datePublished" datetime="2024-12-19T09:14:59+08:00">2024-12-19</time>
             </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
@@ -3050,12 +3050,13 @@
 <p>这样我们的继承，属性就不会像之前那样实例对象上一份，原型对象上一份，拥有两份。圣杯模式继承是目前 <em>js</em> 继承的最优解。</p>
 <p>最后我再画个图帮助大家理解，如下图：</p>
 <p>组合模式（伪经典模式）下的继承示意图：</p>
-<img src="https://xiejie-typora.oss-cn-chengdu.aliyuncs.com/2021-08-08-022111.png" alt="image-20210808102111003" style="zoom:50%;" />
-
+</blockquote>
+<p><img src="/../images/2021-08-08-022111.png"></p>
+<blockquote>
 <p>圣杯模式下的继承示意图：</p>
-<img src="https://xiejie-typora.oss-cn-chengdu.aliyuncs.com/2021-08-08-021304.png" alt="image-20210808101303180" style="zoom:50%;" />
-
-
+</blockquote>
+<p><img src="/../images/2021-08-08-021304.png"></p>
+<blockquote>
 </blockquote>
 <h3 id="10-new-操作符都做了哪些事？"><a href="#10-new-操作符都做了哪些事？" class="headerlink" title="10. new 操作符都做了哪些事？"></a>10. <em>new</em> 操作符都做了哪些事？</h3><blockquote>
 <p>参考答案：</p>
@@ -3414,8 +3415,9 @@
 <li>原型对象里的 <code>constructor</code> 指向构造函数本身</li>
 </ul>
 <p>如下图：</p>
-<img src="https://xiejie-typora.oss-cn-chengdu.aliyuncs.com/2021-08-12-081402.png" alt="image-20210812161401493" style="zoom: 45%;" />
-
+</blockquote>
+<p><img src="/../images/2021-08-12-081402.png"></p>
+<blockquote>
 <p>每个对象都有自己的原型对象，而原型对象本身，也有自己的原型对象，从而形成了一条原型链条。</p>
 <p>当试图访问一个对象的属性时，它不仅仅在该对象上搜寻，还会搜寻该对象的原型，以及该对象的原型的原型，依次层层向上搜索，直到找到一个名字匹配的属性或到达原型链的末尾。</p>
 </blockquote>
@@ -3624,8 +3626,8 @@
 <li>内部排序：指将需要处理的所有数据都加载到**内部存储器(内存)**中进行排序。</li>
 <li>外部排序：<strong>数据量过大</strong>，无法全部加载到内存中，需要借助**外部存储(文件等)**进行排序。</li>
 </ul>
-<img src="https://xiejie-typora.oss-cn-chengdu.aliyuncs.com/2021-08-13-054747.png" alt="image-20210813134746501" style="zoom:50%;" />
 </blockquote>
+<p><img src="/../images/2021-08-13-054747.png"></p>
 <h3 id="53-浏览器事件循环和-node-事件循环（搜狗）"><a href="#53-浏览器事件循环和-node-事件循环（搜狗）" class="headerlink" title="53. 浏览器事件循环和 node 事件循环（搜狗）"></a>53. 浏览器事件循环和 <em>node</em> 事件循环（搜狗）</h3><blockquote>
 <p>参考答案：</p>
 <ol>
@@ -3862,16 +3864,18 @@
 <li>基本类型： <code>null</code>，<code>undefined</code>，<code>boolean</code>，<code>number</code>，<code>string</code>，<code>symbol</code></li>
 <li>引用类型Object： <code>Array</code> ，<code>Function</code>， <code>Date</code>， <code>RegExp</code>等</li>
 </ul>
-<img src="https://xiejie-typora.oss-cn-chengdu.aliyuncs.com/2021-08-13-073833.png" alt="image-20210813153833385" style="zoom:50%;" />
-
+</blockquote>
+<p><img src="/../images/2021-08-13-073833.png"></p>
+<blockquote>
 <p>基本类型和引用类型的主要区别有以下几点：</p>
 <p><strong>存放位置：</strong></p>
 <ul>
 <li>基本数据类型：基本类型值在内存中占据固定大小，直接存储在<strong>栈内存</strong>中的数据</li>
 <li>引用数据类型：引用类型在栈中存储了指针，这个指针指向堆内存中的地址，真实的数据存放在<strong>堆内存</strong>里。</li>
 </ul>
-<img src="https://xiejie-typora.oss-cn-chengdu.aliyuncs.com/2021-08-13-074040.png" alt="image-20210813154040287" style="zoom:50%;" />
-
+</blockquote>
+<p><img src="/../images/2021-08-13-074040.png"></p>
+<blockquote>
 <p><strong>值的可变性：</strong></p>
 <ul>
 <li><p>基本数据类型： 值不可变，<em>javascript</em> 中的原始值（<em>undefined、null</em>、布尔值、数字和字符串）是不可更改的</p>
@@ -4248,16 +4252,19 @@
 </ul>
 <p><strong>可以看出，ToPrimitive依赖于valueOf和toString的实现。</strong></p>
 <p>（2）ToBoolean ( argument )</p>
-<img src="https://xiejie-typora.oss-cn-chengdu.aliyuncs.com/2021-08-19-084743.png" alt="image-20210819164742154" style="zoom:50%;" />
-
+</blockquote>
+<p><img src="/../images/2021-08-19-084743.png"></p>
+<blockquote>
 <p>只需要记忆 <em>0, null, undefined, NaN, “”</em> 返回 <em>false</em> 就可以了，其他一律返回 <em>true</em>。</p>
 <p>（3）ToNumber ( argument )</p>
-<img src="https://xiejie-typora.oss-cn-chengdu.aliyuncs.com/2021-08-19-084928.png" alt="image-20210819164927980" style="zoom:50%;" />
-
+</blockquote>
+<p><img src="/../images/2021-08-19-084928.png"></p>
+<blockquote>
 <p>ToNumber的转化并不总是成功，有时会转化成NaN，有时则直接抛出异常。</p>
 <p>（4）ToString ( argument )</p>
-<img src="https://xiejie-typora.oss-cn-chengdu.aliyuncs.com/2021-08-19-085006.png" alt="image-20210819165004906" style="zoom:50%;" />
-
+</blockquote>
+<p><img src="/../images/2021-08-19-085006.png"></p>
+<blockquote>
 <p>当js期望得到某种类型的值，而实际在那里的值是其他的类型，就会发生隐式类型转换。系统内部会自动调用我们前面说ToBoolean ( argument )、ToNumber ( argument )、ToString ( argument )，尝试转换成期望的数据类型。</p>
 </blockquote>
 <h3 id="102-‘1’-‘2’-‘3’-map-parseInt-结果是什么，为什么-（字节）"><a href="#102-‘1’-‘2’-‘3’-map-parseInt-结果是什么，为什么-（字节）" class="headerlink" title="102. [‘1’, ‘2’, ‘3’].map(parseInt) 结果是什么，为什么 （字节）"></a>102. [‘1’, ‘2’, ‘3’].map(parseInt) 结果是什么，为什么 （字节）</h3><blockquote>
@@ -5307,8 +5314,9 @@
 <h3 id="197-Array-的常用方法"><a href="#197-Array-的常用方法" class="headerlink" title="197. Array 的常用方法"></a>197. <em>Array</em> 的常用方法</h3><blockquote>
 <p>参考答案：</p>
 <p><em>Array</em> 的常用方法很多，挑选几个自己在实际开发中用的比较多的方法回答即可。</p>
-<img src="https://xiejie-typora.oss-cn-chengdu.aliyuncs.com/2021-08-17-151325.png" alt="image-20210817231325109" style="zoom:50%;" />
-
+</blockquote>
+<p><img src="/../images/2021-08-17-151325.png"></p>
+<blockquote>
 <p>更多 <em>Array</em> 相关用法可以参阅：<em><a target="_blank" rel="noopener" href="https://www.w3school.com.cn/jsref/jsref_obj_array.asp">https://www.w3school.com.cn/jsref/jsref_obj_array.asp</a></em></p>
 </blockquote>
 <h3 id="198-数组去重的多种实现方式"><a href="#198-数组去重的多种实现方式" class="headerlink" title="198. 数组去重的多种实现方式"></a>198. 数组去重的多种实现方式</h3><blockquote>
@@ -5551,8 +5559,9 @@
 <h3 id="217-JavaScript-中的数组和函数在内存中是如何存储的？"><a href="#217-JavaScript-中的数组和函数在内存中是如何存储的？" class="headerlink" title="217. JavaScript 中的数组和函数在内存中是如何存储的？"></a>217. JavaScript 中的数组和函数在内存中是如何存储的？</h3><blockquote>
 <p>参考答案：</p>
 <p>在 <em>JavaScript</em> 中，数组不是以一段连续的区域存储在内存中，而是一种哈希映射的形式存储在堆内容里面。它可以通过多种数据结构实现，其中一种是链表。如下图所示：</p>
-<img src="https://xiejie-typora.oss-cn-chengdu.aliyuncs.com/2021-08-18-125006.png" alt="image-20210818205006459" style="zoom:50%;" />
-
+</blockquote>
+<p><img src="/../images/2021-08-18-125006.png"></p>
+<blockquote>
 <p>JavaScript 中的函数是存储在堆内存中的，具体的步骤如下：</p>
 <ol>
 <li>开辟堆内存（<em>16</em> 进制得到内存地址）</li>
@@ -5779,8 +5788,9 @@
 <h3 id="238-Unicode、UTF-8、UTF-16、UTF-32-的区别？"><a href="#238-Unicode、UTF-8、UTF-16、UTF-32-的区别？" class="headerlink" title="238. Unicode、UTF-8、UTF-16、UTF-32 的区别？"></a>238. <em>Unicode、UTF-8、UTF-16、UTF-32</em> 的区别？</h3><blockquote>
 <p>参考答案：</p>
 <p><em>Unicode</em> <strong>为世界上所有字符都分配了一个唯一的数字编号</strong>，这个编号范围从 <em>0x000000</em> 到 <em>0x10FFFF</em> (十六进制)，有 <em>110</em> 多万，每个字符都有一个唯一的 <em>Unicode</em> 编号，这个编号一般写成 <em>16</em> 进制，在前面加上 U+。例如：“马”的 <em>Unicode</em> 是 <em>U+9A6C</em>。<br><em>Unicode</em> 就相当于一张表，建立了字符与编号之间的联系。</p>
-<img src="https://xiejie-typora.oss-cn-chengdu.aliyuncs.com/2021-08-17-080125.png" alt="image-20210817160125144" style="zoom:50%;" />
-
+</blockquote>
+<p><img src="/../images/2021-08-17-080125.png"></p>
+<blockquote>
 <p><strong><em>Unicode</em> 本身只规定了每个字符的数字编号是多少，并没有规定这个编号如何存储。</strong></p>
 <p>那我们可以直接把 <em>Unicode</em> 编号直接转换成二进制进行存储，怎么对应到二进制表示呢？</p>
 <p><em>Unicode</em> 可以使用的编码有三种，分别是：</p>
@@ -6581,7 +6591,7 @@
               <span class="post-meta-item-text">发表于</span>
               
 
-              <time title="创建时间：2024-12-19 09:07:14 / 修改时间：09:09:23" itemprop="dateCreated datePublished" datetime="2024-12-19T09:07:14+08:00">2024-12-19</time>
+              <time title="创建时间：2024-12-19 09:07:14 / 修改时间：10:49:05" itemprop="dateCreated datePublished" datetime="2024-12-19T09:07:14+08:00">2024-12-19</time>
             </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
@@ -6730,8 +6740,8 @@
 <p>参考答案：</p>
 <p>这个是 <em>flex</em> 布局的内容，其实就是一个边距的区别，按水平布局来说，<code>space-between</code>是两端对齐，在左右两侧没有边距，而<code>space-around</code>是每个 子项目左右方向的 margin 相等，所以两个item中间的间距会比较大。</p>
 <p>如图所示：</p>
-<img src="https://xiejie-typora.oss-cn-chengdu.aliyuncs.com/2021-11-03-010805.png" alt="image-20210816161354713" style="zoom:50%;" />
 </blockquote>
+<p><img src="/../images/2021-11-03-010805.png"></p>
 <h3 id="11-CSS3-中-transition-和-animation-的属性分别有哪些（哔哩哔哩）"><a href="#11-CSS3-中-transition-和-animation-的属性分别有哪些（哔哩哔哩）" class="headerlink" title="11. CSS3 中 transition 和 animation 的属性分别有哪些（哔哩哔哩）"></a>11. <em>CSS3</em> 中 <em>transition</em> 和 <em>animation</em> 的属性分别有哪些（哔哩哔哩）</h3><blockquote>
 <p>参考答案：</p>
 <p><em>transition</em> 过渡动画：</p>
@@ -6801,8 +6811,8 @@
 <p>“层叠顺序”（<em>stacking order</em>）表示元素发生层叠时按照特定的顺序规则在 <em>Z</em> 轴上垂直显示。</p>
 <p>说简单一点就是当元素处于同一层叠上下文内时如何进行层叠判断。</p>
 <p>具体的层叠等级如下图：</p>
-<img src="https://xiejie-typora.oss-cn-chengdu.aliyuncs.com/2021-11-03-010804.png" alt="image-20210816174742449" style="zoom:50%;" />
 </blockquote>
+<p><img src="/../images/2021-11-03-010804.png"></p>
 <h3 id="14-分析比较-opacity-0、visibility-hidden、display-none-优劣和适用场景"><a href="#14-分析比较-opacity-0、visibility-hidden、display-none-优劣和适用场景" class="headerlink" title="14. 分析比较 opacity: 0、visibility: hidden、display: none 优劣和适用场景"></a>14. 分析比较 <em>opacity: 0、visibility: hidden、display: none</em> 优劣和适用场景</h3><blockquote>
 <p>参考答案：</p>
 <ol>
@@ -6934,8 +6944,9 @@
 <h3 id="24-说说选择器的权重计算方式"><a href="#24-说说选择器的权重计算方式" class="headerlink" title="24. 说说选择器的权重计算方式"></a>24. 说说选择器的权重计算方式</h3><blockquote>
 <p>参考答案：</p>
 <p><em>!important</em> 最高，* 为0，行内样式 A 组加一，id 选择器 B 组加一，类、伪类、属性选择器 C 组加一，元素、伪元素 D 组加一。</p>
-<img src="https://xiejie-typora.oss-cn-chengdu.aliyuncs.com/2021-11-03-10806.png" alt="image-20210816194530798" style="zoom:50%;" />
-
+</blockquote>
+<p><img src="/../images/2021-11-03-10806.png"></p>
+<blockquote>
 <p>其中 A 组权重值为 1000，B 组权重值为 100，C 组权重值为 10，D 组权重值为 1。</p>
 </blockquote>
 <h3 id="25-css-reset-和-normalize-css-有什么区别？"><a href="#25-css-reset-和-normalize-css-有什么区别？" class="headerlink" title="25. css reset 和 normalize.css 有什么区别？"></a>25. <em>css reset</em> 和 <em>normalize.css</em> 有什么区别？</h3><blockquote>
@@ -7939,8 +7950,8 @@
 <blockquote>
 <p>解析：</p>
 <p>关于 <em>CSS</em> 选择器的优先级，具体可以参阅下图：</p>
-<img src="https://xiejie-typora.oss-cn-chengdu.aliyuncs.com/2021-11-03-10806.png" alt="image-20210816194530798" style="zoom:50%;" />
 </blockquote>
+<p><img src="/../images/2021-11-03-10806.png"></p>
 <h3 id="137-如何产生带有正方形项目的列表"><a href="#137-如何产生带有正方形项目的列表" class="headerlink" title="137. 如何产生带有正方形项目的列表"></a>137. 如何产生带有正方形项目的列表</h3><p>A. <em>type:square</em></p>
 <p>B. <em>type:2</em></p>
 <p>C. <em>list-style-type:square</em></p>
@@ -8011,7 +8022,7 @@
               <span class="post-meta-item-text">发表于</span>
               
 
-              <time title="创建时间：2024-12-19 08:52:59 / 修改时间：09:09:09" itemprop="dateCreated datePublished" datetime="2024-12-19T08:52:59+08:00">2024-12-19</time>
+              <time title="创建时间：2024-12-19 08:52:59 / 修改时间：10:49:31" itemprop="dateCreated datePublished" datetime="2024-12-19T08:52:59+08:00">2024-12-19</time>
             </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
@@ -8522,8 +8533,9 @@
 <li>设置 <em>padding</em> 只有左右 <em>padding</em> 有效，上下则无效。注意元素范围是增大了，但是对元素周围的内容是没影响的。</li>
 </ul>
 <p>通过 <em>display</em> 属性对行内元素和块级元素进行切换(主要看第 <em>2、3、4</em> 个值)：</p>
-<img src="https://xiejie-typora.oss-cn-chengdu.aliyuncs.com/2021-08-16-062732.png" alt="image-20210816142732193" style="zoom:50%;" />
-
+</blockquote>
+<p><img src="/../images/2021-08-16-062732.png"></p>
+<blockquote>
 <p><em>html</em> 中常见的块级元素：<em>p、div、form、ul、ol、table</em></p>
 <p><em>html</em> 中常见的行内元素：<em>a、img、span、button</em></p>
 </blockquote>
