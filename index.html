@@ -149,6 +149,86 @@
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="http://example.com/2024/12/20/%E6%B2%B9%E7%8C%B4%E8%84%9A%E6%9C%AC%E4%B8%AD%E6%93%8D%E4%BD%9Cdom%E6%8E%A7%E5%88%B6vue-element-%E4%B8%AD-el-input-%E7%9A%84%E5%80%BC/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="wangzhiwei">
+      <meta itemprop="description" content="javascript nodejs web developer...">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="WBlog">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/2024/12/20/%E6%B2%B9%E7%8C%B4%E8%84%9A%E6%9C%AC%E4%B8%AD%E6%93%8D%E4%BD%9Cdom%E6%8E%A7%E5%88%B6vue-element-%E4%B8%AD-el-input-%E7%9A%84%E5%80%BC/" class="post-title-link" itemprop="url">油猴脚本中操作dom控制vue-element 中 el-input 的值</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+              
+
+              <time title="创建时间：2024-12-20 09:06:08 / 修改时间：09:24:48" itemprop="dateCreated datePublished" datetime="2024-12-20T09:06:08+08:00">2024-12-20</time>
+            </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/%E5%B7%A5%E5%85%B7%E9%9B%86%E5%90%88/" itemprop="url" rel="index"><span itemprop="name">工具集合</span></a>
+                </span>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <p>要使用油猴插件（Tampermonkey）修改Vue-Element的el-input的值，关键在于理解Vue的响应式原理和事件触发机制。以下是具体的步骤和代码示例：</p>
+<ol>
+<li>获取el-input元素：首先，你需要定位到页面中的el-input元素。可以使用CSS选择器来获取这个元素。</li>
+<li>修改值：直接设置input元素的value属性是不够的，因为这样不会触发Vue的响应式更新。你需要手动触发一个input事件来通知Vue更新其数据。</li>
+<li>触发事件：创建一个新的Event对象，并使用dispatchEvent方法来触发input事件，这样Vue就能检测到输入框的值变化。</li>
+</ol>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// ==UserScript==</span></span><br><span class="line"><span class="comment">// @name         login</span></span><br><span class="line"><span class="comment">// @namespace    https://192.168.40.51:8000</span></span><br><span class="line"><span class="comment">// @version      2024-12-20</span></span><br><span class="line"><span class="comment">// @description  try to take over the world!</span></span><br><span class="line"><span class="comment">// @author       jason</span></span><br><span class="line"><span class="comment">// @match        https://192.168.40.51:8000/*</span></span><br><span class="line"><span class="comment">// @icon         data:image/gif;base64,R0lGODlhAQABAAAAACH5BAEKAAEALAAAAAABAAEAAAICTAEAOw==</span></span><br><span class="line"><span class="comment">// @grant        none</span></span><br><span class="line"><span class="comment">// @run-at       document-idle</span></span><br><span class="line"><span class="comment">// ==/UserScript==</span></span><br><span class="line"></span><br><span class="line">(<span class="keyword">function</span>(<span class="params"></span>) &#123;</span><br><span class="line">    <span class="string">&#x27;use strict&#x27;</span>;</span><br><span class="line">    <span class="variable language_">console</span>.<span class="title function_">log</span>(<span class="string">&#x27;hello login&#x27;</span>);</span><br><span class="line">    <span class="built_in">setTimeout</span>(<span class="function">()=&gt;</span> &#123;</span><br><span class="line">        <span class="keyword">const</span> userName = <span class="variable language_">document</span>.<span class="title function_">querySelectorAll</span>(<span class="string">&#x27;.el-input__inner&#x27;</span>)[<span class="number">0</span>];</span><br><span class="line">        <span class="keyword">if</span> (userName) &#123;</span><br><span class="line">            userName.<span class="property">value</span> = <span class="string">&#x27;admin&#x27;</span>;</span><br><span class="line">            userName.<span class="title function_">dispatchEvent</span>(<span class="keyword">new</span> <span class="title class_">Event</span>(<span class="string">&#x27;input&#x27;</span>, &#123; <span class="attr">bubbles</span>: <span class="literal">true</span>, <span class="attr">cancelable</span>: <span class="literal">true</span> &#125;));</span><br><span class="line">        &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">            <span class="variable language_">console</span>.<span class="title function_">error</span>(<span class="string">&#x27;Username input not found&#x27;</span>);</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        <span class="keyword">const</span> passWord = <span class="variable language_">document</span>.<span class="title function_">querySelectorAll</span>(<span class="string">&#x27;.el-input__inner&#x27;</span>)[<span class="number">1</span>];</span><br><span class="line">        <span class="keyword">if</span> (passWord) &#123;</span><br><span class="line">            passWord.<span class="property">value</span> = <span class="string">&#x27;xxx&#x27;</span>;</span><br><span class="line">            passWord.<span class="title function_">dispatchEvent</span>(<span class="keyword">new</span> <span class="title class_">Event</span>(<span class="string">&#x27;input&#x27;</span>, &#123; <span class="attr">bubbles</span>: <span class="literal">true</span>, <span class="attr">cancelable</span>: <span class="literal">true</span> &#125;));</span><br><span class="line">        &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">            <span class="variable language_">console</span>.<span class="title function_">error</span>(<span class="string">&#x27;Password input not found&#x27;</span>);</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="built_in">setTimeout</span>(<span class="function">()=&gt;</span> &#123;</span><br><span class="line">            <span class="variable language_">document</span>.<span class="title function_">querySelector</span>(<span class="string">&#x27;.el-button&#x27;</span>).<span class="title function_">click</span>()</span><br><span class="line">        &#125;, <span class="number">1000</span>)</span><br><span class="line">    &#125;, <span class="number">1000</span>)</span><br><span class="line">    </span><br><span class="line"></span><br><span class="line">&#125;)();</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+
+<p>注意匹配规则设置</p>
+<p>&#x2F;&#x2F; @match        <a target="_blank" rel="noopener" href="http://192.168.40.117:8080/">http://192.168.40.117:8080/</a>*<br>&#x2F;&#x2F; @match        <a target="_blank" rel="noopener" href="https://192.168.40.51:8000/">https://192.168.40.51:8000/</a>*<br>&#x2F;&#x2F; @match        <a target="_blank" rel="noopener" href="https://192.168.40.46/">https://192.168.40.46/</a>*<br>&#x2F;&#x2F; @match        <a target="_blank" rel="noopener" href="http://192.168.40.115:8080/">http://192.168.40.115:8080/</a>*</p>
+<p>http https 要区分 <a target="_blank" rel="noopener" href="https://192.168.40.46/">https://192.168.40.46/</a>* 改为 <a target="_blank" rel="noopener" href="https://192.168.40.*/">https://192.168.40.*/</a>* 不生效</p>
+<p>与其他库（如react）集成： 当你需要与不基于 Vue 的库或框架集成时，可能会用到 dispatchEvent 来触发特定的事件。</p>
+
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
     <link itemprop="mainEntityOfPage" href="http://example.com/2024/12/19/%E5%B7%A5%E7%A8%8B%E5%8C%96%E9%97%AE%E9%A2%98%E6%B1%87%E6%80%BB/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -8722,83 +8802,6 @@
   
   
 
-      
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="http://example.com/2024/12/18/nodejs-%E4%BA%91%E5%BC%80%E5%8F%91%E4%BD%93%E9%AA%8C/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.gif">
-      <meta itemprop="name" content="wangzhiwei">
-      <meta itemprop="description" content="javascript nodejs web developer...">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="WBlog">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/2024/12/18/nodejs-%E4%BA%91%E5%BC%80%E5%8F%91%E4%BD%93%E9%AA%8C/" class="post-title-link" itemprop="url">nodejs 云开发体验</a>
-        </h2>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              <span class="post-meta-item-text">发表于</span>
-              
-
-              <time title="创建时间：2024-12-18 11:29:00 / 修改时间：11:34:01" itemprop="dateCreated datePublished" datetime="2024-12-18T11:29:00+08:00">2024-12-18</time>
-            </span>
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              <span class="post-meta-item-text">分类于</span>
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/nodejs/" itemprop="url" rel="index"><span itemprop="name">nodejs</span></a>
-                </span>
-                  ，
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/nodejs/%E4%BA%91%E5%BC%80%E5%8F%91/" itemprop="url" rel="index"><span itemprop="name">云开发</span></a>
-                </span>
-            </span>
-
-          
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <p><a target="_blank" rel="noopener" href="https://hzh.sealos.run/">https://hzh.sealos.run/</a></p>
-<p><img src="/../images/node_ykf_01.png"></p>
-<p><img src="/../images/node_ykf_02.png"></p>
-<p><img src="/../images/node_ykf_03.png"></p>
-<p><img src="/../images/node_ykf_04.png"></p>
-<p><img src="/../images/node_ykf_05.png"></p>
-
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
 
   
   <nav class="pagination">
@@ -8868,7 +8871,7 @@
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">35</span>
+          <span class="site-state-item-count">36</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>
@@ -8877,7 +8880,7 @@
         <span class="site-state-item-name">分类</span>
       </div>
       <div class="site-state-item site-state-tags">
-        <span class="site-state-item-count">41</span>
+        <span class="site-state-item-count">42</span>
         <span class="site-state-item-name">标签</span>
       </div>
   </nav>
