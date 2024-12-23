@@ -149,6 +149,136 @@
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="http://example.com/2024/12/23/typescript%E5%A4%8D%E4%B9%A0/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="wangzhiwei">
+      <meta itemprop="description" content="javascript nodejs web developer...">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="WBlog">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/2024/12/23/typescript%E5%A4%8D%E4%B9%A0/" class="post-title-link" itemprop="url">typescript复习</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+              
+
+              <time title="创建时间：2024-12-23 17:34:43 / 修改时间：17:36:52" itemprop="dateCreated datePublished" datetime="2024-12-23T17:34:43+08:00">2024-12-23</time>
+            </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/typescript/" itemprop="url" rel="index"><span itemprop="name">typescript</span></a>
+                </span>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <h2 id="安装"><a href="#安装" class="headerlink" title="安装"></a>安装</h2><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">cnpm i typescript</span><br><span class="line">cnpm i @types/node</span><br><span class="line"></span><br><span class="line">npx tsc --init</span><br><span class="line"></span><br><span class="line">生成  tsconfig.json</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">npx tsc </span><br><span class="line">npx tsc --watch </span><br></pre></td></tr></table></figure>
+
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line">nodejs 环境的tsconfig.json 配置</span><br><span class="line">&#123;</span><br><span class="line">  &quot;compilerOptions&quot;: &#123;</span><br><span class="line">    </span><br><span class="line">    &quot;target&quot;: &quot;es2016&quot;, //目标代码</span><br><span class="line">    &quot;lib&quot;: [&quot;es2016&quot;, &quot;dom&quot;], //开发时的库</span><br><span class="line">    &quot;module&quot;: &quot;commonjs&quot;, //模块规范</span><br><span class="line">    &quot;outDir&quot;: &quot;dist&quot;, //输出目录</span><br><span class="line">    &quot;strictNullChecks&quot;: true, //严格空检查</span><br><span class="line">    &quot;removeComments&quot;: true, //删除注释</span><br><span class="line">  &#125;,</span><br><span class="line">  &quot;include&quot;: [&quot;src/**/*&quot;],  //指定编译文件</span><br><span class="line">  // &quot;files&quot;: [&quot;src/index.ts&quot;] //指定编译文件</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<h2 id="泛型"><a href="#泛型" class="headerlink" title="泛型"></a>泛型</h2><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line">// 泛型 在函数中使用</span><br><span class="line"></span><br><span class="line">function take2&lt;T = number&gt;(arr: T[], n: number): T[]</span><br><span class="line">&#123;</span><br><span class="line"></span><br><span class="line">    if (n &gt; arr.length) &#123;</span><br><span class="line">        return arr;</span><br><span class="line">    &#125;</span><br><span class="line">    const newArr:T[] = [];</span><br><span class="line"></span><br><span class="line">    for (let i = 0; i &lt; n; i++) &#123;</span><br><span class="line">        newArr.push(arr[i]);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    return newArr;</span><br><span class="line"></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">take2&lt;number&gt;([1,2], 3);</span><br><span class="line"></span><br><span class="line">take2&lt;string&gt;([&#x27;1&#x27;,&#x27;2&#x27;], 3);</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+
+<h2 id="枚举"><a href="#枚举" class="headerlink" title="枚举"></a>枚举</h2><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">enum Gend &#123;</span><br><span class="line">    Male = &#x27;male&#x27;,</span><br><span class="line">    Female = &#x27;female&#x27;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">let gen: Gend;</span><br><span class="line"></span><br><span class="line">gen = Gend.Male;</span><br><span class="line">gen = Gend.Female;</span><br><span class="line"></span><br><span class="line">会参与编译 枚举属性的值是字符串或数字，为数字时会自增，可以赋值（不建议）</span><br><span class="line"></span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+
+<h2 id="接口和别名"><a href="#接口和别名" class="headerlink" title="接口和别名"></a>接口和别名</h2><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">type Gender = &#x27;male&#x27; | &#x27;female&#x27;;</span><br><span class="line">let gender: Gender;</span><br><span class="line">gender = &#x27;male&#x27;;</span><br><span class="line">gender = &#x27;female&#x27;;</span><br><span class="line"></span><br><span class="line">function showGender(gender: Gender): void</span><br><span class="line">&#123;</span><br><span class="line">    console.log(gender);</span><br><span class="line">&#125;</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line"></span><br><span class="line">//接口</span><br><span class="line">interface Person &#123;</span><br><span class="line">    name: string;</span><br><span class="line">    age: number;</span><br><span class="line">    sayHello(): void;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">// 类型别名</span><br><span class="line">type Person2 = &#123;</span><br><span class="line">    name: string;</span><br><span class="line">    age: number;</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"></span><br><span class="line">let p1: Person = &#123;</span><br><span class="line">    name: &#x27;zhangsan&#x27;,</span><br><span class="line">    age: 18,</span><br><span class="line">    sayHello()&#123;</span><br><span class="line">        console.log(&#x27;hello&#x27;);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">let p2: Person2 = &#123;</span><br><span class="line">    name: &#x27;zhangsan&#x27;,</span><br><span class="line">    age: 18</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"></span><br><span class="line">type Condition = (n: number) =&gt; boolean;</span><br><span class="line"></span><br><span class="line">function sum(number: number[], callback: Condition) &#123;</span><br><span class="line"></span><br><span class="line">    let s = 0;</span><br><span class="line"></span><br><span class="line">    number.forEach(n =&gt; &#123;</span><br><span class="line">        if (callback(n)) &#123;</span><br><span class="line">            s += n;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">const result =  sum([1,2,3,4,5], n =&gt; n % 2 === 0);</span><br><span class="line"></span><br><span class="line">console.log(result);</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<p><img src="/../images/ts.png"></p>
+<p><img src="/../images/ts_01.png"></p>
+<p><img src="/../images/ts_02.png"></p>
+<p><img src="/../images/ts_03.png"></p>
+<p><img src="/../images/ts_04.png"></p>
+<p><img src="/../images/ts_05.png"></p>
+<h2 id="接口（Interface）和类型别名（Type-Alias）的区别"><a href="#接口（Interface）和类型别名（Type-Alias）的区别" class="headerlink" title="接口（Interface）和类型别名（Type Alias）的区别"></a>接口（Interface）和类型别名（Type Alias）的区别</h2><p>在 TypeScript 中，接口和类型别名都可以用来定义对象的形状，但它们有一些关键的区别。以下是它们的主要差异：</p>
+<h3 id="1-扩展性（Extensibility）"><a href="#1-扩展性（Extensibility）" class="headerlink" title="1. 扩展性（Extensibility）"></a>1. 扩展性（Extensibility）</h3><ul>
+<li><p><strong>接口</strong>：可以使用 <code>extends</code> 关键字来扩展其他接口。</p>
+<figure class="highlight typescript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">interface</span> <span class="title class_">Person</span> &#123;</span><br><span class="line">    <span class="attr">name</span>: <span class="built_in">string</span>;</span><br><span class="line">    <span class="attr">age</span>: <span class="built_in">number</span>;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">interface</span> <span class="title class_">Employee</span> <span class="keyword">extends</span> <span class="title class_">Person</span> &#123;</span><br><span class="line">    <span class="attr">employeeId</span>: <span class="built_in">number</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+</li>
+<li><p><strong>类型别名</strong>：不能直接扩展其他类型别名，但可以通过交叉类型（intersection types）实现类似的效果。</p>
+<figure class="highlight typescript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">type</span> <span class="title class_">Person</span> = &#123;</span><br><span class="line">    <span class="attr">name</span>: <span class="built_in">string</span>;</span><br><span class="line">    <span class="attr">age</span>: <span class="built_in">number</span>;</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line"><span class="keyword">type</span> <span class="title class_">Employee</span> = <span class="title class_">Person</span> &amp; &#123;</span><br><span class="line">    <span class="attr">employeeId</span>: <span class="built_in">number</span>;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure></li>
+</ul>
+<h3 id="2-合并（Merging）"><a href="#2-合并（Merging）" class="headerlink" title="2. 合并（Merging）"></a>2. 合并（Merging）</h3><ul>
+<li><p><strong>接口</strong>：支持声明合并（declaration merging），即多个同名接口会自动合并为一个接口。</p>
+<figure class="highlight typescript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">interface</span> <span class="title class_">Person</span> &#123;</span><br><span class="line">    <span class="attr">name</span>: <span class="built_in">string</span>;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">interface</span> <span class="title class_">Person</span> &#123;</span><br><span class="line">    <span class="attr">age</span>: <span class="built_in">number</span>;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">// 等价于</span></span><br><span class="line"><span class="keyword">interface</span> <span class="title class_">Person</span> &#123;</span><br><span class="line">    <span class="attr">name</span>: <span class="built_in">string</span>;</span><br><span class="line">    <span class="attr">age</span>: <span class="built_in">number</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+</li>
+<li><p><strong>类型别名</strong>：不支持声明合并，多个同名类型别名会导致编译错误。</p>
+</li>
+</ul>
+<h3 id="3-使用场景"><a href="#3-使用场景" class="headerlink" title="3. 使用场景"></a>3. 使用场景</h3><ul>
+<li><p><strong>接口</strong>：主要用于定义对象的形状，通常用于描述类、函数参数或返回值等。</p>
+<figure class="highlight typescript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">interface</span> <span class="title class_">User</span> &#123;</span><br><span class="line">    <span class="attr">id</span>: <span class="built_in">number</span>;</span><br><span class="line">    <span class="attr">name</span>: <span class="built_in">string</span>;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">class</span> <span class="title class_">Admin</span> <span class="keyword">implements</span> <span class="title class_">User</span> &#123;</span><br><span class="line">    <span class="attr">id</span>: <span class="built_in">number</span>;</span><br><span class="line">    <span class="attr">name</span>: <span class="built_in">string</span>;</span><br><span class="line">    <span class="attr">role</span>: <span class="built_in">string</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+</li>
+<li><p><strong>类型别名</strong>：更加灵活，可以用于定义原始类型、联合类型、元组等复杂类型。</p>
+<figure class="highlight typescript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">type</span> <span class="variable constant_">ID</span> = <span class="built_in">number</span> | <span class="built_in">string</span>;</span><br><span class="line"></span><br><span class="line"><span class="keyword">type</span> <span class="title class_">Point</span> = [<span class="built_in">number</span>, <span class="built_in">number</span>];</span><br><span class="line"></span><br><span class="line"><span class="keyword">type</span> <span class="title class_">PartialPerson</span> = &#123;</span><br><span class="line">    name?: <span class="built_in">string</span>;</span><br><span class="line">    age?: <span class="built_in">number</span>;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure></li>
+</ul>
+<h3 id="4-可重载（Overloading）"><a href="#4-可重载（Overloading）" class="headerlink" title="4. 可重载（Overloading）"></a>4. 可重载（Overloading）</h3><ul>
+<li><p><strong>接口</strong>：可以用于函数重载。</p>
+<figure class="highlight typescript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">interface</span> <span class="title class_">Func</span> &#123;</span><br><span class="line">    (<span class="attr">a</span>: <span class="built_in">number</span>): <span class="built_in">number</span>;</span><br><span class="line">    (<span class="attr">a</span>: <span class="built_in">string</span>): <span class="built_in">string</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+</li>
+<li><p><strong>类型别名</strong>：不能直接用于函数重载，但可以通过函数类型定义实现类似效果。</p>
+<figure class="highlight typescript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">type</span> <span class="title class_">Func</span> = &#123;</span><br><span class="line">    (<span class="attr">a</span>: <span class="built_in">number</span>): <span class="built_in">number</span>;</span><br><span class="line">    (<span class="attr">a</span>: <span class="built_in">string</span>): <span class="built_in">string</span>;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure></li>
+</ul>
+<h3 id="5-性能"><a href="#5-性能" class="headerlink" title="5. 性能"></a>5. 性能</h3><ul>
+<li><strong>接口</strong>：编译后会被优化掉，不会生成额外的 JavaScript 代码。</li>
+<li><strong>类型别名</strong>：同样不会生成额外的 JavaScript 代码，但在某些情况下可能会有细微的性能差异。</li>
+</ul>
+<h3 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h3><ul>
+<li>如果你需要定义对象的形状并且希望支持扩展和合并，建议使用接口。</li>
+<li>如果你需要定义更复杂的类型（如联合类型、元组等），或者需要更高的灵活性，建议使用类型别名。</li>
+</ul>
+<p>在你的代码中，<code>Person</code> 和 <code>Person2</code> 分别使用了接口和类型别名来定义相同的内容。你可以根据上述区别选择更适合你需求的方式。</p>
+<h2 id="可重载"><a href="#可重载" class="headerlink" title="可重载"></a>可重载</h2><p>在 TypeScript 中，函数重载（Function Overloading） 是指定义多个具有相同名称但参数列表不同的函数签名。编译器会根据调用时传递的参数类型和数量来选择最匹配的函数签名。函数重载允许你为同一个函数提供多种调用方式，从而提高代码的灵活性和可读性。</p>
+<p>示例：</p>
+<p>typescript</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">// 定义两个重载签名</span><br><span class="line">function add(a: number, b: number): number;</span><br><span class="line">function add(a: string, b: string): string;</span><br><span class="line"></span><br><span class="line">// 实现函数</span><br><span class="line">function add(a: any, b: any): any &#123;</span><br><span class="line">    return a + b;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">// 调用</span><br><span class="line">console.log(add(1, 2));      // 输出: 3</span><br><span class="line">console.log(add(&quot;hello&quot;, &quot; world&quot;));  // 输出: hello world</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<h2 id="访问修饰符"><a href="#访问修饰符" class="headerlink" title="访问修饰符"></a>访问修饰符</h2><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">class User &#123;</span><br><span class="line">    </span><br><span class="line">    readonly id:number</span><br><span class="line">    name:string</span><br><span class="line">    age:number</span><br><span class="line">    pid?:string</span><br><span class="line"></span><br><span class="line">    // ts语法 访问修饰符</span><br><span class="line">    private publishNumber:number = 3</span><br><span class="line">    private curNumber:number = 0</span><br><span class="line"></span><br><span class="line">    constructor(name:string,age:number)&#123;</span><br><span class="line">        this.id = Math.random();</span><br><span class="line">        this.name = name;</span><br><span class="line">        this.age = age;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    publish()&#123;</span><br><span class="line">        if (this.curNumber &gt;= this.publishNumber) &#123;</span><br><span class="line">            console.log(`$&#123;this.name&#125; 已经发布文章上限`);</span><br><span class="line">            return;</span><br><span class="line">        &#125;</span><br><span class="line">        this.curNumber++;</span><br><span class="line">        console.log(`$&#123;this.name&#125; 发布了第$&#123;this.curNumber&#125;篇文章`);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">const u = new User(&#x27;张三&#x27;,18);</span><br><span class="line">u.pid = &#x27;1111&#x27;;</span><br><span class="line">// u.id = 2;</span><br><span class="line">console.log(u.id);</span><br><span class="line">console.log(u.pid);</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">u.publish();</span><br><span class="line">u.publish();</span><br><span class="line">u.publish();</span><br><span class="line">u.publish();</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">编译后代码</span><br><span class="line">==&gt;&gt;</span><br><span class="line"></span><br><span class="line">class User &#123;</span><br><span class="line">    constructor(name, age) &#123;</span><br><span class="line">        this.publishNumber = 3;</span><br><span class="line">        this.curNumber = 0;</span><br><span class="line">        this.id = Math.random();</span><br><span class="line">        this.name = name;</span><br><span class="line">        this.age = age;</span><br><span class="line">    &#125;</span><br><span class="line">    publish() &#123;</span><br><span class="line">        if (this.curNumber &gt;= this.publishNumber) &#123;</span><br><span class="line">            console.log(`$&#123;this.name&#125; 已经发布文章上限`);</span><br><span class="line">            return;</span><br><span class="line">        &#125;</span><br><span class="line">        this.curNumber++;</span><br><span class="line">        console.log(`$&#123;this.name&#125; 发布了第$&#123;this.curNumber&#125;篇文章`);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line">const u = new User(&#x27;张三&#x27;, 18);</span><br><span class="line">u.pid = &#x27;1111&#x27;;</span><br><span class="line">console.log(u.id);</span><br><span class="line">console.log(u.pid);</span><br><span class="line">u.publish();</span><br><span class="line">u.publish();</span><br><span class="line">u.publish();</span><br><span class="line">u.publish();</span><br><span class="line"></span><br><span class="line"></span><br></pre></td></tr></table></figure>
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
     <link itemprop="mainEntityOfPage" href="http://example.com/2024/12/20/%E6%B2%B9%E7%8C%B4%E8%84%9A%E6%9C%AC%E4%B8%AD%E6%93%8D%E4%BD%9Cdom%E6%8E%A7%E5%88%B6vue-element-%E4%B8%AD-el-input-%E7%9A%84%E5%80%BC/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -8706,102 +8836,6 @@
   
   
 
-      
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="http://example.com/2024/12/18/nodejs/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.gif">
-      <meta itemprop="name" content="wangzhiwei">
-      <meta itemprop="description" content="javascript nodejs web developer...">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="WBlog">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/2024/12/18/nodejs/" class="post-title-link" itemprop="url">nodejs</a>
-        </h2>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              <span class="post-meta-item-text">发表于</span>
-              
-
-              <time title="创建时间：2024-12-18 11:41:08 / 修改时间：13:22:02" itemprop="dateCreated datePublished" datetime="2024-12-18T11:41:08+08:00">2024-12-18</time>
-            </span>
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              <span class="post-meta-item-text">分类于</span>
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/nodejs/" itemprop="url" rel="index"><span itemprop="name">nodejs</span></a>
-                </span>
-            </span>
-
-          
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <h1 id="nodejs"><a href="#nodejs" class="headerlink" title="nodejs"></a>nodejs</h1><p>nodejs 是 javascript 的运行环境, 不是一门语言</p>
-<p><img src="/../images/nodejs_01.jpeg"></p>
-<p>用户代码：js代码</p>
-<p>三方库：大部分都是js代码</p>
-<p>本地模块代码：js代码</p>
-<p>内置模块代码： c&#x2F;c++代码</p>
-<p>V8 引擎：c&#x2F;c++代码，作用：把js代码转换成机器码</p>
-<p>可以通过V8引擎的某种机制，扩展其功能</p>
-<p>V8 引擎的扩展和对扩展的编译，是通过一个工具： node-gyp 工具 完成 的</p>
-<p>某些第三方库需要使用node-gyp工具进行构建，因此需要先安装node-gyp</p>
-<p>koa 洋葱模型</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br></pre></td><td class="code"><pre><span class="line">app.use(async (ctx, next) =&gt; &#123;</span><br><span class="line"></span><br><span class="line">    consol.log(&#x27;111, start&#x27;)</span><br><span class="line">    await next()</span><br><span class="line">    consol.log(&#x27;111, end&#x27;)</span><br><span class="line"></span><br><span class="line">&#125;)</span><br><span class="line"></span><br><span class="line">app.use(async (ctx, next) =&gt; &#123;</span><br><span class="line"></span><br><span class="line">    consol.log(&#x27;222, start&#x27;)</span><br><span class="line">    await next()</span><br><span class="line">    consol.log(&#x27;222, end&#x27;)</span><br><span class="line"></span><br><span class="line">&#125;)</span><br><span class="line"></span><br><span class="line">app.use(async (ctx, next) =&gt; &#123;</span><br><span class="line"></span><br><span class="line">    consol.log(&#x27;333, start&#x27;)</span><br><span class="line">    await next()</span><br><span class="line">    consol.log(&#x27;333, end&#x27;)</span><br><span class="line"></span><br><span class="line">&#125;)</span><br><span class="line"></span><br><span class="line">打印顺序</span><br><span class="line"></span><br><span class="line">111, start</span><br><span class="line">222, start</span><br><span class="line">333, start</span><br><span class="line">333, end</span><br><span class="line">222, end</span><br><span class="line">111, end</span><br><span class="line"></span><br></pre></td></tr></table></figure>
-
-
-
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br></pre></td><td class="code"><pre><span class="line">app.use(async (ctx, next) =&gt; &#123;</span><br><span class="line"></span><br><span class="line">    consol.log(&#x27;111, start&#x27;)</span><br><span class="line">    // await next()</span><br><span class="line">    consol.log(&#x27;111, end&#x27;)</span><br><span class="line"></span><br><span class="line">&#125;)</span><br><span class="line"></span><br><span class="line">app.use(async (ctx, next) =&gt; &#123;</span><br><span class="line"></span><br><span class="line">    consol.log(&#x27;222, start&#x27;)</span><br><span class="line">    await next()</span><br><span class="line">    consol.log(&#x27;222, end&#x27;)</span><br><span class="line"></span><br><span class="line">&#125;)</span><br><span class="line"></span><br><span class="line">app.use(async (ctx, next) =&gt; &#123;</span><br><span class="line"></span><br><span class="line">    consol.log(&#x27;333, start&#x27;)</span><br><span class="line">    await next()</span><br><span class="line">    consol.log(&#x27;333, end&#x27;)</span><br><span class="line"></span><br><span class="line">&#125;)</span><br><span class="line"></span><br><span class="line">打印顺序</span><br><span class="line"></span><br><span class="line">111, start</span><br><span class="line">111, end</span><br><span class="line"></span><br></pre></td></tr></table></figure>
-
-
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br></pre></td><td class="code"><pre><span class="line">app.use(async (ctx, next) =&gt; &#123;</span><br><span class="line"></span><br><span class="line">    consol.log(&#x27;111, start&#x27;)</span><br><span class="line">    await next()</span><br><span class="line">    consol.log(&#x27;111, end&#x27;)</span><br><span class="line"></span><br><span class="line">&#125;)</span><br><span class="line"></span><br><span class="line">app.use(async (ctx, next) =&gt; &#123;</span><br><span class="line"></span><br><span class="line">    consol.log(&#x27;222, start&#x27;)</span><br><span class="line">    // await next()</span><br><span class="line">    consol.log(&#x27;222, end&#x27;)</span><br><span class="line"></span><br><span class="line">&#125;)</span><br><span class="line"></span><br><span class="line">app.use(async (ctx, next) =&gt; &#123;</span><br><span class="line"></span><br><span class="line">    consol.log(&#x27;333, start&#x27;)</span><br><span class="line">    await next()</span><br><span class="line">    consol.log(&#x27;333, end&#x27;)</span><br><span class="line"></span><br><span class="line">&#125;)</span><br><span class="line"></span><br><span class="line">打印顺序</span><br><span class="line"></span><br><span class="line">111, start</span><br><span class="line">222, start</span><br><span class="line">222, end</span><br><span class="line">111, end</span><br><span class="line"></span><br></pre></td></tr></table></figure>
-
-
-
-
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br></pre></td><td class="code"><pre><span class="line">app.use(async (ctx, next) =&gt; &#123;</span><br><span class="line"></span><br><span class="line">    consol.log(&#x27;111, start&#x27;)</span><br><span class="line">    await next()</span><br><span class="line">    consol.log(&#x27;111, end&#x27;)</span><br><span class="line"></span><br><span class="line">&#125;)</span><br><span class="line"></span><br><span class="line">app.use(async (ctx, next) =&gt; &#123;</span><br><span class="line"></span><br><span class="line">    consol.log(&#x27;222, start&#x27;)</span><br><span class="line">    await next()</span><br><span class="line">    consol.log(&#x27;222, end&#x27;)</span><br><span class="line"></span><br><span class="line">&#125;)</span><br><span class="line"></span><br><span class="line">app.use(async (ctx, next) =&gt; &#123;</span><br><span class="line"></span><br><span class="line">    consol.log(&#x27;333, start&#x27;)</span><br><span class="line">    // await next()</span><br><span class="line">    consol.log(&#x27;333, end&#x27;)</span><br><span class="line"></span><br><span class="line">&#125;)</span><br><span class="line"></span><br><span class="line">打印顺序</span><br><span class="line"></span><br><span class="line">111, start</span><br><span class="line">222, start</span><br><span class="line">333, start</span><br><span class="line">333, end</span><br><span class="line">222, end</span><br><span class="line">111, end</span><br></pre></td></tr></table></figure>
-
-
-
-<p>参考：<br>libuv book<br><a target="_blank" rel="noopener" href="https://luohaha.github.io/Chinese-uvbook/source/introduction.html">https://luohaha.github.io/Chinese-uvbook/source/introduction.html</a></p>
-<p><a target="_blank" rel="noopener" href="https://www.bilibili.com/video/BV1GfywY7Ebs?spm_id_from=333.788.videopod.episodes&vd_source=ffda878df0ed45bee1ade91d8f451048&p=43">https://www.bilibili.com/video/BV1GfywY7Ebs?spm_id_from=333.788.videopod.episodes&amp;vd_source=ffda878df0ed45bee1ade91d8f451048&amp;p=43</a></p>
-
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
 
   
   <nav class="pagination">
@@ -8871,16 +8905,16 @@
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">36</span>
+          <span class="site-state-item-count">37</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>
       <div class="site-state-item site-state-categories">
-        <span class="site-state-item-count">33</span>
+        <span class="site-state-item-count">34</span>
         <span class="site-state-item-name">分类</span>
       </div>
       <div class="site-state-item site-state-tags">
-        <span class="site-state-item-count">42</span>
+        <span class="site-state-item-count">43</span>
         <span class="site-state-item-name">标签</span>
       </div>
   </nav>

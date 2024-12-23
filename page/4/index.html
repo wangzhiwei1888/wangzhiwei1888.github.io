@@ -149,6 +149,104 @@
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="http://example.com/2024/12/13/pg/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="wangzhiwei">
+      <meta itemprop="description" content="javascript nodejs web developer...">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="WBlog">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/2024/12/13/pg/" class="post-title-link" itemprop="url">pg postgres</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+              
+
+              <time title="创建时间：2024-12-13 14:52:23 / 修改时间：15:44:33" itemprop="dateCreated datePublished" datetime="2024-12-13T14:52:23+08:00">2024-12-13</time>
+            </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/%E6%95%B0%E6%8D%AE%E5%BA%93/" itemprop="url" rel="index"><span itemprop="name">数据库</span></a>
+                </span>
+                  ，
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/%E6%95%B0%E6%8D%AE%E5%BA%93/postgres/" itemprop="url" rel="index"><span itemprop="name">postgres</span></a>
+                </span>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <p>链接postgres<br>psql -h localhost -p 5432 -U postgres -W</p>
+<p>密码<br>admin</p>
+<p>列出所有数据库<br>\list</p>
+<p>切换数据库</p>
+<p>CREATE DATABASE mydatabase;</p>
+<p>\c mydatabase </p>
+<p>CREATE TABLE mytable (<br>   id SERIAL PRIMARY KEY,<br>   name VARCHAR(100),<br>   age INT,<br>   email VARCHAR(255)<br>);</p>
+<p>INSERT INTO mytable (name, age, email) VALUES<br>(‘John Doe’, 28, ‘<a href="mailto:&#x6a;&#111;&#104;&#x6e;&#x2e;&#100;&#111;&#x65;&#x40;&#101;&#120;&#x61;&#109;&#x70;&#108;&#x65;&#46;&#x63;&#111;&#109;">&#x6a;&#111;&#104;&#x6e;&#x2e;&#100;&#111;&#x65;&#x40;&#101;&#120;&#x61;&#109;&#x70;&#108;&#x65;&#46;&#x63;&#111;&#109;</a>‘),<br>(‘Jane Smith’, 35, ‘<a href="mailto:&#106;&#97;&#110;&#101;&#46;&#115;&#x6d;&#105;&#x74;&#104;&#64;&#101;&#120;&#97;&#109;&#x70;&#108;&#x65;&#x2e;&#x63;&#x6f;&#109;">&#106;&#97;&#110;&#101;&#46;&#115;&#x6d;&#105;&#x74;&#104;&#64;&#101;&#120;&#97;&#109;&#x70;&#108;&#x65;&#x2e;&#x63;&#x6f;&#109;</a>‘);</p>
+<p>\dt+  – 列出所有表，包括视图和索引<br>\dt   – 仅列出表<br>\dv   – 仅列出视图<br>\di   – 仅列出索引</p>
+<p>SELECT * FROM mytable;</p>
+<p>\q 退出 psql</p>
+<p>数据操作</p>
+<p>增<br>INSERT INTO mytable (name, age, email) VALUES<br>(‘John Doe’, 28, ‘<a href="mailto:&#x6a;&#x6f;&#x68;&#110;&#46;&#100;&#x6f;&#x65;&#x40;&#101;&#120;&#97;&#x6d;&#112;&#108;&#x65;&#46;&#x63;&#111;&#x6d;">&#x6a;&#x6f;&#x68;&#110;&#46;&#100;&#x6f;&#x65;&#x40;&#101;&#120;&#97;&#x6d;&#112;&#108;&#x65;&#46;&#x63;&#111;&#x6d;</a>‘),<br>(‘Jane Smith’, 35, ‘<a href="mailto:&#106;&#97;&#110;&#x65;&#46;&#115;&#109;&#x69;&#116;&#104;&#64;&#x65;&#120;&#97;&#109;&#112;&#x6c;&#x65;&#x2e;&#99;&#111;&#x6d;">&#106;&#97;&#110;&#x65;&#46;&#115;&#109;&#x69;&#116;&#104;&#64;&#x65;&#120;&#97;&#109;&#112;&#x6c;&#x65;&#x2e;&#99;&#111;&#x6d;</a>‘);</p>
+<p>删<br>DELETE FROM mytable WHERE id &#x3D; 2;</p>
+<p>改<br>UPDATE mytable SET name &#x3D; ‘wzw’, age &#x3D; 38 WHERE id&#x3D;1;</p>
+<p>查询<br>SELECT * FROM mytable;</p>
+<p>本地链接116 的postgresql<br>1、查看116 的项目配置文件查看配置的密码</p>
+<p>&#x2F;home&#x2F;admin&#x2F;tml&#x2F;app&#x2F;config<br>application-dev.yml</p>
+<p>2、需要修改postgresql 的配置</p>
+<p>&#x2F;home&#x2F;admin&#x2F;tml&#x2F;app&#x2F;db&#x2F;data<br>vi pg_hba.conf<br>shift + G</p>
+<p>host    all             all              127.0.0.1&#x2F;32            md5</p>
+<p>增加一行<br>host    all             all              0.0.0.0&#x2F;0            md5</p>
+<p>vi postgresql.conf </p>
+<p>&#x2F;listen</p>
+<p>listen_addresses 改为 ‘<em>‘<br>listen_addresses &#x3D; ‘</em>‘          # what IP address(es) to listen on;</p>
+<p>ss -anlp | grep 5432</p>
+<p>重启postgresql<br>sudo systemctl restart postgresql-12</p>
+
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
     <link itemprop="mainEntityOfPage" href="http://example.com/2024/12/13/redis/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -1369,16 +1467,16 @@
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">36</span>
+          <span class="site-state-item-count">37</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>
       <div class="site-state-item site-state-categories">
-        <span class="site-state-item-count">33</span>
+        <span class="site-state-item-count">34</span>
         <span class="site-state-item-name">分类</span>
       </div>
       <div class="site-state-item site-state-tags">
-        <span class="site-state-item-count">42</span>
+        <span class="site-state-item-count">43</span>
         <span class="site-state-item-name">标签</span>
       </div>
   </nav>
