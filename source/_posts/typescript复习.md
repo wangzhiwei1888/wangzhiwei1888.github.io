@@ -853,3 +853,8 @@ export function MyComponent(props: MyComponentProps) {
 ```
 
 这样配置后，TypeScript 就能够正确处理 `.tsx` 文件中的 JSX 语法。
+
+
+## TS + VUE3
+
+https://cn.vuejs.org/guide/typescript/composition-api.html
