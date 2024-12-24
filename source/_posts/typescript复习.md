@@ -10,6 +10,7 @@ categories:
 
 
 
+
 ## 安装
 
 
@@ -32,15 +33,21 @@ nodejs 环境的tsconfig.json 配置
   "compilerOptions": {
     
     "target": "es2016", //目标代码
-    "lib": ["es2016", "dom"], //开发时的库
-    "module": "commonjs", //模块规范
+    "lib": ["es2016"], //开发时的库
+    // "module":"ES2015", //模块规范
+    "module":"CommonJS", //设置编译结果中使用的模块化标准
     "outDir": "dist", //输出目录
     "strictNullChecks": true, //严格空检查
-    "removeComments": true, //删除注释
+    "removeComments": true, //编译结果移除注释
+    "esModuleInterop": true, //兼启用es模块化交互非es模块导出
+    "noEmitOnError": true, // 编译错误不输出编译结果
+    // "moduleResolution": "node" //设置解析模块的模式
   },
   "include": ["src/**/*"],  //指定编译文件
-  // "files": ["src/index.ts"] //指定编译文件
+  // "files": ["src/index.ts"] //指定编译文件,
+  
 }
+
 
 
 ```
@@ -70,7 +77,288 @@ take2<number>([1,2], 3);
 
 take2<string>(['1','2'], 3);
 
+
+
+
 ```
+
+函数的泛型应用
+
+```
+function combin<T extends number | string>(a: T, b: T): T{
+    return (a as any) + (b as any) as T;
+}
+
+const res = combin(1,2);
+
+
+const res1 = combin('a','b');
+
+// const res2 = combin(3,'b'); // 报错
+
+```
+
+
+
+
+```
+函数中的泛型应用
+
+type callBack<T> = (n: T, i: number) => boolean;
+
+
+function filter<T>(arr: T[], callback: callBack<T>): T[]
+{
+    const newArr: T[] = [];
+    for (let i = 0; i < arr.length; i++) {
+        if (callback(arr[i], i)) {
+            newArr.push(arr[i]);
+        }
+    }
+    return newArr;
+}
+
+const arr = [1, 2, 3, 4, 5];
+
+console.log(filter(arr, (n) => n > 2));
+
+```
+
+```
+
+构造函数中的泛型应用
+
+class ArrayHelper<T> {
+
+    constructor(private arr: T[])
+    {
+
+    }
+
+    take(n: number): T[]
+    {
+        if (n > this.arr.length) {
+            return this.arr;
+        }
+        const newArr:T[] = [];
+        for (let i = 0; i < n; i++) {
+            newArr.push(this.arr[i]);
+        }
+        return newArr;
+    }
+    filter(callback: callBack<T>): T[]
+    {
+        const newArr: T[] = [];
+        for (let i = 0; i < this.arr.length; i++) {
+            if (callback(this.arr[i], i)) {
+                newArr.push(this.arr[i]);
+            }
+        }
+        return newArr;
+   }
+
+   shuffle() {
+
+    for (let i = this.arr.length - 1; i > 0; i--) {
+        const j = Math.floor(Math.random() * (i + 1));
+        [this.arr[i], this.arr[j]] = [this.arr[j], this.arr[i]];
+    }
+
+   }
+
+
+}
+
+
+
+const helper = new ArrayHelper(arr);
+
+const newA = helper.filter(n => n > 2);
+
+console.log(newA);
+
+helper.shuffle();
+
+console.log(helper.take(3));
+```
+
+泛型约束
+
+```
+
+interface hasNameProperty {
+    name: string;
+}
+
+function nameToUpperCase <T extends hasNameProperty> (obj: T): T
+{
+
+    obj.name = obj.name.split(" ")
+        .map(n => n[0].toUpperCase() + n.slice(1))
+        .join(" ");
+
+    return obj;
+}
+
+const o = {
+    name: "john wang",
+    age: 30
+}
+
+const newO = nameToUpperCase(o);
+
+console.log(newO.name);
+
+```
+
+
+## 导入三方模块
+
+```
+// 导入文件系统模块 在 ts 中异常
+// import fs from 'fs';
+
+//需要改写为 
+import {readFileSync} from 'fs';
+
+//或改写为
+//import * as fs from "fs";
+
+
+const input = readFileSync('./input.txt', 'utf-8').split('\n');
+
+
+
+编译后代码
+
+"use strict";
+Object.defineProperty(exports, "__esModule", { value: true });
+const fs_1 = require("fs");
+const input = (0, fs_1.readFileSync)('./input.txt', 'utf-8').split('\n');
+
+
+```
+
+```
+
+//或改写为
+import * as fs from "fs";
+
+
+const input = fs.readFileSync('./input.txt', 'utf-8').split('\n');
+
+编译后代码
+
+"use strict";
+var __createBinding = (this && this.__createBinding) || (Object.create ? (function(o, m, k, k2) {
+    if (k2 === undefined) k2 = k;
+    var desc = Object.getOwnPropertyDescriptor(m, k);
+    if (!desc || ("get" in desc ? !m.__esModule : desc.writable || desc.configurable)) {
+      desc = { enumerable: true, get: function() { return m[k]; } };
+    }
+    Object.defineProperty(o, k2, desc);
+}) : (function(o, m, k, k2) {
+    if (k2 === undefined) k2 = k;
+    o[k2] = m[k];
+}));
+var __setModuleDefault = (this && this.__setModuleDefault) || (Object.create ? (function(o, v) {
+    Object.defineProperty(o, "default", { enumerable: true, value: v });
+}) : function(o, v) {
+    o["default"] = v;
+});
+var __importStar = (this && this.__importStar) || (function () {
+    var ownKeys = function(o) {
+        ownKeys = Object.getOwnPropertyNames || function (o) {
+            var ar = [];
+            for (var k in o) if (Object.prototype.hasOwnProperty.call(o, k)) ar[ar.length] = k;
+            return ar;
+        };
+        return ownKeys(o);
+    };
+    return function (mod) {
+        if (mod && mod.__esModule) return mod;
+        var result = {};
+        if (mod != null) for (var k = ownKeys(mod), i = 0; i < k.length; i++) if (k[i] !== "default") __createBinding(result, mod, k[i]);
+        __setModuleDefault(result, mod);
+        return result;
+    };
+})();
+Object.defineProperty(exports, "__esModule", { value: true });
+const fs = __importStar(require("fs"));
+const input = fs.readFileSync('./input.txt', 'utf-8').split('\n');
+
+
+```
+
+
+
+非要用 import fs from 'fs'; 要改写 配置文件
+
+增加
+"esModuleInterop": true, //兼容es6模块
+
+```
+
+import fs from 'fs';
+const input = fs.readFileSync('./input.txt', 'utf-8').split('\n');
+
+编译后代码
+
+"use strict";
+var __importDefault = (this && this.__importDefault) || function (mod) {
+    return (mod && mod.__esModule) ? mod : { "default": mod };
+};
+Object.defineProperty(exports, "__esModule", { value: true });
+const fs_1 = __importDefault(require("fs"));
+const input = fs_1.default.readFileSync('./input.txt', 'utf-8').split('\n');
+
+
+
+
+
+```
+
+
+## TS中书写 commjs 模块代码
+
+导出 export = xxxx
+
+导入 import xxx = require('xxx');
+
+
+```
+c.ts
+export = {
+    add: (a:number,b:number)=>a+b,
+    name: 'c'
+}
+
+
+05.ts
+
+import aa = require('./c');
+
+console.log(aa.name)
+
+
+编译后代码
+
+"use strict";
+Object.defineProperty(exports, "__esModule", { value: true });
+const aa = require("./c");
+console.log(aa.name);
+
+
+"use strict";
+module.exports = {
+    add: (a, b) => a + b,
+    name: 'c'
+};
+
+
+```
+
+
 
 
 ## 枚举
@@ -163,18 +451,6 @@ console.log(result);
 
 
 ```
-
-![](../images/ts.png)
-
-![](../images/ts_01.png)
-
-![](../images/ts_02.png)
-
-![](../images/ts_03.png)
-
-![](../images/ts_04.png)
-
-![](../images/ts_05.png)
 
 
 ## 接口（Interface）和类型别名（Type Alias）的区别
@@ -388,3 +664,192 @@ u.publish();
 
 
 ```
+
+
+## React + TS
+
+
+```
+
+
+
+
+```
+
+
+## JSX 和 TSX 的区别
+
+在 React 开发中，JSX 和 TSX 是两种不同的文件扩展名，它们用于定义组件的模板语法。以下是它们的主要区别：
+
+### 1. 文件扩展名
+- **JSX**: 文件扩展名为 `.jsx`，主要用于编写 React 组件，但不包含 TypeScript 类型检查。
+- **TSX**: 文件扩展名为 `.tsx`，不仅支持 JSX 语法，还集成了 TypeScript 的类型检查功能。
+
+### 2. 类型检查
+- **JSX**: 没有内置的类型检查功能，因此无法在编译时捕获类型错误。
+- **TSX**: 支持 TypeScript 的类型检查，可以在编译时检测并报告类型错误，提高代码的健壮性和可维护性。
+
+### 3. 语法兼容性
+- **JSX**: 只能使用 JavaScript 语法。
+- **TSX**: 可以使用 TypeScript 语法，包括类型注解、接口、泛型等。
+
+### 4. 示例代码
+
+### JSX 示例
+```jsx
+// MyComponent.jsx
+import React from 'react';
+
+function MyComponent(props) {
+    return (
+        <div>
+            <h1>Hello, {props.name}</h1>
+        </div>
+    );
+}
+
+export default MyComponent;
+```
+
+### TSX 示例
+```tsx
+// MyComponent.tsx
+import React from 'react';
+
+interface MyComponentProps {
+    name: string;
+}
+
+/**
+ * 
+ * React.FC<MyComponentProps> 是 TypeScript 中用于定义 React 函数组件的一种类型。
+    React.FC 是 React.FunctionComponent 的缩写，它是一个泛型，可以接受一个对象作为参数，这个对象描述了组件的属性类型。
+    MyComponentProps 是你自定义的一个接口或类型，用来定义组件接收的 props 类型。
+    使用 React.FC<MyComponentProps> 有以下好处：
+
+    明确指定了组件的 props 类型，增强了代码的可读性和可维护性。
+    提供了更好的编辑器支持，如自动补全和类型检查。
+
+ ** /
+
+ // 推荐使用
+const MyComponent: React.FC<MyComponentProps> = ({ name }) => {
+    return (
+        <div>
+            <h1>Hello, {name}</h1>
+        </div>
+    );
+};
+
+export default MyComponent;
+
+
+或者
+
+export function MyComponent(props: MyComponentProps) {
+    return (
+        <div>
+            <h1>Hello, {props.name}</h1>
+        </div>
+    )
+}
+
+
+```
+
+### 5. 编译和工具支持
+- **JSX**: 使用 Babel 等工具进行编译，通常与 Webpack 或其他模块打包工具结合使用。
+- **TSX**: 使用 TypeScript 编译器（tsc）进行编译，同时可以与 Babel 结合使用以支持更广泛的浏览器兼容性。
+
+### 6. 性能
+- **JSX** 和 **TSX** 在运行时性能上没有显著差异，因为最终都会被编译为普通的 JavaScript 代码。但是，TSX 提供了更好的开发时体验，减少了潜在的类型错误。
+
+### 总结
+- 如果你希望在 React 项目中使用 TypeScript 进行类型检查和增强的开发体验，建议使用 `.tsx` 文件。
+- 如果你只需要简单的 JSX 语法且不需要 TypeScript 的类型检查，可以选择 `.jsx` 文件。
+
+在现代 React 开发中，推荐使用 `.tsx` 文件，因为它提供了更好的类型安全性和开发体验。
+
+
+## tsx 中 extends React.Component 使用举例
+
+
+在 TypeScript 中，如果你使用 `tsx` 文件并希望定义一个继承自 `React.Component` 的类组件，你可以按照以下步骤进行。假设你已经安装了 `react` 和 `react-dom`，并且已经正确配置了 `tsconfig.json` 以支持 JSX。
+
+以下是一个简单的例子：
+
+1. 首先，确保你已经安装了 `@types/react` 和 `@types/react-dom`，以便 TypeScript 能够识别 React 类型。
+
+   ```bash
+   npm install --save-dev @types/react @types/react-dom
+   ```
+
+2. 创建一个 `.tsx` 文件，例如 `MyComponent.tsx`，并在其中定义一个继承自 `React.Component` 的类组件。
+
+   ```tsx
+   import React from 'react';
+
+   interface MyComponentProps {
+     name: string;
+   }
+
+   interface MyComponentState {
+     count: number;
+   }
+
+   class MyComponent extends React.Component<MyComponentProps, MyComponentState> {
+     constructor(props: MyComponentProps) {
+       super(props);
+       this.state = {
+         count: 0,
+       };
+     }
+
+     incrementCount = () => {
+       this.setState((prevState) => ({
+         count: prevState.count + 1,
+       }));
+     };
+
+     render() {
+       return (
+         <div>
+           <h1>Hello, {this.props.name}!</h1>
+           <p>You clicked {this.state.count} times</p>
+           <button onClick={this.incrementCount}>Click me</button>
+         </div>
+       );
+     }
+   }
+
+   export default MyComponent;
+   ```
+
+在这个例子中：
+
+- `MyComponentProps` 定义了组件的 props 类型。
+- `MyComponentState` 定义了组件的状态类型。
+- `MyComponent` 类继承自 `React.Component`，并指定了 props 和 state 的类型。
+- `incrementCount` 方法用于更新组件的状态。
+- `render` 方法返回组件的 JSX 结构。
+
+确保你的 `tsconfig.json` 文件配置正确，以便支持 JSX 语法。你可以在 `compilerOptions` 中添加 `"jsx": "react"` 来明确指定 JSX 的处理方式。
+
+```json
+{
+  "compilerOptions": {
+    "target": "es2016",
+    "lib": ["es2016", "dom"],
+    "module": "CommonJS",
+    "outDir": "dist",
+    "strictNullChecks": true,
+    "removeComments": true,
+    "esModuleInterop": true,
+    "noEmitOnError": true,
+    "jsx": "react"
+  },
+  "include": ["src/**/*"]
+}
+```
+
+这样配置后，TypeScript 就能够正确处理 `.tsx` 文件中的 JSX 语法。
