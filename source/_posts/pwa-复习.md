@@ -236,6 +236,49 @@ async function cacheFirst(request) {
 ![](../images/pwa_6.png)
 
 
+vite项目改造
+
+```
+
+import { VitePWA } from 'vite-plugin-pwa'
+
+
+vitePlugins.push(
+    VitePWA({
+        registerType: 'autoUpdate',
+        includeAssets: ['favicon.ico'],
+        manifest: {
+            name: 'xxx',
+            short_name:'xxx',
+            description: 'xxx',
+            theme_color: '#ffffff',
+            start_url: '/demo/',
+            display: 'standalone',
+            form_factor: 'wide',
+            
+            icons: [
+                {
+                    "src": "./images/icon-192x192.png",
+                    "sizes": "192x192",
+                    "type": "image/png"
+                },
+                {
+                    "src": "/images/icon-512x512.png",
+                    "sizes": "512x512",
+                    "type": "image/png"
+                }
+            ]
+        },
+        workbox: {
+            maximumFileSizeToCacheInBytes: 10 * 1024 * 1024, // 10M
+        }
+    })
+)
+
+
+```
+
+
 参考地址：
 MDN地址：
 [https://developer.mozilla.org/en-US/docs/Web/Progressive_web_apps](https://developer.mozilla.org/en-US/docs/Web/Progressive_web_apps)
