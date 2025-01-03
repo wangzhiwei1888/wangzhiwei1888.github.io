@@ -1,8 +1,7 @@
-dn: uid=alice1,ou=users,dc=example,dc=org
+dn: cn=barbara,dc=example,dc=org
 objectClass: inetOrgPerson
-objectClass: top
-uid: alice1
-cn: Alice Smith
-sn: Smith
-mail: alice1@example.com
-userPassword: alicepassword
+cn: barbara
+sn: Jensen
+title: the world's most famous mythical manager
+mail: bjensen@example.com
+uid: bjensen
