@@ -137,17 +137,7 @@ https://www.bilibili.com/video/BV1ma4y1L7NE/?spm_id_from=333.337.search-card.all
 
 老友记，优酷或者腾讯视频
 
-- 在线真人口语练习网站
-  https://www.free4talk.com/ 可以选择不同的口语 level 的聊天室，免费
-
 ### 04 - reverse list
-
-- Resources
-  https://www.bilibili.com/video/BV11h4y1P7Yp/?spm_id_from=333.999.0.0 视频链接
-
-https://leetcode.cn/problems/reverse-linked-list/ 题目链接
-
-https://www.collinsdictionary.com/dictionary/ 我喜欢的英文在线字典
 
 - Vocabulary
 
@@ -238,14 +228,6 @@ https://www.collinsdictionary.com/dictionary/ 我喜欢的英文在线字典
 
 ### 06 - lc 113
 
-- Resources
-
-https://www.bilibili.com/video/BV11h4y1P7Yp/?spm_id_from=333.999.0.0 视频链接
-
-https://leetcode.cn/problems/path-sum-ii/description/ 题目链接
-
-https://www.collinsdictionary.com/dictionary/ 我喜欢的英文在线字典
-
 - Vocabulary
 
 | 英文                     | 中文         | 重要程度   |
@@ -281,6 +263,17 @@ If not the leaf node, that means we can keep doing tree traversal to go down. We
 
 ![](../images/english_01.png)
 
+### Resources
+
+https://www.bilibili.com/video/BV11h4y1P7Yp/?spm_id_from=333.999.0.0 视频链接
+
+https://leetcode.cn/problems/path-sum-ii/description/ 题目链接
+
+https://www.collinsdictionary.com/dictionary/ 我喜欢的英文在线字典
+
+在线真人口语练习网站
+https://www.free4talk.com/ 可以选择不同的口语 level 的聊天室，免费
+
 ---
 
 1、前端英语
@@ -292,9 +285,6 @@ https://www.bilibili.com/video/BV1eM411a7dB/?spm_id_from=333.337.search-card.all
 3、前端 React 程序员
 https://www.bilibili.com/video/BV1tm411R7Qt/?spm_id_from=333.337.search-card.all.click&vd_source=ffda878df0ed45bee1ade91d8f451048
 
-4、p6 (杨村长)
-https://www.bilibili.com/video/BV1LB4y1i7aY/?spm_id_from=333.337.search-card.all.click&vd_source=ffda878df0ed45bee1ade91d8f451048
-
 5、程序员英语训练营
 https://www.bilibili.com/video/BV1wM4y1C7LE/?spm_id_from=333.337.search-card.all.click&vd_source=ffda878df0ed45bee1ade91d8f451048
 
@@ -304,3 +294,19 @@ https://space.bilibili.com/403317915
 7、
 
 ![](../images/englist_01.png)
+
+https://www.bilibili.com/video/BV1Kv4y1E72V/?spm_id_from=333.337.search-card.all.click&vd_source=ffda878df0ed45bee1ade91d8f451048
+
+### more frontend interview question:
+
+https://johnsonkow.medium.com/general-frontend-interview-questions-e6186ca4bf2b
+
+https://github.com/h5bp/Front-end-Developer-Interview-Questions?tab=readme-ov-file
+
+https://www.interviewbit.com/front-end-developer-interview-questions/#react-js
+
+https://www.usebraintrust.com/hire/interview-questions/front-end-developers
+
+https://roadmap.sh/questions/frontend
+
+https://www.geeksforgeeks.org/front-end-developer-interview-questions/
