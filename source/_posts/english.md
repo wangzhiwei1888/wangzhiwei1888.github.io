@@ -259,6 +259,92 @@ Then we update the current sum by adding the current node’s value, and then up
 Then if the current node is a leaf node, we can check if the overall sum is equal to the target one. If so, that is one of the valid results to be returned, we add it to the result list.
 If not the leaf node, that means we can keep doing tree traversal to go down. We can either choose to go left or go right. After exploring all possible paths starting from the current node, then we do a backtrack to undo the last node added to the path list, which is just the current node.
 
+
+```
+
+function TreeNode(val, left, right) {
+    this.val = (val===undefined ? 0 : val)
+    this.left = (left===undefined ? null : left)
+    this.right = (right===undefined ? null : right)
+}
+
+class Solution {
+    constructor() {
+        this.ret = [];
+        this.path = [];
+    }
+
+    pathSum(root, targetSum) {
+        this.dfs(root, targetSum);
+        return this.ret;
+    }
+
+    dfs(node, targetSum) {
+        if (!node) return;
+
+        this.path.push(node.val);
+        targetSum -= node.val;
+
+        if (!node.left && !node.right && targetSum === 0) {
+            this.ret.push([...this.path]);
+        }
+
+        this.dfs(node.left, targetSum);
+        this.dfs(node.right, targetSum);
+
+        this.path.pop();
+    }
+}
+
+// Helper function to create a binary tree from an array
+function arrayToTreeNode(arr) {
+    if (!arr || arr.length === 0 || arr[0] === null) return null;
+
+    const root = new TreeNode(arr[0]);
+    const queue = [root];
+    let i = 1;
+
+    while (i < arr.length) {
+        const current = queue.shift();
+
+        if (arr[i] !== null) {
+            current.left = new TreeNode(arr[i]);
+            queue.push(current.left);
+        }
+        i++;
+
+        if (i < arr.length && arr[i] !== null) {
+            current.right = new TreeNode(arr[i]);
+            queue.push(current.right);
+        }
+        i++;
+    }
+
+    return root;
+}
+
+const solution = new Solution();
+
+const root = arrayToTreeNode([5, 4, 8, 11, null, 13, 4, 7, 2, null, null, 5, 1]);
+const targetSum = 22;
+console.log(root)
+
+console.log(JSON.stringify(root))
+console.log(solution.pathSum(root, targetSum)); // Output: [[5,4,11,2],[5,8,4,5]]
+
+// const root1 = arrayToTreeNode([1, 2, 3]);
+// const targetSum1 = 5;
+// console.log(solution.pathSum(root1, targetSum1)); // Output: []
+
+// const root2 = arrayToTreeNode([1, 2]);
+// const targetSum2 = 0;
+// console.log(solution.pathSum(root2, targetSum2)); // Output: []
+
+```
+
+### Resources
+https://www.bilibili.com/video/BV1Uu4y1V7Eg/?spm_id_from=333.999.0.0&vd_source=ffda878df0ed45bee1ade91d8f451048
+
 ### 07 英文简历
 
 ![](../images/english_01.png)
@@ -310,3 +396,8 @@ https://www.usebraintrust.com/hire/interview-questions/front-end-developers
 https://roadmap.sh/questions/frontend
 
 https://www.geeksforgeeks.org/front-end-developer-interview-questions/
+
+
+react interview questions:
+
+https://github.com/wangzhiwei1888/wangzhiwei1888.github.io/tree/master/docs/
