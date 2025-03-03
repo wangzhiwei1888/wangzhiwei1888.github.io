@@ -180,7 +180,7 @@
                   <i class="fa fa-calendar-check-o"></i>
                 </span>
                 <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2025-02-28 15:29:08" itemprop="dateModified" datetime="2025-02-28T15:29:08+08:00">2025-02-28</time>
+                <time title="修改时间：2025-03-03 10:46:40" itemprop="dateModified" datetime="2025-03-03T10:46:40+08:00">2025-03-03</time>
               </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
@@ -437,6 +437,18 @@
 
 <h2 id="vue3-如何重写了虚拟-DOM-的-diff-算法，优化了渲染性能"><a href="#vue3-如何重写了虚拟-DOM-的-diff-算法，优化了渲染性能" class="headerlink" title="vue3 如何重写了虚拟 DOM 的 diff 算法，优化了渲染性能"></a>vue3 如何重写了虚拟 DOM 的 diff 算法，优化了渲染性能</h2><p><a target="_blank" rel="noopener" href="http://localhost:4000/2024/12/12/vue3/">http://localhost:4000/2024/12/12/vue3/</a></p>
 <h2 id="createApp-和-new-Vue-对比有什么好处？"><a href="#createApp-和-new-Vue-对比有什么好处？" class="headerlink" title="createApp 和 new Vue 对比有什么好处？"></a>createApp 和 new Vue 对比有什么好处？</h2><p>1、createApp 创建的应用实例是独立的，全局配置和组件仅对当前实例生效，避免了不同应用实例之间的相互影响。<br>适合大型项目或多团队协作开发，不同子项目可以挂载不同的指令、组件等，互不影响。<br>2、createApp 支持模块化设计，便于按需引入功能，减少打包体积</p>
+<h2 id="首屏速度"><a href="#首屏速度" class="headerlink" title="首屏速度"></a>首屏速度</h2><p>白屏时间</p>
+<p>1、减少首屏资源体积（打包工具的压缩，异步加载，更新较新的版本(按需引入) tree-shaking ,gzip ）去除大的base64体积，尽量少用三方库，图片懒加载</p>
+<p>特殊情况的优化操作：<br>1.首屏数据尽量并行，如何可行让n小数据量接口合并到一个接口中<br>2.无限滚动，可以分批滚动渲染。<br>3.骨架屏，loading,先让屏幕不白，减少用户焦虑</p>
+<p>什么情况会造成卡顿和渲染慢？</p>
+<p>1、一次性操作大量dom</p>
+<p>2、进行了复杂度很高的运算</p>
+<p>3、vue和react项目中，不必要的渲染太多</p>
+<p>vue3<br>v-show 代替 v-if<br>循环，动态切换的内容加上key<br>keep-alive缓存 （）<br>接口更新粒度尽量小，避免不必要的请求</p>
+<p>不变数据，定期时效可以缓存在cookies 或者 localStorage中,比如 token,用户名等</p>
+<p>pinia</p>
+<!-- 2、减少首屏资源数量（减少http请求数量，合并css，图片） -->
+
 
       
     </div>
