@@ -1,0 +1,450 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 7.3.0">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+<link rel="stylesheet" href="/lib/font-awesome/css/font-awesome.min.css">
+
+<script id="hexo-configurations">
+    var NexT = window.NexT || {};
+    var CONFIG = {"hostname":"example.com","root":"/","scheme":"Muse","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":false,"show_result":false,"style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":false,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}}};
+  </script>
+
+  <meta name="description" content="njs在nginx上写JavaScript NGINX JavaScript exampleshttps:&#x2F;&#x2F;github.com&#x2F;nginx&#x2F;njs-examples?tab&#x3D;readme-ov-file#https-fetch-example-http-certs-fetch-https njs、nginx JavaScript、在nginx上写JavaScript、nginx支持js 重点h">
+<meta property="og:type" content="article">
+<meta property="og:title" content="njs">
+<meta property="og:url" content="http://example.com/2024/12/13/njs/index.html">
+<meta property="og:site_name" content="WBlog">
+<meta property="og:description" content="njs在nginx上写JavaScript NGINX JavaScript exampleshttps:&#x2F;&#x2F;github.com&#x2F;nginx&#x2F;njs-examples?tab&#x3D;readme-ov-file#https-fetch-example-http-certs-fetch-https njs、nginx JavaScript、在nginx上写JavaScript、nginx支持js 重点h">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="http://example.com/images/njs_01.png">
+<meta property="og:image" content="http://example.com/images/njs_02.png">
+<meta property="article:published_time" content="2024-12-13T06:52:47.000Z">
+<meta property="article:modified_time" content="2025-03-18T03:10:52.052Z">
+<meta property="article:author" content="wangzhiwei">
+<meta property="article:tag" content="nginx njs quickjs">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="http://example.com/images/njs_01.png">
+
+<link rel="canonical" href="http://example.com/2024/12/13/njs/">
+
+
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome : false,
+    isPost : true,
+    lang   : 'zh-CN'
+  };
+</script>
+
+  <title>njs | WBlog</title>
+  
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div class="container use-motion">
+    <div class="headband"></div>
+
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏">
+      <span class="toggle-line toggle-line-first"></span>
+      <span class="toggle-line toggle-line-middle"></span>
+      <span class="toggle-line toggle-line-last"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <h1 class="site-title">WBlog</h1>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+      <p class="site-subtitle" itemprop="description">wangzhiwei blog</p>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+    </div>
+  </div>
+</div>
+
+
+
+
+<nav class="site-nav">
+  <ul id="menu" class="menu">
+        <li class="menu-item menu-item-home">
+
+    <a href="/" rel="section"><i class="fa fa-fw fa-home"></i>首页</a>
+
+  </li>
+        <li class="menu-item menu-item-archives">
+
+    <a href="/archives/" rel="section"><i class="fa fa-fw fa-archive"></i>归档</a>
+
+  </li>
+  </ul>
+</nav>
+
+
+
+
+</div>
+    </header>
+
+    
+  <div class="back-to-top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+
+
+    <main class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+
+          <div class="content post posts-expand">
+            
+
+    
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="http://example.com/2024/12/13/njs/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="wangzhiwei">
+      <meta itemprop="description" content="javascript nodejs web developer...">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="WBlog">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          njs
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2024-12-13 14:52:47" itemprop="dateCreated datePublished" datetime="2024-12-13T14:52:47+08:00">2024-12-13</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-calendar-check-o"></i>
+                </span>
+                <span class="post-meta-item-text">更新于</span>
+                <time title="修改时间：2025-03-18 11:10:52" itemprop="dateModified" datetime="2025-03-18T11:10:52+08:00">2025-03-18</time>
+              </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/nginx/" itemprop="url" rel="index"><span itemprop="name">nginx</span></a>
+                </span>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+        <h1 id="njs"><a href="#njs" class="headerlink" title="njs"></a>njs</h1><p>在nginx上写JavaScript</p>
+<p>NGINX JavaScript examples<br><a target="_blank" rel="noopener" href="https://github.com/nginx/njs-examples?tab=readme-ov-file#https-fetch-example-http-certs-fetch-https">https://github.com/nginx/njs-examples?tab=readme-ov-file#https-fetch-example-http-certs-fetch-https</a></p>
+<p>njs、nginx JavaScript、在nginx上写JavaScript、nginx支持js</p>
+<p>重点<br><a target="_blank" rel="noopener" href="https://blog.csdn.net/weixin_37064888/article/details/142216573">https://blog.csdn.net/weixin_37064888/article/details/142216573</a><br><a target="_blank" rel="noopener" href="https://github.com/nginx/njs-examples">https://github.com/nginx/njs-examples</a><br><a target="_blank" rel="noopener" href="https://github.com/zongzw-nginx/nginx-njs-usecases">https://github.com/zongzw-nginx/nginx-njs-usecases</a><br><a target="_blank" rel="noopener" href="https://nginx.org/en/docs/njs/reference.html">https://nginx.org/en/docs/njs/reference.html</a><br><a target="_blank" rel="noopener" href="https://www.bilibili.com/video/BV1nq4y1p7gk/?spm_id_from=333.337.search-card.all.click&vd_source=ffda878df0ed45bee1ade91d8f451048">https://www.bilibili.com/video/BV1nq4y1p7gk/?spm_id_from=333.337.search-card.all.click&amp;vd_source=ffda878df0ed45bee1ade91d8f451048</a></p>
+<p><img src="/../images/njs_01.png"></p>
+<p><img src="/../images/njs_02.png"></p>
+<p>其他：<br><a target="_blank" rel="noopener" href="https://www.bilibili.com/video/BV1LB4y1p7p3/?vd_source=ffda878df0ed45bee1ade91d8f451048">https://www.bilibili.com/video/BV1LB4y1p7p3/?vd_source=ffda878df0ed45bee1ade91d8f451048</a><br><a target="_blank" rel="noopener" href="https://baijiahao.baidu.com/s?id=1783143370177474114&wfr=spider&for=pc">https://baijiahao.baidu.com/s?id=1783143370177474114&amp;wfr=spider&amp;for=pc</a><br>njs 迭代版本<br><a target="_blank" rel="noopener" href="https://nginx.org/en/docs/njs/changes.html#njs0.8.4">https://nginx.org/en/docs/njs/changes.html#njs0.8.4</a></p>
+<p><a target="_blank" rel="noopener" href="https://github.com/quickjs-zh/QuickJS?tab=readme-ov-file#21-%E5%AE%89%E8%A3%85">https://github.com/quickjs-zh/QuickJS?tab=readme-ov-file#21-%E5%AE%89%E8%A3%85</a></p>
+<p>Nginx的njs开始支持将QuickJS作为实现引擎了。他们早几年就该这么做。如果在这个之上加多一层node API兼容层可以直接跑主流node module，那在生态上还是有优势的。</p>
+<p>官网+ 现有modules<br><a target="_blank" rel="noopener" href="https://nginx.org/en/docs/">https://nginx.org/en/docs/</a></p>
+<p>QuickJS架构及源代码分析 - 丁乐华 - V8技术讨论会 - OSDT社区 - 20200607</p>
+<p><a target="_blank" rel="noopener" href="https://www.bilibili.com/video/BV1bt4y1y79L/?spm_id_from=333.337.search-card.all.click&vd_source=ffda878df0ed45bee1ade91d8f451048">https://www.bilibili.com/video/BV1bt4y1y79L/?spm_id_from=333.337.search-card.all.click&amp;vd_source=ffda878df0ed45bee1ade91d8f451048</a></p>
+<p>quickjs 使用 英文教程<br><a target="_blank" rel="noopener" href="https://www.bilibili.com/video/BV1XjhmexEFx?spm_id_from=333.788.videopod.sections&vd_source=ffda878df0ed45bee1ade91d8f451048">https://www.bilibili.com/video/BV1XjhmexEFx?spm_id_from=333.788.videopod.sections&amp;vd_source=ffda878df0ed45bee1ade91d8f451048</a></p>
+<p>下载项目<br>git clone nginx njs openssl</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">mac@bogon study % tree -L 1</span><br><span class="line">.</span><br><span class="line">├── nginx</span><br><span class="line">├── njs</span><br><span class="line">├── openssl</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<p>执行编译命令</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">auto/configure --prefix=/usr/local/nginx --with-http_ssl_module --with-openssl=/Users/mac/study/openssl --add-module=../njs/nginx</span><br><span class="line"></span><br><span class="line">sudo make</span><br><span class="line">sudo make install</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+
+<p>script.js</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">function hello(r) &#123;</span><br><span class="line">    r.return(200, &quot;Hello, njs!&quot;);</span><br><span class="line">&#125;</span><br><span class="line">export default &#123; hello &#125;</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<p>nginx.conf</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br></pre></td><td class="code"><pre><span class="line">load_module /usr/local/nginx/modules/ngx_http_js_module.so;</span><br><span class="line"></span><br><span class="line">worker_processes  1;</span><br><span class="line"></span><br><span class="line">events &#123;</span><br><span class="line">    worker_connections  1024;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">http &#123;</span><br><span class="line">    include       mime.types;</span><br><span class="line">    </span><br><span class="line">    js_import main from /usr/local/nginx/conf/script.js;</span><br><span class="line"></span><br><span class="line">    server &#123;</span><br><span class="line">        listen       80;</span><br><span class="line">        server_name  localhost;</span><br><span class="line"></span><br><span class="line">        location / &#123;</span><br><span class="line">            root   html;</span><br><span class="line">            index  index.html index.htm;</span><br><span class="line">        &#125;</span><br><span class="line">    </span><br><span class="line">        location /hello &#123;</span><br><span class="line">            js_content main.hello;</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        error_page   500 502 503 504  /50x.html;</span><br><span class="line">        location = /50x.html &#123;</span><br><span class="line">            root   html;</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">&#125;</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">function hello(r) &#123;</span><br><span class="line">    r.return(200, &quot;Hello, njs!&quot;);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">function handleHeadersRequest(r) &#123;</span><br><span class="line">    var userAgent = r.headersIn[&#x27;User-Agent&#x27;] || &quot;&quot;;</span><br><span class="line">    if (userAgent.includes(&quot;Chrome&quot;)) &#123;</span><br><span class="line">        r.return(200, &quot;You are using Chrome.&quot;);</span><br><span class="line">    &#125; else &#123;</span><br><span class="line">        r.return(200, &quot;You are not using Chrome.&quot;);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">function handleSearchRequest(r) &#123;</span><br><span class="line">    var query = r.args[&#x27;query&#x27;];</span><br><span class="line">    if (query) &#123;</span><br><span class="line">        r.return(200, &quot;Search query: &quot; + query);</span><br><span class="line">    &#125; else &#123;</span><br><span class="line">        r.return(400, &quot;No search query provided.&quot;);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line">export default &#123; hello, handleHeadersRequest, handleSearchRequest &#125;</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<p>nginx.conf</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br></pre></td><td class="code"><pre><span class="line">load_module /usr/local/nginx/modules/ngx_http_js_module.so;</span><br><span class="line"></span><br><span class="line">worker_processes  1;</span><br><span class="line"></span><br><span class="line">events &#123;</span><br><span class="line">    worker_connections  1024;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">http &#123;</span><br><span class="line">    include       mime.types;</span><br><span class="line">    </span><br><span class="line">    js_import main from /usr/local/nginx/conf/script.js;</span><br><span class="line"></span><br><span class="line">    server &#123;</span><br><span class="line">        listen       80;</span><br><span class="line">        server_name  localhost;</span><br><span class="line"></span><br><span class="line">        location / &#123;</span><br><span class="line">            root   html;</span><br><span class="line">            index  index.html index.htm;</span><br><span class="line">        &#125;</span><br><span class="line">    </span><br><span class="line">        location /hello &#123;</span><br><span class="line">            js_content main.hello;</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        location /test &#123;</span><br><span class="line">            js_content main.handleHeadersRequest;</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        location /search &#123;</span><br><span class="line">            js_content main.handleSearchRequest;</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        error_page   500 502 503 504  /50x.html;</span><br><span class="line">        location = /50x.html &#123;</span><br><span class="line">            root   html;</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">&#125;</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<p>–with-http_auth_request_module</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">auto/configure --prefix=/usr/local/nginx --with-http_ssl_module --with-openssl=/Users/mac/study/openssl --with-http_auth_request_module --add-dynamic-module=../njs/nginx</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+
+<p>njs 默认提供的模块，可以直接使用，npm 的模块现在看还不能直接用。</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">import fs from &#x27;fs&#x27;;</span><br><span class="line">import qs from &#x27;querystring&#x27;;</span><br><span class="line">import cr from &#x27;crypto&#x27;;</span><br><span class="line">import xml from &#x27;xml&#x27;;</span><br><span class="line">import zlib from &#x27;zlib&#x27;;</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<p>njs 源码分析<br>njs内存池代码阅读<br><a target="_blank" rel="noopener" href="https://blog.csdn.net/qq_41252394/article/details/126575902">https://blog.csdn.net/qq_41252394/article/details/126575902</a></p>
+<ul>
+<li>为其它环境(如QuickJs)提供模块加载功能，以复用npm上的模块包；<br><a target="_blank" rel="noopener" href="https://juejin.cn/post/6844903971316842509">https://juejin.cn/post/6844903971316842509</a></li>
+</ul>
+<p>深度分析quickjs<br><a target="_blank" rel="noopener" href="https://ming1016.github.io/2021/02/21/deeply-analyse-quickjs/#QuickJS">https://ming1016.github.io/2021/02/21/deeply-analyse-quickjs/#QuickJS</a></p>
+<p>安装nginx并配置nginxscript(njs)实现请求头验证或者分流</p>
+<p><a target="_blank" rel="noopener" href="https://www.cnblogs.com/antake/p/16301492.html">https://www.cnblogs.com/antake/p/16301492.html</a></p>
+<p>NGINX+NJS应用场景之 带内容预览功能的文件服务器<br><a target="_blank" rel="noopener" href="https://community.f5chinanetworks.com/pc-post-426.html">https://community.f5chinanetworks.com/pc-post-426.html</a></p>
+
+    </div>
+
+    
+    
+    
+
+      <footer class="post-footer">
+          <div class="post-tags">
+              <a href="/tags/nginx-njs-quickjs/" rel="tag"># nginx njs quickjs</a>
+          </div>
+
+        
+
+
+        
+    <div class="post-nav">
+      <div class="post-nav-item">
+    <a href="/2024/12/13/quickjs/" rel="prev" title="quickjs">
+      <i class="fa fa-chevron-left"></i> quickjs
+    </a></div>
+      <div class="post-nav-item">
+    <a href="/2024/12/13/go/" rel="next" title="go">
+      go <i class="fa fa-chevron-right"></i>
+    </a></div>
+    </div>
+      </footer>
+    
+  </article>
+  
+  
+  
+
+
+
+          </div>
+          
+
+<script>
+  window.addEventListener('tabs:register', () => {
+    let { activeClass } = CONFIG.comments;
+    if (CONFIG.comments.storage) {
+      activeClass = localStorage.getItem('comments_active') || activeClass;
+    }
+    if (activeClass) {
+      let activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      if (activeTab) {
+        activeTab.click();
+      }
+    }
+  });
+  if (CONFIG.comments.storage) {
+    window.addEventListener('tabs:click', event => {
+      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
+      let commentClass = event.target.classList[1];
+      localStorage.setItem('comments_active', commentClass);
+    });
+  }
+</script>
+
+        </div>
+          
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line toggle-line-first"></span>
+    <span class="toggle-line toggle-line-middle"></span>
+    <span class="toggle-line toggle-line-last"></span>
+  </div>
+
+  <aside class="sidebar">
+    <div class="sidebar-inner">
+
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#njs"><span class="nav-number">1.</span> <span class="nav-text">njs</span></a></li></ol></div>
+      </div>
+      <!--/noindex-->
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+  <p class="site-author-name" itemprop="name">wangzhiwei</p>
+  <div class="site-description" itemprop="description">javascript nodejs web developer...</div>
+</div>
+<div class="site-state-wrap motion-element">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">61</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+        <span class="site-state-item-count">56</span>
+        <span class="site-state-item-name">分类</span>
+      </div>
+      <div class="site-state-item site-state-tags">
+        <span class="site-state-item-count">62</span>
+        <span class="site-state-item-name">标签</span>
+      </div>
+  </nav>
+</div>
+
+
+
+      </div>
+
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+    </main>
+
+    <footer class="footer">
+      <div class="footer-inner">
+        
+
+        
+
+<div class="copyright">
+  
+  &copy; 
+  <span itemprop="copyrightYear">2025</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">wangzhiwei</span>
+</div>
+  <div class="powered-by">由 <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> & <a href="https://muse.theme-next.org/" class="theme-link" rel="noopener" target="_blank">NexT.Muse</a> 强力驱动
+  </div>
+
+        
+
+
+
+
+
+
+
+
+      </div>
+    </footer>
+  </div>
+
+  
+  <script src="/lib/anime.min.js"></script>
+  <script src="/lib/velocity/velocity.min.js"></script>
+  <script src="/lib/velocity/velocity.ui.min.js"></script>
+
+<script src="/js/utils.js"></script>
+
+<script src="/js/motion.js"></script>
+
+
+<script src="/js/schemes/muse.js"></script>
+
+
+<script src="/js/next-boot.js"></script>
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  
+
+</body>
+</html>

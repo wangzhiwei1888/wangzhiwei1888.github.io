@@ -1,0 +1,467 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 7.3.0">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+<link rel="stylesheet" href="/lib/font-awesome/css/font-awesome.min.css">
+
+<script id="hexo-configurations">
+    var NexT = window.NexT || {};
+    var CONFIG = {"hostname":"example.com","root":"/","scheme":"Muse","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":false,"show_result":false,"style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":false,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}}};
+  </script>
+
+  <meta name="description" content="package.json 1234567891011121314151617181920&#123;  &quot;name&quot;: &quot;01&quot;,  &quot;version&quot;: &quot;1.0.0&quot;,  &quot;main&quot;: &quot;index.js&quot;,  &quot;scripts&quot;: &#123;">
+<meta property="og:type" content="article">
+<meta property="og:title" content="graphql + express">
+<meta property="og:url" content="http://example.com/2024/12/13/graphql-express/index.html">
+<meta property="og:site_name" content="WBlog">
+<meta property="og:description" content="package.json 1234567891011121314151617181920&#123;  &quot;name&quot;: &quot;01&quot;,  &quot;version&quot;: &quot;1.0.0&quot;,  &quot;main&quot;: &quot;index.js&quot;,  &quot;scripts&quot;: &#123;">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="http://example.com/images/graphql_01.png">
+<meta property="og:image" content="http://example.com/images/graphql_02.png">
+<meta property="og:image" content="http://example.com/images/graphql_03.png">
+<meta property="og:image" content="http://example.com/images/graphql_04.png">
+<meta property="og:image" content="http://example.com/images/graphql_05.png">
+<meta property="og:image" content="http://example.com/images/graphql_06.png">
+<meta property="og:image" content="http://example.com/images/graphql_07.png">
+<meta property="og:image" content="http://example.com/images/graphql_08.png">
+<meta property="article:published_time" content="2024-12-13T07:18:53.000Z">
+<meta property="article:modified_time" content="2025-03-18T03:10:52.051Z">
+<meta property="article:author" content="wangzhiwei">
+<meta property="article:tag" content="graphql">
+<meta property="article:tag" content="express">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="http://example.com/images/graphql_01.png">
+
+<link rel="canonical" href="http://example.com/2024/12/13/graphql-express/">
+
+
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome : false,
+    isPost : true,
+    lang   : 'zh-CN'
+  };
+</script>
+
+  <title>graphql + express | WBlog</title>
+  
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div class="container use-motion">
+    <div class="headband"></div>
+
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏">
+      <span class="toggle-line toggle-line-first"></span>
+      <span class="toggle-line toggle-line-middle"></span>
+      <span class="toggle-line toggle-line-last"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <h1 class="site-title">WBlog</h1>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+      <p class="site-subtitle" itemprop="description">wangzhiwei blog</p>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+    </div>
+  </div>
+</div>
+
+
+
+
+<nav class="site-nav">
+  <ul id="menu" class="menu">
+        <li class="menu-item menu-item-home">
+
+    <a href="/" rel="section"><i class="fa fa-fw fa-home"></i>首页</a>
+
+  </li>
+        <li class="menu-item menu-item-archives">
+
+    <a href="/archives/" rel="section"><i class="fa fa-fw fa-archive"></i>归档</a>
+
+  </li>
+  </ul>
+</nav>
+
+
+
+
+</div>
+    </header>
+
+    
+  <div class="back-to-top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+
+
+    <main class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+
+          <div class="content post posts-expand">
+            
+
+    
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="http://example.com/2024/12/13/graphql-express/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="wangzhiwei">
+      <meta itemprop="description" content="javascript nodejs web developer...">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="WBlog">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          graphql + express
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2024-12-13 15:18:53" itemprop="dateCreated datePublished" datetime="2024-12-13T15:18:53+08:00">2024-12-13</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-calendar-check-o"></i>
+                </span>
+                <span class="post-meta-item-text">更新于</span>
+                <time title="修改时间：2025-03-18 11:10:52" itemprop="dateModified" datetime="2025-03-18T11:10:52+08:00">2025-03-18</time>
+              </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/graphql/" itemprop="url" rel="index"><span itemprop="name">graphql</span></a>
+                </span>
+                  ，
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/graphql/node/" itemprop="url" rel="index"><span itemprop="name">node</span></a>
+                </span>
+                  ，
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/graphql/node/express/" itemprop="url" rel="index"><span itemprop="name">express</span></a>
+                </span>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+        <p><img src="/../images/graphql_01.png"></p>
+<p>package.json</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">&#123;</span><br><span class="line">  &quot;name&quot;: &quot;01&quot;,</span><br><span class="line">  &quot;version&quot;: &quot;1.0.0&quot;,</span><br><span class="line">  &quot;main&quot;: &quot;index.js&quot;,</span><br><span class="line">  &quot;scripts&quot;: &#123;</span><br><span class="line">    &quot;test&quot;: &quot;echo \&quot;Error: no test specified\&quot; &amp;&amp; exit 1&quot;</span><br><span class="line">  &#125;,</span><br><span class="line">  &quot;keywords&quot;: [],</span><br><span class="line">  &quot;author&quot;: &quot;&quot;,</span><br><span class="line">  &quot;license&quot;: &quot;ISC&quot;,</span><br><span class="line">  &quot;description&quot;: &quot;&quot;,</span><br><span class="line">  &quot;dependencies&quot;: &#123;</span><br><span class="line">    &quot;express&quot;: &quot;^4.21.2&quot;,</span><br><span class="line">    &quot;express-graphql&quot;: &quot;^0.12.0&quot;,</span><br><span class="line">    &quot;graphql&quot;: &quot;^16.9.0&quot;,</span><br><span class="line">    &quot;nodemon&quot;: &quot;^3.1.7&quot;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<p>helloworld.js</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br></pre></td><td class="code"><pre><span class="line">const express = require(&#x27;express&#x27;);</span><br><span class="line">const &#123; buildSchema &#125; = require(&#x27;graphql&#x27;);</span><br><span class="line">const &#123;graphqlHTTP&#125; = require(&#x27;express-graphql&#x27;);</span><br><span class="line"></span><br><span class="line">const schema = buildSchema(`</span><br><span class="line">  type Account &#123;</span><br><span class="line">    name: String</span><br><span class="line">    age: Int,</span><br><span class="line">    sex: String,</span><br><span class="line">    department: String</span><br><span class="line">  &#125;</span><br><span class="line">  type Query &#123;</span><br><span class="line">    hello: String,</span><br><span class="line">    accountName: String,</span><br><span class="line">    age: Int,</span><br><span class="line">    account: Account</span><br><span class="line">  &#125;</span><br><span class="line">`);</span><br><span class="line"></span><br><span class="line">const root = &#123;</span><br><span class="line">  hello: () =&gt; &#123;</span><br><span class="line">    return &#x27;Hello world!&#x27;;</span><br><span class="line">  &#125;,</span><br><span class="line">  accountName: () =&gt; &#123;</span><br><span class="line">    return &#x27;Account Name&#x27;;</span><br><span class="line">  &#125;,</span><br><span class="line">  age: () =&gt; &#123;</span><br><span class="line">    return 30;</span><br><span class="line">  &#125;,</span><br><span class="line">  account: () =&gt; &#123;</span><br><span class="line">    return &#123;</span><br><span class="line">      name: &#x27;Account Name&#x27;,</span><br><span class="line">      age: 30,</span><br><span class="line">      sex: &#x27;Male&#x27;,</span><br><span class="line">      department: &#x27;IT&#x27;</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line">const app = express();</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">app.use(&#x27;/graphql&#x27;, graphqlHTTP(&#123;</span><br><span class="line">  schema: schema,</span><br><span class="line">  rootValue: root,</span><br><span class="line">  graphiql: true,</span><br><span class="line">&#125;));</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">app.listen(4000);</span><br><span class="line"></span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">nodemon helloworld.js</span><br><span class="line"></span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<p>二、</p>
+<p><img src="/../images/graphql_02.png"></p>
+<p>baseType.js</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br></pre></td><td class="code"><pre><span class="line">const express = require(&#x27;express&#x27;);</span><br><span class="line">const &#123; buildSchema &#125; = require(&#x27;graphql&#x27;);</span><br><span class="line">const &#123;graphqlHTTP&#125; = require(&#x27;express-graphql&#x27;);</span><br><span class="line"></span><br><span class="line">//!为必须参数</span><br><span class="line">const schema = buildSchema(`</span><br><span class="line">  </span><br><span class="line">  type Account &#123;</span><br><span class="line">    name: String</span><br><span class="line">    age: Int</span><br><span class="line">    sex: String</span><br><span class="line">    department: String</span><br><span class="line">    salary(city: String!): Int</span><br><span class="line">  &#125;</span><br><span class="line">  type Query &#123;</span><br><span class="line">    getClassMates(classNum: Int!):[String]</span><br><span class="line">    account(username: String!): Account</span><br><span class="line">  &#125;</span><br><span class="line">`);</span><br><span class="line"></span><br><span class="line">const root = &#123;</span><br><span class="line">  getClassMates: (&#123;classNum&#125;) =&gt; &#123;</span><br><span class="line">    const obj = &#123;</span><br><span class="line">        1: [&#x27;Jack&#x27;, &#x27;Rose&#x27;, &#x27;Lucy&#x27;],</span><br><span class="line">        2: [&#x27;Tom&#x27;, &#x27;Jerry&#x27;, &#x27;Mike&#x27;]</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    return obj[classNum];</span><br><span class="line">  &#125;,</span><br><span class="line">  account: (&#123;username&#125;) =&gt; &#123;</span><br><span class="line">    const name = username;</span><br><span class="line">    const sex = &#x27;Male&#x27;;</span><br><span class="line">    const age = 30;</span><br><span class="line">    const department = &#x27;IT&#x27;;</span><br><span class="line">    const salary = (&#123;city&#125;) =&gt; &#123;</span><br><span class="line">      return city === &#x27;北京&#x27; ? 10000 : 4000;</span><br><span class="line">    &#125;</span><br><span class="line">    return &#123;name, sex, age, department, salary&#125;;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line">const app = express();</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">app.use(&#x27;/graphql&#x27;, graphqlHTTP(&#123;</span><br><span class="line">  schema: schema,</span><br><span class="line">  rootValue: root,</span><br><span class="line">  graphiql: true,</span><br><span class="line">&#125;));</span><br><span class="line"></span><br><span class="line">app.listen(4000);</span><br><span class="line"></span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<p>三</p>
+<p>baseType.js</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br></pre></td><td class="code"><pre><span class="line">const express = require(&#x27;express&#x27;);</span><br><span class="line">const &#123; buildSchema &#125; = require(&#x27;graphql&#x27;);</span><br><span class="line">const &#123;graphqlHTTP&#125; = require(&#x27;express-graphql&#x27;);</span><br><span class="line"></span><br><span class="line">//!为必须参数</span><br><span class="line">const schema = buildSchema(`</span><br><span class="line">  </span><br><span class="line">  type Account &#123;</span><br><span class="line">    name: String</span><br><span class="line">    age: Int</span><br><span class="line">    sex: String</span><br><span class="line">    department: String</span><br><span class="line">    salary(city: String): Int</span><br><span class="line">  &#125;</span><br><span class="line">  type Query &#123;</span><br><span class="line">    getClassMates(classNum: Int!):[String]</span><br><span class="line">    account(username: String): Account</span><br><span class="line">  &#125;</span><br><span class="line">`);</span><br><span class="line"></span><br><span class="line">const root = &#123;</span><br><span class="line">  getClassMates: (&#123;classNum&#125;) =&gt; &#123;</span><br><span class="line">    const obj = &#123;</span><br><span class="line">        1: [&#x27;Jack&#x27;, &#x27;Rose&#x27;, &#x27;Lucy&#x27;],</span><br><span class="line">        2: [&#x27;Tom&#x27;, &#x27;Jerry&#x27;, &#x27;Mike&#x27;]</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    return obj[classNum];</span><br><span class="line">  &#125;,</span><br><span class="line">  account: (&#123;username&#125;) =&gt; &#123;</span><br><span class="line">    const name = username;</span><br><span class="line">    const sex = &#x27;Male&#x27;;</span><br><span class="line">    const age = 30;</span><br><span class="line">    const department = &#x27;IT&#x27;;</span><br><span class="line">    const salary = (&#123;city&#125;) =&gt; &#123;</span><br><span class="line">      return city === &#x27;北京&#x27; ? 10000 : 4000;</span><br><span class="line">    &#125;</span><br><span class="line">    return &#123;name, sex, age, department, salary&#125;;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line">const app = express();</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">app.use(&#x27;/graphql&#x27;, graphqlHTTP(&#123;</span><br><span class="line">  schema: schema,</span><br><span class="line">  rootValue: root,</span><br><span class="line">  graphiql: true,</span><br><span class="line">&#125;));</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">//静态资源目录</span><br><span class="line">app.use(express.static(&#x27;public&#x27;));</span><br><span class="line"></span><br><span class="line">app.listen(4000);</span><br><span class="line"></span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<p>index.html</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">&lt;!DOCTYPE html&gt;</span><br><span class="line">&lt;html lang=&quot;en&quot;&gt;</span><br><span class="line">&lt;head&gt;</span><br><span class="line">    &lt;meta charset=&quot;UTF-8&quot;&gt;</span><br><span class="line">    &lt;meta name=&quot;viewport&quot; content=&quot;width=device-width, initial-scale=1.0&quot;&gt;</span><br><span class="line">    &lt;title&gt;Document&lt;/title&gt;</span><br><span class="line">&lt;/head&gt;</span><br><span class="line">&lt;body&gt;</span><br><span class="line">    </span><br><span class="line">    &lt;button onclick=&quot;getData()&quot;&gt;获取数据&lt;/button&gt;</span><br><span class="line"></span><br><span class="line">    &lt;script&gt;</span><br><span class="line"></span><br><span class="line">        function getData()&#123;</span><br><span class="line">            // 1.创建对象</span><br><span class="line">            const query = `</span><br><span class="line">            query Account($username: String, $city: String) &#123;</span><br><span class="line">                account(username: $username) &#123;</span><br><span class="line">                    name</span><br><span class="line">                    age</span><br><span class="line">                    sex</span><br><span class="line">                    salary(city: $city)</span><br><span class="line">                &#125;</span><br><span class="line">            &#125;</span><br><span class="line">            `</span><br><span class="line">            const variables = &#123;</span><br><span class="line">                username: &#x27;zhangsan&#x27;,</span><br><span class="line">                city: &#x27;北京&#x27;</span><br><span class="line">            &#125;</span><br><span class="line"></span><br><span class="line">            fetch(&#x27;/graphql&#x27;, &#123;</span><br><span class="line">                method: &#x27;POST&#x27;,</span><br><span class="line">                headers: &#123;</span><br><span class="line">                    &#x27;Content-Type&#x27;: &#x27;application/json&#x27;,</span><br><span class="line">                    &#x27;Accept&#x27;: &#x27;application/json&#x27;,</span><br><span class="line">                &#125;,</span><br><span class="line">                    body: JSON.stringify(&#123;query, variables&#125;)</span><br><span class="line">                &#125;)</span><br><span class="line">                .then(res =&gt; res.json())</span><br><span class="line">                .then(data =&gt; &#123;</span><br><span class="line">                    console.log(data)</span><br><span class="line">                &#125;</span><br><span class="line">            )</span><br><span class="line">            </span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">    &lt;/script&gt;</span><br><span class="line">&lt;/body&gt;</span><br><span class="line">&lt;/html&gt;</span><br><span class="line"></span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<p>四、添加、修改、查询</p>
+<p><img src="/../images/graphql_03.png"></p>
+<p>mutation.js</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">const express = require(&#x27;express&#x27;);</span><br><span class="line">const &#123; buildSchema &#125; = require(&#x27;graphql&#x27;);</span><br><span class="line">const &#123;graphqlHTTP&#125; = require(&#x27;express-graphql&#x27;);</span><br><span class="line"></span><br><span class="line">const schema = buildSchema(`</span><br><span class="line">  type Account &#123;</span><br><span class="line">    name: String</span><br><span class="line">    age: Int</span><br><span class="line">    sex: String</span><br><span class="line">    department: String</span><br><span class="line">  &#125;</span><br><span class="line">  input AccountInput &#123;</span><br><span class="line">    name: String</span><br><span class="line">    age: Int</span><br><span class="line">    sex: String</span><br><span class="line">    department: String</span><br><span class="line">  &#125;</span><br><span class="line">  type Mutation &#123;</span><br><span class="line">    createAccount(input: AccountInput): Account</span><br><span class="line">    updateAccount(id: ID!, input: AccountInput): Account</span><br><span class="line">  &#125;</span><br><span class="line">  type Query &#123;</span><br><span class="line">    account: [Account]</span><br><span class="line">  &#125;</span><br><span class="line">`);</span><br><span class="line"></span><br><span class="line">const fakeDb = &#123;&#125;;</span><br><span class="line"></span><br><span class="line">const root = &#123;</span><br><span class="line">  createAccount: (&#123;input&#125;) =&gt; &#123;</span><br><span class="line">    //相当与数据库的保存</span><br><span class="line">    fakeDb[input.name] = input;</span><br><span class="line">    //返回保存结果</span><br><span class="line">    return fakeDb[input.name]</span><br><span class="line">  &#125;,</span><br><span class="line">  updateAccount: (&#123;id, input&#125;) =&gt; &#123;</span><br><span class="line">    //相当与数据库的更新</span><br><span class="line">    fakeDb[id] = Object.assign(&#123;&#125;, fakeDb[id], input);</span><br><span class="line">    //返回更新结果</span><br><span class="line">    return fakeDb[id]</span><br><span class="line">  &#125;,</span><br><span class="line">  account: () =&gt; &#123;</span><br><span class="line">    var arr = [];</span><br><span class="line">    for(const key in fakeDb) &#123;</span><br><span class="line">      arr.push(fakeDb[key]);</span><br><span class="line">    &#125;</span><br><span class="line">    return arr;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line">const app = express();</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">app.use(&#x27;/graphql&#x27;, graphqlHTTP(&#123;</span><br><span class="line">  schema: schema,</span><br><span class="line">  rootValue: root,</span><br><span class="line">  graphiql: true,</span><br><span class="line">&#125;));</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">app.listen(4000);</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<p>五、权限控制，中间件</p>
+<p><img src="/../images/graphql_04.png"></p>
+<p><img src="/../images/graphql_05.png"></p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">const express = require(&#x27;express&#x27;);</span><br><span class="line">const &#123; buildSchema &#125; = require(&#x27;graphql&#x27;);</span><br><span class="line">const &#123;graphqlHTTP&#125; = require(&#x27;express-graphql&#x27;);</span><br><span class="line"></span><br><span class="line">const schema = buildSchema(`</span><br><span class="line">  type Account &#123;</span><br><span class="line">    name: String</span><br><span class="line">    age: Int</span><br><span class="line">    sex: String</span><br><span class="line">    department: String</span><br><span class="line">  &#125;</span><br><span class="line">  input AccountInput &#123;</span><br><span class="line">    name: String</span><br><span class="line">    age: Int</span><br><span class="line">    sex: String</span><br><span class="line">    department: String</span><br><span class="line">  &#125;</span><br><span class="line">  type Mutation &#123;</span><br><span class="line">    createAccount(input: AccountInput): Account</span><br><span class="line">    updateAccount(id: ID!, input: AccountInput): Account</span><br><span class="line">  &#125;</span><br><span class="line">  type Query &#123;</span><br><span class="line">    account: [Account]</span><br><span class="line">  &#125;</span><br><span class="line">`);</span><br><span class="line"></span><br><span class="line">const fakeDb = &#123;&#125;;</span><br><span class="line"></span><br><span class="line">const root = &#123;</span><br><span class="line">  createAccount: (&#123;input&#125;) =&gt; &#123;</span><br><span class="line">    //相当与数据库的保存</span><br><span class="line">    fakeDb[input.name] = input;</span><br><span class="line">    //返回保存结果</span><br><span class="line">    return fakeDb[input.name]</span><br><span class="line">  &#125;,</span><br><span class="line">  updateAccount: (&#123;id, input&#125;) =&gt; &#123;</span><br><span class="line">    //相当与数据库的更新</span><br><span class="line">    fakeDb[id] = Object.assign(&#123;&#125;, fakeDb[id], input);</span><br><span class="line">    //返回更新结果</span><br><span class="line">    return fakeDb[id]</span><br><span class="line">  &#125;,</span><br><span class="line">  account: () =&gt; &#123;</span><br><span class="line">    var arr = [];</span><br><span class="line">    for(const key in fakeDb) &#123;</span><br><span class="line">      arr.push(fakeDb[key]);</span><br><span class="line">    &#125;</span><br><span class="line">    return arr;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line">const app = express();</span><br><span class="line"></span><br><span class="line">const middleware = (req, res, next) =&gt; &#123;</span><br><span class="line"></span><br><span class="line">    if(req.url.indexOf(&#x27;/graphql&#x27;) &gt; -1 &amp;&amp; req.headers.cookie.indexOf(&#x27;auth&#x27;) === -1) &#123;</span><br><span class="line">        res.send(JSON.stringify(&#123;</span><br><span class="line">            error: &quot;您没有权限访问该页面&quot;</span><br><span class="line">        &#125;))</span><br><span class="line">        return;</span><br><span class="line">    &#125;</span><br><span class="line">    next();</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">app.use(middleware);</span><br><span class="line"></span><br><span class="line">app.use(&#x27;/graphql&#x27;, graphqlHTTP(&#123;</span><br><span class="line">  schema: schema,</span><br><span class="line">  rootValue: root,</span><br><span class="line">  graphiql: true,</span><br><span class="line">&#125;));</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">app.listen(4000);</span><br><span class="line"></span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+
+<p>六、</p>
+<p><img src="/../images/graphql_06.png"></p>
+<p>七、使用GraphQLObjectType</p>
+<p><img src="/../images/graphql_07.png"></p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">const express = require(&#x27;express&#x27;);</span><br><span class="line">const graphql = require(&#x27;graphql&#x27;);</span><br><span class="line">const &#123;graphqlHTTP&#125; = require(&#x27;express-graphql&#x27;);</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">const &#123; GraphQLInt, GraphQLString, GraphQLObjectType, GraphQLSchema &#125; = graphql;</span><br><span class="line"></span><br><span class="line">var AccountType = new GraphQLObjectType(&#123;</span><br><span class="line">  name: &#x27;Account&#x27;,</span><br><span class="line">  fields: &#123;</span><br><span class="line">    name: &#123; type: GraphQLString &#125;,</span><br><span class="line">    age: &#123; type: GraphQLInt &#125;,</span><br><span class="line">    sex: &#123; type: GraphQLString &#125;,</span><br><span class="line">    department: &#123; type: GraphQLString &#125;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;);</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">var queryType = new GraphQLObjectType(&#123;</span><br><span class="line">  name: &#x27;Query&#x27;,</span><br><span class="line">  fields: &#123;</span><br><span class="line">    account: &#123;</span><br><span class="line">      type: AccountType,</span><br><span class="line">      args: &#123;</span><br><span class="line">        username: &#123; type: GraphQLString &#125;</span><br><span class="line">      &#125;,</span><br><span class="line">      resolve: function (_, &#123; username &#125;) &#123;</span><br><span class="line">        return &#123;</span><br><span class="line">          name: username,</span><br><span class="line">          age: 30,</span><br><span class="line">          sex: &#x27;Male&#x27;,</span><br><span class="line">          department: &#x27;IT&#x27;</span><br><span class="line">       &#125;</span><br><span class="line">      &#125;</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;)</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">var schema = new GraphQLSchema(&#123; query: queryType &#125;);</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"></span><br><span class="line"></span><br><span class="line">const app = express();</span><br><span class="line"></span><br><span class="line">app.use(&#x27;/graphql&#x27;, graphqlHTTP(&#123;</span><br><span class="line">    schema: schema,</span><br><span class="line">    graphiql: true,</span><br><span class="line">  &#125;));</span><br><span class="line">  </span><br><span class="line">  </span><br><span class="line">  app.listen(4000);</span><br><span class="line"></span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<p>八、链接 mysql 实现增删改查</p>
+<p><img src="/../images/graphql_08.png"></p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br><span class="line">100</span><br><span class="line">101</span><br><span class="line">102</span><br><span class="line">103</span><br><span class="line">104</span><br><span class="line">105</span><br><span class="line">106</span><br><span class="line">107</span><br><span class="line">108</span><br><span class="line">109</span><br><span class="line">110</span><br><span class="line">111</span><br><span class="line">112</span><br><span class="line">113</span><br><span class="line">114</span><br><span class="line">115</span><br><span class="line">116</span><br><span class="line">117</span><br><span class="line">118</span><br><span class="line">119</span><br><span class="line">120</span><br><span class="line">121</span><br><span class="line">122</span><br><span class="line">123</span><br><span class="line">124</span><br><span class="line">125</span><br><span class="line">126</span><br><span class="line">127</span><br><span class="line">128</span><br><span class="line">129</span><br><span class="line">130</span><br><span class="line">131</span><br><span class="line">132</span><br><span class="line">133</span><br><span class="line">134</span><br><span class="line">135</span><br><span class="line">136</span><br><span class="line">137</span><br><span class="line">138</span><br><span class="line">139</span><br><span class="line">140</span><br><span class="line">141</span><br><span class="line">142</span><br><span class="line">143</span><br><span class="line">144</span><br><span class="line">145</span><br><span class="line">146</span><br><span class="line">147</span><br><span class="line">148</span><br><span class="line">149</span><br><span class="line">150</span><br><span class="line">151</span><br><span class="line">152</span><br><span class="line">153</span><br><span class="line">154</span><br><span class="line">155</span><br><span class="line">156</span><br><span class="line">157</span><br><span class="line">158</span><br><span class="line">159</span><br><span class="line">160</span><br><span class="line">161</span><br><span class="line">162</span><br><span class="line">163</span><br><span class="line">164</span><br><span class="line">165</span><br><span class="line">166</span><br><span class="line">167</span><br><span class="line">168</span><br><span class="line">169</span><br><span class="line">170</span><br><span class="line">171</span><br><span class="line">172</span><br><span class="line">173</span><br><span class="line">174</span><br><span class="line">175</span><br><span class="line">176</span><br><span class="line">177</span><br><span class="line">178</span><br><span class="line">179</span><br><span class="line">180</span><br><span class="line">181</span><br><span class="line">182</span><br><span class="line">183</span><br><span class="line">184</span><br><span class="line">185</span><br><span class="line">186</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">const express = require(&#x27;express&#x27;);</span><br><span class="line">const &#123; buildSchema &#125; = require(&#x27;graphql&#x27;);</span><br><span class="line">const &#123;graphqlHTTP&#125; = require(&#x27;express-graphql&#x27;);</span><br><span class="line">const mysql = require(&#x27;mysql2&#x27;);</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">var connection = mysql.createConnection(&#123;</span><br><span class="line">  host     : &#x27;localhost&#x27;,</span><br><span class="line">  user     : &#x27;admin&#x27;,</span><br><span class="line">  password : &#x27;Jason@#123&#x27;,</span><br><span class="line">  database : &#x27;dashen&#x27;</span><br><span class="line">&#125;);</span><br><span class="line"> </span><br><span class="line">connection.connect((err) =&gt; &#123;</span><br><span class="line">  if (err) &#123;</span><br><span class="line">    console.error(&#x27;Error connecting to MySQL:&#x27;, err);</span><br><span class="line">    process.exit(1);</span><br><span class="line">  &#125;</span><br><span class="line">  console.log(&#x27;Connected to MySQL database&#x27;);</span><br><span class="line">&#125;);</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">const schema = buildSchema(`</span><br><span class="line">  type Account &#123;</span><br><span class="line">    name: String</span><br><span class="line">    age: Int</span><br><span class="line">    sex: String</span><br><span class="line">    department: String</span><br><span class="line">  &#125;</span><br><span class="line">  input AccountInput &#123;</span><br><span class="line">    name: String</span><br><span class="line">    age: Int</span><br><span class="line">    sex: String</span><br><span class="line">    department: String</span><br><span class="line">  &#125;</span><br><span class="line">  type Mutation &#123;</span><br><span class="line">    createAccount(input: AccountInput): Account</span><br><span class="line">    updateAccount(id: ID!, input: AccountInput): Account</span><br><span class="line">    deleteAccount(id: ID!): Boolean</span><br><span class="line">  &#125;</span><br><span class="line">  type Query &#123;</span><br><span class="line">    account: [Account]</span><br><span class="line">  &#125;</span><br><span class="line">`);</span><br><span class="line"></span><br><span class="line">const fakeDb = &#123;&#125;;</span><br><span class="line"></span><br><span class="line">const root = &#123;</span><br><span class="line">  createAccount: (&#123;input&#125;) =&gt; &#123;</span><br><span class="line">    </span><br><span class="line">    const data = [</span><br><span class="line">      input.name,</span><br><span class="line">      input.age,</span><br><span class="line">      input.sex,</span><br><span class="line">      input.department</span><br><span class="line">    ]</span><br><span class="line"></span><br><span class="line">    return new Promise((resolve, reject) =&gt; &#123;</span><br><span class="line">      </span><br><span class="line">      connection.query(&#x27;INSERT INTO `account`(`name`,`age`,`sex`,`department`) VALUES(?,?,?,?)&#x27;,data,function (error, results, fields) &#123;</span><br><span class="line">        if (error) &#123;</span><br><span class="line">          console.log(error);</span><br><span class="line">          return;</span><br><span class="line">        &#125;;</span><br><span class="line">        console.log(&#x27;The solution is: &#x27;, results);</span><br><span class="line">        resolve(input);</span><br><span class="line">      &#125;);</span><br><span class="line"></span><br><span class="line">    &#125;);</span><br><span class="line">    </span><br><span class="line"></span><br><span class="line"></span><br><span class="line">  &#125;,</span><br><span class="line">  updateAccount: (&#123;id, input&#125;) =&gt; &#123;</span><br><span class="line">    const setClause = Object.keys(input).map(key =&gt; `$&#123;key&#125; = ?`).join(&#x27;, &#x27;);</span><br><span class="line">    const values = Object.values(input).concat(id);</span><br><span class="line"></span><br><span class="line">    return new Promise((resolve, reject) =&gt; &#123;</span><br><span class="line">      connection.query(</span><br><span class="line">        `UPDATE \`account\` SET $&#123;setClause&#125; WHERE \`name\` = ?`,</span><br><span class="line">        values,</span><br><span class="line">        function (error, results, fields) &#123;</span><br><span class="line">          if (error) &#123;</span><br><span class="line">            console.log(error);</span><br><span class="line">            return reject(error);</span><br><span class="line">          &#125;</span><br><span class="line">          console.log(&#x27;The solution is: &#x27;, results);</span><br><span class="line">          resolve(&#123; ...input, id &#125;); // 返回更新的数据，并保留 ID</span><br><span class="line">        &#125;</span><br><span class="line">      );</span><br><span class="line">    &#125;);</span><br><span class="line">  &#125;,</span><br><span class="line">  deleteAccount: (&#123;id&#125;) =&gt; &#123;</span><br><span class="line"></span><br><span class="line">    return new Promise((resolve, reject) =&gt; &#123;</span><br><span class="line">      connection.query(&#x27;DELETE FROM `account` WHERE name = ?&#x27;,id,function (error, results, fields) &#123;</span><br><span class="line">        if (error) &#123;</span><br><span class="line">          console.log(error);</span><br><span class="line">          return;</span><br><span class="line">        &#125;;</span><br><span class="line">        console.log(&#x27;The solution is: &#x27;, results);</span><br><span class="line">        resolve(true);</span><br><span class="line">      &#125;)</span><br><span class="line">    &#125;)</span><br><span class="line">  &#125;,</span><br><span class="line"></span><br><span class="line">  account: () =&gt; &#123;</span><br><span class="line">    // var arr = [];</span><br><span class="line">    // for(const key in fakeDb) &#123;</span><br><span class="line">    //   arr.push(fakeDb[key]);</span><br><span class="line">    // &#125;</span><br><span class="line">    // return arr;</span><br><span class="line"></span><br><span class="line">    return new Promise((resolve, reject) =&gt; &#123;</span><br><span class="line">      connection.query(&#x27;SELECT name, age, sex, department FROM `account`&#x27;,function (error, results, fields) &#123;</span><br><span class="line">        if (error) &#123;</span><br><span class="line">          console.log(error);</span><br><span class="line">          return;</span><br><span class="line">        &#125;;</span><br><span class="line">        console.log(&#x27;The solution is: &#x27;, results);</span><br><span class="line"></span><br><span class="line">        const arr = [];</span><br><span class="line">        for(let i = 0; i &lt; results.length; i++) &#123;</span><br><span class="line">          arr.push(&#123;</span><br><span class="line">            name: results[i].name,</span><br><span class="line">            age: results[i].age,</span><br><span class="line">            sex: results[i].sex,</span><br><span class="line">            department: results[i].department</span><br><span class="line">          &#125;);</span><br><span class="line">        &#125;</span><br><span class="line">        resolve(arr);</span><br><span class="line">      &#125;);</span><br><span class="line">    &#125;);</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">  &#125;</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line">const app = express();</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">app.use(&#x27;/graphql&#x27;, graphqlHTTP(&#123;</span><br><span class="line">  schema: schema,</span><br><span class="line">  rootValue: root,</span><br><span class="line">  graphiql: true,</span><br><span class="line">&#125;));</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">app.listen(4000);</span><br><span class="line"></span><br><span class="line"># mutation&#123;</span><br><span class="line">#   createAccount(input: &#123;</span><br><span class="line">#     name: &quot;wzw&quot;,</span><br><span class="line">#     age: 11,</span><br><span class="line">#     sex:&quot;男&quot;,</span><br><span class="line">#     department: &quot;xxx&quot;</span><br><span class="line">#   &#125;) &#123;</span><br><span class="line">#     name</span><br><span class="line">#   &#125;</span><br><span class="line"># &#125;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"># mutation&#123;</span><br><span class="line">#   updateAccount(id: &quot;111&quot;, input:&#123;</span><br><span class="line">#     age: 777</span><br><span class="line">#   &#125;)&#123;</span><br><span class="line">#     age</span><br><span class="line">#   &#125;</span><br><span class="line"># &#125;</span><br><span class="line"></span><br><span class="line"># mutation&#123;</span><br><span class="line">#   deleteAccount(id:&quot;111&quot;)</span><br><span class="line"># &#125;</span><br><span class="line"></span><br><span class="line">query&#123;</span><br><span class="line">  account&#123;</span><br><span class="line">    name</span><br><span class="line">    age</span><br><span class="line">    sex</span><br><span class="line">    department</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+
+
+
+<p>GraphQL教程，看过最详细的视频<br><a target="_blank" rel="noopener" href="https://www.bilibili.com/video/BV1EE411e7zB?spm_id_from=333.788.player.switch&vd_source=ffda878df0ed45bee1ade91d8f451048&p=6">https://www.bilibili.com/video/BV1EE411e7zB?spm_id_from=333.788.player.switch&amp;vd_source=ffda878df0ed45bee1ade91d8f451048&amp;p=6</a></p>
+<p><a target="_blank" rel="noopener" href="https://www.npmjs.com/package/mysql">https://www.npmjs.com/package/mysql</a></p>
+
+    </div>
+
+    
+    
+    
+
+      <footer class="post-footer">
+          <div class="post-tags">
+              <a href="/tags/graphql/" rel="tag"># graphql</a>
+              <a href="/tags/express/" rel="tag"># express</a>
+          </div>
+
+        
+
+
+        
+    <div class="post-nav">
+      <div class="post-nav-item">
+    <a href="/2024/12/13/docker-study/" rel="prev" title="docker study">
+      <i class="fa fa-chevron-left"></i> docker study
+    </a></div>
+      <div class="post-nav-item">
+    <a href="/2024/12/13/nodejs-%E8%87%AA%E5%B8%A6crypto-%E5%8A%A0%E5%AF%86/" rel="next" title="nodejs 自带crypto 加密">
+      nodejs 自带crypto 加密 <i class="fa fa-chevron-right"></i>
+    </a></div>
+    </div>
+      </footer>
+    
+  </article>
+  
+  
+  
+
+
+
+          </div>
+          
+
+<script>
+  window.addEventListener('tabs:register', () => {
+    let { activeClass } = CONFIG.comments;
+    if (CONFIG.comments.storage) {
+      activeClass = localStorage.getItem('comments_active') || activeClass;
+    }
+    if (activeClass) {
+      let activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      if (activeTab) {
+        activeTab.click();
+      }
+    }
+  });
+  if (CONFIG.comments.storage) {
+    window.addEventListener('tabs:click', event => {
+      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
+      let commentClass = event.target.classList[1];
+      localStorage.setItem('comments_active', commentClass);
+    });
+  }
+</script>
+
+        </div>
+          
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line toggle-line-first"></span>
+    <span class="toggle-line toggle-line-middle"></span>
+    <span class="toggle-line toggle-line-last"></span>
+  </div>
+
+  <aside class="sidebar">
+    <div class="sidebar-inner">
+
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <div class="post-toc-wrap sidebar-panel">
+      </div>
+      <!--/noindex-->
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+  <p class="site-author-name" itemprop="name">wangzhiwei</p>
+  <div class="site-description" itemprop="description">javascript nodejs web developer...</div>
+</div>
+<div class="site-state-wrap motion-element">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">61</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+        <span class="site-state-item-count">56</span>
+        <span class="site-state-item-name">分类</span>
+      </div>
+      <div class="site-state-item site-state-tags">
+        <span class="site-state-item-count">62</span>
+        <span class="site-state-item-name">标签</span>
+      </div>
+  </nav>
+</div>
+
+
+
+      </div>
+
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+    </main>
+
+    <footer class="footer">
+      <div class="footer-inner">
+        
+
+        
+
+<div class="copyright">
+  
+  &copy; 
+  <span itemprop="copyrightYear">2025</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">wangzhiwei</span>
+</div>
+  <div class="powered-by">由 <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> & <a href="https://muse.theme-next.org/" class="theme-link" rel="noopener" target="_blank">NexT.Muse</a> 强力驱动
+  </div>
+
+        
+
+
+
+
+
+
+
+
+      </div>
+    </footer>
+  </div>
+
+  
+  <script src="/lib/anime.min.js"></script>
+  <script src="/lib/velocity/velocity.min.js"></script>
+  <script src="/lib/velocity/velocity.ui.min.js"></script>
+
+<script src="/js/utils.js"></script>
+
+<script src="/js/motion.js"></script>
+
+
+<script src="/js/schemes/muse.js"></script>
+
+
+<script src="/js/next-boot.js"></script>
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  
+
+</body>
+</html>

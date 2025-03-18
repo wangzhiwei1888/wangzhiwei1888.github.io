@@ -1,0 +1,548 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 7.3.0">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+<link rel="stylesheet" href="/lib/font-awesome/css/font-awesome.min.css">
+
+<script id="hexo-configurations">
+    var NexT = window.NexT || {};
+    var CONFIG = {"hostname":"example.com","root":"/","scheme":"Muse","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":false,"show_result":false,"style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":false,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}}};
+  </script>
+
+  <meta name="description" content="Telegraf 介绍每隔一个频次，将数据写入到时序数据库中 看文档一定要和版本匹配  概述Telegraf 是由 InfluxData 开发的开源插件化代理工具，主要用于收集、处理和写入监控数据。它能够从各种系统、服务和应用程序中提取指标，并将这些数据发送到不同的后端存储或处理系统。  主要特点    插件化架构：支持多种输入（如 CPU、内存、网络接口等）和输出（如 InfluxDB、Prom">
+<meta property="og:type" content="article">
+<meta property="og:title" content="telegraf">
+<meta property="og:url" content="http://example.com/2025/01/16/telegraf/index.html">
+<meta property="og:site_name" content="WBlog">
+<meta property="og:description" content="Telegraf 介绍每隔一个频次，将数据写入到时序数据库中 看文档一定要和版本匹配  概述Telegraf 是由 InfluxData 开发的开源插件化代理工具，主要用于收集、处理和写入监控数据。它能够从各种系统、服务和应用程序中提取指标，并将这些数据发送到不同的后端存储或处理系统。  主要特点    插件化架构：支持多种输入（如 CPU、内存、网络接口等）和输出（如 InfluxDB、Prom">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="http://example.com/images/tel_01.png">
+<meta property="og:image" content="http://example.com/images/tel_02.png">
+<meta property="og:image" content="http://example.com/images/tel_03.png">
+<meta property="og:image" content="http://example.com/images/tel_04.png">
+<meta property="og:image" content="http://example.com/images/tel_05.png">
+<meta property="og:image" content="http://example.com/images/tel_06.png">
+<meta property="og:image" content="http://example.com/images/tel_07.png">
+<meta property="og:image" content="http://example.com/images/tel_08.png">
+<meta property="og:image" content="http://example.com/images/tel_09.png">
+<meta property="og:image" content="http://example.com/images/tel_10.png">
+<meta property="og:image" content="http://example.com/images/tel_11.png">
+<meta property="og:image" content="http://example.com/images/tel_12.png">
+<meta property="og:image" content="http://example.com/images/tel_13.png">
+<meta property="article:published_time" content="2025-01-16T00:52:30.000Z">
+<meta property="article:modified_time" content="2025-03-18T03:10:52.053Z">
+<meta property="article:author" content="wangzhiwei">
+<meta property="article:tag" content="数据采集">
+<meta property="article:tag" content="时序数据库">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="http://example.com/images/tel_01.png">
+
+<link rel="canonical" href="http://example.com/2025/01/16/telegraf/">
+
+
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome : false,
+    isPost : true,
+    lang   : 'zh-CN'
+  };
+</script>
+
+  <title>telegraf | WBlog</title>
+  
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div class="container use-motion">
+    <div class="headband"></div>
+
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏">
+      <span class="toggle-line toggle-line-first"></span>
+      <span class="toggle-line toggle-line-middle"></span>
+      <span class="toggle-line toggle-line-last"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <h1 class="site-title">WBlog</h1>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+      <p class="site-subtitle" itemprop="description">wangzhiwei blog</p>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+    </div>
+  </div>
+</div>
+
+
+
+
+<nav class="site-nav">
+  <ul id="menu" class="menu">
+        <li class="menu-item menu-item-home">
+
+    <a href="/" rel="section"><i class="fa fa-fw fa-home"></i>首页</a>
+
+  </li>
+        <li class="menu-item menu-item-archives">
+
+    <a href="/archives/" rel="section"><i class="fa fa-fw fa-archive"></i>归档</a>
+
+  </li>
+  </ul>
+</nav>
+
+
+
+
+</div>
+    </header>
+
+    
+  <div class="back-to-top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+
+
+    <main class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+
+          <div class="content post posts-expand">
+            
+
+    
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="http://example.com/2025/01/16/telegraf/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="wangzhiwei">
+      <meta itemprop="description" content="javascript nodejs web developer...">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="WBlog">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          telegraf
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2025-01-16 08:52:30" itemprop="dateCreated datePublished" datetime="2025-01-16T08:52:30+08:00">2025-01-16</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-calendar-check-o"></i>
+                </span>
+                <span class="post-meta-item-text">更新于</span>
+                <time title="修改时间：2025-03-18 11:10:52" itemprop="dateModified" datetime="2025-03-18T11:10:52+08:00">2025-03-18</time>
+              </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/%E6%95%B0%E6%8D%AE%E9%87%87%E9%9B%86/" itemprop="url" rel="index"><span itemprop="name">数据采集</span></a>
+                </span>
+                  ，
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/%E6%95%B0%E6%8D%AE%E9%87%87%E9%9B%86/%E6%97%B6%E5%BA%8F%E6%95%B0%E6%8D%AE%E5%BA%93/" itemprop="url" rel="index"><span itemprop="name">时序数据库</span></a>
+                </span>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+        <h3 id="Telegraf-介绍"><a href="#Telegraf-介绍" class="headerlink" title="Telegraf 介绍"></a>Telegraf 介绍</h3><p>每隔一个频次，将数据写入到时序数据库中</p>
+<p>看文档一定要和版本匹配</p>
+<ol>
+<li><p>概述<br>Telegraf 是由 InfluxData 开发的开源插件化代理工具，主要用于收集、处理和写入监控数据。它能够从各种系统、服务和应用程序中提取指标，并将这些数据发送到不同的后端存储或处理系统。</p>
+</li>
+<li><p>主要特点</p>
+</li>
+</ol>
+<ul>
+<li><strong>插件化架构</strong>：支持多种输入（如 CPU、内存、网络接口等）和输出（如 InfluxDB、Prometheus、Kafka 等）插件。</li>
+<li><strong>轻量级</strong>：资源消耗低，适合部署在服务器、容器或边缘设备上。</li>
+<li><strong>灵活性</strong>：可以通过配置文件轻松启用或禁用插件，调整采集频率和数据处理逻辑。</li>
+<li><strong>社区支持</strong>：拥有活跃的开发者社区，提供了丰富的插件和文档支持。</li>
+</ul>
+<ol start="3">
+<li>应用场景</li>
+</ol>
+<ul>
+<li><strong>系统监控</strong>：收集主机的性能指标，如 CPU 使用率、内存占用、磁盘 I&#x2F;O 和网络流量等。</li>
+<li><strong>应用监控</strong>：监控应用程序的日志、响应时间、错误率等关键性能指标。</li>
+<li><strong>日志聚合</strong>：读取应用程序日志并将其转发到集中式日志管理系统。</li>
+<li><strong>与 InfluxDB 集成</strong>：作为 InfluxDB 的官方数据采集器，Telegraf 可以无缝地将数据写入 InfluxDB，用于时间序列数据分析。</li>
+</ul>
+<ol start="4">
+<li>安装与配置</li>
+</ol>
+<ul>
+<li><strong>安装</strong>：支持多种操作系统平台，可通过包管理器（如 apt、yum）或二进制文件进行安装。</li>
+<li><strong>配置</strong>：通过 YAML 或 TOML 格式的配置文件进行配置，用户可以定义需要采集的数据源和目标存储位置。</li>
+</ul>
+<p>如果您有更具体的需求或问题，请提供更多信息，以便我为您提供更详细的帮助。</p>
+<p>.&#x2F;telegraf config &gt; tmp.conf</p>
+<p>直接生成配置文件<br>.&#x2F;telegraf –input-filter cpu:mem –processor-filter converter –aggregator-filter : –output-filter file config</p>
+<p>.&#x2F;telegraf –input-filter cpu:disk:mem –test</p>
+<p><img src="/../images/tel_01.png"></p>
+<p><img src="/../images/tel_02.png"></p>
+<p><img src="/../images/tel_03.png"></p>
+<p><img src="/../images/tel_04.png"></p>
+<p><img src="/../images/tel_05.png"></p>
+<p><img src="/../images/tel_06.png"></p>
+<p><img src="/../images/tel_07.png"></p>
+<p><img src="/../images/tel_08.png"></p>
+<p><img src="/../images/tel_09.png"></p>
+<p><img src="/../images/tel_10.png"></p>
+<p><img src="/../images/tel_11.png"></p>
+<p><img src="/../images/tel_12.png"></p>
+<p><img src="/../images/tel_13.png"></p>
+<h3 id="Telegraf-配置文件解析"><a href="#Telegraf-配置文件解析" class="headerlink" title="Telegraf 配置文件解析"></a>Telegraf 配置文件解析</h3><p>您提供的 Telegraf 配置文件包含了多个部分，每个部分定义了不同的功能和行为。以下是详细的解析：</p>
+<ol>
+<li><code>[agent]</code> 部分<figure class="highlight toml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="section">[agent]</span></span><br><span class="line">  <span class="attr">interval</span> = <span class="string">&quot;15s&quot;</span></span><br><span class="line">  <span class="attr">flush_interval</span> = <span class="string">&quot;15s&quot;</span></span><br><span class="line">  <span class="attr">skip_processors_after_aggregators</span> = <span class="literal">true</span></span><br></pre></td></tr></table></figure></li>
+</ol>
+<ul>
+<li><strong>interval</strong>: 指定 Telegraf 采集数据的间隔时间，这里是 15 秒。</li>
+<li><strong>flush_interval</strong>: 指定 Telegraf 将数据写入输出插件的间隔时间，这里是 15 秒。</li>
+<li><strong>skip_processors_after_aggregators</strong>: 如果设置为 <code>true</code>，Telegraf 将在聚合器（aggregators）之后跳过处理器（processors）。</li>
+</ul>
+<ol start="2">
+<li><code>[[inputs.http_listener_v2]]</code> 部分<figure class="highlight toml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="section">[[inputs.http_listener_v2]]</span></span><br><span class="line">  <span class="attr">service_address</span> = <span class="string">&quot;:1234&quot;</span></span><br><span class="line">  <span class="attr">paths</span> = [<span class="string">&quot;/receive&quot;</span>]</span><br><span class="line">  <span class="attr">data_format</span> = <span class="string">&quot;prometheusremotewrite&quot;</span></span><br></pre></td></tr></table></figure></li>
+</ol>
+<ul>
+<li><strong>service_address</strong>: 指定 HTTP 服务监听的地址和端口，这里是 <code>:1234</code>。</li>
+<li><strong>paths</strong>: 指定接收数据的路径，这里是 <code>/receive</code>。</li>
+<li><strong>data_format</strong>: 指定数据格式，这里是 <code>prometheusremotewrite</code>，表示接收 Prometheus 远程写入的数据格式。</li>
+</ul>
+<ol start="3">
+<li><code>[[inputs.redis]]</code> 部分<figure class="highlight toml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="section">[[inputs.redis]]</span></span><br><span class="line">  <span class="attr">servers</span> = [<span class="string">&quot;tcp://127.0.0.1:6379&quot;</span>]</span><br><span class="line">  <span class="attr">password</span> = <span class="string">&quot;xxxxx&quot;</span></span><br><span class="line">  <span class="attr">fieldpass</span> = [<span class="string">&quot;clients&quot;</span>, <span class="string">&quot;used_memory&quot;</span>, <span class="string">&quot;keyspace_hitrate&quot;</span>]</span><br></pre></td></tr></table></figure></li>
+</ol>
+<ul>
+<li><strong>servers</strong>: 指定 Redis 服务器的地址和端口，这里是 <code>tcp://127.0.0.1:6379</code>。</li>
+<li><strong>password</strong>: 指定连接 Redis 服务器的密码，这里是 <code>WUzPxGn8</code>。</li>
+<li><strong>fieldpass</strong>: 指定要收集的字段，这里是 <code>clients</code>, <code>used_memory</code>, <code>keyspace_hitrate</code>。</li>
+</ul>
+<ol start="4">
+<li><code>[[inputs.net_response]]</code> 部分<figure class="highlight toml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="section">[[inputs.net_response]]</span></span><br><span class="line">  <span class="attr">protocol</span> = <span class="string">&quot;tcp&quot;</span></span><br><span class="line">  <span class="attr">address</span> = <span class="string">&quot;127.0.0.1:6379&quot;</span>  </span><br><span class="line">  <span class="attr">timeout</span> = <span class="string">&quot;5s&quot;</span></span><br><span class="line">  <span class="attr">read_timeout</span> = <span class="string">&quot;2s&quot;</span></span><br><span class="line">  <span class="section">[inputs.net_response.tags]</span></span><br><span class="line">    <span class="attr">job</span> = <span class="string">&quot;redis&quot;</span></span><br><span class="line">    <span class="attr">instanceId</span> = <span class="string">&quot;127.0.0.1:6379&quot;</span></span><br></pre></td></tr></table></figure></li>
+</ol>
+<ul>
+<li><strong>protocol</strong>: 指定网络协议，这里是 <code>tcp</code>。</li>
+<li><strong>address</strong>: 指定要测试的地址和端口，这里是 <code>127.0.0.1:6379</code>。</li>
+<li><strong>timeout</strong>: 指定连接超时时间，这里是 5 秒。</li>
+<li><strong>read_timeout</strong>: 指定读取超时时间，这里是 2 秒。</li>
+<li><strong>tags</strong>: 指定默认标签，<code>job</code> 设置为 <code>redis</code>，<code>instanceId</code> 设置为 <code>127.0.0.1:6379</code>。</li>
+</ul>
+<ol start="5">
+<li><code>[[processors.starlark]]</code> 部分<figure class="highlight toml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br></pre></td><td class="code"><pre><span class="line"><span class="section">[[processors.starlark]]</span></span><br><span class="line">  <span class="attr">source</span> = <span class="string">&#x27;&#x27;&#x27;</span></span><br><span class="line"><span class="string">def apply(metric):</span></span><br><span class="line"><span class="string">    if metric.name == &quot;redis&quot;:</span></span><br><span class="line"><span class="string">        metric.tags[&quot;job&quot;] = &quot;redis&quot;</span></span><br><span class="line"><span class="string">        server = metric.tags.get(&#x27;server&#x27;, &#x27;&#x27;)</span></span><br><span class="line"><span class="string">        port = metric.tags.get(&#x27;port&#x27;, &#x27;&#x27;)</span></span><br><span class="line"><span class="string">        if server and port:</span></span><br><span class="line"><span class="string">            instanceId = &quot;%s:%s&quot; % (server, port)</span></span><br><span class="line"><span class="string">            metric.tags[&quot;instanceId&quot;] = instanceId</span></span><br><span class="line"><span class="string">            metric.fields[&quot;role&quot;] = metric.tags[&quot;replication_role&quot;]</span></span><br><span class="line"><span class="string">        else:</span></span><br><span class="line"><span class="string">           return None</span></span><br><span class="line"><span class="string"></span></span><br><span class="line"><span class="string">    if metric.name == &quot;net_response&quot;:</span></span><br><span class="line"><span class="string">        up_value = 1 if metric.fields.get(&quot;result_type&quot;) == &quot;success&quot; else 0</span></span><br><span class="line"><span class="string">        for field in list(metric.fields.keys()):</span></span><br><span class="line"><span class="string">            metric.fields.pop(field)</span></span><br><span class="line"><span class="string">        metric.fields[&quot;up&quot;] = up_value</span></span><br><span class="line"><span class="string"></span></span><br><span class="line"><span class="string">    # Add instanceId tag if it doesn&#x27;t exist</span></span><br><span class="line"><span class="string">    if &quot;instanceId&quot; not in metric.tags:</span></span><br><span class="line"><span class="string">        metric.tags[&quot;instanceId&quot;] = metric.tags.get(&quot;instance&quot;, &quot;&quot;)</span></span><br><span class="line"><span class="string"></span></span><br><span class="line"><span class="string">    return metric</span></span><br><span class="line"><span class="string">  &#x27;&#x27;&#x27;</span></span><br></pre></td></tr></table></figure></li>
+</ol>
+<ul>
+<li><strong>source</strong>: 定义一个 Starlark 脚本，用于处理和修改指标数据。<ul>
+<li><strong>处理 <code>redis</code> 指标</strong>：<ul>
+<li>设置 <code>job</code> 标签为 <code>redis</code>。</li>
+<li>从 <code>server</code> 和 <code>port</code> 标签构建 <code>instanceId</code> 标签。</li>
+<li>将 <code>replication_role</code> 标签的值添加到 <code>role</code> 字段。</li>
+</ul>
+</li>
+<li><strong>处理 <code>net_response</code> 指标</strong>：<ul>
+<li>根据 <code>result_type</code> 字段设置 <code>up</code> 字段的值（1 表示成功，0 表示失败）。</li>
+<li>移除所有其他字段，只保留 <code>up</code> 字段。</li>
+</ul>
+</li>
+<li><strong>添加 <code>instanceId</code> 标签</strong>：<ul>
+<li>如果 <code>instanceId</code> 标签不存在，则从 <code>instance</code> 标签获取值。</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<ol start="6">
+<li><code>[[outputs.mqtt]]</code> 部分<figure class="highlight toml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="section">[[outputs.mqtt]]</span></span><br><span class="line">  <span class="attr">servers</span> = [<span class="string">&quot;mqtt://127.0.0.1:1883&quot;</span>]</span><br><span class="line">  <span class="attr">protocol</span> = <span class="string">&quot;5&quot;</span></span><br><span class="line">  <span class="attr">topic</span> = <span class="string">&#x27;/metrics/&#123;&#123;.Tag &quot;job&quot;&#125;&#125;/&#123;&#123;.Tag &quot;instanceId&quot;&#125;&#125;&#x27;</span></span><br><span class="line">  <span class="attr">retain</span> = <span class="literal">true</span></span><br><span class="line">  <span class="attr">layout</span> = <span class="string">&quot;field&quot;</span></span><br></pre></td></tr></table></figure></li>
+</ol>
+<ul>
+<li><strong>servers</strong>: 指定 MQTT 服务器的地址和端口，这里是 <code>mqtt://127.0.0.1:1883</code>。</li>
+<li><strong>protocol</strong>: 指定 MQTT 协议版本，这里是 <code>5</code>。</li>
+<li><strong>topic</strong>: 指定发布消息的主题，使用模板语法 <code>&#123;&#123;.Tag "job"&#125;&#125;</code> 和 <code>&#123;&#123;.Tag "instanceId"&#125;&#125;</code> 动态生成主题。</li>
+<li><strong>retain</strong>: 如果设置为 <code>true</code>，MQTT 服务器将保留最后一条消息。</li>
+<li><strong>layout</strong>: 指定消息的布局，这里是 <code>field</code>，表示将字段作为消息内容。</li>
+</ul>
+<p>总结<br>该 Telegraf 配置文件定义了以下功能：</p>
+<ul>
+<li>从 HTTP 端点接收 Prometheus 远程写入的数据。</li>
+<li>从 Redis 服务器收集特定的性能指标。</li>
+<li>测试 Redis 服务器的网络响应时间。</li>
+<li>使用 Starlark 脚本处理和修改收集到的指标数据。</li>
+<li>将处理后的指标数据通过 MQTT 发布到指定的主题。</li>
+</ul>
+<p>如果您有更具体的问题或需要进一步的配置调整，请提供更多细节。</p>
+<p>参考：<br><a target="_blank" rel="noopener" href="https://www.bilibili.com/video/BV1Na411G7M6?spm_id_from=333.788.player.switch&vd_source=ffda878df0ed45bee1ade91d8f451048&p=4">https://www.bilibili.com/video/BV1Na411G7M6?spm_id_from=333.788.player.switch&amp;vd_source=ffda878df0ed45bee1ade91d8f451048&amp;p=4</a></p>
+<p><a target="_blank" rel="noopener" href="https://docs.influxdata.com/telegraf/v1/get-started/">https://docs.influxdata.com/telegraf/v1/get-started/</a></p>
+
+    </div>
+
+    
+    
+    
+
+      <footer class="post-footer">
+          <div class="post-tags">
+              <a href="/tags/%E6%95%B0%E6%8D%AE%E9%87%87%E9%9B%86/" rel="tag"># 数据采集</a>
+              <a href="/tags/%E6%97%B6%E5%BA%8F%E6%95%B0%E6%8D%AE%E5%BA%93/" rel="tag"># 时序数据库</a>
+          </div>
+
+        
+
+
+        
+    <div class="post-nav">
+      <div class="post-nav-item">
+    <a href="/2025/01/06/ai%E5%B7%A5%E5%85%B7cozi%E4%BA%86%E8%A7%A3/" rel="prev" title="ai工具cozi了解">
+      <i class="fa fa-chevron-left"></i> ai工具cozi了解
+    </a></div>
+      <div class="post-nav-item">
+    <a href="/2025/01/17/gitlab/" rel="next" title="gitlab">
+      gitlab <i class="fa fa-chevron-right"></i>
+    </a></div>
+    </div>
+      </footer>
+    
+  </article>
+  
+  
+  
+
+
+
+          </div>
+          
+
+<script>
+  window.addEventListener('tabs:register', () => {
+    let { activeClass } = CONFIG.comments;
+    if (CONFIG.comments.storage) {
+      activeClass = localStorage.getItem('comments_active') || activeClass;
+    }
+    if (activeClass) {
+      let activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      if (activeTab) {
+        activeTab.click();
+      }
+    }
+  });
+  if (CONFIG.comments.storage) {
+    window.addEventListener('tabs:click', event => {
+      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
+      let commentClass = event.target.classList[1];
+      localStorage.setItem('comments_active', commentClass);
+    });
+  }
+</script>
+
+        </div>
+          
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line toggle-line-first"></span>
+    <span class="toggle-line toggle-line-middle"></span>
+    <span class="toggle-line toggle-line-last"></span>
+  </div>
+
+  <aside class="sidebar">
+    <div class="sidebar-inner">
+
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#Telegraf-%E4%BB%8B%E7%BB%8D"><span class="nav-number">1.</span> <span class="nav-text">Telegraf 介绍</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Telegraf-%E9%85%8D%E7%BD%AE%E6%96%87%E4%BB%B6%E8%A7%A3%E6%9E%90"><span class="nav-number">2.</span> <span class="nav-text">Telegraf 配置文件解析</span></a></li></ol></div>
+      </div>
+      <!--/noindex-->
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+  <p class="site-author-name" itemprop="name">wangzhiwei</p>
+  <div class="site-description" itemprop="description">javascript nodejs web developer...</div>
+</div>
+<div class="site-state-wrap motion-element">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">61</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+        <span class="site-state-item-count">56</span>
+        <span class="site-state-item-name">分类</span>
+      </div>
+      <div class="site-state-item site-state-tags">
+        <span class="site-state-item-count">62</span>
+        <span class="site-state-item-name">标签</span>
+      </div>
+  </nav>
+</div>
+
+
+
+      </div>
+
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+    </main>
+
+    <footer class="footer">
+      <div class="footer-inner">
+        
+
+        
+
+<div class="copyright">
+  
+  &copy; 
+  <span itemprop="copyrightYear">2025</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">wangzhiwei</span>
+</div>
+  <div class="powered-by">由 <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> & <a href="https://muse.theme-next.org/" class="theme-link" rel="noopener" target="_blank">NexT.Muse</a> 强力驱动
+  </div>
+
+        
+
+
+
+
+
+
+
+
+      </div>
+    </footer>
+  </div>
+
+  
+  <script src="/lib/anime.min.js"></script>
+  <script src="/lib/velocity/velocity.min.js"></script>
+  <script src="/lib/velocity/velocity.ui.min.js"></script>
+
+<script src="/js/utils.js"></script>
+
+<script src="/js/motion.js"></script>
+
+
+<script src="/js/schemes/muse.js"></script>
+
+
+<script src="/js/next-boot.js"></script>
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  
+
+</body>
+</html>

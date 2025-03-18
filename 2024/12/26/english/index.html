@@ -1,0 +1,1125 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 7.3.0">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+<link rel="stylesheet" href="/lib/font-awesome/css/font-awesome.min.css">
+
+<script id="hexo-configurations">
+    var NexT = window.NexT || {};
+    var CONFIG = {"hostname":"example.com","root":"/","scheme":"Muse","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":false,"show_result":false,"style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":false,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}}};
+  </script>
+
+  <meta name="description" content="English-for-Technical-Interviews02-two sumhttps:&#x2F;&#x2F;www.bilibili.com&#x2F;video&#x2F;BV11h4y1P7Yp&#x2F;?spm_id_from&#x3D;333.999.0.0 视频链接https:&#x2F;&#x2F;leetcode.cn&#x2F;problems&#x2F;two-sum&#x2F; 题目链接https:&#x2F;&#x2F;www.collinsdictionary.com&#x2F;dictionar">
+<meta property="og:type" content="article">
+<meta property="og:title" content="english">
+<meta property="og:url" content="http://example.com/2024/12/26/english/index.html">
+<meta property="og:site_name" content="WBlog">
+<meta property="og:description" content="English-for-Technical-Interviews02-two sumhttps:&#x2F;&#x2F;www.bilibili.com&#x2F;video&#x2F;BV11h4y1P7Yp&#x2F;?spm_id_from&#x3D;333.999.0.0 视频链接https:&#x2F;&#x2F;leetcode.cn&#x2F;problems&#x2F;two-sum&#x2F; 题目链接https:&#x2F;&#x2F;www.collinsdictionary.com&#x2F;dictionar">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="http://example.com/images/english_01.png">
+<meta property="og:image" content="http://example.com/images/englist_01.png">
+<meta property="article:published_time" content="2024-12-26T00:55:08.000Z">
+<meta property="article:modified_time" content="2025-03-18T03:10:52.051Z">
+<meta property="article:author" content="wangzhiwei">
+<meta property="article:tag" content="english">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="http://example.com/images/english_01.png">
+
+<link rel="canonical" href="http://example.com/2024/12/26/english/">
+
+
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome : false,
+    isPost : true,
+    lang   : 'zh-CN'
+  };
+</script>
+
+  <title>english | WBlog</title>
+  
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div class="container use-motion">
+    <div class="headband"></div>
+
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏">
+      <span class="toggle-line toggle-line-first"></span>
+      <span class="toggle-line toggle-line-middle"></span>
+      <span class="toggle-line toggle-line-last"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <h1 class="site-title">WBlog</h1>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+      <p class="site-subtitle" itemprop="description">wangzhiwei blog</p>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+    </div>
+  </div>
+</div>
+
+
+
+
+<nav class="site-nav">
+  <ul id="menu" class="menu">
+        <li class="menu-item menu-item-home">
+
+    <a href="/" rel="section"><i class="fa fa-fw fa-home"></i>首页</a>
+
+  </li>
+        <li class="menu-item menu-item-archives">
+
+    <a href="/archives/" rel="section"><i class="fa fa-fw fa-archive"></i>归档</a>
+
+  </li>
+  </ul>
+</nav>
+
+
+
+
+</div>
+    </header>
+
+    
+  <div class="back-to-top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+
+
+    <main class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+
+          <div class="content post posts-expand">
+            
+
+    
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="http://example.com/2024/12/26/english/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="wangzhiwei">
+      <meta itemprop="description" content="javascript nodejs web developer...">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="WBlog">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          english
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2024-12-26 08:55:08" itemprop="dateCreated datePublished" datetime="2024-12-26T08:55:08+08:00">2024-12-26</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-calendar-check-o"></i>
+                </span>
+                <span class="post-meta-item-text">更新于</span>
+                <time title="修改时间：2025-03-18 11:10:52" itemprop="dateModified" datetime="2025-03-18T11:10:52+08:00">2025-03-18</time>
+              </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/english/" itemprop="url" rel="index"><span itemprop="name">english</span></a>
+                </span>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+        <h3 id="English-for-Technical-Interviews"><a href="#English-for-Technical-Interviews" class="headerlink" title="English-for-Technical-Interviews"></a>English-for-Technical-Interviews</h3><h3 id="02-two-sum"><a href="#02-two-sum" class="headerlink" title="02-two sum"></a>02-two sum</h3><p><a target="_blank" rel="noopener" href="https://www.bilibili.com/video/BV11h4y1P7Yp/?spm_id_from=333.999.0.0">https://www.bilibili.com/video/BV11h4y1P7Yp/?spm_id_from=333.999.0.0</a> 视频链接<br><a target="_blank" rel="noopener" href="https://leetcode.cn/problems/two-sum/">https://leetcode.cn/problems/two-sum/</a> 题目链接<br><a target="_blank" rel="noopener" href="https://www.collinsdictionary.com/dictionary/">https://www.collinsdictionary.com/dictionary/</a> 我喜欢的英文在线字典</p>
+<ul>
+<li>Vocabulary</li>
+</ul>
+<table>
+<thead>
+<tr>
+<th>英文</th>
+<th>中文</th>
+<th>音标</th>
+<th>重要程度</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>brute force method</td>
+<td>暴力法</td>
+<td>bruːt fɔːʳs</td>
+<td>🌟🌟🌟🌟🌟</td>
+</tr>
+<tr>
+<td>time complexity</td>
+<td>时间复杂度</td>
+<td>kəmpleksɪti</td>
+<td>🌟🌟🌟🌟🌟</td>
+</tr>
+<tr>
+<td>n squared</td>
+<td>n 的平方</td>
+<td>skweəʳd</td>
+<td>🌟🌟🌟🌟🌟</td>
+</tr>
+<tr>
+<td>length</td>
+<td>长度</td>
+<td></td>
+<td>🌟🌟🌟🌟🌟</td>
+</tr>
+<tr>
+<td>array</td>
+<td>数组</td>
+<td>əreɪ</td>
+<td>🌟🌟🌟🌟🌟</td>
+</tr>
+<tr>
+<td>element</td>
+<td>元素</td>
+<td>elɪmənt</td>
+<td>🌟🌟🌟🌟🌟</td>
+</tr>
+<tr>
+<td>store</td>
+<td>存储</td>
+<td></td>
+<td>🌟🌟🌟🌟🌟</td>
+</tr>
+<tr>
+<td>key-value pair</td>
+<td>键值对</td>
+<td></td>
+<td>🌟🌟🌟🌟🌟</td>
+</tr>
+<tr>
+<td>iterate over &#x2F; go through this array</td>
+<td>遍历这个数组</td>
+<td>ɪtəˌreɪt</td>
+<td>🌟🌟🌟🌟🌟</td>
+</tr>
+<tr>
+<td>sum up to</td>
+<td>总和为</td>
+<td></td>
+<td>🌟🌟🌟🌟🌟</td>
+</tr>
+<tr>
+<td>add &#x2F; plus</td>
+<td>加上</td>
+<td></td>
+<td>🌟🌟🌟🌟🌟</td>
+</tr>
+<tr>
+<td>index &#x2F; indices</td>
+<td>索引 （单&#x2F;复）</td>
+<td></td>
+<td>🌟🌟🌟🌟🌟</td>
+</tr>
+<tr>
+<td>declare a variable</td>
+<td>声明一个变量</td>
+<td>dɪkleəʳ</td>
+<td>🌟🌟🌟🌟🌟</td>
+</tr>
+<tr>
+<td>is equal to &#x2F; equals</td>
+<td>等于</td>
+<td>iːkwəl</td>
+<td>🌟🌟🌟🌟🌟</td>
+</tr>
+<tr>
+<td>minus</td>
+<td>减去</td>
+<td>maɪnəs</td>
+<td>🌟🌟🌟🌟🌟</td>
+</tr>
+<tr>
+<td>combination</td>
+<td>组合</td>
+<td>kɒmbɪneɪʃən</td>
+<td>🌟🌟🌟</td>
+</tr>
+<tr>
+<td>Repeat the same steps</td>
+<td>重复同样的步骤</td>
+<td></td>
+<td>🌟🌟🌟</td>
+</tr>
+<tr>
+<td>In this case</td>
+<td>在这种情况下</td>
+<td></td>
+<td>🌟🌟🌟</td>
+</tr>
+<tr>
+<td>by default</td>
+<td>默认</td>
+<td>dɪfɔːlt</td>
+<td>🌟🌟🌟</td>
+</tr>
+<tr>
+<td>find out</td>
+<td>发现</td>
+<td></td>
+<td>🌟🌟</td>
+</tr>
+<tr>
+<td>difference</td>
+<td>差值</td>
+<td></td>
+<td>🌟🌟</td>
+</tr>
+<tr>
+<td>move on to</td>
+<td>移动到</td>
+<td></td>
+<td>🌟🌟</td>
+</tr>
+</tbody></table>
+<ul>
+<li><p>Script</p>
+</li>
+<li><p>Explain How to Use Brute Force</p>
+</li>
+</ul>
+<p>We have two solutions here. The first one is using brute force method<br>which has the time complexity: n squared. The solution is that we check out every combination of 2 values and see if they can sum up to our targeting value<br>which is 8. For example, if we start at 3 then we check every combination<br>that includes 3<br>and see if any of the numbers added to 3<br>so their sum is the target. In this case none of them works.<br>So we start from 2<br>repeat the same steps,<br>and we found out the combination of 2 and 6<br>their sum is exactly 8.<br>So we can just directly return their indices<br>which is 1 and 3.</p>
+<ul>
+<li>Explain Brute Force Code</li>
+</ul>
+<p>OK for this brutal force method,<br>the code goes here.<br>So firstly we are going to declare a variable called n,<br>which represents the length of the nums array.<br>So as we’re gonna check out<br>every combination of two elements from this array,<br>so we’re gonna use a nested for loop to do so.<br>Inside we have every combination and we will check<br>if the sum of these two elements is equal to a target. If so<br>then<br>we can just directly return the two indices of these numbers<br>and if not at the end of the program<br>we will just return an empty array by default.</p>
+<ul>
+<li>Explain How to Use HashMap</li>
+</ul>
+<p>The second solution is to use hash map<br>which has time complexity about O(N). So<br>we’re gonna use this hash map to store key-value pairs<br>where the key is the element,<br>and the value is the index of this element.<br>Then we iterate over this array from the first element 3.<br>Because now<br>we are looking for 5 as 3 plus 5 equals 8,<br>so we will try to check if the map has already<br>stored five inside.<br>Unfortunately no,<br>so we store the current<br>element and it is index in the map for future usage.</p>
+<p>Now we can move on to the next element 2<br>as the difference between the<br>target 8 and the current element 2 is 6.<br>But the map doesn’t have it, so we still<br>store the element and its index.</p>
+<p>Move on to 1. Same thing happened we still need to<br>store the one and its index.</p>
+<p>But things are different for six,<br>as now we’re looking for<br>8 minus 6 equals 2 and the map has 2 inside.<br>So we can use map<br>get to get its index, and now we just returned 1 and 3.</p>
+<ul>
+<li>Explain HashMap Code</li>
+</ul>
+<p>If we want to use hash map,<br>then basically we need to declare a map,<br>where the key<br>is an integer representing for the element and value is the index.<br>We iterates over the array, and for each element,<br>we gonna calculate<br>the difference between the target and the current element.<br>We’re gonna check<br>if the difference value word exists in this map or not.<br>If so, then<br>also we just directly return the two indices.<br>If not we simply put the element and it’s<br>index in the map.</p>
+<p>At the end of the program<br>we need to return an empty array by default</p>
+<h3 id="03-Spoken-English"><a href="#03-Spoken-English" class="headerlink" title="03 - Spoken English"></a>03 - Spoken English</h3><ul>
+<li><p>Resources</p>
+</li>
+<li><p>发音 &amp; 音标<br><a target="_blank" rel="noopener" href="https://www.bilibili.com/video/BV1Gs41127iG/?spm_id_from=333.337.search-card.all.click&vd_source=1b467c44a301cea703059eb872a93c8d">https://www.bilibili.com/video/BV1Gs41127iG/?spm_id_from=333.337.search-card.all.click&amp;vd_source=1b467c44a301cea703059eb872a93c8d</a> BBC 发音教程全集</p>
+</li>
+</ul>
+<p><a target="_blank" rel="noopener" href="https://www.bilibili.com/video/BV1ma4y1L7NE/?spm_id_from=333.337.search-card.all.click&vd_source=1b467c44a301cea703059eb872a93c8d">https://www.bilibili.com/video/BV1ma4y1L7NE/?spm_id_from=333.337.search-card.all.click&amp;vd_source=1b467c44a301cea703059eb872a93c8d</a> BBC 六分钟英语第一季合辑</p>
+<ul>
+<li>连读 &amp; 表达<br><a target="_blank" rel="noopener" href="https://www.bilibili.com/video/BV1D7411n7bS/?spm_id_from=333.337.top_right_bar_window_default_collection.content.click&vd_source=1b467c44a301cea703059eb872a93c8d">https://www.bilibili.com/video/BV1D7411n7bS/?spm_id_from=333.337.top_right_bar_window_default_collection.content.click&amp;vd_source=1b467c44a301cea703059eb872a93c8d</a> BBC 经典教程 | 连读 | 语音语调全集</li>
+</ul>
+<p>老友记，优酷或者腾讯视频</p>
+<h3 id="04-reverse-list"><a href="#04-reverse-list" class="headerlink" title="04 - reverse list"></a>04 - reverse list</h3><ul>
+<li>Vocabulary</li>
+</ul>
+<table>
+<thead>
+<tr>
+<th>英文</th>
+<th>中文</th>
+<th>音标</th>
+<th>重要程度</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>plenty of</td>
+<td>很多</td>
+<td>plenti</td>
+<td>🌟🌟🌟🌟🌟</td>
+</tr>
+<tr>
+<td>head node</td>
+<td>头节点</td>
+<td>hed noʊd</td>
+<td>🌟🌟🌟🌟🌟</td>
+</tr>
+<tr>
+<td>tail node</td>
+<td>尾节点</td>
+<td>teɪl</td>
+<td>🌟🌟🌟🌟🌟</td>
+</tr>
+<tr>
+<td>pointer</td>
+<td>指针</td>
+<td>pɔɪntəʳ</td>
+<td>🌟🌟🌟🌟🌟</td>
+</tr>
+<tr>
+<td>points to</td>
+<td>指向</td>
+<td></td>
+<td>🌟🌟🌟🌟🌟</td>
+</tr>
+<tr>
+<td>push &#x2F; add</td>
+<td>推入（栈中）</td>
+<td></td>
+<td>🌟🌟🌟🌟🌟</td>
+</tr>
+<tr>
+<td>pop out</td>
+<td>拿出（栈中）</td>
+<td></td>
+<td>🌟🌟🌟🌟🌟</td>
+</tr>
+<tr>
+<td>reverse</td>
+<td>反转</td>
+<td>rɪvɜːʳs</td>
+<td>🌟🌟🌟🌟🌟</td>
+</tr>
+<tr>
+<td>iterate over &#x2F; go through this linked list</td>
+<td>遍历这个链表</td>
+<td>ɪtəˌreɪt</td>
+<td>🌟🌟🌟🌟🌟</td>
+</tr>
+<tr>
+<td>recursive method</td>
+<td>递归法</td>
+<td>rɪˈkɜrsɪv</td>
+<td>🌟🌟🌟🌟🌟</td>
+</tr>
+<tr>
+<td>iterative method</td>
+<td>迭代法</td>
+<td>ˈɪtərətɪv</td>
+<td>🌟🌟🌟🌟🌟</td>
+</tr>
+<tr>
+<td>singly linked list</td>
+<td>单向链表</td>
+<td></td>
+<td>🌟🌟🌟🌟🌟</td>
+</tr>
+<tr>
+<td>doubly linked list</td>
+<td>双向链表</td>
+<td></td>
+<td>🌟🌟🌟🌟🌟</td>
+</tr>
+<tr>
+<td>cycle</td>
+<td>循环，圈</td>
+<td>saɪkəl</td>
+<td>🌟🌟🌟🌟🌟</td>
+</tr>
+<tr>
+<td>otherwise</td>
+<td>否则</td>
+<td>ʌðəʳwaɪz</td>
+<td>🌟🌟🌟🌟🌟</td>
+</tr>
+<tr>
+<td>original</td>
+<td>原来的，原本的</td>
+<td>ərɪdʒɪnəl</td>
+<td>🌟🌟🌟🌟</td>
+</tr>
+<tr>
+<td>in the normal case</td>
+<td>一般情况下</td>
+<td></td>
+<td>🌟🌟🌟🌟</td>
+</tr>
+<tr>
+<td>the rest of …</td>
+<td>xx 的剩余部分</td>
+<td></td>
+<td>🌟🌟🌟🌟</td>
+</tr>
+<tr>
+<td>meanwhile …</td>
+<td>同时</td>
+<td>miːnhwaɪl</td>
+<td>🌟🌟🌟🌟</td>
+</tr>
+<tr>
+<td>reaches the end of the linked list …</td>
+<td>来到了链表的结尾</td>
+<td></td>
+<td>🌟🌟🌟🌟</td>
+</tr>
+<tr>
+<td>eventually &#x2F; finally</td>
+<td>最终</td>
+<td>ɪventʃuəli</td>
+<td>🌟🌟🌟</td>
+</tr>
+<tr>
+<td>a key takeaway</td>
+<td>一个关键要点</td>
+<td></td>
+<td>🌟🌟🌟</td>
+</tr>
+<tr>
+<td>accordingly</td>
+<td>有根据地</td>
+<td></td>
+<td>🌟🌟🌟</td>
+</tr>
+<tr>
+<td>eliminate</td>
+<td>消除</td>
+<td>ɪlɪmɪneɪt</td>
+<td>🌟🌟🌟</td>
+</tr>
+<tr>
+<td>repeat over and over again until…</td>
+<td>一直重复，直到…</td>
+<td></td>
+<td>🌟🌟🌟</td>
+</tr>
+</tbody></table>
+<ul>
+<li>Script</li>
+</ul>
+<h3 id="05-resume"><a href="#05-resume" class="headerlink" title="05 - resume"></a>05 - resume</h3><ul>
+<li>Vocabulary</li>
+</ul>
+<table>
+<thead>
+<tr>
+<th>英文</th>
+<th>中文</th>
+<th>音标</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>design</td>
+<td>设计</td>
+<td>dɪzaɪn</td>
+</tr>
+<tr>
+<td>implement</td>
+<td>实现</td>
+<td>ɪmplɪment</td>
+</tr>
+<tr>
+<td>build &#x2F; establish</td>
+<td>搭建</td>
+<td>bɪld &#x2F; ɪstæblɪʃ</td>
+</tr>
+<tr>
+<td>develop</td>
+<td>实现</td>
+<td>dɪveləp</td>
+</tr>
+<tr>
+<td>reduce &#x2F; decrease</td>
+<td>降低，减少</td>
+<td>dɪkriːs</td>
+</tr>
+<tr>
+<td>enhance &#x2F; increase</td>
+<td>提高，增加</td>
+<td>ɪnhɑːns &#x2F; ɪnkriːs</td>
+</tr>
+<tr>
+<td>improve</td>
+<td>提升，完善</td>
+<td>ɪmpruːv</td>
+</tr>
+<tr>
+<td>optimize</td>
+<td>优化</td>
+<td>ɒptɪmaɪz</td>
+</tr>
+<tr>
+<td>significantly &#x2F; greatly</td>
+<td>极大地</td>
+<td>sɪgnɪfɪkənt &#x2F; greɪtli</td>
+</tr>
+<tr>
+<td>automate, automated</td>
+<td>自动化</td>
+<td>ɔːtəmeɪt</td>
+</tr>
+<tr>
+<td>result in</td>
+<td>导致…的结果</td>
+<td>ɪtəˌreɪt</td>
+</tr>
+<tr>
+<td>user experience</td>
+<td>用户体验</td>
+<td>juːzəʳ ɪkspɪəriəns</td>
+</tr>
+<tr>
+<td>independently</td>
+<td>独立地</td>
+<td>ɪndɪpendənt</td>
+</tr>
+<tr>
+<td>seamless</td>
+<td>无缝的</td>
+<td>siːmləs</td>
+</tr>
+<tr>
+<td>accelerate &#x2F; facilitate</td>
+<td>加速，帮助</td>
+<td>ækseləreɪt &#x2F; fəsɪlɪteɪt</td>
+</tr>
+<tr>
+<td>robust</td>
+<td>鲁棒性强的</td>
+<td>roʊbʌst</td>
+</tr>
+<tr>
+<td>stable</td>
+<td>稳定的</td>
+<td>steɪbəl</td>
+</tr>
+<tr>
+<td>reliable</td>
+<td>可靠的</td>
+<td>rɪlaɪəbəl</td>
+</tr>
+<tr>
+<td>extensible &#x2F; scalable</td>
+<td>可扩展的</td>
+<td>ɪkˈstɛnsəbəl &#x2F; skeɪləbəl</td>
+</tr>
+<tr>
+<td>standardized</td>
+<td>标准的</td>
+<td>stændəʳdaɪz</td>
+</tr>
+<tr>
+<td>consistent</td>
+<td>一致性的</td>
+<td>kənsɪstənt</td>
+</tr>
+<tr>
+<td>persistent</td>
+<td>持久性的</td>
+<td>pəʳsɪstənt</td>
+</tr>
+<tr>
+<td>effective</td>
+<td>有效的</td>
+<td>ɪfektɪv</td>
+</tr>
+<tr>
+<td>efficient</td>
+<td>有效率的</td>
+<td>ɪfɪʃənt</td>
+</tr>
+<tr>
+<td>isolated</td>
+<td>隔离的，独立的</td>
+<td>aɪsəleɪtɪd</td>
+</tr>
+<tr>
+<td>standalone</td>
+<td>独立的</td>
+<td></td>
+</tr>
+<tr>
+<td>reusable</td>
+<td>可重复利用的</td>
+<td>riːjuːzəbəl</td>
+</tr>
+<tr>
+<td>portable</td>
+<td>便捷的</td>
+<td>pɔːʳtəbəl</td>
+</tr>
+<tr>
+<td>integrate, integrated</td>
+<td>集成</td>
+<td>ɪntɪgreɪt</td>
+</tr>
+<tr>
+<td>development lifecycle</td>
+<td>开发周期</td>
+<td></td>
+</tr>
+<tr>
+<td>metrics</td>
+<td>指标</td>
+<td>ˈmɛtrɪks</td>
+</tr>
+<tr>
+<td>alert</td>
+<td>告警</td>
+<td>əlɜːʳt</td>
+</tr>
+<tr>
+<td>monitoring system</td>
+<td>监控系统</td>
+<td>ˈmɒnɪtərɪŋ</td>
+</tr>
+<tr>
+<td>incident</td>
+<td>事故</td>
+<td>ɪnsɪdənt</td>
+</tr>
+<tr>
+<td>deployment</td>
+<td>部署</td>
+<td>dɪplɔɪmənt</td>
+</tr>
+<tr>
+<td>transition</td>
+<td>过渡</td>
+<td>trænzɪʃən</td>
+</tr>
+<tr>
+<td>achieve &#x2F; reach</td>
+<td>达到，达成</td>
+<td>ətʃiːv &#x2F; riːtʃ</td>
+</tr>
+<tr>
+<td>allow&#x2F;enable users to do sth.</td>
+<td>允许用户做某事</td>
+<td></td>
+</tr>
+<tr>
+<td>cross-platform</td>
+<td>跨平台的</td>
+<td>ɪlɪmɪneɪt</td>
+</tr>
+<tr>
+<td>platform</td>
+<td>平台</td>
+<td>plætfɔːʳm</td>
+</tr>
+<tr>
+<td>in production</td>
+<td>在生产环境中</td>
+<td>prədʌkʃən</td>
+</tr>
+<tr>
+<td>maintain</td>
+<td>维护</td>
+<td>meɪnteɪn</td>
+</tr>
+<tr>
+<td>own</td>
+<td>负责，拥有</td>
+<td>oʊn</td>
+</tr>
+<tr>
+<td>capability</td>
+<td>能力</td>
+<td>capability</td>
+</tr>
+<tr>
+<td>end-to-end</td>
+<td>端到端的</td>
+<td></td>
+</tr>
+<tr>
+<td>manual efforts</td>
+<td>手动工作</td>
+<td>mænjuəl efəʳts</td>
+</tr>
+<tr>
+<td>introduce</td>
+<td>引入（框架，工具等）</td>
+<td>ɪntrədjuːs</td>
+</tr>
+<tr>
+<td>customized</td>
+<td>自定义的</td>
+<td>kʌstəˌmaɪzd</td>
+</tr>
+</tbody></table>
+<h3 id="06-lc-113"><a href="#06-lc-113" class="headerlink" title="06 - lc 113"></a>06 - lc 113</h3><ul>
+<li>Vocabulary</li>
+</ul>
+<table>
+<thead>
+<tr>
+<th>英文</th>
+<th>中文</th>
+<th>重要程度</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>DFS &#x2F; Depth-First-Search</td>
+<td>深度优先遍历</td>
+<td>🌟🌟🌟🌟🌟</td>
+</tr>
+<tr>
+<td>Backtrack</td>
+<td>回溯</td>
+<td>🌟🌟🌟🌟🌟</td>
+</tr>
+<tr>
+<td>Path</td>
+<td>路径</td>
+<td>🌟🌟🌟🌟🌟</td>
+</tr>
+<tr>
+<td>Node</td>
+<td>节点</td>
+<td>🌟🌟🌟🌟🌟</td>
+</tr>
+<tr>
+<td>Leaf Node</td>
+<td>叶子节点</td>
+<td>🌟🌟🌟🌟🌟</td>
+</tr>
+<tr>
+<td>Tree Traversal</td>
+<td>树的遍历</td>
+<td>🌟🌟🌟🌟🌟</td>
+</tr>
+<tr>
+<td>Global variable</td>
+<td>全局变量</td>
+<td>🌟🌟🌟🌟🌟</td>
+</tr>
+<tr>
+<td>Initialize</td>
+<td>初始化</td>
+<td>🌟🌟🌟🌟🌟</td>
+</tr>
+<tr>
+<td>Base case</td>
+<td>基础情况</td>
+<td>🌟🌟🌟🌟🌟</td>
+</tr>
+<tr>
+<td>Dead-end</td>
+<td>死路</td>
+<td>🌟🌟🌟🌟</td>
+</tr>
+<tr>
+<td>Undo</td>
+<td>撤回</td>
+<td>🌟🌟🌟🌟</td>
+</tr>
+<tr>
+<td>Explore</td>
+<td>探索</td>
+<td>🌟🌟🌟🌟</td>
+</tr>
+<tr>
+<td>Hit &#x2F; reach</td>
+<td>碰到 &#x2F; 达到</td>
+<td>🌟🌟🌟🌟</td>
+</tr>
+<tr>
+<td>Track</td>
+<td>追踪，跟踪</td>
+<td>🌟🌟🌟🌟</td>
+</tr>
+<tr>
+<td>Terminate</td>
+<td>使…结束</td>
+<td>🌟🌟🌟🌟</td>
+</tr>
+<tr>
+<td>Crucial</td>
+<td>关键的</td>
+<td>🌟🌟🌟</td>
+</tr>
+</tbody></table>
+<ul>
+<li>Script</li>
+</ul>
+<p>Today we will use DFS + backtracking to solve this problem. Basically we need to explore all possible paths from the root node to the leaf node and see if their sum is equal to the target sum. For each node, we use DFS way to track the current sum and all nodes we have gone through. We put those nodes into a list called current path. Once we hit the leaf node, we check if the current sum equals to the target, if so, then we add the current path list to the result to be returned later.<br>So another crucial part is, at the end of the DFS function, we need to remove the last node from the current path list, which is called backtracking. So why we need to remove the last node is that we don’t want to consider this case anymore, either because it led to the dead-end, or they have already been explored. Therefore, we undo this choice and we will explore other paths later.</p>
+<p>So before starting the DFS, we need to initialize the targetsum as a global variable. Then in the DFS, we can see the base case for this DFS function is to check if the current node is null. If so, we directly terminate the function.<br>Then we update the current sum by adding the current node’s value, and then update the current path list by adding the current node.<br>Then if the current node is a leaf node, we can check if the overall sum is equal to the target one. If so, that is one of the valid results to be returned, we add it to the result list.<br>If not the leaf node, that means we can keep doing tree traversal to go down. We can either choose to go left or go right. After exploring all possible paths starting from the current node, then we do a backtrack to undo the last node added to the path list, which is just the current node.</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">function TreeNode(val, left, right) &#123;</span><br><span class="line">    this.val = (val===undefined ? 0 : val)</span><br><span class="line">    this.left = (left===undefined ? null : left)</span><br><span class="line">    this.right = (right===undefined ? null : right)</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">class Solution &#123;</span><br><span class="line">    constructor() &#123;</span><br><span class="line">        this.ret = [];</span><br><span class="line">        this.path = [];</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    pathSum(root, targetSum) &#123;</span><br><span class="line">        this.dfs(root, targetSum);</span><br><span class="line">        return this.ret;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    dfs(node, targetSum) &#123;</span><br><span class="line">        if (!node) return;</span><br><span class="line"></span><br><span class="line">        this.path.push(node.val);</span><br><span class="line">        targetSum -= node.val;</span><br><span class="line"></span><br><span class="line">        if (!node.left &amp;&amp; !node.right &amp;&amp; targetSum === 0) &#123;</span><br><span class="line">            this.ret.push([...this.path]);</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        this.dfs(node.left, targetSum);</span><br><span class="line">        this.dfs(node.right, targetSum);</span><br><span class="line"></span><br><span class="line">        this.path.pop();</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">// Helper function to create a binary tree from an array</span><br><span class="line">function arrayToTreeNode(arr) &#123;</span><br><span class="line">    if (!arr || arr.length === 0 || arr[0] === null) return null;</span><br><span class="line"></span><br><span class="line">    const root = new TreeNode(arr[0]);</span><br><span class="line">    const queue = [root];</span><br><span class="line">    let i = 1;</span><br><span class="line"></span><br><span class="line">    while (i &lt; arr.length) &#123;</span><br><span class="line">        const current = queue.shift();</span><br><span class="line"></span><br><span class="line">        if (arr[i] !== null) &#123;</span><br><span class="line">            current.left = new TreeNode(arr[i]);</span><br><span class="line">            queue.push(current.left);</span><br><span class="line">        &#125;</span><br><span class="line">        i++;</span><br><span class="line"></span><br><span class="line">        if (i &lt; arr.length &amp;&amp; arr[i] !== null) &#123;</span><br><span class="line">            current.right = new TreeNode(arr[i]);</span><br><span class="line">            queue.push(current.right);</span><br><span class="line">        &#125;</span><br><span class="line">        i++;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    return root;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">const solution = new Solution();</span><br><span class="line"></span><br><span class="line">const root = arrayToTreeNode([5, 4, 8, 11, null, 13, 4, 7, 2, null, null, 5, 1]);</span><br><span class="line">const targetSum = 22;</span><br><span class="line">console.log(root)</span><br><span class="line"></span><br><span class="line">console.log(JSON.stringify(root))</span><br><span class="line">console.log(solution.pathSum(root, targetSum)); // Output: [[5,4,11,2],[5,8,4,5]]</span><br><span class="line"></span><br><span class="line">// const root1 = arrayToTreeNode([1, 2, 3]);</span><br><span class="line">// const targetSum1 = 5;</span><br><span class="line">// console.log(solution.pathSum(root1, targetSum1)); // Output: []</span><br><span class="line"></span><br><span class="line">// const root2 = arrayToTreeNode([1, 2]);</span><br><span class="line">// const targetSum2 = 0;</span><br><span class="line">// console.log(solution.pathSum(root2, targetSum2)); // Output: []</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<h3 id="Resources"><a href="#Resources" class="headerlink" title="Resources"></a>Resources</h3><p><a target="_blank" rel="noopener" href="https://www.bilibili.com/video/BV1Uu4y1V7Eg/?spm_id_from=333.999.0.0&vd_source=ffda878df0ed45bee1ade91d8f451048">https://www.bilibili.com/video/BV1Uu4y1V7Eg/?spm_id_from=333.999.0.0&amp;vd_source=ffda878df0ed45bee1ade91d8f451048</a></p>
+<h3 id="07-英文简历"><a href="#07-英文简历" class="headerlink" title="07 英文简历"></a>07 英文简历</h3><p><img src="/../images/english_01.png"></p>
+<h3 id="Resources-1"><a href="#Resources-1" class="headerlink" title="Resources"></a>Resources</h3><p><a target="_blank" rel="noopener" href="https://www.bilibili.com/video/BV11h4y1P7Yp/?spm_id_from=333.999.0.0">https://www.bilibili.com/video/BV11h4y1P7Yp/?spm_id_from=333.999.0.0</a> 视频链接</p>
+<p><a target="_blank" rel="noopener" href="https://leetcode.cn/problems/path-sum-ii/description/">https://leetcode.cn/problems/path-sum-ii/description/</a> 题目链接</p>
+<p><a target="_blank" rel="noopener" href="https://www.collinsdictionary.com/dictionary/">https://www.collinsdictionary.com/dictionary/</a> 我喜欢的英文在线字典</p>
+<p>在线真人口语练习网站<br><a target="_blank" rel="noopener" href="https://www.free4talk.com/">https://www.free4talk.com/</a> 可以选择不同的口语 level 的聊天室，免费</p>
+<hr>
+<p>1、前端英语<br><a target="_blank" rel="noopener" href="https://www.bilibili.com/video/BV1gg411d7if?spm_id_from=333.788.videopod.sections&vd_source=ffda878df0ed45bee1ade91d8f451048">https://www.bilibili.com/video/BV1gg411d7if?spm_id_from=333.788.videopod.sections&amp;vd_source=ffda878df0ed45bee1ade91d8f451048</a></p>
+<p>2、英语句子背诵<br><a target="_blank" rel="noopener" href="https://www.bilibili.com/video/BV1eM411a7dB/?spm_id_from=333.337.search-card.all.click&vd_source=ffda878df0ed45bee1ade91d8f451048">https://www.bilibili.com/video/BV1eM411a7dB/?spm_id_from=333.337.search-card.all.click&amp;vd_source=ffda878df0ed45bee1ade91d8f451048</a></p>
+<p>3、前端 React 程序员<br><a target="_blank" rel="noopener" href="https://www.bilibili.com/video/BV1tm411R7Qt/?spm_id_from=333.337.search-card.all.click&vd_source=ffda878df0ed45bee1ade91d8f451048">https://www.bilibili.com/video/BV1tm411R7Qt/?spm_id_from=333.337.search-card.all.click&amp;vd_source=ffda878df0ed45bee1ade91d8f451048</a></p>
+<p>5、程序员英语训练营<br><a target="_blank" rel="noopener" href="https://www.bilibili.com/video/BV1wM4y1C7LE/?spm_id_from=333.337.search-card.all.click&vd_source=ffda878df0ed45bee1ade91d8f451048">https://www.bilibili.com/video/BV1wM4y1C7LE/?spm_id_from=333.337.search-card.all.click&amp;vd_source=ffda878df0ed45bee1ade91d8f451048</a></p>
+<p>6、程序员英语角<br><a target="_blank" rel="noopener" href="https://space.bilibili.com/403317915">https://space.bilibili.com/403317915</a></p>
+<p>7、</p>
+<p><img src="/../images/englist_01.png"></p>
+<p><a target="_blank" rel="noopener" href="https://www.bilibili.com/video/BV1Kv4y1E72V/?spm_id_from=333.337.search-card.all.click&vd_source=ffda878df0ed45bee1ade91d8f451048">https://www.bilibili.com/video/BV1Kv4y1E72V/?spm_id_from=333.337.search-card.all.click&amp;vd_source=ffda878df0ed45bee1ade91d8f451048</a></p>
+<h3 id="more-frontend-interview-question"><a href="#more-frontend-interview-question" class="headerlink" title="more frontend interview question:"></a>more frontend interview question:</h3><p><a target="_blank" rel="noopener" href="https://johnsonkow.medium.com/general-frontend-interview-questions-e6186ca4bf2b">https://johnsonkow.medium.com/general-frontend-interview-questions-e6186ca4bf2b</a></p>
+<p><a target="_blank" rel="noopener" href="https://github.com/h5bp/Front-end-Developer-Interview-Questions?tab=readme-ov-file">https://github.com/h5bp/Front-end-Developer-Interview-Questions?tab=readme-ov-file</a></p>
+<p><a target="_blank" rel="noopener" href="https://www.interviewbit.com/front-end-developer-interview-questions/#react-js">https://www.interviewbit.com/front-end-developer-interview-questions/#react-js</a></p>
+<p><a target="_blank" rel="noopener" href="https://www.usebraintrust.com/hire/interview-questions/front-end-developers">https://www.usebraintrust.com/hire/interview-questions/front-end-developers</a></p>
+<p><a target="_blank" rel="noopener" href="https://roadmap.sh/questions/frontend">https://roadmap.sh/questions/frontend</a></p>
+<p><a target="_blank" rel="noopener" href="https://www.geeksforgeeks.org/front-end-developer-interview-questions/">https://www.geeksforgeeks.org/front-end-developer-interview-questions/</a></p>
+<p>react interview questions:</p>
+<p><a target="_blank" rel="noopener" href="https://github.com/wangzhiwei1888/wangzhiwei1888.github.io/tree/master/docs/">https://github.com/wangzhiwei1888/wangzhiwei1888.github.io/tree/master/docs/</a></p>
+
+    </div>
+
+    
+    
+    
+
+      <footer class="post-footer">
+          <div class="post-tags">
+              <a href="/tags/english/" rel="tag"># english</a>
+          </div>
+
+        
+
+
+        
+    <div class="post-nav">
+      <div class="post-nav-item">
+    <a href="/2024/12/25/node-addon-%E6%89%A9%E5%B1%95-node-c-%E6%89%A9%E5%B1%95/" rel="prev" title="node addon 扩展 node c++扩展">
+      <i class="fa fa-chevron-left"></i> node addon 扩展 node c++扩展
+    </a></div>
+      <div class="post-nav-item">
+    <a href="/2024/12/27/react%E5%A4%8D%E4%B9%A0/" rel="next" title="react复习">
+      react复习 <i class="fa fa-chevron-right"></i>
+    </a></div>
+    </div>
+      </footer>
+    
+  </article>
+  
+  
+  
+
+
+
+          </div>
+          
+
+<script>
+  window.addEventListener('tabs:register', () => {
+    let { activeClass } = CONFIG.comments;
+    if (CONFIG.comments.storage) {
+      activeClass = localStorage.getItem('comments_active') || activeClass;
+    }
+    if (activeClass) {
+      let activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      if (activeTab) {
+        activeTab.click();
+      }
+    }
+  });
+  if (CONFIG.comments.storage) {
+    window.addEventListener('tabs:click', event => {
+      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
+      let commentClass = event.target.classList[1];
+      localStorage.setItem('comments_active', commentClass);
+    });
+  }
+</script>
+
+        </div>
+          
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line toggle-line-first"></span>
+    <span class="toggle-line toggle-line-middle"></span>
+    <span class="toggle-line toggle-line-last"></span>
+  </div>
+
+  <aside class="sidebar">
+    <div class="sidebar-inner">
+
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#English-for-Technical-Interviews"><span class="nav-number">1.</span> <span class="nav-text">English-for-Technical-Interviews</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#02-two-sum"><span class="nav-number">2.</span> <span class="nav-text">02-two sum</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#03-Spoken-English"><span class="nav-number">3.</span> <span class="nav-text">03 - Spoken English</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#04-reverse-list"><span class="nav-number">4.</span> <span class="nav-text">04 - reverse list</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#05-resume"><span class="nav-number">5.</span> <span class="nav-text">05 - resume</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#06-lc-113"><span class="nav-number">6.</span> <span class="nav-text">06 - lc 113</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Resources"><span class="nav-number">7.</span> <span class="nav-text">Resources</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#07-%E8%8B%B1%E6%96%87%E7%AE%80%E5%8E%86"><span class="nav-number">8.</span> <span class="nav-text">07 英文简历</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Resources-1"><span class="nav-number">9.</span> <span class="nav-text">Resources</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#more-frontend-interview-question"><span class="nav-number">10.</span> <span class="nav-text">more frontend interview question:</span></a></li></ol></div>
+      </div>
+      <!--/noindex-->
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+  <p class="site-author-name" itemprop="name">wangzhiwei</p>
+  <div class="site-description" itemprop="description">javascript nodejs web developer...</div>
+</div>
+<div class="site-state-wrap motion-element">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">61</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+        <span class="site-state-item-count">56</span>
+        <span class="site-state-item-name">分类</span>
+      </div>
+      <div class="site-state-item site-state-tags">
+        <span class="site-state-item-count">62</span>
+        <span class="site-state-item-name">标签</span>
+      </div>
+  </nav>
+</div>
+
+
+
+      </div>
+
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+    </main>
+
+    <footer class="footer">
+      <div class="footer-inner">
+        
+
+        
+
+<div class="copyright">
+  
+  &copy; 
+  <span itemprop="copyrightYear">2025</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">wangzhiwei</span>
+</div>
+  <div class="powered-by">由 <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> & <a href="https://muse.theme-next.org/" class="theme-link" rel="noopener" target="_blank">NexT.Muse</a> 强力驱动
+  </div>
+
+        
+
+
+
+
+
+
+
+
+      </div>
+    </footer>
+  </div>
+
+  
+  <script src="/lib/anime.min.js"></script>
+  <script src="/lib/velocity/velocity.min.js"></script>
+  <script src="/lib/velocity/velocity.ui.min.js"></script>
+
+<script src="/js/utils.js"></script>
+
+<script src="/js/motion.js"></script>
+
+
+<script src="/js/schemes/muse.js"></script>
+
+
+<script src="/js/next-boot.js"></script>
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  
+
+</body>
+</html>

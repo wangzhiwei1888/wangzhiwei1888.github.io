@@ -1,0 +1,484 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 7.3.0">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+<link rel="stylesheet" href="/lib/font-awesome/css/font-awesome.min.css">
+
+<script id="hexo-configurations">
+    var NexT = window.NexT || {};
+    var CONFIG = {"hostname":"example.com","root":"/","scheme":"Muse","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":false,"show_result":false,"style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":false,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}}};
+  </script>
+
+  <meta name="description" content="React 19.0.0 并不是一个官方发布的版本号。React 的最新稳定版本是 18.x 系列。假设你指的是 React 18.0.0 相对于 React 16.8.0 的更新，以下是主要的更新和新功能： React 18.0.0 相对于 React 16.8.0 的主要更新 并发模式（Concurrent Mode）  自动批处理（Automatic Batching）: React 18">
+<meta property="og:type" content="article">
+<meta property="og:title" content="react19.0.0 版本和16.8版本相比更新了哪些功能">
+<meta property="og:url" content="http://example.com/2024/12/28/react19-0-0-%E7%89%88%E6%9C%AC%E5%92%8C16-8%E7%89%88%E6%9C%AC%E7%9B%B8%E6%AF%94%E6%9B%B4%E6%96%B0%E4%BA%86%E5%93%AA%E4%BA%9B%E5%8A%9F%E8%83%BD/index.html">
+<meta property="og:site_name" content="WBlog">
+<meta property="og:description" content="React 19.0.0 并不是一个官方发布的版本号。React 的最新稳定版本是 18.x 系列。假设你指的是 React 18.0.0 相对于 React 16.8.0 的更新，以下是主要的更新和新功能： React 18.0.0 相对于 React 16.8.0 的主要更新 并发模式（Concurrent Mode）  自动批处理（Automatic Batching）: React 18">
+<meta property="og:locale" content="zh_CN">
+<meta property="article:published_time" content="2024-12-28T01:42:17.000Z">
+<meta property="article:modified_time" content="2025-03-18T03:10:52.053Z">
+<meta property="article:author" content="wangzhiwei">
+<meta property="article:tag" content="react">
+<meta property="article:tag" content="react16">
+<meta property="article:tag" content="react19">
+<meta name="twitter:card" content="summary">
+
+<link rel="canonical" href="http://example.com/2024/12/28/react19-0-0-%E7%89%88%E6%9C%AC%E5%92%8C16-8%E7%89%88%E6%9C%AC%E7%9B%B8%E6%AF%94%E6%9B%B4%E6%96%B0%E4%BA%86%E5%93%AA%E4%BA%9B%E5%8A%9F%E8%83%BD/">
+
+
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome : false,
+    isPost : true,
+    lang   : 'zh-CN'
+  };
+</script>
+
+  <title>react19.0.0 版本和16.8版本相比更新了哪些功能 | WBlog</title>
+  
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div class="container use-motion">
+    <div class="headband"></div>
+
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏">
+      <span class="toggle-line toggle-line-first"></span>
+      <span class="toggle-line toggle-line-middle"></span>
+      <span class="toggle-line toggle-line-last"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <h1 class="site-title">WBlog</h1>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+      <p class="site-subtitle" itemprop="description">wangzhiwei blog</p>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+    </div>
+  </div>
+</div>
+
+
+
+
+<nav class="site-nav">
+  <ul id="menu" class="menu">
+        <li class="menu-item menu-item-home">
+
+    <a href="/" rel="section"><i class="fa fa-fw fa-home"></i>首页</a>
+
+  </li>
+        <li class="menu-item menu-item-archives">
+
+    <a href="/archives/" rel="section"><i class="fa fa-fw fa-archive"></i>归档</a>
+
+  </li>
+  </ul>
+</nav>
+
+
+
+
+</div>
+    </header>
+
+    
+  <div class="back-to-top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+
+
+    <main class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+
+          <div class="content post posts-expand">
+            
+
+    
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="http://example.com/2024/12/28/react19-0-0-%E7%89%88%E6%9C%AC%E5%92%8C16-8%E7%89%88%E6%9C%AC%E7%9B%B8%E6%AF%94%E6%9B%B4%E6%96%B0%E4%BA%86%E5%93%AA%E4%BA%9B%E5%8A%9F%E8%83%BD/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="wangzhiwei">
+      <meta itemprop="description" content="javascript nodejs web developer...">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="WBlog">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          react19.0.0 版本和16.8版本相比更新了哪些功能
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2024-12-28 09:42:17" itemprop="dateCreated datePublished" datetime="2024-12-28T09:42:17+08:00">2024-12-28</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-calendar-check-o"></i>
+                </span>
+                <span class="post-meta-item-text">更新于</span>
+                <time title="修改时间：2025-03-18 11:10:52" itemprop="dateModified" datetime="2025-03-18T11:10:52+08:00">2025-03-18</time>
+              </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/react/" itemprop="url" rel="index"><span itemprop="name">react</span></a>
+                </span>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+        <p>React 19.0.0 并不是一个官方发布的版本号。React 的最新稳定版本是 18.x 系列。假设你指的是 React 18.0.0 相对于 React 16.8.0 的更新，以下是主要的更新和新功能：</p>
+<h3 id="React-18-0-0-相对于-React-16-8-0-的主要更新"><a href="#React-18-0-0-相对于-React-16-8-0-的主要更新" class="headerlink" title="React 18.0.0 相对于 React 16.8.0 的主要更新"></a>React 18.0.0 相对于 React 16.8.0 的主要更新</h3><ol>
+<li><p><strong>并发模式（Concurrent Mode）</strong></p>
+<ul>
+<li><strong>自动批处理（Automatic Batching）</strong>: React 18 提供了自动批处理功能，可以将多个状态更新合并到一个批处理中，从而减少不必要的重渲染。</li>
+<li><strong>Suspense</strong>: 提供了更强大的 Suspense 功能，可以用于数据获取和代码分割，支持并发渲染。</li>
+</ul>
+</li>
+<li><p><strong>新的 API</strong></p>
+<ul>
+<li><strong>startTransition</strong>: 用于标记非紧急更新，帮助优化性能。</li>
+<li><strong>useId</strong>: 生成唯一的 ID，用于无障碍（ARIA）属性。</li>
+<li><strong>useSyncExternalStore</strong>: 用于集成外部存储系统，如 Redux。</li>
+</ul>
+</li>
+<li><p><strong>更好的性能</strong></p>
+<ul>
+<li><strong>时间切片（Time Slicing）</strong>: 允许 React 在渲染过程中中断并重新开始，以避免阻塞主线程。</li>
+<li><strong>优先级调度（Priority Scheduling）</strong>: 根据更新的优先级进行调度，确保重要的更新优先渲染。</li>
+</ul>
+</li>
+<li><p><strong>新的 Hooks</strong></p>
+<ul>
+<li><strong>useTransition</strong>: 用于标记非紧急更新，帮助优化性能。</li>
+<li><strong>useDeferredValue</strong>: 用于延迟更新非关键部分，保持 UI 响应性。</li>
+<li><strong>useId</strong>: 生成唯一的 ID，用于无障碍（ARIA）属性。</li>
+<li><strong>useSyncExternalStore</strong>: 用于集成外部存储系统，如 Redux。</li>
+</ul>
+</li>
+<li><p><strong>更好的开发者体验</strong></p>
+<ul>
+<li><strong>Strict Mode</strong>: 提供更多的警告和检查，帮助开发者发现潜在的问题。</li>
+<li><strong>更好的错误边界</strong>: 改进了错误边界的处理，确保在渲染过程中发生的错误不会导致整个应用崩溃。</li>
+</ul>
+</li>
+<li><p><strong>更好的服务器端渲染（SSR）</strong></p>
+<ul>
+<li><strong>Streaming SSR</strong>: 支持流式服务器端渲染，可以更快地将内容发送到客户端。</li>
+<li><strong>Selective Hydration</strong>: 允许部分组件进行水合，而不是整个应用，从而提高性能。</li>
+</ul>
+</li>
+</ol>
+<h3 id="React-16-8-0-的主要更新"><a href="#React-16-8-0-的主要更新" class="headerlink" title="React 16.8.0 的主要更新"></a>React 16.8.0 的主要更新</h3><p>React 16.8.0 是一个重要的版本，因为它引入了 Hooks，这是 React 的一个重大更新。以下是 React 16.8.0 的主要更新：</p>
+<ol>
+<li><p><strong>Hooks</strong></p>
+<ul>
+<li><strong>useState</strong>: 允许在函数组件中使用状态。</li>
+<li><strong>useEffect</strong>: 允许在函数组件中执行副作用操作。</li>
+<li><strong>useContext</strong>: 允许在函数组件中使用 Context。</li>
+<li><strong>useReducer</strong>: 允许在函数组件中使用 reducer 模式。</li>
+<li><strong>useCallback</strong>: 允许在函数组件中缓存回调函数。</li>
+<li><strong>useMemo</strong>: 允许在函数组件中缓存计算结果。</li>
+<li><strong>useRef</strong>: 允许在函数组件中创建可变的引用。</li>
+<li><strong>useImperativeHandle</strong>: 允许在函数组件中自定义暴露给父组件的实例值。</li>
+<li><strong>useLayoutEffect</strong>: 允许在函数组件中执行同步的副作用操作。</li>
+</ul>
+</li>
+<li><p><strong>Fragments</strong></p>
+<ul>
+<li>支持 <code>key</code> 属性的 Fragments，允许在列表中使用 Fragments 而不引入额外的 DOM 节点。</li>
+</ul>
+</li>
+<li><p><strong>Profiler</strong></p>
+<ul>
+<li>引入了 <code>Profiler</code> 组件，用于测量组件树的渲染性能。</li>
+</ul>
+</li>
+<li><p><strong>Strict Mode</strong></p>
+<ul>
+<li>提供了 Strict Mode，帮助开发者发现潜在的问题。</li>
+</ul>
+</li>
+</ol>
+<h3 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h3><ul>
+<li><strong>React 18.0.0</strong> 引入了并发模式、新的 API、更好的性能、新的 Hooks 和更好的开发者体验。</li>
+<li><strong>React 16.8.0</strong> 引入了 Hooks，这是 React 的一个重大更新，允许在函数组件中使用状态和副作用。</li>
+</ul>
+<p>如果你指的是其他版本的 React，请提供正确的版本号，以便我能更准确地回答你的问题。</p>
+
+    </div>
+
+    
+    
+    
+
+      <footer class="post-footer">
+          <div class="post-tags">
+              <a href="/tags/react/" rel="tag"># react</a>
+              <a href="/tags/react16/" rel="tag"># react16</a>
+              <a href="/tags/react19/" rel="tag"># react19</a>
+          </div>
+
+        
+
+
+        
+    <div class="post-nav">
+      <div class="post-nav-item">
+    <a href="/2024/12/28/%E9%A1%B9%E7%9B%AE%E4%B8%AD%E7%9A%84%E7%BB%84%E4%BB%B6%E5%A6%82%E4%BD%95%E6%89%93%E5%8C%85%E6%88%90%E7%8B%AC%E7%AB%8B%E8%BF%90%E8%A1%8C%E7%9A%84js/" rel="prev" title="项目中的组件如何打包成独立运行的js">
+      <i class="fa fa-chevron-left"></i> 项目中的组件如何打包成独立运行的js
+    </a></div>
+      <div class="post-nav-item">
+    <a href="/2024/12/31/electron-%E5%A4%8D%E4%B9%A0/" rel="next" title="electron 复习">
+      electron 复习 <i class="fa fa-chevron-right"></i>
+    </a></div>
+    </div>
+      </footer>
+    
+  </article>
+  
+  
+  
+
+
+
+          </div>
+          
+
+<script>
+  window.addEventListener('tabs:register', () => {
+    let { activeClass } = CONFIG.comments;
+    if (CONFIG.comments.storage) {
+      activeClass = localStorage.getItem('comments_active') || activeClass;
+    }
+    if (activeClass) {
+      let activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      if (activeTab) {
+        activeTab.click();
+      }
+    }
+  });
+  if (CONFIG.comments.storage) {
+    window.addEventListener('tabs:click', event => {
+      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
+      let commentClass = event.target.classList[1];
+      localStorage.setItem('comments_active', commentClass);
+    });
+  }
+</script>
+
+        </div>
+          
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line toggle-line-first"></span>
+    <span class="toggle-line toggle-line-middle"></span>
+    <span class="toggle-line toggle-line-last"></span>
+  </div>
+
+  <aside class="sidebar">
+    <div class="sidebar-inner">
+
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#React-18-0-0-%E7%9B%B8%E5%AF%B9%E4%BA%8E-React-16-8-0-%E7%9A%84%E4%B8%BB%E8%A6%81%E6%9B%B4%E6%96%B0"><span class="nav-number">1.</span> <span class="nav-text">React 18.0.0 相对于 React 16.8.0 的主要更新</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#React-16-8-0-%E7%9A%84%E4%B8%BB%E8%A6%81%E6%9B%B4%E6%96%B0"><span class="nav-number">2.</span> <span class="nav-text">React 16.8.0 的主要更新</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%80%BB%E7%BB%93"><span class="nav-number">3.</span> <span class="nav-text">总结</span></a></li></ol></div>
+      </div>
+      <!--/noindex-->
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+  <p class="site-author-name" itemprop="name">wangzhiwei</p>
+  <div class="site-description" itemprop="description">javascript nodejs web developer...</div>
+</div>
+<div class="site-state-wrap motion-element">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">61</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+        <span class="site-state-item-count">56</span>
+        <span class="site-state-item-name">分类</span>
+      </div>
+      <div class="site-state-item site-state-tags">
+        <span class="site-state-item-count">62</span>
+        <span class="site-state-item-name">标签</span>
+      </div>
+  </nav>
+</div>
+
+
+
+      </div>
+
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+    </main>
+
+    <footer class="footer">
+      <div class="footer-inner">
+        
+
+        
+
+<div class="copyright">
+  
+  &copy; 
+  <span itemprop="copyrightYear">2025</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">wangzhiwei</span>
+</div>
+  <div class="powered-by">由 <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> & <a href="https://muse.theme-next.org/" class="theme-link" rel="noopener" target="_blank">NexT.Muse</a> 强力驱动
+  </div>
+
+        
+
+
+
+
+
+
+
+
+      </div>
+    </footer>
+  </div>
+
+  
+  <script src="/lib/anime.min.js"></script>
+  <script src="/lib/velocity/velocity.min.js"></script>
+  <script src="/lib/velocity/velocity.ui.min.js"></script>
+
+<script src="/js/utils.js"></script>
+
+<script src="/js/motion.js"></script>
+
+
+<script src="/js/schemes/muse.js"></script>
+
+
+<script src="/js/next-boot.js"></script>
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  
+
+</body>
+</html>

@@ -1,0 +1,441 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 7.3.0">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+<link rel="stylesheet" href="/lib/font-awesome/css/font-awesome.min.css">
+
+<script id="hexo-configurations">
+    var NexT = window.NexT || {};
+    var CONFIG = {"hostname":"example.com","root":"/","scheme":"Muse","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":false,"show_result":false,"style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":false,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}}};
+  </script>
+
+  <meta name="description" content="https:&#x2F;&#x2F;www.bilibili.com&#x2F;video&#x2F;BV1Tw4m1Q7qG&#x2F;?spm_id_from&#x3D;333.337.search-card.all.click&amp;vd_source&#x3D;ffda878df0ed45bee1ade91d8f451048https:&#x2F;&#x2F;www.bilibili.com&#x2F;video&#x2F;BV1Zi4y1T78H?spm_id_from&#x3D;333.788.pla">
+<meta property="og:type" content="article">
+<meta property="og:title" content="mqtt + vue">
+<meta property="og:url" content="http://example.com/2024/12/13/mqtt-vue/index.html">
+<meta property="og:site_name" content="WBlog">
+<meta property="og:description" content="https:&#x2F;&#x2F;www.bilibili.com&#x2F;video&#x2F;BV1Tw4m1Q7qG&#x2F;?spm_id_from&#x3D;333.337.search-card.all.click&amp;vd_source&#x3D;ffda878df0ed45bee1ade91d8f451048https:&#x2F;&#x2F;www.bilibili.com&#x2F;video&#x2F;BV1Zi4y1T78H?spm_id_from&#x3D;333.788.pla">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="http://example.com/images/mqtt_01.png">
+<meta property="og:image" content="http://example.com/images/mqtt_02.png">
+<meta property="og:image" content="http://example.com/images/mqtt_03.png">
+<meta property="og:image" content="http://example.com/images/mqtt_04.png">
+<meta property="article:published_time" content="2024-12-13T07:35:26.000Z">
+<meta property="article:modified_time" content="2025-03-18T03:10:52.052Z">
+<meta property="article:author" content="wangzhiwei">
+<meta property="article:tag" content="mqtt">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="http://example.com/images/mqtt_01.png">
+
+<link rel="canonical" href="http://example.com/2024/12/13/mqtt-vue/">
+
+
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome : false,
+    isPost : true,
+    lang   : 'zh-CN'
+  };
+</script>
+
+  <title>mqtt + vue | WBlog</title>
+  
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div class="container use-motion">
+    <div class="headband"></div>
+
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏">
+      <span class="toggle-line toggle-line-first"></span>
+      <span class="toggle-line toggle-line-middle"></span>
+      <span class="toggle-line toggle-line-last"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <h1 class="site-title">WBlog</h1>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+      <p class="site-subtitle" itemprop="description">wangzhiwei blog</p>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+    </div>
+  </div>
+</div>
+
+
+
+
+<nav class="site-nav">
+  <ul id="menu" class="menu">
+        <li class="menu-item menu-item-home">
+
+    <a href="/" rel="section"><i class="fa fa-fw fa-home"></i>首页</a>
+
+  </li>
+        <li class="menu-item menu-item-archives">
+
+    <a href="/archives/" rel="section"><i class="fa fa-fw fa-archive"></i>归档</a>
+
+  </li>
+  </ul>
+</nav>
+
+
+
+
+</div>
+    </header>
+
+    
+  <div class="back-to-top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+
+
+    <main class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+
+          <div class="content post posts-expand">
+            
+
+    
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="http://example.com/2024/12/13/mqtt-vue/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="wangzhiwei">
+      <meta itemprop="description" content="javascript nodejs web developer...">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="WBlog">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          mqtt + vue
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2024-12-13 15:35:26" itemprop="dateCreated datePublished" datetime="2024-12-13T15:35:26+08:00">2024-12-13</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-calendar-check-o"></i>
+                </span>
+                <span class="post-meta-item-text">更新于</span>
+                <time title="修改时间：2025-03-18 11:10:52" itemprop="dateModified" datetime="2025-03-18T11:10:52+08:00">2025-03-18</time>
+              </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/mqtt/" itemprop="url" rel="index"><span itemprop="name">mqtt</span></a>
+                </span>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+        <p><a target="_blank" rel="noopener" href="https://www.bilibili.com/video/BV1Tw4m1Q7qG/?spm_id_from=333.337.search-card.all.click&vd_source=ffda878df0ed45bee1ade91d8f451048">https://www.bilibili.com/video/BV1Tw4m1Q7qG/?spm_id_from=333.337.search-card.all.click&amp;vd_source=ffda878df0ed45bee1ade91d8f451048</a><br><a target="_blank" rel="noopener" href="https://www.bilibili.com/video/BV1Zi4y1T78H?spm_id_from=333.788.player.switch&vd_source=ffda878df0ed45bee1ade91d8f451048">https://www.bilibili.com/video/BV1Zi4y1T78H?spm_id_from=333.788.player.switch&amp;vd_source=ffda878df0ed45bee1ade91d8f451048</a></p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">import mqtt from &#x27;mqtt&#x27;;</span><br><span class="line"> </span><br><span class="line">export default &#123;</span><br><span class="line">  name: &#x27;MqttComponent&#x27;,</span><br><span class="line">  data() &#123;</span><br><span class="line">    return &#123;</span><br><span class="line">      client: null,</span><br><span class="line">    &#125;;</span><br><span class="line">  &#125;,</span><br><span class="line">  created() &#123;</span><br><span class="line">    this.connectMqtt();</span><br><span class="line">  &#125;,</span><br><span class="line">  methods: &#123;</span><br><span class="line">    connectMqtt() &#123;</span><br><span class="line">      // 假设你的 MQTT 服务器支持 WebSocket，并且地址是 ws://your.mqtt.broker</span><br><span class="line">      this.client = mqtt.connect(&#x27;ws://your.mqtt.broker&#x27;, &#123;</span><br><span class="line">        clientId: &#x27;unique_client_id&#x27;,</span><br><span class="line">      &#125;);</span><br><span class="line"> </span><br><span class="line">      this.client.on(&#x27;connect&#x27;, () =&gt; &#123;</span><br><span class="line">        console.log(&#x27;MQTT Connected&#x27;);</span><br><span class="line">        // 订阅主题</span><br><span class="line">        this.client.subscribe(&#x27;your/topic&#x27;);</span><br><span class="line">      &#125;);</span><br><span class="line"> </span><br><span class="line">      this.client.on(&#x27;message&#x27;, (topic, message) =&gt; &#123;</span><br><span class="line">        // 处理接收到的消息</span><br><span class="line">        console.log(`Received message on $&#123;topic&#125;: $&#123;message&#125;`);</span><br><span class="line">      &#125;);</span><br><span class="line"> </span><br><span class="line">      this.client.on(&#x27;error&#x27;, (error) =&gt; &#123;</span><br><span class="line">        console.log(&#x27;MQTT Error:&#x27;, error);</span><br><span class="line">      &#125;);</span><br><span class="line">    &#125;,</span><br><span class="line">    publishMessage(topic, message) &#123;</span><br><span class="line">      // 发布消息</span><br><span class="line">      this.client.publish(topic, message);</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;,</span><br><span class="line">  beforeDestroy() &#123;</span><br><span class="line">    if (this.client) &#123;</span><br><span class="line">      this.client.end();</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;,</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<p><img src="/../images/mqtt_01.png"></p>
+<p><img src="/../images/mqtt_02.png"></p>
+<p><img src="/../images/mqtt_03.png"></p>
+<p>疑问：<br>mqtt 我也面没打开的时候，没有 订阅 ，java 还会一直往 mqtt发送消息吗？比如 id为1的集群状态，你那边还会一直发送吗？发送的话，我再次链接的时候会不会收到很多这个状态<br>mqtt只保留最新的一次消息</p>
+<p><img src="/../images/mqtt_04.png"></p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">[admin@cdn116 ~]$ sudo docker run -d --name emqx -p 2883:2883 -p 8083:8083 -p 8084:8084 -p 8883:8883 -p 18083:18083 emqx/emqx</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<p><a target="_blank" rel="noopener" href="http://192.168.40.116:18083/#/dashboard/overview">http://192.168.40.116:18083/#/dashboard/overview</a></p>
+<p>vue mqtt demo</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">&lt;template&gt;</span><br><span class="line">    &lt;div&gt;&#123;&#123;msg&#125;&#125;&lt;/div&gt;</span><br><span class="line">    &lt;button @click=&quot;stop&quot;&gt;stop&lt;/button&gt;</span><br><span class="line">    &lt;button @click=&quot;start&quot;&gt;start&lt;/button&gt;</span><br><span class="line">&lt;/template&gt;</span><br><span class="line"></span><br><span class="line">&lt;script&gt;</span><br><span class="line">import mqtt from &#x27;mqtt&#x27;</span><br><span class="line">import &#123; ref, onUnmounted &#125; from &#x27;vue&#x27;;</span><br><span class="line"></span><br><span class="line">const options = &#123;</span><br><span class="line">    port: 8083,</span><br><span class="line">    connectTimeout: 4000,</span><br><span class="line">    clientId: &#x27;mqttjs_&#x27; + Math.random().toString(16).substr(2, 8),</span><br><span class="line">    reconnectPeriod: 5000 // 自动重连时间间隔</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line">let client = null;</span><br><span class="line"></span><br><span class="line">export default &#123;</span><br><span class="line">    name: &quot;App&quot;,</span><br><span class="line">    setup() &#123;</span><br><span class="line">    </span><br><span class="line">        const msg = ref(&#x27;hello world&#x27;);</span><br><span class="line"></span><br><span class="line">        const start = () =&gt; &#123;</span><br><span class="line">            if (!client || client.connected === false) &#123;</span><br><span class="line">                client = mqtt.connect(&#x27;ws://192.168.40.116/mqtt&#x27;, options);</span><br><span class="line">                setupClientEvents();</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;;</span><br><span class="line"></span><br><span class="line">        const stop = () =&gt; &#123;</span><br><span class="line">            if (client &amp;&amp; client.connected === true) &#123;</span><br><span class="line">                client.end(function() &#123;</span><br><span class="line">                    console.log(&#x27;disconnected&#x27;);</span><br><span class="line">                &#125;);</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">        function setupClientEvents() &#123;</span><br><span class="line">            client.on(&#x27;connect&#x27;, function () &#123;</span><br><span class="line">                console.log(&#x27;Connected to MQTT broker&#x27;);</span><br><span class="line">                for (var i = 1; i &lt;= 10; i++) &#123;</span><br><span class="line">                    client.subscribe(`stock/$&#123;i&#125;/price`, function (err) &#123;</span><br><span class="line">                        if (err) &#123;</span><br><span class="line">                            console.error(&#x27;Subscription error:&#x27;, err);</span><br><span class="line">                        &#125;</span><br><span class="line">                    &#125;);</span><br><span class="line">                &#125;</span><br><span class="line">            &#125;);</span><br><span class="line"></span><br><span class="line">            client.on(&#x27;error&#x27;, function (err) &#123;</span><br><span class="line">                console.error(&#x27;Connection error:&#x27;, err);</span><br><span class="line">            &#125;);</span><br><span class="line"></span><br><span class="line">            client.on(&#x27;message&#x27;, function (topic, message) &#123;</span><br><span class="line">                console.log(topic + &#x27;:&#x27; + message.toString());</span><br><span class="line">                msg.value = JSON.parse(message.toString()).msg;</span><br><span class="line"></span><br><span class="line">            &#125;);</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        onUnmounted(() =&gt; &#123;</span><br><span class="line">            if (client) &#123;</span><br><span class="line">                client.end();</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;);</span><br><span class="line"></span><br><span class="line">        return &#123;</span><br><span class="line">            start,</span><br><span class="line">            stop,</span><br><span class="line">            msg</span><br><span class="line">        &#125;;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line">&lt;/script&gt;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"></span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+
+
+
+
+<p>yum search mosquitto</p>
+<p>yum install mosquitto.x86_64</p>
+<p>mosquitto_pub<br>mosquitto_sub </p>
+<p>命令就可以执行了</p>
+<p>参考文档</p>
+<p><a target="_blank" rel="noopener" href="https://xw1ei7mxto.feishu.cn/wiki/Wdn2wOBfvis1Hhk6rYccNrvHnYd">https://xw1ei7mxto.feishu.cn/wiki/Wdn2wOBfvis1Hhk6rYccNrvHnYd</a></p>
+<p>开启 mosquitto<br>mosquitto -c &#x2F;etc&#x2F;mosquitto&#x2F;mosquitto.conf -p 1884</p>
+<p>发布消息<br>mosquitto_pub -h 127.0.0.1 -p 1885 -t topic1 -m “Hello, topic1!”</p>
+<p>mosquitto_pub -h 127.0.0.1 -p 1885 -t topic1 -m ‘{“key1”:”value1”,”key2”:”value2”}’</p>
+<p>订阅消息<br>mosquitto_sub -h 127.0.0.1 -p 1884 -t topic1 -i client1 -F ‘%t : %p’</p>
+<p>参考文档：</p>
+<p>发布消息<br>mosquitto_pub -h 192.168.40.116 -p 1883 -t topic1 -m “Hello, topic1!”</p>
+<p>mosquitto_pub -h 192.168.40.116 -p 1883 -t topic1 -m ‘{“key1”:”value1”,”key2”:”value2”}’</p>
+<p>订阅消息<br>mosquitto_sub -h 192.168.40.116 -p 1883 -t topic1 -i client1 -F ‘%t : %p’</p>
+<p>cnpm install mqtt -g</p>
+<p>mqtt pub -h 192.168.40.116 -p 1883 -t topic1 -m ‘{“key1”:”value1”,”key2”:”value2”}’<br>mqtt sub -h 192.168.40.116 -p 1883 -t topic1 -i client1 -F ‘%t : %p’</p>
+<p>mqtt pub -h 192.168.40.116 -p 8083 -t topic1 -m ‘{“key1”:”value1”,”key2”:”value2”}’<br>mqtt sub -h 192.168.40.116 -p 8083 -t topic1 -i client1 -F ‘%t : %p’</p>
+
+    </div>
+
+    
+    
+    
+
+      <footer class="post-footer">
+          <div class="post-tags">
+              <a href="/tags/mqtt/" rel="tag"># mqtt</a>
+          </div>
+
+        
+
+
+        
+    <div class="post-nav">
+      <div class="post-nav-item">
+    <a href="/2024/12/13/nodejs-%E8%87%AA%E5%B8%A6crypto-%E5%8A%A0%E5%AF%86/" rel="prev" title="nodejs 自带crypto 加密">
+      <i class="fa fa-chevron-left"></i> nodejs 自带crypto 加密
+    </a></div>
+      <div class="post-nav-item">
+    <a href="/2024/12/13/Elasticsearch-%E6%8F%90%E4%BE%9B%E4%BA%86%E4%B8%B0%E5%AF%8C%E7%9A%84-RESTful-API/" rel="next" title="Elasticsearch 提供了丰富的 RESTful API">
+      Elasticsearch 提供了丰富的 RESTful API <i class="fa fa-chevron-right"></i>
+    </a></div>
+    </div>
+      </footer>
+    
+  </article>
+  
+  
+  
+
+
+
+          </div>
+          
+
+<script>
+  window.addEventListener('tabs:register', () => {
+    let { activeClass } = CONFIG.comments;
+    if (CONFIG.comments.storage) {
+      activeClass = localStorage.getItem('comments_active') || activeClass;
+    }
+    if (activeClass) {
+      let activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      if (activeTab) {
+        activeTab.click();
+      }
+    }
+  });
+  if (CONFIG.comments.storage) {
+    window.addEventListener('tabs:click', event => {
+      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
+      let commentClass = event.target.classList[1];
+      localStorage.setItem('comments_active', commentClass);
+    });
+  }
+</script>
+
+        </div>
+          
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line toggle-line-first"></span>
+    <span class="toggle-line toggle-line-middle"></span>
+    <span class="toggle-line toggle-line-last"></span>
+  </div>
+
+  <aside class="sidebar">
+    <div class="sidebar-inner">
+
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <div class="post-toc-wrap sidebar-panel">
+      </div>
+      <!--/noindex-->
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+  <p class="site-author-name" itemprop="name">wangzhiwei</p>
+  <div class="site-description" itemprop="description">javascript nodejs web developer...</div>
+</div>
+<div class="site-state-wrap motion-element">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">61</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+        <span class="site-state-item-count">56</span>
+        <span class="site-state-item-name">分类</span>
+      </div>
+      <div class="site-state-item site-state-tags">
+        <span class="site-state-item-count">62</span>
+        <span class="site-state-item-name">标签</span>
+      </div>
+  </nav>
+</div>
+
+
+
+      </div>
+
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+    </main>
+
+    <footer class="footer">
+      <div class="footer-inner">
+        
+
+        
+
+<div class="copyright">
+  
+  &copy; 
+  <span itemprop="copyrightYear">2025</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">wangzhiwei</span>
+</div>
+  <div class="powered-by">由 <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> & <a href="https://muse.theme-next.org/" class="theme-link" rel="noopener" target="_blank">NexT.Muse</a> 强力驱动
+  </div>
+
+        
+
+
+
+
+
+
+
+
+      </div>
+    </footer>
+  </div>
+
+  
+  <script src="/lib/anime.min.js"></script>
+  <script src="/lib/velocity/velocity.min.js"></script>
+  <script src="/lib/velocity/velocity.ui.min.js"></script>
+
+<script src="/js/utils.js"></script>
+
+<script src="/js/motion.js"></script>
+
+
+<script src="/js/schemes/muse.js"></script>
+
+
+<script src="/js/next-boot.js"></script>
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  
+
+</body>
+</html>

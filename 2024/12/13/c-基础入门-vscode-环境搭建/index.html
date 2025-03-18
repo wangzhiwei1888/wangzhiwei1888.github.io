@@ -1,0 +1,426 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 7.3.0">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+<link rel="stylesheet" href="/lib/font-awesome/css/font-awesome.min.css">
+
+<script id="hexo-configurations">
+    var NexT = window.NexT || {};
+    var CONFIG = {"hostname":"example.com","root":"/","scheme":"Muse","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":false,"show_result":false,"style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":false,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}}};
+  </script>
+
+  <meta name="description" content="vscode 环境调试   tasks.json 12345678910111213141516171819202122232425262728293031&#123;    &quot;tasks&quot;: [        &#123;            &quot;type&quot;: &quot;cppbuild&quot;,            &quot;label&amp;quo">
+<meta property="og:type" content="article">
+<meta property="og:title" content="c++基础入门 + vscode 环境搭建">
+<meta property="og:url" content="http://example.com/2024/12/13/c-%E5%9F%BA%E7%A1%80%E5%85%A5%E9%97%A8-vscode-%E7%8E%AF%E5%A2%83%E6%90%AD%E5%BB%BA/index.html">
+<meta property="og:site_name" content="WBlog">
+<meta property="og:description" content="vscode 环境调试   tasks.json 12345678910111213141516171819202122232425262728293031&#123;    &quot;tasks&quot;: [        &#123;            &quot;type&quot;: &quot;cppbuild&quot;,            &quot;label&amp;quo">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="http://example.com/images/c_001.png">
+<meta property="og:image" content="http://example.com/images/c_002.png">
+<meta property="article:published_time" content="2024-12-13T07:58:24.000Z">
+<meta property="article:modified_time" content="2025-03-18T03:10:52.051Z">
+<meta property="article:author" content="wangzhiwei">
+<meta property="article:tag" content="c++">
+<meta property="article:tag" content="vscode">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="http://example.com/images/c_001.png">
+
+<link rel="canonical" href="http://example.com/2024/12/13/c-%E5%9F%BA%E7%A1%80%E5%85%A5%E9%97%A8-vscode-%E7%8E%AF%E5%A2%83%E6%90%AD%E5%BB%BA/">
+
+
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome : false,
+    isPost : true,
+    lang   : 'zh-CN'
+  };
+</script>
+
+  <title>c++基础入门 + vscode 环境搭建 | WBlog</title>
+  
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div class="container use-motion">
+    <div class="headband"></div>
+
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏">
+      <span class="toggle-line toggle-line-first"></span>
+      <span class="toggle-line toggle-line-middle"></span>
+      <span class="toggle-line toggle-line-last"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <h1 class="site-title">WBlog</h1>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+      <p class="site-subtitle" itemprop="description">wangzhiwei blog</p>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+    </div>
+  </div>
+</div>
+
+
+
+
+<nav class="site-nav">
+  <ul id="menu" class="menu">
+        <li class="menu-item menu-item-home">
+
+    <a href="/" rel="section"><i class="fa fa-fw fa-home"></i>首页</a>
+
+  </li>
+        <li class="menu-item menu-item-archives">
+
+    <a href="/archives/" rel="section"><i class="fa fa-fw fa-archive"></i>归档</a>
+
+  </li>
+  </ul>
+</nav>
+
+
+
+
+</div>
+    </header>
+
+    
+  <div class="back-to-top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+
+
+    <main class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+
+          <div class="content post posts-expand">
+            
+
+    
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="http://example.com/2024/12/13/c-%E5%9F%BA%E7%A1%80%E5%85%A5%E9%97%A8-vscode-%E7%8E%AF%E5%A2%83%E6%90%AD%E5%BB%BA/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="wangzhiwei">
+      <meta itemprop="description" content="javascript nodejs web developer...">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="WBlog">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          c++基础入门 + vscode 环境搭建
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2024-12-13 15:58:24" itemprop="dateCreated datePublished" datetime="2024-12-13T15:58:24+08:00">2024-12-13</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-calendar-check-o"></i>
+                </span>
+                <span class="post-meta-item-text">更新于</span>
+                <time title="修改时间：2025-03-18 11:10:52" itemprop="dateModified" datetime="2025-03-18T11:10:52+08:00">2025-03-18</time>
+              </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/C/" itemprop="url" rel="index"><span itemprop="name">C++</span></a>
+                </span>
+                  ，
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/C/vscode/" itemprop="url" rel="index"><span itemprop="name">vscode</span></a>
+                </span>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+        <p>vscode 环境调试</p>
+<p><img src="/../images/c_001.png"></p>
+<p><img src="/../images/c_002.png"></p>
+<p>tasks.json</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">&#123;</span><br><span class="line">    &quot;tasks&quot;: [</span><br><span class="line">        &#123;</span><br><span class="line">            &quot;type&quot;: &quot;cppbuild&quot;,</span><br><span class="line">            &quot;label&quot;: &quot;C/C++: gcc 生成活动文件&quot;,</span><br><span class="line">            &quot;command&quot;: &quot;/usr/bin/g++&quot;,</span><br><span class="line">            &quot;args&quot;: [</span><br><span class="line">                &quot;-fdiagnostics-color=always&quot;,</span><br><span class="line">                &quot;-g&quot;,</span><br><span class="line">                &quot;$&#123;file&#125;&quot;,</span><br><span class="line">                &quot;-o&quot;,</span><br><span class="line">                &quot;$&#123;fileDirname&#125;/$&#123;fileBasenameNoExtension&#125;&quot;,</span><br><span class="line">                &quot;&quot;</span><br><span class="line">            ],</span><br><span class="line">            &quot;options&quot;: &#123;</span><br><span class="line">                &quot;cwd&quot;: &quot;$&#123;fileDirname&#125;&quot;</span><br><span class="line">            &#125;,</span><br><span class="line">            &quot;problemMatcher&quot;: [</span><br><span class="line">                &quot;$gcc&quot;</span><br><span class="line">            ],</span><br><span class="line">            &quot;group&quot;: &#123;</span><br><span class="line">                &quot;kind&quot;: &quot;build&quot;,</span><br><span class="line">                &quot;isDefault&quot;: true</span><br><span class="line">            &#125;,</span><br><span class="line">            &quot;detail&quot;: &quot;调试器生成的任务。&quot;</span><br><span class="line">        &#125;</span><br><span class="line">    ],</span><br><span class="line">    &quot;version&quot;: &quot;2.0.0&quot;</span><br><span class="line">&#125;</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<p>settings.json</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br><span class="line">100</span><br><span class="line">101</span><br><span class="line">102</span><br><span class="line">103</span><br><span class="line">104</span><br><span class="line">105</span><br><span class="line">106</span><br><span class="line">107</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">&#123;</span><br><span class="line">  &quot;C_Cpp_Runner.cCompilerPath&quot;: &quot;gcc&quot;,</span><br><span class="line">  &quot;C_Cpp_Runner.cppCompilerPath&quot;: &quot;g++&quot;,</span><br><span class="line">  &quot;C_Cpp_Runner.debuggerPath&quot;: &quot;gdb&quot;,</span><br><span class="line">  &quot;C_Cpp_Runner.cStandard&quot;: &quot;&quot;,</span><br><span class="line">  &quot;C_Cpp_Runner.cppStandard&quot;: &quot;&quot;,</span><br><span class="line">  &quot;C_Cpp_Runner.msvcBatchPath&quot;: &quot;&quot;,</span><br><span class="line">  &quot;C_Cpp_Runner.useMsvc&quot;: false,</span><br><span class="line">  &quot;C_Cpp_Runner.warnings&quot;: [</span><br><span class="line">    &quot;-Wall&quot;,</span><br><span class="line">    &quot;-Wextra&quot;,</span><br><span class="line">    &quot;-Wpedantic&quot;,</span><br><span class="line">    &quot;-Wshadow&quot;,</span><br><span class="line">    &quot;-Wformat=2&quot;,</span><br><span class="line">    &quot;-Wcast-align&quot;,</span><br><span class="line">    &quot;-Wconversion&quot;,</span><br><span class="line">    &quot;-Wsign-conversion&quot;,</span><br><span class="line">    &quot;-Wnull-dereference&quot;</span><br><span class="line">  ],</span><br><span class="line">  &quot;C_Cpp_Runner.msvcWarnings&quot;: [</span><br><span class="line">    &quot;/W4&quot;,</span><br><span class="line">    &quot;/permissive-&quot;,</span><br><span class="line">    &quot;/w14242&quot;,</span><br><span class="line">    &quot;/w14287&quot;,</span><br><span class="line">    &quot;/w14296&quot;,</span><br><span class="line">    &quot;/w14311&quot;,</span><br><span class="line">    &quot;/w14826&quot;,</span><br><span class="line">    &quot;/w44062&quot;,</span><br><span class="line">    &quot;/w44242&quot;,</span><br><span class="line">    &quot;/w14905&quot;,</span><br><span class="line">    &quot;/w14906&quot;,</span><br><span class="line">    &quot;/w14263&quot;,</span><br><span class="line">    &quot;/w44265&quot;,</span><br><span class="line">    &quot;/w14928&quot;</span><br><span class="line">  ],</span><br><span class="line">  &quot;C_Cpp_Runner.enableWarnings&quot;: true,</span><br><span class="line">  &quot;C_Cpp_Runner.warningsAsError&quot;: false,</span><br><span class="line">  &quot;C_Cpp_Runner.compilerArgs&quot;: [],</span><br><span class="line">  &quot;C_Cpp_Runner.linkerArgs&quot;: [],</span><br><span class="line">  &quot;C_Cpp_Runner.includePaths&quot;: [],</span><br><span class="line">  &quot;C_Cpp_Runner.includeSearch&quot;: [</span><br><span class="line">    &quot;*&quot;,</span><br><span class="line">    &quot;**/*&quot;</span><br><span class="line">  ],</span><br><span class="line">  &quot;C_Cpp_Runner.excludeSearch&quot;: [</span><br><span class="line">    &quot;**/build&quot;,</span><br><span class="line">    &quot;**/build/**&quot;,</span><br><span class="line">    &quot;**/.*&quot;,</span><br><span class="line">    &quot;**/.*/**&quot;,</span><br><span class="line">    &quot;**/.vscode&quot;,</span><br><span class="line">    &quot;**/.vscode/**&quot;</span><br><span class="line">  ],</span><br><span class="line">  &quot;C_Cpp_Runner.useAddressSanitizer&quot;: false,</span><br><span class="line">  &quot;C_Cpp_Runner.useUndefinedSanitizer&quot;: false,</span><br><span class="line">  &quot;C_Cpp_Runner.useLeakSanitizer&quot;: false,</span><br><span class="line">  &quot;C_Cpp_Runner.showCompilationTime&quot;: false,</span><br><span class="line">  &quot;C_Cpp_Runner.useLinkTimeOptimization&quot;: false,</span><br><span class="line">  &quot;C_Cpp_Runner.msvcSecureNoWarnings&quot;: false,</span><br><span class="line">  &quot;files.associations&quot;: &#123;</span><br><span class="line">    &quot;array&quot;: &quot;cpp&quot;,</span><br><span class="line">    &quot;atomic&quot;: &quot;cpp&quot;,</span><br><span class="line">    &quot;bit&quot;: &quot;cpp&quot;,</span><br><span class="line">    &quot;*.tcc&quot;: &quot;cpp&quot;,</span><br><span class="line">    &quot;cctype&quot;: &quot;cpp&quot;,</span><br><span class="line">    &quot;clocale&quot;: &quot;cpp&quot;,</span><br><span class="line">    &quot;cmath&quot;: &quot;cpp&quot;,</span><br><span class="line">    &quot;cstdarg&quot;: &quot;cpp&quot;,</span><br><span class="line">    &quot;cstddef&quot;: &quot;cpp&quot;,</span><br><span class="line">    &quot;cstdint&quot;: &quot;cpp&quot;,</span><br><span class="line">    &quot;cstdio&quot;: &quot;cpp&quot;,</span><br><span class="line">    &quot;cstdlib&quot;: &quot;cpp&quot;,</span><br><span class="line">    &quot;cwchar&quot;: &quot;cpp&quot;,</span><br><span class="line">    &quot;cwctype&quot;: &quot;cpp&quot;,</span><br><span class="line">    &quot;deque&quot;: &quot;cpp&quot;,</span><br><span class="line">    &quot;unordered_map&quot;: &quot;cpp&quot;,</span><br><span class="line">    &quot;vector&quot;: &quot;cpp&quot;,</span><br><span class="line">    &quot;exception&quot;: &quot;cpp&quot;,</span><br><span class="line">    &quot;algorithm&quot;: &quot;cpp&quot;,</span><br><span class="line">    &quot;functional&quot;: &quot;cpp&quot;,</span><br><span class="line">    &quot;iterator&quot;: &quot;cpp&quot;,</span><br><span class="line">    &quot;memory&quot;: &quot;cpp&quot;,</span><br><span class="line">    &quot;memory_resource&quot;: &quot;cpp&quot;,</span><br><span class="line">    &quot;numeric&quot;: &quot;cpp&quot;,</span><br><span class="line">    &quot;optional&quot;: &quot;cpp&quot;,</span><br><span class="line">    &quot;random&quot;: &quot;cpp&quot;,</span><br><span class="line">    &quot;string&quot;: &quot;cpp&quot;,</span><br><span class="line">    &quot;string_view&quot;: &quot;cpp&quot;,</span><br><span class="line">    &quot;system_error&quot;: &quot;cpp&quot;,</span><br><span class="line">    &quot;tuple&quot;: &quot;cpp&quot;,</span><br><span class="line">    &quot;type_traits&quot;: &quot;cpp&quot;,</span><br><span class="line">    &quot;utility&quot;: &quot;cpp&quot;,</span><br><span class="line">    &quot;fstream&quot;: &quot;cpp&quot;,</span><br><span class="line">    &quot;initializer_list&quot;: &quot;cpp&quot;,</span><br><span class="line">    &quot;iosfwd&quot;: &quot;cpp&quot;,</span><br><span class="line">    &quot;iostream&quot;: &quot;cpp&quot;,</span><br><span class="line">    &quot;istream&quot;: &quot;cpp&quot;,</span><br><span class="line">    &quot;limits&quot;: &quot;cpp&quot;,</span><br><span class="line">    &quot;new&quot;: &quot;cpp&quot;,</span><br><span class="line">    &quot;ostream&quot;: &quot;cpp&quot;,</span><br><span class="line">    &quot;sstream&quot;: &quot;cpp&quot;,</span><br><span class="line">    &quot;stdexcept&quot;: &quot;cpp&quot;,</span><br><span class="line">    &quot;streambuf&quot;: &quot;cpp&quot;,</span><br><span class="line">    &quot;typeinfo&quot;: &quot;cpp&quot;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<p>launch.json</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">&#123;</span><br><span class="line">  &quot;version&quot;: &quot;0.2.0&quot;,</span><br><span class="line">  &quot;configurations&quot;: [</span><br><span class="line">    &#123;</span><br><span class="line">      &quot;name&quot;: &quot;C/C++ Runner: Debug Session&quot;,</span><br><span class="line">      &quot;type&quot;: &quot;cppdbg&quot;,</span><br><span class="line">      &quot;request&quot;: &quot;launch&quot;,</span><br><span class="line">      &quot;args&quot;: [],</span><br><span class="line">      &quot;stopAtEntry&quot;: false,</span><br><span class="line">      &quot;externalConsole&quot;: false,</span><br><span class="line">      &quot;cwd&quot;: &quot;/home/dc/wzw/study/c-pluse-study&quot;,</span><br><span class="line">      &quot;program&quot;: &quot;/home/dc/wzw/study/c-pluse-study/build/Debug/outDebug&quot;,</span><br><span class="line">      &quot;MIMode&quot;: &quot;gdb&quot;,</span><br><span class="line">      &quot;miDebuggerPath&quot;: &quot;gdb&quot;,</span><br><span class="line">      &quot;setupCommands&quot;: [</span><br><span class="line">        &#123;</span><br><span class="line">          &quot;description&quot;: &quot;Enable pretty-printing for gdb&quot;,</span><br><span class="line">          &quot;text&quot;: &quot;-enable-pretty-printing&quot;,</span><br><span class="line">          &quot;ignoreFailures&quot;: true</span><br><span class="line">        &#125;</span><br><span class="line">      ]</span><br><span class="line">    &#125;</span><br><span class="line">  ]</span><br><span class="line">&#125;</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<p>c_cpp_properties.json</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">&#123;</span><br><span class="line">  &quot;configurations&quot;: [</span><br><span class="line">    &#123;</span><br><span class="line">      &quot;name&quot;: &quot;linux-gcc-x64&quot;,</span><br><span class="line">      &quot;includePath&quot;: [</span><br><span class="line">        &quot;$&#123;workspaceFolder&#125;/**&quot;</span><br><span class="line">      ],</span><br><span class="line">      &quot;compilerPath&quot;: &quot;/usr/bin/gcc&quot;,</span><br><span class="line">      &quot;cStandard&quot;: &quot;$&#123;default&#125;&quot;,</span><br><span class="line">      &quot;cppStandard&quot;: &quot;$&#123;default&#125;&quot;,</span><br><span class="line">      &quot;intelliSenseMode&quot;: &quot;linux-gcc-x64&quot;,</span><br><span class="line">      &quot;compilerArgs&quot;: [</span><br><span class="line">        &quot;&quot;</span><br><span class="line">      ]</span><br><span class="line">    &#125;</span><br><span class="line">  ],</span><br><span class="line">  &quot;version&quot;: 4</span><br><span class="line">&#125;</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<p>调试环境<br><a target="_blank" rel="noopener" href="https://www.bilibili.com/video/BV1Bc411S7ch?spm_id_from=333.788.videopod.episodes&vd_source=ffda878df0ed45bee1ade91d8f451048&p=2">https://www.bilibili.com/video/BV1Bc411S7ch?spm_id_from=333.788.videopod.episodes&amp;vd_source=ffda878df0ed45bee1ade91d8f451048&amp;p=2</a><br><a target="_blank" rel="noopener" href="https://www.bilibili.com/video/BV15Y411j7JW/?spm_id_from=333.337.search-card.all.click&vd_source=ffda878df0ed45bee1ade91d8f451048">https://www.bilibili.com/video/BV15Y411j7JW/?spm_id_from=333.337.search-card.all.click&amp;vd_source=ffda878df0ed45bee1ade91d8f451048</a></p>
+
+    </div>
+
+    
+    
+    
+
+      <footer class="post-footer">
+          <div class="post-tags">
+              <a href="/tags/c/" rel="tag"># c++</a>
+              <a href="/tags/vscode/" rel="tag"># vscode</a>
+          </div>
+
+        
+
+
+        
+    <div class="post-nav">
+      <div class="post-nav-item">
+    <a href="/2024/12/13/conan-%E7%AE%A1%E7%90%86-C-%E5%92%8C-C-%E7%9A%84%E4%BE%9D%E8%B5%96/" rel="prev" title="conan 管理 C 和 C++ 的依赖">
+      <i class="fa fa-chevron-left"></i> conan 管理 C 和 C++ 的依赖
+    </a></div>
+      <div class="post-nav-item">
+    <a href="/2024/12/13/c-plusplus-c-%E6%B7%B7%E5%90%88%E7%BC%96%E8%AF%91/" rel="next" title="c_plusplus _ c 混合编译">
+      c_plusplus _ c 混合编译 <i class="fa fa-chevron-right"></i>
+    </a></div>
+    </div>
+      </footer>
+    
+  </article>
+  
+  
+  
+
+
+
+          </div>
+          
+
+<script>
+  window.addEventListener('tabs:register', () => {
+    let { activeClass } = CONFIG.comments;
+    if (CONFIG.comments.storage) {
+      activeClass = localStorage.getItem('comments_active') || activeClass;
+    }
+    if (activeClass) {
+      let activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      if (activeTab) {
+        activeTab.click();
+      }
+    }
+  });
+  if (CONFIG.comments.storage) {
+    window.addEventListener('tabs:click', event => {
+      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
+      let commentClass = event.target.classList[1];
+      localStorage.setItem('comments_active', commentClass);
+    });
+  }
+</script>
+
+        </div>
+          
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line toggle-line-first"></span>
+    <span class="toggle-line toggle-line-middle"></span>
+    <span class="toggle-line toggle-line-last"></span>
+  </div>
+
+  <aside class="sidebar">
+    <div class="sidebar-inner">
+
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <div class="post-toc-wrap sidebar-panel">
+      </div>
+      <!--/noindex-->
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+  <p class="site-author-name" itemprop="name">wangzhiwei</p>
+  <div class="site-description" itemprop="description">javascript nodejs web developer...</div>
+</div>
+<div class="site-state-wrap motion-element">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">61</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+        <span class="site-state-item-count">56</span>
+        <span class="site-state-item-name">分类</span>
+      </div>
+      <div class="site-state-item site-state-tags">
+        <span class="site-state-item-count">62</span>
+        <span class="site-state-item-name">标签</span>
+      </div>
+  </nav>
+</div>
+
+
+
+      </div>
+
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+    </main>
+
+    <footer class="footer">
+      <div class="footer-inner">
+        
+
+        
+
+<div class="copyright">
+  
+  &copy; 
+  <span itemprop="copyrightYear">2025</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">wangzhiwei</span>
+</div>
+  <div class="powered-by">由 <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> & <a href="https://muse.theme-next.org/" class="theme-link" rel="noopener" target="_blank">NexT.Muse</a> 强力驱动
+  </div>
+
+        
+
+
+
+
+
+
+
+
+      </div>
+    </footer>
+  </div>
+
+  
+  <script src="/lib/anime.min.js"></script>
+  <script src="/lib/velocity/velocity.min.js"></script>
+  <script src="/lib/velocity/velocity.ui.min.js"></script>
+
+<script src="/js/utils.js"></script>
+
+<script src="/js/motion.js"></script>
+
+
+<script src="/js/schemes/muse.js"></script>
+
+
+<script src="/js/next-boot.js"></script>
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  
+
+</body>
+</html>

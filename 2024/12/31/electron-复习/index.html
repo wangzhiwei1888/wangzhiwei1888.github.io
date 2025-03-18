@@ -1,0 +1,452 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 7.3.0">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+<link rel="stylesheet" href="/lib/font-awesome/css/font-awesome.min.css">
+
+<script id="hexo-configurations">
+    var NexT = window.NexT || {};
+    var CONFIG = {"hostname":"example.com","root":"/","scheme":"Muse","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":false,"show_result":false,"style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":false,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}}};
+  </script>
+
+  <meta name="description" content="URL在外部浏览器打开require(‘electron’).shell.openExternal(‘https:&#x2F;&#x2F;github.com&#x2F;electron&#x2F;electron‘) 在 Electron 中，通信主要发生在主进程和渲染进程之间。ipcRenderer 和 ipcMain： ipcRenderer 模块用于渲染进程（网页）向主进程发送消息。ipcMain 模块用于主进程接收来自渲染进程">
+<meta property="og:type" content="article">
+<meta property="og:title" content="electron 复习">
+<meta property="og:url" content="http://example.com/2024/12/31/electron-%E5%A4%8D%E4%B9%A0/index.html">
+<meta property="og:site_name" content="WBlog">
+<meta property="og:description" content="URL在外部浏览器打开require(‘electron’).shell.openExternal(‘https:&#x2F;&#x2F;github.com&#x2F;electron&#x2F;electron‘) 在 Electron 中，通信主要发生在主进程和渲染进程之间。ipcRenderer 和 ipcMain： ipcRenderer 模块用于渲染进程（网页）向主进程发送消息。ipcMain 模块用于主进程接收来自渲染进程">
+<meta property="og:locale" content="zh_CN">
+<meta property="article:published_time" content="2024-12-31T09:55:15.000Z">
+<meta property="article:modified_time" content="2025-03-18T03:10:52.051Z">
+<meta property="article:author" content="wangzhiwei">
+<meta property="article:tag" content="electron">
+<meta name="twitter:card" content="summary">
+
+<link rel="canonical" href="http://example.com/2024/12/31/electron-%E5%A4%8D%E4%B9%A0/">
+
+
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome : false,
+    isPost : true,
+    lang   : 'zh-CN'
+  };
+</script>
+
+  <title>electron 复习 | WBlog</title>
+  
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div class="container use-motion">
+    <div class="headband"></div>
+
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏">
+      <span class="toggle-line toggle-line-first"></span>
+      <span class="toggle-line toggle-line-middle"></span>
+      <span class="toggle-line toggle-line-last"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <h1 class="site-title">WBlog</h1>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+      <p class="site-subtitle" itemprop="description">wangzhiwei blog</p>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+    </div>
+  </div>
+</div>
+
+
+
+
+<nav class="site-nav">
+  <ul id="menu" class="menu">
+        <li class="menu-item menu-item-home">
+
+    <a href="/" rel="section"><i class="fa fa-fw fa-home"></i>首页</a>
+
+  </li>
+        <li class="menu-item menu-item-archives">
+
+    <a href="/archives/" rel="section"><i class="fa fa-fw fa-archive"></i>归档</a>
+
+  </li>
+  </ul>
+</nav>
+
+
+
+
+</div>
+    </header>
+
+    
+  <div class="back-to-top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+
+
+    <main class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+
+          <div class="content post posts-expand">
+            
+
+    
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="http://example.com/2024/12/31/electron-%E5%A4%8D%E4%B9%A0/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="wangzhiwei">
+      <meta itemprop="description" content="javascript nodejs web developer...">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="WBlog">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          electron 复习
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2024-12-31 17:55:15" itemprop="dateCreated datePublished" datetime="2024-12-31T17:55:15+08:00">2024-12-31</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-calendar-check-o"></i>
+                </span>
+                <span class="post-meta-item-text">更新于</span>
+                <time title="修改时间：2025-03-18 11:10:52" itemprop="dateModified" datetime="2025-03-18T11:10:52+08:00">2025-03-18</time>
+              </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/electron/" itemprop="url" rel="index"><span itemprop="name">electron</span></a>
+                </span>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+        <h3 id="URL在外部浏览器打开"><a href="#URL在外部浏览器打开" class="headerlink" title="URL在外部浏览器打开"></a>URL在外部浏览器打开</h3><p>require(‘electron’).shell.openExternal(‘<a target="_blank" rel="noopener" href="https://github.com/electron/electron">https://github.com/electron/electron</a>‘)</p>
+<h3 id="在-Electron-中，通信主要发生在主进程和渲染进程之间。"><a href="#在-Electron-中，通信主要发生在主进程和渲染进程之间。" class="headerlink" title="在 Electron 中，通信主要发生在主进程和渲染进程之间。"></a>在 Electron 中，通信主要发生在主进程和渲染进程之间。</h3><p>ipcRenderer 和 ipcMain：</p>
+<p>ipcRenderer 模块用于渲染进程（网页）向主进程发送消息。<br>ipcMain 模块用于主进程接收来自渲染进程的消息，并可以向渲染进程发送消息。</p>
+<p>preload 脚本：<br>使用 preload 脚本可以在渲染进程中安全地访问 Node.js API 或与主进程通信，通过 contextBridge 模块暴露有限的 API 给渲染进程。</p>
+<p>下面是一个简单的例子展示如何使用 ipcRenderer 和 ipcMain 进行通信：</p>
+<p>主进程代码</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br></pre></td><td class="code"><pre><span class="line">const &#123; app, BrowserWindow, ipcMain &#125; = require(&#x27;electron&#x27;)</span><br><span class="line"></span><br><span class="line">app.whenReady().then(() =&gt; &#123;</span><br><span class="line">  const mainWindow = new BrowserWindow(&#123;</span><br><span class="line">    webPreferences: &#123;</span><br><span class="line">      preload: path.join(__dirname, &#x27;preload.js&#x27;),</span><br><span class="line">      nodeIntegration: false,</span><br><span class="line">      contextIsolation: true</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;)</span><br><span class="line"></span><br><span class="line">  mainWindow.loadURL(&#x27;https://example.com&#x27;)</span><br><span class="line">&#125;)</span><br><span class="line"></span><br><span class="line">// 监听来自渲染进程的消息</span><br><span class="line">ipcMain.on(&#x27;message-from-renderer&#x27;, (event, args) =&gt; &#123;</span><br><span class="line">  console.log(args) // 打印渲染进程传递的数据</span><br><span class="line">  event.reply(&#x27;response-to-renderer&#x27;, &#x27;这是来自主进程的回复&#x27;)</span><br><span class="line">&#125;)</span><br><span class="line"></span><br><span class="line">渲染进程代码 (通过 preload 脚本)</span><br><span class="line"></span><br><span class="line">// preload.js</span><br><span class="line">const &#123; contextBridge, ipcRenderer &#125; = require(&#x27;electron&#x27;)</span><br><span class="line"></span><br><span class="line">contextBridge.exposeInMainWorld(&#x27;electronAPI&#x27;, &#123;</span><br><span class="line">  sendMessageToMain: (message) =&gt; ipcRenderer.send(&#x27;message-from-renderer&#x27;, message),</span><br><span class="line">  receiveMessageFromMain: (callback) =&gt; ipcRenderer.on(&#x27;response-to-renderer&#x27;, callback)</span><br><span class="line">&#125;)</span><br><span class="line"></span><br><span class="line">// 在渲染进程中使用</span><br><span class="line">window.electronAPI.sendMessageToMain(&#x27;你好，主进程！&#x27;)</span><br><span class="line">window.electronAPI.receiveMessageFromMain((event, response) =&gt; &#123;</span><br><span class="line">  console.log(response) // 打印主进程的回复</span><br><span class="line">&#125;)</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+
+
+<h3 id="electron-和-iframe-的通信"><a href="#electron-和-iframe-的通信" class="headerlink" title="electron 和 iframe 的通信"></a>electron 和 iframe 的通信</h3><p>渲染进程与 iframe 之间的通信</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">// 发送消息到 iframe</span><br><span class="line">const iframe = document.getElementById(&#x27;myIframe&#x27;);</span><br><span class="line">iframe.contentWindow.postMessage(&#x27;你好，iframe！&#x27;, &#x27;*&#x27;);</span><br><span class="line"></span><br><span class="line">// 监听来自 iframe 的消息</span><br><span class="line">window.addEventListener(&#x27;message&#x27;, (event) =&gt; &#123;</span><br><span class="line">  if (event.origin !== &#x27;http://example.com&#x27;) return; // 确保消息来源安全</span><br><span class="line">  console.log(&#x27;来自 iframe 的消息:&#x27;, event.data);</span><br><span class="line">&#125;);</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+
+<p>iframe 内部的脚本</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">// 监听来自父窗口的消息</span><br><span class="line">window.addEventListener(&#x27;message&#x27;, (event) =&gt; &#123;</span><br><span class="line">  if (event.origin !== &#x27;http://parent-window-origin.com&#x27;) return; // 确保消息来源安全</span><br><span class="line">  console.log(&#x27;来自父窗口的消息:&#x27;, event.data);</span><br><span class="line"></span><br><span class="line">  // 发送消息回父窗口</span><br><span class="line">  event.source.postMessage(&#x27;你好，父窗口！&#x27;, event.origin);</span><br><span class="line">&#125;);</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+
+<h3 id="主进程与-iframe-之间的通信"><a href="#主进程与-iframe-之间的通信" class="headerlink" title="主进程与 iframe 之间的通信"></a>主进程与 iframe 之间的通信</h3><p>由于 iframe 是渲染进程的一部分，主进程不能直接与 iframe 通信。但是，可以通过渲染进程作为桥梁来实现主进程与 iframe 之间的通信。</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">主进程</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">const &#123; ipcMain &#125; = require(&#x27;electron&#x27;);</span><br><span class="line"></span><br><span class="line">// 监听来自渲染进程的消息</span><br><span class="line">ipcMain.on(&#x27;message-from-renderer&#x27;, (event, args) =&gt; &#123;</span><br><span class="line">  console.log(&#x27;来自渲染进程的消息:&#x27;, args);</span><br><span class="line">  // 将消息转发给 iframe</span><br><span class="line">  event.reply(&#x27;forward-to-iframe&#x27;, &#x27;这是来自主进程的消息&#x27;);</span><br><span class="line">&#125;);</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+<p>渲染进程</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">const &#123; ipcRenderer &#125; = require(&#x27;electron&#x27;);</span><br><span class="line"></span><br><span class="line">// 发送消息到主进程</span><br><span class="line">ipcRenderer.send(&#x27;message-from-renderer&#x27;, &#x27;你好，主进程！&#x27;);</span><br><span class="line"></span><br><span class="line">// 监听来自主进程的消息，并转发给 iframe</span><br><span class="line">ipcRenderer.on(&#x27;forward-to-iframe&#x27;, (event, message) =&gt; &#123;</span><br><span class="line">  const iframe = document.getElementById(&#x27;myIframe&#x27;);</span><br><span class="line">  iframe.contentWindow.postMessage(message, &#x27;*&#x27;);</span><br><span class="line">&#125;);</span><br><span class="line"></span><br><span class="line">// 监听来自 iframe 的消息，并发送到主进程</span><br><span class="line">window.addEventListener(&#x27;message&#x27;, (event) =&gt; &#123;</span><br><span class="line">  if (event.origin !== &#x27;http://example.com&#x27;) return; // 确保消息来源安全</span><br><span class="line">  ipcRenderer.send(&#x27;message-from-iframe&#x27;, event.data);</span><br><span class="line">&#125;);</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<p>iframe 内部的脚本</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">// 监听来自父窗口的消息</span><br><span class="line">window.addEventListener(&#x27;message&#x27;, (event) =&gt; &#123;</span><br><span class="line">  if (event.origin !== &#x27;http://parent-window-origin.com&#x27;) return; // 确保消息来源安全</span><br><span class="line">  console.log(&#x27;来自父窗口的消息:&#x27;, event.data);</span><br><span class="line"></span><br><span class="line">  // 发送消息回父窗口</span><br><span class="line">  event.source.postMessage(&#x27;你好，父窗口！&#x27;, event.origin);</span><br><span class="line">&#125;);</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<h3 id="主进程与渲染进程之间的通信-的使用场景"><a href="#主进程与渲染进程之间的通信-的使用场景" class="headerlink" title="主进程与渲染进程之间的通信 的使用场景"></a>主进程与渲染进程之间的通信 的使用场景</h3><p>渲染进程需要读取或写入文件系统中的文件。<br>主进程具有更高的权限，可以直接访问文件系统。<br>渲染进程需要打开文件选择对话框、保存文件对话框等。<br>主进程可以更方便地调用 Electron 提供的对话框 API。<br>渲染进程需要发起网络请求，但可能需要使用 Electron 提供的特定功能或需要更高的权限。<br>主进程可以处理网络请求并返回结果。<br>渲染进程需要通知主进程执行某些操作，如退出应用、重启应用等。</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">const &#123; ipcMain, app &#125; = require(&#x27;electron&#x27;);</span><br><span class="line"></span><br><span class="line">ipcMain.on(&#x27;quit-app&#x27;, () =&gt; &#123;</span><br><span class="line">  app.quit();</span><br><span class="line">&#125;);</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+
+
+
+
+<h3 id="demo-项目"><a href="#demo-项目" class="headerlink" title="demo 项目"></a>demo 项目</h3><p>克隆 <a target="_blank" rel="noopener" href="https://github.com/zxwk1998/vue-admin-better.git">https://github.com/zxwk1998/vue-admin-better.git</a></p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br></pre></td><td class="code"><pre><span class="line">修改 index.html</span><br><span class="line"></span><br><span class="line">&lt;!DOCTYPE html&gt;</span><br><span class="line">&lt;html&gt;</span><br><span class="line">  &lt;head&gt;</span><br><span class="line">    &lt;meta charset=&quot;UTF-8&quot;&gt;</span><br><span class="line">    &lt;!-- https://developer.mozilla.org/en-US/docs/Web/HTTP/CSP --&gt;</span><br><span class="line">    &lt;!-- &lt;meta http-equiv=&quot;Content-Security-Policy&quot; content=&quot;default-src &#x27;self&#x27;; frame-src http://localhost:8000/demo/&quot;&gt; --&gt;</span><br><span class="line">    &lt;meta http-equiv=&quot;Content-Security-Policy&quot; content=&quot;default-src &#x27;self&#x27;; frame-src http://localhost:8001/demo/; style-src &#x27;self&#x27;&quot;&gt;</span><br><span class="line"></span><br><span class="line">    &lt;!-- &lt;meta http-equiv=&quot;Content-Security-Policy&quot; content=&quot;default-src &#x27;self&#x27;; script-src &#x27;self&#x27;; style-src &#x27;self&#x27; &#x27;unsafe-inline&#x27;&quot;&gt; --&gt;</span><br><span class="line">    &lt;link href=&quot;./styles.css&quot; rel=&quot;stylesheet&quot;&gt;</span><br><span class="line">    &lt;title&gt;Hello World!&lt;/title&gt;</span><br><span class="line">  &lt;/head&gt;</span><br><span class="line">  &lt;body&gt;</span><br><span class="line">    &lt;a href=&quot;http://localhost:8001/demo/&quot;&gt;跳转&lt;/a&gt;</span><br><span class="line"></span><br><span class="line">    &lt;iframe src=&quot;http://localhost:8001/demo/&quot; frameborder=&quot;0&quot; class=&quot;my-iframe&quot; sandbox=&#x27;allow-scripts allow-same-origin&#x27;&gt;&lt;/iframe&gt;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">    &lt;!-- &lt;h1&gt;Hello World!&lt;/h1&gt;</span><br><span class="line">    We are using Node.js &lt;span id=&quot;node-version&quot;&gt;&lt;/span&gt;,</span><br><span class="line">    Chromium &lt;span id=&quot;chrome-version&quot;&gt;&lt;/span&gt;,</span><br><span class="line">    and Electron &lt;span id=&quot;electron-version&quot;&gt;&lt;/span&gt;. --&gt;</span><br><span class="line"></span><br><span class="line">    &lt;!-- You can also require other files to run in this process --&gt;</span><br><span class="line">    &lt;script src=&quot;./renderer.js&quot;&gt;&lt;/script&gt;</span><br><span class="line">  &lt;/body&gt;</span><br><span class="line">&lt;/html&gt;</span><br><span class="line"></span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+
+<h3 id="iframe-集成-ruoyi-vue-项目-点击登录不能跳转"><a href="#iframe-集成-ruoyi-vue-项目-点击登录不能跳转" class="headerlink" title="iframe 集成 ruoyi-vue 项目 点击登录不能跳转"></a>iframe 集成 ruoyi-vue 项目 点击登录不能跳转</h3><p>发现cookie没有写上</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">修改 auth.js 替换 Cookies 为 localStorage</span><br><span class="line"></span><br><span class="line">import Cookies from &#x27;js-cookie&#x27;</span><br><span class="line"></span><br><span class="line">const TokenKey = &#x27;Admin-Token&#x27;</span><br><span class="line"></span><br><span class="line">export function getToken() &#123;</span><br><span class="line">  return Cookies.get(TokenKey)</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">export function setToken(token) &#123;</span><br><span class="line">  return Cookies.set(TokenKey, token)</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">export function removeToken() &#123;</span><br><span class="line">  return Cookies.remove(TokenKey)</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">改为：</span><br><span class="line"></span><br><span class="line">// import Cookies from &#x27;js-cookie&#x27;</span><br><span class="line"></span><br><span class="line">const TokenKey = &#x27;Admin-Token&#x27;</span><br><span class="line"></span><br><span class="line">export function getToken() &#123;</span><br><span class="line">  return localStorage.getItem(TokenKey)</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">export function setToken(token) &#123;</span><br><span class="line">  return localStorage.setItem(TokenKey, token)</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">export function removeToken() &#123;</span><br><span class="line">  return localStorage.removeItem(TokenKey)</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+
+
+<h3 id="打包配置"><a href="#打包配置" class="headerlink" title="打包配置"></a>打包配置</h3><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br></pre></td><td class="code"><pre><span class="line">package.json 修改</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">&#123;</span><br><span class="line">  &quot;name&quot;: &quot;electron-quick-start&quot;,</span><br><span class="line">  &quot;version&quot;: &quot;1.0.0&quot;,</span><br><span class="line">  &quot;description&quot;: &quot;A minimal Electron application&quot;,</span><br><span class="line">  &quot;main&quot;: &quot;main.js&quot;,</span><br><span class="line">  &quot;scripts&quot;: &#123;</span><br><span class="line">    &quot;start&quot;: &quot;electron .&quot;,</span><br><span class="line">    &quot;build&quot;: &quot;electron-builder&quot;</span><br><span class="line">  &#125;,</span><br><span class="line">  &quot;repository&quot;: &quot;https://github.com/electron/electron-quick-start&quot;,</span><br><span class="line">  &quot;keywords&quot;: [</span><br><span class="line">    &quot;Electron&quot;,</span><br><span class="line">    &quot;quick&quot;,</span><br><span class="line">    &quot;start&quot;,</span><br><span class="line">    &quot;tutorial&quot;,</span><br><span class="line">    &quot;demo&quot;</span><br><span class="line">  ],</span><br><span class="line">  &quot;author&quot;: &#123;</span><br><span class="line">    &quot;name&quot;: &quot;Your Name&quot;,</span><br><span class="line">    &quot;email&quot;: &quot;your.email@example.com&quot;</span><br><span class="line">  &#125;,</span><br><span class="line">  &quot;license&quot;: &quot;CC0-1.0&quot;,</span><br><span class="line">  &quot;devDependencies&quot;: &#123;</span><br><span class="line">    &quot;electron&quot;: &quot;^33.2.1&quot;,</span><br><span class="line">    &quot;electron-builder&quot;: &quot;^23.6.0&quot;</span><br><span class="line">  &#125;,</span><br><span class="line">  &quot;build&quot;: &#123;</span><br><span class="line">    &quot;appId&quot;: &quot;com.example.electronquickstart&quot;,</span><br><span class="line">    &quot;productName&quot;: &quot;ElectronQuickStart&quot;,</span><br><span class="line">    &quot;directories&quot;: &#123;</span><br><span class="line">      &quot;output&quot;: &quot;build&quot;</span><br><span class="line">    &#125;,</span><br><span class="line">    &quot;files&quot;: [</span><br><span class="line">      &quot;main.js&quot;,</span><br><span class="line">      &quot;index.html&quot;,</span><br><span class="line">      &quot;renderer.js&quot;,</span><br><span class="line">      &quot;styles.css&quot;,</span><br><span class="line">      &quot;preload.js&quot;,</span><br><span class="line">      &quot;package.json&quot;</span><br><span class="line">    ],</span><br><span class="line">    &quot;icon&quot;: &quot;build/icons/icon&quot;,</span><br><span class="line">    &quot;win&quot;: &#123;</span><br><span class="line">      &quot;target&quot;: [</span><br><span class="line">        &#123;</span><br><span class="line">          &quot;target&quot;: &quot;nsis&quot;</span><br><span class="line">        &#125;</span><br><span class="line">      ]</span><br><span class="line">    &#125;,</span><br><span class="line">    &quot;mac&quot;: &#123;</span><br><span class="line">      &quot;target&quot;: [</span><br><span class="line">        &#123;</span><br><span class="line">          &quot;target&quot;: &quot;dmg&quot;</span><br><span class="line">        &#125;</span><br><span class="line">      ]</span><br><span class="line">    &#125;,</span><br><span class="line">    &quot;linux&quot;: &#123;</span><br><span class="line">      &quot;target&quot;: [</span><br><span class="line">        &#123;</span><br><span class="line">          &quot;target&quot;: &quot;deb&quot;</span><br><span class="line">        &#125;,</span><br><span class="line">        &#123;</span><br><span class="line">          &quot;target&quot;: &quot;AppImage&quot;</span><br><span class="line">        &#125;</span><br><span class="line">      ],</span><br><span class="line">      &quot;maintainer&quot;: &quot;Your Name &lt;your.email@example.com&gt;&quot;</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<p>上述代码在 ubuntu 上构建出 deb 和 AppImage 两种格式的应用程序。</p>
+<p>对于不同的目标平台，需要在各个目标平台下构建</p>
+<p>macOS (dmg): 需要在 macOS 上进行构建。<br>Windows (nsis): 需要在 Windows 上进行构建，或者使用 Wine 在 Linux 上进行构建。</p>
+<p>参考：<br><a target="_blank" rel="noopener" href="https://blog.csdn.net/weixin_52799373/article/details/131513974">https://blog.csdn.net/weixin_52799373/article/details/131513974</a></p>
+<p><a target="_blank" rel="noopener" href="https://github.com/wangzhiwei1888/remote_electron">https://github.com/wangzhiwei1888/remote_electron</a></p>
+<p><a target="_blank" rel="noopener" href="https://github.com/OblivionTime/remoteShell">https://github.com/OblivionTime/remoteShell</a></p>
+
+    </div>
+
+    
+    
+    
+
+      <footer class="post-footer">
+          <div class="post-tags">
+              <a href="/tags/electron/" rel="tag"># electron</a>
+          </div>
+
+        
+
+
+        
+    <div class="post-nav">
+      <div class="post-nav-item">
+    <a href="/2024/12/28/react19-0-0-%E7%89%88%E6%9C%AC%E5%92%8C16-8%E7%89%88%E6%9C%AC%E7%9B%B8%E6%AF%94%E6%9B%B4%E6%96%B0%E4%BA%86%E5%93%AA%E4%BA%9B%E5%8A%9F%E8%83%BD/" rel="prev" title="react19.0.0 版本和16.8版本相比更新了哪些功能">
+      <i class="fa fa-chevron-left"></i> react19.0.0 版本和16.8版本相比更新了哪些功能
+    </a></div>
+      <div class="post-nav-item">
+    <a href="/2025/01/03/%E7%A6%81%E7%94%A8div%E4%B8%AD%E7%9A%84%E6%89%80%E6%9C%89%E8%A1%A8%E5%8D%95%E5%85%83%E7%B4%A0/" rel="next" title="禁用div中的所有表单元素">
+      禁用div中的所有表单元素 <i class="fa fa-chevron-right"></i>
+    </a></div>
+    </div>
+      </footer>
+    
+  </article>
+  
+  
+  
+
+
+
+          </div>
+          
+
+<script>
+  window.addEventListener('tabs:register', () => {
+    let { activeClass } = CONFIG.comments;
+    if (CONFIG.comments.storage) {
+      activeClass = localStorage.getItem('comments_active') || activeClass;
+    }
+    if (activeClass) {
+      let activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      if (activeTab) {
+        activeTab.click();
+      }
+    }
+  });
+  if (CONFIG.comments.storage) {
+    window.addEventListener('tabs:click', event => {
+      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
+      let commentClass = event.target.classList[1];
+      localStorage.setItem('comments_active', commentClass);
+    });
+  }
+</script>
+
+        </div>
+          
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line toggle-line-first"></span>
+    <span class="toggle-line toggle-line-middle"></span>
+    <span class="toggle-line toggle-line-last"></span>
+  </div>
+
+  <aside class="sidebar">
+    <div class="sidebar-inner">
+
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#URL%E5%9C%A8%E5%A4%96%E9%83%A8%E6%B5%8F%E8%A7%88%E5%99%A8%E6%89%93%E5%BC%80"><span class="nav-number">1.</span> <span class="nav-text">URL在外部浏览器打开</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%9C%A8-Electron-%E4%B8%AD%EF%BC%8C%E9%80%9A%E4%BF%A1%E4%B8%BB%E8%A6%81%E5%8F%91%E7%94%9F%E5%9C%A8%E4%B8%BB%E8%BF%9B%E7%A8%8B%E5%92%8C%E6%B8%B2%E6%9F%93%E8%BF%9B%E7%A8%8B%E4%B9%8B%E9%97%B4%E3%80%82"><span class="nav-number">2.</span> <span class="nav-text">在 Electron 中，通信主要发生在主进程和渲染进程之间。</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#electron-%E5%92%8C-iframe-%E7%9A%84%E9%80%9A%E4%BF%A1"><span class="nav-number">3.</span> <span class="nav-text">electron 和 iframe 的通信</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E4%B8%BB%E8%BF%9B%E7%A8%8B%E4%B8%8E-iframe-%E4%B9%8B%E9%97%B4%E7%9A%84%E9%80%9A%E4%BF%A1"><span class="nav-number">4.</span> <span class="nav-text">主进程与 iframe 之间的通信</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E4%B8%BB%E8%BF%9B%E7%A8%8B%E4%B8%8E%E6%B8%B2%E6%9F%93%E8%BF%9B%E7%A8%8B%E4%B9%8B%E9%97%B4%E7%9A%84%E9%80%9A%E4%BF%A1-%E7%9A%84%E4%BD%BF%E7%94%A8%E5%9C%BA%E6%99%AF"><span class="nav-number">5.</span> <span class="nav-text">主进程与渲染进程之间的通信 的使用场景</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#demo-%E9%A1%B9%E7%9B%AE"><span class="nav-number">6.</span> <span class="nav-text">demo 项目</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#iframe-%E9%9B%86%E6%88%90-ruoyi-vue-%E9%A1%B9%E7%9B%AE-%E7%82%B9%E5%87%BB%E7%99%BB%E5%BD%95%E4%B8%8D%E8%83%BD%E8%B7%B3%E8%BD%AC"><span class="nav-number">7.</span> <span class="nav-text">iframe 集成 ruoyi-vue 项目 点击登录不能跳转</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%89%93%E5%8C%85%E9%85%8D%E7%BD%AE"><span class="nav-number">8.</span> <span class="nav-text">打包配置</span></a></li></ol></div>
+      </div>
+      <!--/noindex-->
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+  <p class="site-author-name" itemprop="name">wangzhiwei</p>
+  <div class="site-description" itemprop="description">javascript nodejs web developer...</div>
+</div>
+<div class="site-state-wrap motion-element">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">61</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+        <span class="site-state-item-count">56</span>
+        <span class="site-state-item-name">分类</span>
+      </div>
+      <div class="site-state-item site-state-tags">
+        <span class="site-state-item-count">62</span>
+        <span class="site-state-item-name">标签</span>
+      </div>
+  </nav>
+</div>
+
+
+
+      </div>
+
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+    </main>
+
+    <footer class="footer">
+      <div class="footer-inner">
+        
+
+        
+
+<div class="copyright">
+  
+  &copy; 
+  <span itemprop="copyrightYear">2025</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">wangzhiwei</span>
+</div>
+  <div class="powered-by">由 <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> & <a href="https://muse.theme-next.org/" class="theme-link" rel="noopener" target="_blank">NexT.Muse</a> 强力驱动
+  </div>
+
+        
+
+
+
+
+
+
+
+
+      </div>
+    </footer>
+  </div>
+
+  
+  <script src="/lib/anime.min.js"></script>
+  <script src="/lib/velocity/velocity.min.js"></script>
+  <script src="/lib/velocity/velocity.ui.min.js"></script>
+
+<script src="/js/utils.js"></script>
+
+<script src="/js/motion.js"></script>
+
+
+<script src="/js/schemes/muse.js"></script>
+
+
+<script src="/js/next-boot.js"></script>
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  
+
+</body>
+</html>

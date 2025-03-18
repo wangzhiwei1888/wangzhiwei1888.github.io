@@ -1,0 +1,475 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 7.3.0">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+<link rel="stylesheet" href="/lib/font-awesome/css/font-awesome.min.css">
+
+<script id="hexo-configurations">
+    var NexT = window.NexT || {};
+    var CONFIG = {"hostname":"example.com","root":"/","scheme":"Muse","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":false,"show_result":false,"style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":false,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}}};
+  </script>
+
+  <meta name="description" content="AST在计算机科学中，抽象语法树（Abstract Syntax Tree，AST），是源代码语法结构的⼀种抽象表示。它以树状的形式表现编程语⾔的语法结构，树上的每个节点都表示源代码中的⼀种结构。AST 运⽤⼴泛，⽐如：⾼级语⾔的编译、机器码的⽣成⼀些⾼级编辑器的错误提示、代码⾼亮、代码⾃动补全；对于前端来说很多⼯具，例如 elint 、 pretiier 对代码错误或⻛格的检查，babel、ty">
+<meta property="og:type" content="article">
+<meta property="og:title" content="AST学习">
+<meta property="og:url" content="http://example.com/2024/12/24/AST%E5%AD%A6%E4%B9%A0/index.html">
+<meta property="og:site_name" content="WBlog">
+<meta property="og:description" content="AST在计算机科学中，抽象语法树（Abstract Syntax Tree，AST），是源代码语法结构的⼀种抽象表示。它以树状的形式表现编程语⾔的语法结构，树上的每个节点都表示源代码中的⼀种结构。AST 运⽤⼴泛，⽐如：⾼级语⾔的编译、机器码的⽣成⼀些⾼级编辑器的错误提示、代码⾼亮、代码⾃动补全；对于前端来说很多⼯具，例如 elint 、 pretiier 对代码错误或⻛格的检查，babel、ty">
+<meta property="og:locale" content="zh_CN">
+<meta property="article:published_time" content="2024-12-24T03:40:26.000Z">
+<meta property="article:modified_time" content="2025-03-18T03:10:52.050Z">
+<meta property="article:author" content="wangzhiwei">
+<meta property="article:tag" content="AST">
+<meta name="twitter:card" content="summary">
+
+<link rel="canonical" href="http://example.com/2024/12/24/AST%E5%AD%A6%E4%B9%A0/">
+
+
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome : false,
+    isPost : true,
+    lang   : 'zh-CN'
+  };
+</script>
+
+  <title>AST学习 | WBlog</title>
+  
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div class="container use-motion">
+    <div class="headband"></div>
+
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏">
+      <span class="toggle-line toggle-line-first"></span>
+      <span class="toggle-line toggle-line-middle"></span>
+      <span class="toggle-line toggle-line-last"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <h1 class="site-title">WBlog</h1>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+      <p class="site-subtitle" itemprop="description">wangzhiwei blog</p>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+    </div>
+  </div>
+</div>
+
+
+
+
+<nav class="site-nav">
+  <ul id="menu" class="menu">
+        <li class="menu-item menu-item-home">
+
+    <a href="/" rel="section"><i class="fa fa-fw fa-home"></i>首页</a>
+
+  </li>
+        <li class="menu-item menu-item-archives">
+
+    <a href="/archives/" rel="section"><i class="fa fa-fw fa-archive"></i>归档</a>
+
+  </li>
+  </ul>
+</nav>
+
+
+
+
+</div>
+    </header>
+
+    
+  <div class="back-to-top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+
+
+    <main class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+
+          <div class="content post posts-expand">
+            
+
+    
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="http://example.com/2024/12/24/AST%E5%AD%A6%E4%B9%A0/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="wangzhiwei">
+      <meta itemprop="description" content="javascript nodejs web developer...">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="WBlog">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          AST学习
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2024-12-24 11:40:26" itemprop="dateCreated datePublished" datetime="2024-12-24T11:40:26+08:00">2024-12-24</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-calendar-check-o"></i>
+                </span>
+                <span class="post-meta-item-text">更新于</span>
+                <time title="修改时间：2025-03-18 11:10:52" itemprop="dateModified" datetime="2025-03-18T11:10:52+08:00">2025-03-18</time>
+              </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/AST/" itemprop="url" rel="index"><span itemprop="name">AST</span></a>
+                </span>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+        <h2 id="AST"><a href="#AST" class="headerlink" title="AST"></a>AST</h2><p>在计算机科学中，抽象语法树（Abstract Syntax Tree，AST），是源代码语法结构的⼀种抽象表示。<br>它以树状的形式表现编程语⾔的语法结构，树上的每个节点都表示源代码中的⼀种结构。<br>AST 运⽤⼴泛，⽐如：<br>⾼级语⾔的编译、机器码的⽣成<br>⼀些⾼级编辑器的错误提示、代码⾼亮、代码⾃动补全；<br>对于前端来说很多⼯具，例如 elint 、 pretiier 对代码错误或⻛格的检查，babel、typescript<br>对代码的编译处理等等。<br>AST 转化流程<br>我们可以实现⼀个⾮常简单的词法分析⼯具，来感受⼀下词法分析的魅⼒，以及这中间我们需要处理的<br>内容。<br>在例⼦中我们可以发现，我们通过读取字符串中每个元素，依次记录⾥⾯出现的内容，最终基于内容⽣<br>成配置，然后再基于配置创建新的代码的结构。<br>整个解析过程主要分为以下两个步骤：<br>分词：将整个代码字符串分割成最⼩语法单元数组<br>语法分析：在分词基础上建⽴分析语法单元之间的关系<br>词法分析器⾥，每个关键字是⼀个 Token ，每个标识符是⼀个 Token，每个操作符是⼀个 Token，每<br>个标点符号也都是⼀个 Token。除此之外，还会过滤掉源程序中的注释和空⽩字符（换⾏符、空格、制<br>表符等。<br>我们可以通过 ast-explore 来查看代码⽚段转化的结果：<br>我们可以看到，对于左侧的代码结构，通过解析字符及对应的格式，然后序列化成为⼀个对象的格式，<br>我们可以通过这个对象，来描述整体的代码的内容。<br>如果我们希望将 let 转化为 var，那后续我们只需要在基于配置渲染⽬标时，将 let 转化为 var ⽣成即<br>可。对于 AST 的类型来说，解析的过程中有这么多的类型，针对不同的语句，最终会以下⾯的类型进⾏转<br>化：</p>
+<h2 id="模拟-AST-过程"><a href="#模拟-AST-过程" class="headerlink" title="模拟 AST 过程"></a>模拟 AST 过程</h2><p>index.js</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br><span class="line">100</span><br><span class="line">101</span><br><span class="line">102</span><br><span class="line">103</span><br><span class="line">104</span><br><span class="line">105</span><br><span class="line">106</span><br><span class="line">107</span><br><span class="line">108</span><br><span class="line">109</span><br><span class="line">110</span><br><span class="line">111</span><br><span class="line">112</span><br><span class="line">113</span><br><span class="line">114</span><br><span class="line">115</span><br><span class="line">116</span><br><span class="line">117</span><br><span class="line">118</span><br><span class="line">119</span><br><span class="line">120</span><br><span class="line">121</span><br><span class="line">122</span><br><span class="line">123</span><br><span class="line">124</span><br><span class="line">125</span><br><span class="line">126</span><br><span class="line">127</span><br><span class="line">128</span><br><span class="line">129</span><br><span class="line">130</span><br><span class="line">131</span><br><span class="line">132</span><br><span class="line">133</span><br><span class="line">134</span><br><span class="line">135</span><br><span class="line">136</span><br><span class="line">137</span><br><span class="line">138</span><br><span class="line">139</span><br><span class="line">140</span><br><span class="line">141</span><br><span class="line">142</span><br><span class="line">143</span><br><span class="line">144</span><br><span class="line">145</span><br><span class="line">146</span><br><span class="line">147</span><br><span class="line">148</span><br><span class="line">149</span><br><span class="line">150</span><br><span class="line">151</span><br><span class="line">152</span><br><span class="line">153</span><br><span class="line">154</span><br><span class="line">155</span><br><span class="line">156</span><br><span class="line">157</span><br><span class="line">158</span><br><span class="line">159</span><br><span class="line">160</span><br><span class="line">161</span><br><span class="line">162</span><br><span class="line">163</span><br><span class="line">164</span><br><span class="line">165</span><br><span class="line">166</span><br><span class="line">167</span><br><span class="line">168</span><br><span class="line">169</span><br><span class="line">170</span><br><span class="line">171</span><br><span class="line">172</span><br><span class="line">173</span><br><span class="line">174</span><br><span class="line">175</span><br><span class="line">176</span><br><span class="line">177</span><br><span class="line">178</span><br><span class="line">179</span><br><span class="line">180</span><br><span class="line">181</span><br><span class="line">182</span><br><span class="line">183</span><br><span class="line">184</span><br><span class="line">185</span><br><span class="line">186</span><br><span class="line">187</span><br><span class="line">188</span><br><span class="line">189</span><br><span class="line">190</span><br><span class="line">191</span><br><span class="line">192</span><br><span class="line">193</span><br><span class="line">194</span><br><span class="line">195</span><br><span class="line">196</span><br><span class="line">197</span><br><span class="line">198</span><br><span class="line">199</span><br><span class="line">200</span><br><span class="line">201</span><br><span class="line">202</span><br><span class="line">203</span><br><span class="line">204</span><br><span class="line">205</span><br><span class="line">206</span><br><span class="line">207</span><br><span class="line">208</span><br><span class="line">209</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">// before: (add 20 (subtract 4 2))</span><br><span class="line">// after: add(2, subtract(4, 2))</span><br><span class="line"></span><br><span class="line">// 分词，处理每个字符内容</span><br><span class="line">function generateToken(str) &#123;</span><br><span class="line">  let current = 0;</span><br><span class="line">  let tokens = [];</span><br><span class="line">  while(current &lt; str.length) &#123;</span><br><span class="line">    let char = str[current];</span><br><span class="line"></span><br><span class="line">    if (char === &quot;(&quot;) &#123;</span><br><span class="line">      tokens.push(&#123;</span><br><span class="line">        type: &quot;paren&quot;,</span><br><span class="line">        value: &quot;(&quot;</span><br><span class="line">      &#125;);</span><br><span class="line">      current++;</span><br><span class="line">      continue;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    if (char === &quot;)&quot;) &#123;</span><br><span class="line">      tokens.push(&#123;</span><br><span class="line">        type: &quot;paren&quot;,</span><br><span class="line">        value: &quot;)&quot;</span><br><span class="line">      &#125;);</span><br><span class="line">      current++;</span><br><span class="line">      continue;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    if (/\s/.test(char)) &#123;</span><br><span class="line">      current++;</span><br><span class="line">      continue;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    if (/[0-9]/.test(char)) &#123;</span><br><span class="line">      let numberValue = &#x27;&#x27;;</span><br><span class="line">      while(/[0-9]/.test(char)) &#123;</span><br><span class="line">        numberValue += char;</span><br><span class="line">        char = str[++current];</span><br><span class="line">      &#125;</span><br><span class="line">      tokens.push(&#123;</span><br><span class="line">        type: &#x27;number&#x27;,</span><br><span class="line">        value: numberValue</span><br><span class="line">      &#125;);</span><br><span class="line">      continue;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    if (/[a-z]/.test(char)) &#123;</span><br><span class="line">      let stringValue = &#x27;&#x27;;</span><br><span class="line">      while(/[a-z]/.test(char)) &#123;</span><br><span class="line">        stringValue += char;</span><br><span class="line">        char = str[++current];</span><br><span class="line">      &#125;</span><br><span class="line">      tokens.push(&#123;</span><br><span class="line">        type: &#x27;name&#x27;,</span><br><span class="line">        value: stringValue</span><br><span class="line">      &#125;);</span><br><span class="line">      continue;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    throw new TypeError(&quot;未能识别的字符&quot;);</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  return tokens;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">// AST 生成</span><br><span class="line">function generateAST(tokens) &#123;</span><br><span class="line">  let current = 0;</span><br><span class="line"></span><br><span class="line">  let ast = &#123;</span><br><span class="line">    type: &quot;Program&quot;,</span><br><span class="line">    body: [],</span><br><span class="line">  &#125;;</span><br><span class="line"></span><br><span class="line">  function walk() &#123;</span><br><span class="line">    let token = tokens[current];</span><br><span class="line">    if (token.type === &#x27;number&#x27;) &#123;</span><br><span class="line">      current++;</span><br><span class="line">      return &#123;</span><br><span class="line">        type: &quot;NumberLiteral&quot;,</span><br><span class="line">        value: token.value,</span><br><span class="line">      &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    if (token.type === &#x27;paren&#x27; &amp;&amp; token.value === &quot;(&quot;) &#123;</span><br><span class="line">      token = tokens[++current];</span><br><span class="line">      let node = &#123;</span><br><span class="line">        type: &quot;CallExpression&quot;,</span><br><span class="line">        name: token.value,</span><br><span class="line">        params: [],</span><br><span class="line">      &#125;;</span><br><span class="line">      token = tokens[++current];</span><br><span class="line"></span><br><span class="line">      while(</span><br><span class="line">        (token.type !== &quot;paren&quot;) || (token.type === &#x27;paren&#x27; &amp;&amp; token.value !== &quot;)&quot;)</span><br><span class="line">      ) &#123;</span><br><span class="line">        node.params.push(walk());</span><br><span class="line">        token = tokens[current];</span><br><span class="line">      &#125;</span><br><span class="line">      current++;</span><br><span class="line">      return node;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    throw new TypeError(token.type);</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  while(current &lt; tokens.length) &#123;</span><br><span class="line">    ast.body.push(walk())</span><br><span class="line">  &#125;</span><br><span class="line">  return ast;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">// AST 转化： babel 插件需要我们处理的部分</span><br><span class="line">function transformer(ast) &#123;</span><br><span class="line">  let newAst = &#123;</span><br><span class="line">    type: &quot;Program&quot;,</span><br><span class="line">    body: [],</span><br><span class="line">  &#125;;</span><br><span class="line"></span><br><span class="line">  ast._context = newAst.body;</span><br><span class="line"></span><br><span class="line">  DFS(ast, &#123;</span><br><span class="line">    NumberLiteral: &#123;</span><br><span class="line">      enter(node, parent) &#123;</span><br><span class="line">        parent._context.push(&#123;</span><br><span class="line">          type: &quot;NumberLiteral&quot;,</span><br><span class="line">          value: node.value</span><br><span class="line">        &#125;);</span><br><span class="line">      &#125;</span><br><span class="line">    &#125;,</span><br><span class="line">    CallExpression: &#123;</span><br><span class="line">      enter(node, parent) &#123;</span><br><span class="line">        let expression = &#123;</span><br><span class="line">          type: &quot;CallExpression&quot;,</span><br><span class="line">          callee: &#123;</span><br><span class="line">            type: &quot;Identifier&quot;,</span><br><span class="line">            name: node.name</span><br><span class="line">          &#125;,</span><br><span class="line">          arguments: [],</span><br><span class="line">        &#125;;</span><br><span class="line"></span><br><span class="line">        node._context = expression.arguments;</span><br><span class="line">        if (parent.type !== &quot;CallExpression&quot;) &#123;</span><br><span class="line">          expression = &#123;</span><br><span class="line">            type: &quot;ExpressionStatement&quot;,</span><br><span class="line">            expression: expression,</span><br><span class="line">          &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        parent._context.push(expression);</span><br><span class="line">      &#125;</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;)</span><br><span class="line"></span><br><span class="line">  return newAst;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">// AST 遍历</span><br><span class="line">function DFS(ast, visitor) &#123;</span><br><span class="line"></span><br><span class="line">  function traverseArray(children, parent) &#123;</span><br><span class="line">    children.forEach(child =&gt; traverseNode(child, parent));</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  function traverseNode(node, parent) &#123;</span><br><span class="line">    let methods = visitor[node.type];</span><br><span class="line">    if (methods &amp;&amp; methods.enter) &#123;</span><br><span class="line">      methods.enter(node, parent);</span><br><span class="line">    &#125;</span><br><span class="line">    switch(node.type) &#123;</span><br><span class="line">      case &quot;Program&quot;:</span><br><span class="line">        traverseArray(node.body, node);</span><br><span class="line">        break;</span><br><span class="line">      case &quot;CallExpression&quot;:</span><br><span class="line">        traverseArray(node.params, node);</span><br><span class="line">        break;</span><br><span class="line">      case &quot;NumberLiteral&quot;:</span><br><span class="line">        break;</span><br><span class="line">    &#125;</span><br><span class="line">    if (methods &amp;&amp; methods.exit) &#123;</span><br><span class="line">      methods.exit(node, parent);</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line">  return traverseNode(ast, null);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">// ast -&gt; code 生成代码过程</span><br><span class="line">function generate(ast) &#123;</span><br><span class="line">  switch(ast.type) &#123;</span><br><span class="line">    case &quot;Program&quot;: return ast.body.map(subAst =&gt; generate(subAst)).join(&#x27;\n&#x27;);</span><br><span class="line">    case &quot;ExpressionStatement&quot;: return generate(ast.expression) + &quot;;&quot;;</span><br><span class="line">    case &quot;CallExpression&quot;: return generate(ast.callee) + &quot;(&quot; +ast.arguments.map(arg =&gt; generate(arg)).join(&#x27;, &#x27;) + &quot;)&quot;;</span><br><span class="line">    case &quot;Identifier&quot;: return ast.name;</span><br><span class="line">    case &quot;NumberLiteral&quot;: return ast.value;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">function parser(input) &#123;</span><br><span class="line">  const tokens = generateToken(input);</span><br><span class="line">  console.log(tokens);</span><br><span class="line">  const ast = generateAST(tokens);</span><br><span class="line">  console.log(JSON.stringify(ast, null, 2));</span><br><span class="line">  const newAst = transformer(ast);</span><br><span class="line">  console.log(JSON.stringify(newAst, null, 2));</span><br><span class="line">  const code = generate(newAst);</span><br><span class="line">  return code;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">module.exports = parser;</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<p>test.js</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">const parser = require(&#x27;./index.js&#x27;);</span><br><span class="line"></span><br><span class="line">const input = &quot;(add 2 (subtract 4 2))&quot;</span><br><span class="line">const output = &quot;add(2,subtract(4,2));&quot;</span><br><span class="line"></span><br><span class="line">console.log(&quot;input&quot;, input);</span><br><span class="line">console.log(&quot;output&quot;, parser(input));</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+
+
+<h2 id="Babel"><a href="#Babel" class="headerlink" title="Babel"></a>Babel</h2><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">ThisExpression | Identifier | Literal |</span><br><span class="line">ArrayExpression | ObjectExpression | FunctionExpression |</span><br><span class="line">ArrowFunctionExpression | ClassExpression |</span><br><span class="line">TaggedTemplateExpression | MemberExpression | Super | MetaProperty |</span><br><span class="line">NewExpression | CallExpression | UpdateExpression | AwaitExpression |</span><br><span class="line">UnaryExpression |</span><br><span class="line">BinaryExpression | LogicalExpression | ConditionalExpression |</span><br><span class="line">YieldExpression | AssignmentExpression | SequenceExpression;</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+
+<p>针对不同的⼯具，最终也有不同的效果：<br>@babel&#x2F;parser : 转化为 AST 抽象语法树；<br>@babel&#x2F;traverse 对 AST 节点进⾏递归遍历；<br>@babel&#x2F;types 对具体的 AST 节点进⾏进⾏修改；<br>@babel&#x2F;generator : AST 抽象语法树⽣成为新的代码；</p>
+<p>Babel 的处理步骤</p>
+<p>Babel 的三个主要处理步骤分别是： 解析（parse），转换（transform），⽣成（generate）。.</p>
+<p>词法分析阶段把字符串形式的代码转换为 令牌（tokens） 流。.</p>
+<p>你可以把令牌看作是⼀个扁平的语法⽚段数组：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">n * n;</span><br><span class="line">[</span><br><span class="line">&#123; type: &#123; ... &#125;, value: &quot;n&quot;, start: 0, end: 1, loc: &#123; ... &#125; &#125;,</span><br><span class="line">&#123; type: &#123; ... &#125;, value: &quot;*&quot;, start: 2, end: 3, loc: &#123; ... &#125; &#125;,</span><br><span class="line">&#123; type: &#123; ... &#125;, value: &quot;n&quot;, start: 4, end: 5, loc: &#123; ... &#125; &#125;,</span><br><span class="line">...</span><br><span class="line">]</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<p>每⼀个 type 有⼀组属性来描述该令牌：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">&#123;</span><br><span class="line">    type: &#123;</span><br><span class="line">        label: &#x27;name&#x27;,</span><br><span class="line">        keyword: undefined,</span><br><span class="line">        beforeExpr: false,</span><br><span class="line">        startsExpr: true,</span><br><span class="line">        rightAssociative: false,</span><br><span class="line">        isLoop: false,isAssign: false,</span><br><span class="line">        prefix: false,</span><br><span class="line">        postfix: false,</span><br><span class="line">        binop: null,</span><br><span class="line">        updateContext: null</span><br><span class="line">    &#125;,</span><br><span class="line">    ...</span><br><span class="line">&#125;</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<p>和 AST 节点⼀样它们也有 start ， end ， loc 属性。</p>
+<p>对于⼀个 babel 插件来说，我们先从先从⼀个接收了当前 babel 对象作为参数的 function 开始。</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">export default function(babel) &#123;</span><br><span class="line">// plugin contents</span><br><span class="line">&#125;</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+
+<p>由于你将会经常这样使⽤，所以直接取出 babel.types 会更⽅便：（译注：这是 ES2015 语法中的对<br>象解构，即 Destructuring）</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">export default function(&#123; types: t &#125;) &#123;</span><br><span class="line">// plugin contents</span><br><span class="line">&#125;</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<p>接着返回⼀个对象，其 visitor 属性是这个插件的主要访问者。</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">export default function(&#123; types: t &#125;) &#123;</span><br><span class="line">    return &#123;</span><br><span class="line">        visitor: &#123;</span><br><span class="line">        // visitor contents</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+<p>Visitor 中的每个函数接收2个参数： path 和 state</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">export default function(&#123; types: t &#125;) &#123;</span><br><span class="line">    return &#123;</span><br><span class="line">        visitor: &#123;</span><br><span class="line">            Identifier(path, state) &#123;&#125;,</span><br><span class="line">            ASTNodeTypeHere(path, state) &#123;&#125;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;;</span><br><span class="line">&#125;;</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<p>让我们快速编写⼀个可⽤的插件来展示⼀下它是如何⼯作的。下⾯是我们的源代码：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">foo === bar;</span><br></pre></td></tr></table></figure>
+
+<p>其 AST 形式如下：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">&#123;</span><br><span class="line">    type: &quot;BinaryExpression&quot;,</span><br><span class="line">    operator: &quot;===&quot;,</span><br><span class="line">    left: &#123;</span><br><span class="line">        type: &quot;Identifier&quot;,</span><br><span class="line">        name: &quot;foo&quot;</span><br><span class="line">    &#125;,</span><br><span class="line">    right: &#123;</span><br><span class="line">        type: &quot;Identifier&quot;,</span><br><span class="line">        name: &quot;bar&quot;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+
+<p>我们从添加 BinaryExpression 访问者⽅法开始：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">export default function(&#123; types: t &#125;) &#123;</span><br><span class="line">    return &#123;</span><br><span class="line">        visitor: &#123;</span><br><span class="line">            BinaryExpression(path) &#123;</span><br><span class="line">                // ...</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>然后我们更确切⼀些，只关注哪些使⽤了 &#x3D;&#x3D;&#x3D; 的 BinaryExpression 。</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">visitor: &#123;</span><br><span class="line">    BinaryExpression(path) &#123;</span><br><span class="line">    if (path.node.operator !== &quot;===&quot;) &#123;</span><br><span class="line">        return;</span><br><span class="line">    &#125;</span><br><span class="line">    // ...</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<p>现在我们⽤新的标识符来替换 left 属性：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">BinaryExpression(path) &#123;</span><br><span class="line">    if (path.node.operator !== &quot;===&quot;) &#123;</span><br><span class="line">        return;</span><br><span class="line">    &#125;</span><br><span class="line">    path.node.left = t.identifier(&quot;sebmck&quot;);</span><br><span class="line">    // ...</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>于是如果我们运⾏这个插件我们会得到：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sebmck === bar;</span><br></pre></td></tr></table></figure>
+
+<p>现在只需要替换 right 属性了。</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">BinaryExpression(path) &#123;</span><br><span class="line">    if (path.node.operator !== &quot;===&quot;) &#123;</span><br><span class="line">        return;</span><br><span class="line">    &#125;</span><br><span class="line">    path.node.left = t.identifier(&quot;sebmck&quot;);</span><br><span class="line">    path.node.right = t.identifier(&quot;dork&quot;);</span><br><span class="line">&#125;</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+<p>这就是我们的最终结果了：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sebmck === dork;</span><br></pre></td></tr></table></figure>
+
+
+
+<p>我们可以⽤更复杂的⼀些配置来完善我们的插件。。</p>
+<h2 id="Babel-插件开发"><a href="#Babel-插件开发" class="headerlink" title="Babel 插件开发"></a>Babel 插件开发</h2><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">.</span><br><span class="line">├── index.js</span><br><span class="line">├── node_modules</span><br><span class="line">├── output.js</span><br><span class="line">├── package.json</span><br><span class="line">├── plugin.js</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">package.json</span><br><span class="line"></span><br><span class="line">&#123;</span><br><span class="line">  &quot;name&quot;: &quot;babel&quot;,</span><br><span class="line">  &quot;version&quot;: &quot;1.0.0&quot;,</span><br><span class="line">  &quot;description&quot;: &quot;&quot;,</span><br><span class="line">  &quot;main&quot;: &quot;index.js&quot;,</span><br><span class="line">  &quot;scripts&quot;: &#123;</span><br><span class="line">    &quot;test&quot;: &quot;echo \&quot;Error: no test specified\&quot; &amp;&amp; exit 1&quot;</span><br><span class="line">  &#125;,</span><br><span class="line">  &quot;keywords&quot;: [],</span><br><span class="line">  &quot;author&quot;: &quot;&quot;,</span><br><span class="line">  &quot;license&quot;: &quot;ISC&quot;,</span><br><span class="line">  &quot;dependencies&quot;: &#123;</span><br><span class="line">    &quot;@babel/core&quot;: &quot;^7.11.1&quot;,</span><br><span class="line">    &quot;@babel/types&quot;: &quot;^7.11.0&quot;,</span><br><span class="line">    &quot;babel-cli&quot;: &quot;^6.26.0&quot;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">.babelrc </span><br><span class="line"></span><br><span class="line">&#123;</span><br><span class="line">  &quot;plugins&quot;: [</span><br><span class="line">    [&quot;./plugin&quot;, &#123;</span><br><span class="line">      &quot;tips&quot;: &quot;newTips&quot;</span><br><span class="line">    &#125;]</span><br><span class="line">  ]</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"></span><br><span class="line">plugin.js</span><br><span class="line"></span><br><span class="line">module.exports = function(&#123;types: t&#125;) &#123;</span><br><span class="line">  return &#123;</span><br><span class="line">    visitor: &#123;</span><br><span class="line">      Identifier(path, state) &#123;</span><br><span class="line">        const name = path.node.name;</span><br><span class="line">        console.log(state.opts);</span><br><span class="line"></span><br><span class="line">        // path.node.name = `__$&#123;name&#125;`;</span><br><span class="line">        if (state.opts[name]) &#123;</span><br><span class="line">          path.node.name = state.opts[name];</span><br><span class="line">        &#125;</span><br><span class="line">      &#125;,</span><br><span class="line">      MemberExpression(path) &#123;</span><br><span class="line">        if (path.get(&quot;object&quot;).matchesPattern(&quot;process.env&quot;)) &#123;</span><br><span class="line">          const key = path.toComputedKey();</span><br><span class="line">          if (t.isStringLiteral(key)) &#123;</span><br><span class="line">            path.replaceWith(t.valueToNode(process.env[key.value]));</span><br><span class="line">          &#125;</span><br><span class="line">        &#125;</span><br><span class="line">      &#125;,</span><br><span class="line">      BinaryExpression(path) &#123;</span><br><span class="line">        console.log(path.node.left);</span><br><span class="line">        console.log(path.node.right);</span><br><span class="line">      &#125;</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">index.js</span><br><span class="line"></span><br><span class="line">let tips;</span><br><span class="line">let array;</span><br><span class="line">const a = process.env.NODE_ENV</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"></span><br><span class="line">执行babel 编译命令</span><br><span class="line">NODE_ENV=&quot;production&quot; ./node_modules/.bin/babel index.js -o output.js</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">生成 output.js 文件</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">let newTips;</span><br><span class="line">let array;</span><br><span class="line">const a = &quot;production&quot;;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"></span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+
+
+
+
+
+
+
+
+<p>其他：<br><a target="_blank" rel="noopener" href="https://www.astexplorer.net/">https://www.astexplorer.net/</a></p>
+
+    </div>
+
+    
+    
+    
+
+      <footer class="post-footer">
+          <div class="post-tags">
+              <a href="/tags/AST/" rel="tag"># AST</a>
+          </div>
+
+        
+
+
+        
+    <div class="post-nav">
+      <div class="post-nav-item">
+    <a href="/2024/12/23/typescript%E5%A4%8D%E4%B9%A0/" rel="prev" title="typescript复习">
+      <i class="fa fa-chevron-left"></i> typescript复习
+    </a></div>
+      <div class="post-nav-item">
+    <a href="/2024/12/24/nodejs%E5%AE%8F%E4%BB%BB%E5%8A%A1%E5%92%8C%E5%BE%AE%E4%BB%BB%E5%8A%A1/" rel="next" title="nodejs宏任务和微任务">
+      nodejs宏任务和微任务 <i class="fa fa-chevron-right"></i>
+    </a></div>
+    </div>
+      </footer>
+    
+  </article>
+  
+  
+  
+
+
+
+          </div>
+          
+
+<script>
+  window.addEventListener('tabs:register', () => {
+    let { activeClass } = CONFIG.comments;
+    if (CONFIG.comments.storage) {
+      activeClass = localStorage.getItem('comments_active') || activeClass;
+    }
+    if (activeClass) {
+      let activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      if (activeTab) {
+        activeTab.click();
+      }
+    }
+  });
+  if (CONFIG.comments.storage) {
+    window.addEventListener('tabs:click', event => {
+      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
+      let commentClass = event.target.classList[1];
+      localStorage.setItem('comments_active', commentClass);
+    });
+  }
+</script>
+
+        </div>
+          
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line toggle-line-first"></span>
+    <span class="toggle-line toggle-line-middle"></span>
+    <span class="toggle-line toggle-line-last"></span>
+  </div>
+
+  <aside class="sidebar">
+    <div class="sidebar-inner">
+
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#AST"><span class="nav-number">1.</span> <span class="nav-text">AST</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%A8%A1%E6%8B%9F-AST-%E8%BF%87%E7%A8%8B"><span class="nav-number">2.</span> <span class="nav-text">模拟 AST 过程</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Babel"><span class="nav-number">3.</span> <span class="nav-text">Babel</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Babel-%E6%8F%92%E4%BB%B6%E5%BC%80%E5%8F%91"><span class="nav-number">4.</span> <span class="nav-text">Babel 插件开发</span></a></li></ol></div>
+      </div>
+      <!--/noindex-->
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+  <p class="site-author-name" itemprop="name">wangzhiwei</p>
+  <div class="site-description" itemprop="description">javascript nodejs web developer...</div>
+</div>
+<div class="site-state-wrap motion-element">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">61</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+        <span class="site-state-item-count">56</span>
+        <span class="site-state-item-name">分类</span>
+      </div>
+      <div class="site-state-item site-state-tags">
+        <span class="site-state-item-count">62</span>
+        <span class="site-state-item-name">标签</span>
+      </div>
+  </nav>
+</div>
+
+
+
+      </div>
+
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+    </main>
+
+    <footer class="footer">
+      <div class="footer-inner">
+        
+
+        
+
+<div class="copyright">
+  
+  &copy; 
+  <span itemprop="copyrightYear">2025</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">wangzhiwei</span>
+</div>
+  <div class="powered-by">由 <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> & <a href="https://muse.theme-next.org/" class="theme-link" rel="noopener" target="_blank">NexT.Muse</a> 强力驱动
+  </div>
+
+        
+
+
+
+
+
+
+
+
+      </div>
+    </footer>
+  </div>
+
+  
+  <script src="/lib/anime.min.js"></script>
+  <script src="/lib/velocity/velocity.min.js"></script>
+  <script src="/lib/velocity/velocity.ui.min.js"></script>
+
+<script src="/js/utils.js"></script>
+
+<script src="/js/motion.js"></script>
+
+
+<script src="/js/schemes/muse.js"></script>
+
+
+<script src="/js/next-boot.js"></script>
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  
+
+</body>
+</html>
