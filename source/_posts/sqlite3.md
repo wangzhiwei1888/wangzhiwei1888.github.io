@@ -5,7 +5,7 @@ tags:
 ---
 
 
-## sqlite3 基本操作
+## sqlite3 基本操作command
 
 
 ```
