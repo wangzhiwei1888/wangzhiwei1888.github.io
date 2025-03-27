@@ -32,8 +32,11 @@
 <meta property="og:image" content="http://example.com/images/anaconda_03.png">
 <meta property="og:image" content="http://example.com/images/test.webp">
 <meta property="og:image" content="http://example.com/images/anaconda_04.png">
+<meta property="og:image" content="http://example.com/images/yolo_01.png">
+<meta property="og:image" content="http://example.com/images/yolo_02.png">
+<meta property="og:image" content="http://example.com/images/yolo_03.png">
 <meta property="article:published_time" content="2025-03-27T00:27:23.000Z">
-<meta property="article:modified_time" content="2025-03-27T01:34:52.327Z">
+<meta property="article:modified_time" content="2025-03-27T02:17:03.638Z">
 <meta property="article:author" content="wangzhiwei">
 <meta property="article:tag" content="javascript nodejs web developer fe engineer">
 <meta name="twitter:card" content="summary">
@@ -182,7 +185,7 @@
               <span class="post-meta-item-text">发表于</span>
               
 
-              <time title="创建时间：2025-03-27 08:27:23 / 修改时间：09:34:52" itemprop="dateCreated datePublished" datetime="2025-03-27T08:27:23+08:00">2025-03-27</time>
+              <time title="创建时间：2025-03-27 08:27:23 / 修改时间：10:17:03" itemprop="dateCreated datePublished" datetime="2025-03-27T08:27:23+08:00">2025-03-27</time>
             </span>
 
           
@@ -227,7 +230,18 @@
 <p><a target="_blank" rel="noopener" href="https://www.bilibili.com/video/BV14v4y1U7ye?vd_source=ffda878df0ed45bee1ade91d8f451048&spm_id_from=333.788.videopod.episodes">https://www.bilibili.com/video/BV14v4y1U7ye?vd_source=ffda878df0ed45bee1ade91d8f451048&amp;spm_id_from=333.788.videopod.episodes</a></p>
 <p>深度学习入门 书</p>
 <p><img src="/../images/anaconda_04.png"></p>
-<p>参考：<a target="_blank" rel="noopener" href="https://space.bilibili.com/141214205">https://space.bilibili.com/141214205</a></p>
+<h2 id="源码安装-yolo"><a href="#源码安装-yolo" class="headerlink" title="源码安装 yolo"></a>源码安装 yolo</h2><p>clone 项目<br><a href="mailto:&#x67;&#x69;&#x74;&#x40;&#x67;&#x69;&#116;&#104;&#117;&#98;&#46;&#99;&#111;&#x6d;">&#x67;&#x69;&#x74;&#x40;&#x67;&#x69;&#116;&#104;&#117;&#98;&#46;&#99;&#111;&#x6d;</a>:ultralytics&#x2F;ultralytics.git</p>
+<p>进入项目目录执行<br>pip install -e .</p>
+<p>进行预测<br>yolo predict model&#x3D;yolo11n.pt source&#x3D;’<a target="_blank" rel="noopener" href="https://ultralytics.com/images/bus.jpg">https://ultralytics.com/images/bus.jpg</a>‘</p>
+<p>输入 pip list 可以看到 </p>
+<p>ultralytics        8.3.96      &#x2F;Users&#x2F;wangzhiwei&#x2F;study&#x2F;ai&#x2F;anaconda-study&#x2F;ultralytics</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">修改源码</span><br><span class="line"></span><br><span class="line">ultralytics/engine/model.py</span><br><span class="line"></span><br><span class="line">def predict(</span><br><span class="line">    ...</span><br><span class="line">    print(&quot;代码注入&quot;)</span><br><span class="line">    ...</span><br><span class="line">)</span><br><span class="line"></span><br><span class="line">再次执行</span><br><span class="line">yolo predict model=yolo11n.pt source=&#x27;https://ultralytics.com/images/bus.jpg&#x27;</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<p><img src="/../images/yolo_01.png"></p>
+<p><img src="/../images/yolo_02.png"></p>
+<p><img src="/../images/yolo_03.png"></p>
+<p>参考：</p>
+<p><a target="_blank" rel="noopener" href="https://space.bilibili.com/141214205">https://space.bilibili.com/141214205</a><br><a target="_blank" rel="noopener" href="https://www.bilibili.com/video/BV1CfQqYUEL5?spm_id_from=333.788.videopod.episodes&vd_source=ffda878df0ed45bee1ade91d8f451048">https://www.bilibili.com/video/BV1CfQqYUEL5?spm_id_from=333.788.videopod.episodes&amp;vd_source=ffda878df0ed45bee1ade91d8f451048</a></p>
 
     </div>
 
@@ -305,7 +319,7 @@
 
       <!--noindex-->
       <div class="post-toc-wrap sidebar-panel">
-          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#Anaconda"><span class="nav-number">1.</span> <span class="nav-text">Anaconda</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%9F%BA%E6%9C%AC%E6%A6%82%E8%BF%B0"><span class="nav-number">1.1.</span> <span class="nav-text">基本概述</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E4%B8%BB%E8%A6%81%E5%8A%9F%E8%83%BD"><span class="nav-number">1.2.</span> <span class="nav-text">主要功能</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%BA%94%E7%94%A8%E5%9C%BA%E6%99%AF"><span class="nav-number">1.3.</span> <span class="nav-text">应用场景</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#mac-%E7%8E%AF%E5%A2%83%E4%B8%8B-Anaconda-%E5%AE%89%E8%A3%85"><span class="nav-number">1.4.</span> <span class="nav-text">mac 环境下 Anaconda 安装</span></a></li></ol></li></ol></div>
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#Anaconda"><span class="nav-number">1.</span> <span class="nav-text">Anaconda</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%9F%BA%E6%9C%AC%E6%A6%82%E8%BF%B0"><span class="nav-number">1.1.</span> <span class="nav-text">基本概述</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E4%B8%BB%E8%A6%81%E5%8A%9F%E8%83%BD"><span class="nav-number">1.2.</span> <span class="nav-text">主要功能</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%BA%94%E7%94%A8%E5%9C%BA%E6%99%AF"><span class="nav-number">1.3.</span> <span class="nav-text">应用场景</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#mac-%E7%8E%AF%E5%A2%83%E4%B8%8B-Anaconda-%E5%AE%89%E8%A3%85"><span class="nav-number">1.4.</span> <span class="nav-text">mac 环境下 Anaconda 安装</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%BA%90%E7%A0%81%E5%AE%89%E8%A3%85-yolo"><span class="nav-number">2.</span> <span class="nav-text">源码安装 yolo</span></a></li></ol></div>
       </div>
       <!--/noindex-->
 
