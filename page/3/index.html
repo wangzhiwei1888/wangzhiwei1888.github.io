@@ -149,6 +149,412 @@
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="http://example.com/2024/12/27/react%E5%A4%8D%E4%B9%A0/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="wangzhiwei">
+      <meta itemprop="description" content="javascript nodejs web developer...">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="WBlog">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/2024/12/27/react%E5%A4%8D%E4%B9%A0/" class="post-title-link" itemprop="url">react复习</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2024-12-27 14:17:09" itemprop="dateCreated datePublished" datetime="2024-12-27T14:17:09+08:00">2024-12-27</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-calendar-check-o"></i>
+                </span>
+                <span class="post-meta-item-text">更新于</span>
+                <time title="修改时间：2025-03-18 11:10:52" itemprop="dateModified" datetime="2025-03-18T11:10:52+08:00">2025-03-18</time>
+              </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/react/" itemprop="url" rel="index"><span itemprop="name">react</span></a>
+                </span>
+                  ，
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/react/javascript/" itemprop="url" rel="index"><span itemprop="name">javascript</span></a>
+                </span>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <h3 id="react-复习-（v16-8-0）-目前版本为-19-0-0，-demo是在-19-0-0环境下运行"><a href="#react-复习-（v16-8-0）-目前版本为-19-0-0，-demo是在-19-0-0环境下运行" class="headerlink" title="react 复习 （v16.8.0） 目前版本为 19.0.0， demo是在 19.0.0环境下运行"></a>react 复习 （v16.8.0） 目前版本为 19.0.0， demo是在 19.0.0环境下运行</h3><h3 id="什么是无状态组件，什么是有状态组件？"><a href="#什么是无状态组件，什么是有状态组件？" class="headerlink" title="什么是无状态组件，什么是有状态组件？"></a>什么是无状态组件，什么是有状态组件？</h3><p>在React中，组件可以根据其是否包含状态（state）分为无状态组件和有状态组件。</p>
+<ul>
+<li><p><strong>无状态组件（Stateless Component）</strong>：</p>
+<ul>
+<li>也称为纯函数组件（Functional Component），因为它通常是一个简单的JavaScript函数。</li>
+<li>不包含内部状态（state），也不使用生命周期方法。</li>
+<li>只根据传入的属性（props）来渲染UI，不会因为自身的状态变化而重新渲染。</li>
+<li>示例代码：<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">function</span> <span class="title function_">Welcome</span>(<span class="params">props</span>) &#123;</span><br><span class="line">  <span class="keyword">return</span> <span class="language-xml"><span class="tag">&lt;<span class="name">h1</span>&gt;</span>Hello, &#123;props.name&#125;<span class="tag">&lt;/<span class="name">h1</span>&gt;</span></span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></li>
+</ul>
+</li>
+<li><p><strong>有状态组件（Stateful Component）</strong>：</p>
+<ul>
+<li>通常是指类组件（Class Component），虽然函数组件也可以通过使用<code>useState</code>等Hooks拥有状态。</li>
+<li>包含内部状态（state），可以管理并响应数据的变化。</li>
+<li>可以定义和使用生命周期方法，如<code>componentDidMount</code>、<code>componentDidUpdate</code>等。</li>
+<li>示例代码：<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">class</span> <span class="title class_">Welcome</span> <span class="keyword">extends</span> <span class="title class_ inherited__">React.Component</span> &#123;</span><br><span class="line">  <span class="title function_">constructor</span>(<span class="params">props</span>) &#123;</span><br><span class="line">    <span class="variable language_">super</span>(props);</span><br><span class="line">    <span class="variable language_">this</span>.<span class="property">state</span> = &#123; <span class="attr">name</span>: <span class="string">&#x27;World&#x27;</span> &#125;;</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  <span class="title function_">componentDidMount</span>(<span class="params"></span>) &#123;</span><br><span class="line">    <span class="comment">// 组件挂载后的操作</span></span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  <span class="title function_">render</span>(<span class="params"></span>) &#123;</span><br><span class="line">    <span class="keyword">return</span> <span class="language-xml"><span class="tag">&lt;<span class="name">h1</span>&gt;</span>Hello, &#123;this.state.name&#125;<span class="tag">&lt;/<span class="name">h1</span>&gt;</span></span>;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></li>
+</ul>
+</li>
+</ul>
+<p>随着React Hooks的引入，函数组件也可以拥有状态和其他特性，因此这种区分逐渐变得不那么严格。</p>
+<h3 id="pureComponent-和-memo-能够对比传入属性是否有变化，如果变化了，就重新渲染，否则不渲染。"><a href="#pureComponent-和-memo-能够对比传入属性是否有变化，如果变化了，就重新渲染，否则不渲染。" class="headerlink" title="pureComponent  和 memo 能够对比传入属性是否有变化，如果变化了，就重新渲染，否则不渲染。"></a>pureComponent  和 memo 能够对比传入属性是否有变化，如果变化了，就重新渲染，否则不渲染。</h3><p>是否有变化是如何判定的？ undefined 算不算相等</p>
+<p>在React中，<code>PureComponent</code> 和 <code>memo</code> 都用于优化组件的渲染性能，通过浅比较（shallow comparison）传入的属性（props）或状态（state），以决定是否需要重新渲染。</p>
+<ul>
+<li><p>浅比较的判定方式</p>
+</li>
+<li><p><strong>浅比较</strong>：只比较对象的第一层属性，不会递归地深入比较嵌套的对象或数组。</p>
+</li>
+<li><p><strong>基本类型</strong>（如数字、字符串、布尔值、<code>null</code>、<code>undefined</code>）：</p>
+<ul>
+<li>直接使用严格相等运算符（<code>===</code>）进行比较。</li>
+<li>对于<code>undefined</code>，如果两个值都是<code>undefined</code>，则认为它们是相等的。</li>
+</ul>
+</li>
+<li><p><code>PureComponent</code> 和 <code>memo</code> 的具体行为</p>
+</li>
+</ul>
+<ol>
+<li><p>**<code>PureComponent</code>**：</p>
+<ul>
+<li>只适用于类组件。</li>
+<li>自动对<code>this.props</code>和<code>this.state</code>进行浅比较。</li>
+<li>如果浅比较结果显示没有变化，则跳过组件的重新渲染。</li>
+</ul>
+</li>
+<li><p>**<code>memo</code>**：</p>
+<ul>
+<li>适用于函数组件。</li>
+<li>默认情况下，对组件的<code>props</code>进行浅比较。</li>
+<li>如果浅比较结果显示没有变化，则跳过组件的重新渲染。</li>
+<li>可以通过传递自定义的比较函数来控制比较逻辑。</li>
+</ul>
+</li>
+</ol>
+<ul>
+<li>示例代码</li>
+</ul>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// PureComponent 示例</span></span><br><span class="line"><span class="keyword">class</span> <span class="title class_">MyPureComponent</span> <span class="keyword">extends</span> <span class="title class_ inherited__">React.PureComponent</span> &#123;</span><br><span class="line">  <span class="title function_">render</span>(<span class="params"></span>) &#123;</span><br><span class="line">    <span class="keyword">return</span> <span class="language-xml"><span class="tag">&lt;<span class="name">div</span>&gt;</span>&#123;this.props.name&#125;<span class="tag">&lt;/<span class="name">div</span>&gt;</span></span>;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">// memo 示例</span></span><br><span class="line"><span class="keyword">const</span> <span class="title class_">MyMemoComponent</span> = <span class="title class_">React</span>.<span class="title function_">memo</span>(<span class="keyword">function</span> <span class="title function_">MyComponent</span>(<span class="params">props</span>) &#123;</span><br><span class="line">  <span class="keyword">return</span> <span class="language-xml"><span class="tag">&lt;<span class="name">div</span>&gt;</span>&#123;props.name&#125;<span class="tag">&lt;/<span class="name">div</span>&gt;</span></span>;</span><br><span class="line">&#125;);</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li><code>undefined</code> 的处理</li>
+</ul>
+<p>对于<code>undefined</code>，浅比较会使用严格相等运算符（<code>===</code>）进行比较。因此，如果两个值都是<code>undefined</code>，它们会被认为是相等的。例如：</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> a = <span class="literal">undefined</span>;</span><br><span class="line"><span class="keyword">const</span> b = <span class="literal">undefined</span>;</span><br><span class="line"></span><br><span class="line"><span class="variable language_">console</span>.<span class="title function_">log</span>(a === b); <span class="comment">// 输出: true</span></span><br></pre></td></tr></table></figure>
+
+<p>因此，在<code>PureComponent</code>和<code>memo</code>的浅比较中，两个<code>undefined</code>值会被认为是相等的，不会触发重新渲染。</p>
+<ul>
+<li><p>总结</p>
+</li>
+<li><p><code>PureComponent</code> 和 <code>memo</code> 使用浅比较来判断属性是否有变化。</p>
+</li>
+<li><p>浅比较使用严格相等运算符（<code>===</code>）进行比较。</p>
+</li>
+<li><p>对于<code>undefined</code>，如果两个值都是<code>undefined</code>，则认为它们是相等的，不会触发重新渲染。</p>
+</li>
+</ul>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">import React, &#123; Component, PureComponent, memo &#125; from &#x27;react&#x27;;</span><br><span class="line">import logo from &#x27;./logo.svg&#x27;;</span><br><span class="line">import &#x27;./App.css&#x27;;</span><br><span class="line"></span><br><span class="line">// 避免组建重新渲染 shouldComponentUpdate pureComponent memo 组件拆分的越简单 使用 pureComponent memo 的机会也就越多</span><br><span class="line"></span><br><span class="line">// class Foo extends Component &#123;</span><br><span class="line"></span><br><span class="line">//   shouldComponentUpdate(nextProps, nextState) &#123;</span><br><span class="line"></span><br><span class="line">//     if (this.props.name === nextProps.name) &#123;</span><br><span class="line">//       return false;</span><br><span class="line">//     &#125;</span><br><span class="line">//     return true;</span><br><span class="line">//   &#125;</span><br><span class="line">//   render() &#123;</span><br><span class="line">//     console.log(&#x27;Foo&#x27;);</span><br><span class="line">//     return null;</span><br><span class="line">//   &#125;</span><br><span class="line">// &#125;</span><br><span class="line"></span><br><span class="line">// 只有传入的props的第一级发生变化时，才更新</span><br><span class="line">// class Foo extends PureComponent &#123;</span><br><span class="line">//   render() &#123;</span><br><span class="line">//     console.log(&#x27;Foo&#x27;);</span><br><span class="line">//     return &lt;div&gt;&#123;this.props.person.age&#125;&lt;/div&gt;;</span><br><span class="line">//   &#125;</span><br><span class="line">// &#125;</span><br><span class="line"></span><br><span class="line">//无状态组件 不可以使用 this</span><br><span class="line">// function Foo(props) &#123;</span><br><span class="line">//   console.log(&#x27;Foo&#x27;);</span><br><span class="line">//   // return &lt;div&gt;&#123;this.props.person.age&#125;&lt;/div&gt;;</span><br><span class="line">//   return &lt;div&gt;&#123;props.person.age&#125;&lt;/div&gt;;</span><br><span class="line">// &#125;</span><br><span class="line"></span><br><span class="line">const Foo = memo(function Foo(props) &#123;</span><br><span class="line">  console.log(&#x27;Foo&#x27;);</span><br><span class="line">  return &lt;div&gt;&#123;props.person.age&#125;&lt;/div&gt;;</span><br><span class="line">&#125;)</span><br><span class="line"></span><br><span class="line">class App extends Component &#123;</span><br><span class="line"></span><br><span class="line">  state = &#123;</span><br><span class="line">    count: 0,</span><br><span class="line">    person: &#123;</span><br><span class="line">      age: 1,</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  // 类属性</span><br><span class="line">  callback = () =&gt; &#123;</span><br><span class="line">    </span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  render() &#123;</span><br><span class="line"></span><br><span class="line">    const person = this.state.person;</span><br><span class="line"></span><br><span class="line">    return (</span><br><span class="line">      &lt;div className=&quot;App&quot;&gt;</span><br><span class="line">        &lt;button onClick=&#123;() =&gt; &#123;</span><br><span class="line">          person.age++;</span><br><span class="line">          this.setState(&#123; count: this.state.count + 1 &#125;);</span><br><span class="line">        &#125;&#125;&gt;Add&lt;/button&gt;</span><br><span class="line">        &#123;/* &lt;button onClick=&#123;() =&gt; this.setState(&#123; count: this.state.count + 1 &#125;)&#125;&gt;Add&lt;/button&gt; */&#125;</span><br><span class="line"></span><br><span class="line">        &#123;/* person 本身没变化，但是cb每次都传入新的引用，导致Foo组件重新渲染 */&#125;</span><br><span class="line">        &#123;/* &lt;Foo person=&#123;person&#125; cb=&#123;() =&gt; &#123; &#125;&#125; /&gt; */&#125;</span><br><span class="line"></span><br><span class="line">        &lt;Foo person=&#123;person&#125; cb=&#123;this.callback&#125; /&gt;</span><br><span class="line">      &lt;/div&gt;</span><br><span class="line">    );</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">export default App;</span><br><span class="line"></span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+
+<h3 id="React-Hooks-提供了多种工具来简化函数组件的开发，使你可以更轻松地管理状态、副作用和其他特性。常用-Hooks-包括："><a href="#React-Hooks-提供了多种工具来简化函数组件的开发，使你可以更轻松地管理状态、副作用和其他特性。常用-Hooks-包括：" class="headerlink" title="React Hooks 提供了多种工具来简化函数组件的开发，使你可以更轻松地管理状态、副作用和其他特性。常用 Hooks 包括："></a>React Hooks 提供了多种工具来简化函数组件的开发，使你可以更轻松地管理状态、副作用和其他特性。常用 Hooks 包括：</h3><p>useState：管理状态。<br>useEffect：处理副作用。<br>useContext：访问上下文。<br>useCallback：缓存函数。<br>useMemo：缓存计算结果。<br>useRef：创建可变引用。</p>
+<p>useReducer：处理复杂状态逻辑。<br>useImperativeHandle：自定义暴露给父组件的实例值。<br>useLayoutEffect：同步执行的副作用。<br>useDebugValue：调试自定义 Hook。</p>
+<h3 id="useCallback"><a href="#useCallback" class="headerlink" title="useCallback"></a>useCallback</h3><p>作用：用于缓存函数，避免不必要的重新创建。<br>使用场景：当传递给子组件的函数在父组件每次渲染时都重新创建时，会导致子组件不必要的重新渲染。useCallback可以缓存这个函数，只有在依赖项发生变化时才重新创建。</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">const memoizedCallback = useCallback(() =&gt; &#123;</span><br><span class="line">  doSomething(a, b);</span><br><span class="line">&#125;, [a, b]);</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<h3 id="useMemo"><a href="#useMemo" class="headerlink" title="useMemo"></a>useMemo</h3><p>作用：用于缓存计算结果，避免不必要的重复计算。<br>使用场景：当某个复杂的计算结果只依赖于某些特定的值时，可以使用useMemo来缓存这个结果，只有在依赖项发生变化时才重新计算。</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">const memoizedValue = useMemo(() =&gt; computeExpensiveValue(a, b), [a, b]);</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<h3 id="useContext"><a href="#useContext" class="headerlink" title="useContext"></a>useContext</h3><p>作用：用于订阅React的Context对象，以便在组件中访问上下文中的值。<br>使用场景：当需要在多个层级嵌套的组件之间共享状态或数据时，可以使用Context API，而useContext则提供了更简洁的方式来消费这些数据。</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">const value = useContext(MyContext);</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+
+
+<h3 id="useRef"><a href="#useRef" class="headerlink" title="useRef"></a>useRef</h3><p>作用：用于创建一个可变的引用对象，其值在组件的整个生命周期内保持不变。<br>使用场景：<br>访问DOM元素。<br>存储不触发重新渲染的数据（如计数器、定时器ID等）。</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">const inputEl = useRef(null);</span><br><span class="line"></span><br><span class="line">useEffect(() =&gt; &#123;</span><br><span class="line">  // 可以直接访问inputEl.current</span><br><span class="line">  inputEl.current.focus();</span><br><span class="line">&#125;, []);</span><br><span class="line"></span><br><span class="line">return &lt;input ref=&#123;inputEl&#125; /&gt;;</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<p>总结：<br>useCallback useMemo useRef useContext这些是React中常用的Hooks，用于优化性能、管理状态和共享上下文。下面分别介绍它们的作用和用法：</p>
+<h3 id="useEffect"><a href="#useEffect" class="headerlink" title="useEffect"></a>useEffect</h3><p>useEffect 是 React 中用于处理副作用的 Hook。副作用包括数据获取、订阅、手动修改 DOM、记录日志等操作。useEffect 允许你在函数组件中执行这些操作，类似于类组件中的生命周期方法（如 componentDidMount、componentDidUpdate 和 componentWillUnmount）。</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br></pre></td><td class="code"><pre><span class="line">import React, &#123; Component, memo, useState, useCallback, useMemo, useRef, useContext, useEffect &#125; from &#x27;react&#x27;;</span><br><span class="line">import logo from &#x27;./logo.svg&#x27;;</span><br><span class="line">import &#x27;./App.css&#x27;;</span><br><span class="line"></span><br><span class="line">const MyContext = React.createContext();</span><br><span class="line"></span><br><span class="line">const Foo = memo(function Foo(props) &#123;</span><br><span class="line">  console.log(&#x27;Foo&#x27;);</span><br><span class="line">  return &lt;div&gt;&#123;props.person.age&#125; &#123;props.count&#125;&lt;/div&gt;;</span><br><span class="line">&#125;);</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">function FunctionalApp() &#123;</span><br><span class="line">  const [count, setCount] = useState(0);</span><br><span class="line">  const [person, setPerson] = useState(&#123; age: 1 &#125;);</span><br><span class="line"></span><br><span class="line">  const callback = useCallback(() =&gt; &#123;&#125;, []);</span><br><span class="line"></span><br><span class="line">  useEffect(() =&gt; &#123;</span><br><span class="line">    console.log(`Count has changed to $&#123;count&#125;`);</span><br><span class="line">    const timer = setInterval(() =&gt; &#123;</span><br><span class="line">      setCount(prevCount =&gt; prevCount + 1);</span><br><span class="line">    &#125;, 5000);</span><br><span class="line"></span><br><span class="line">    return () =&gt; &#123;</span><br><span class="line">      console.log(&#x27;Clearing interval&#x27;);</span><br><span class="line">      clearInterval(timer);</span><br><span class="line">    &#125;;</span><br><span class="line">  &#125;, []);</span><br><span class="line"></span><br><span class="line">  return (</span><br><span class="line">    &lt;MyContext.Provider value=&#123;&#123; count, person, callback &#125;&#125;&gt;</span><br><span class="line">      &lt;div className=&quot;App&quot;&gt;</span><br><span class="line">        &lt;button onClick=&#123;() =&gt; &#123;</span><br><span class="line">          setPerson(prevPerson =&gt; (&#123; ...prevPerson, age: prevPerson.age + 1 &#125;));</span><br><span class="line">          setCount(prevCount =&gt; prevCount + 1);</span><br><span class="line">        &#125;&#125;&gt;Add&lt;/button&gt;</span><br><span class="line"></span><br><span class="line">        &lt;Foo person=&#123;person&#125; count=&#123;count&#125; cb=&#123;callback&#125; /&gt;</span><br><span class="line">      &lt;/div&gt;</span><br><span class="line">    &lt;/MyContext.Provider&gt;</span><br><span class="line">  );</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">export default FunctionalApp;</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+
+<h3 id="useReducer"><a href="#useReducer" class="headerlink" title="useReducer"></a>useReducer</h3><p>useReducer 是 React 提供的一个 Hook，用于管理复杂的状态逻辑。它特别适用于状态逻辑涉及多个子状态或需要处理复杂的更新逻辑的情况。useReducer 的工作原理类似于 Redux 中的 reducer 函数，通过一个 reducer 函数来处理不同的动作（actions），从而更新状态。</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br></pre></td><td class="code"><pre><span class="line">const [state, dispatch] = useReducer(reducer, initialState);</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"></span><br><span class="line">import React, &#123; useReducer &#125; from &#x27;react&#x27;;</span><br><span class="line"></span><br><span class="line">// 定义初始状态</span><br><span class="line">const initialState = &#123; count: 0 &#125;;</span><br><span class="line"></span><br><span class="line">// 定义 reducer 函数</span><br><span class="line">function reducer(state, action) &#123;</span><br><span class="line">  switch (action.type) &#123;</span><br><span class="line">    case &#x27;increment&#x27;:</span><br><span class="line">      return &#123; count: state.count + 1 &#125;;</span><br><span class="line">    case &#x27;decrement&#x27;:</span><br><span class="line">      return &#123; count: state.count - 1 &#125;;</span><br><span class="line">    case &#x27;reset&#x27;:</span><br><span class="line">      return initialState;</span><br><span class="line">    default:</span><br><span class="line">      throw new Error();</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">function Counter() &#123;</span><br><span class="line">  // 使用 useReducer 钩子</span><br><span class="line">  const [state, dispatch] = useReducer(reducer, initialState);</span><br><span class="line"></span><br><span class="line">  return (</span><br><span class="line">    &lt;div&gt;</span><br><span class="line">      &lt;p&gt;Count: &#123;state.count&#125;&lt;/p&gt;</span><br><span class="line">      &lt;button onClick=&#123;() =&gt; dispatch(&#123; type: &#x27;increment&#x27; &#125;)&#125;&gt;+&lt;/button&gt;</span><br><span class="line">      &lt;button onClick=&#123;() =&gt; dispatch(&#123; type: &#x27;decrement&#x27; &#125;)&#125;&gt;-&lt;/button&gt;</span><br><span class="line">      &lt;button onClick=&#123;() =&gt; dispatch(&#123; type: &#x27;reset&#x27; &#125;)&#125;&gt;Reset&lt;/button&gt;</span><br><span class="line">    &lt;/div&gt;</span><br><span class="line">  );</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">export default Counter;</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+
+<p>复杂状态管理</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">import React, &#123; useReducer &#125; from &#x27;react&#x27;;</span><br><span class="line"></span><br><span class="line">// 定义初始状态</span><br><span class="line">const initialState = &#123;</span><br><span class="line">  count: 0,</span><br><span class="line">  step: 1</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line">// 定义 reducer 函数</span><br><span class="line">function reducer(state, action) &#123;</span><br><span class="line">  switch (action.type) &#123;</span><br><span class="line">    case &#x27;increment&#x27;:</span><br><span class="line">      return &#123; ...state, count: state.count + state.step &#125;;</span><br><span class="line">    case &#x27;decrement&#x27;:</span><br><span class="line">      return &#123; ...state, count: state.count - state.step &#125;;</span><br><span class="line">    case &#x27;reset&#x27;:</span><br><span class="line">      return initialState;</span><br><span class="line">    case &#x27;setStep&#x27;:</span><br><span class="line">      return &#123; ...state, step: action.payload &#125;;</span><br><span class="line">    default:</span><br><span class="line">      throw new Error();</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">function Counter() &#123;</span><br><span class="line">  // 使用 useReducer 钩子</span><br><span class="line">  const [state, dispatch] = useReducer(reducer, initialState);</span><br><span class="line"></span><br><span class="line">  return (</span><br><span class="line">    &lt;div&gt;</span><br><span class="line">      &lt;p&gt;Count: &#123;state.count&#125;&lt;/p&gt;</span><br><span class="line">      &lt;p&gt;Step: &#123;state.step&#125;&lt;/p&gt;</span><br><span class="line">      &lt;button onClick=&#123;() =&gt; dispatch(&#123; type: &#x27;increment&#x27; &#125;)&#125;&gt;+&lt;/button&gt;</span><br><span class="line">      &lt;button onClick=&#123;() =&gt; dispatch(&#123; type: &#x27;decrement&#x27; &#125;)&#125;&gt;-&lt;/button&gt;</span><br><span class="line">      &lt;button onClick=&#123;() =&gt; dispatch(&#123; type: &#x27;reset&#x27; &#125;)&#125;&gt;Reset&lt;/button&gt;</span><br><span class="line">      &lt;input</span><br><span class="line">        type=&quot;number&quot;</span><br><span class="line">        value=&#123;state.step&#125;</span><br><span class="line">        onChange=&#123;(e) =&gt; dispatch(&#123; type: &#x27;setStep&#x27;, payload: Number(e.target.value) &#125;)&#125;</span><br><span class="line">      /&gt;</span><br><span class="line">    &lt;/div&gt;</span><br><span class="line">  );</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">export default Counter;</span><br></pre></td></tr></table></figure>
+
+<h3 id="useImperativeHandle"><a href="#useImperativeHandle" class="headerlink" title="useImperativeHandle"></a>useImperativeHandle</h3><p>useImperativeHandle 是 React 提供的一个 Hook，用于自定义暴露给父组件的实例值。它允许你在使用 ref 时，控制父组件可以访问的子组件的方法或属性。这对于封装子组件的内部实现细节，只暴露必要的接口非常有用。</p>
+<p>useImperativeHandle 接收三个参数：</p>
+<p>ref：从父组件传递下来的 ref。<br>createHandle：一个函数，返回一个对象，该对象包含父组件可以访问的方法或属性。<br>dependencies：依赖项数组，当依赖项变化时，createHandle 会被重新执行。</p>
+<p>下面是一个简单的示例，展示了如何使用 useImperativeHandle 来控制父组件可以访问的子组件的方法。</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">子组件 FancyInput：</span><br><span class="line"></span><br><span class="line">    使用 forwardRef 将 ref 传递给子组件。</span><br><span class="line">    使用 useState 管理输入框的值。</span><br><span class="line">    使用 useImperativeHandle 自定义暴露给父组件的方法：</span><br><span class="line">    focus：使输入框获得焦点。</span><br><span class="line">    getValue：获取输入框的当前值。</span><br><span class="line"></span><br><span class="line">父组件 ParentComponent：</span><br><span class="line"></span><br><span class="line">    使用 useRef 创建一个 ref 对象。</span><br><span class="line">    定义 focusInput 方法，通过 ref 调用子组件的 focus 方法。</span><br><span class="line">    定义 getValue 方法，通过 ref 调用子组件的 getValue 方法。</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">import React, &#123; useRef, useImperativeHandle, forwardRef, useState &#125; from &#x27;react&#x27;;</span><br><span class="line"></span><br><span class="line">// 子组件</span><br><span class="line">const FancyInput = forwardRef((props, ref) =&gt; &#123;</span><br><span class="line">  const [value, setValue] = useState(&#x27;&#x27;);</span><br><span class="line"></span><br><span class="line">  // 自定义暴露给父组件的方法</span><br><span class="line">  useImperativeHandle(ref, () =&gt; (&#123;</span><br><span class="line">    focus: () =&gt; &#123;</span><br><span class="line">      inputRef.current.focus();</span><br><span class="line">    &#125;,</span><br><span class="line">    getValue: () =&gt; &#123;</span><br><span class="line">      return value;</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;));</span><br><span class="line"></span><br><span class="line">  const inputRef = useRef(null);</span><br><span class="line"></span><br><span class="line">  return (</span><br><span class="line">    &lt;input</span><br><span class="line">      ref=&#123;inputRef&#125;</span><br><span class="line">      value=&#123;value&#125;</span><br><span class="line">      onChange=&#123;(e) =&gt; setValue(e.target.value)&#125;</span><br><span class="line">      placeholder=&quot;Type something...&quot;</span><br><span class="line">    /&gt;</span><br><span class="line">  );</span><br><span class="line">&#125;);</span><br><span class="line"></span><br><span class="line">// 父组件</span><br><span class="line">function ParentComponent() &#123;</span><br><span class="line">  const inputRef = useRef(null);</span><br><span class="line"></span><br><span class="line">  const focusInput = () =&gt; &#123;</span><br><span class="line">    inputRef.current.focus();</span><br><span class="line">  &#125;;</span><br><span class="line"></span><br><span class="line">  const getValue = () =&gt; &#123;</span><br><span class="line">    const inputValue = inputRef.current.getValue();</span><br><span class="line">    alert(`Input value: $&#123;inputValue&#125;`);</span><br><span class="line">  &#125;;</span><br><span class="line"></span><br><span class="line">  return (</span><br><span class="line">    &lt;div&gt;</span><br><span class="line">      &lt;FancyInput ref=&#123;inputRef&#125; /&gt;</span><br><span class="line">      &lt;button onClick=&#123;focusInput&#125;&gt;Focus Input&lt;/button&gt;</span><br><span class="line">      &lt;button onClick=&#123;getValue&#125;&gt;Get Value&lt;/button&gt;</span><br><span class="line">    &lt;/div&gt;</span><br><span class="line">  );</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">export default ParentComponent;</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<p>复杂示例：控制子组件的内部状态</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br></pre></td><td class="code"><pre><span class="line">import React, &#123; useRef, useImperativeHandle, forwardRef, useState &#125; from &#x27;react&#x27;;</span><br><span class="line"></span><br><span class="line">// 子组件</span><br><span class="line">const Timer = forwardRef((props, ref) =&gt; &#123;</span><br><span class="line">  const [seconds, setSeconds] = useState(0);</span><br><span class="line">  const timerRef = useRef(null);</span><br><span class="line"></span><br><span class="line">  useImperativeHandle(ref, () =&gt; (&#123;</span><br><span class="line">    start: () =&gt; &#123;</span><br><span class="line">      timerRef.current = setInterval(() =&gt; &#123;</span><br><span class="line">        setSeconds(prevSeconds =&gt; prevSeconds + 1);</span><br><span class="line">      &#125;, 1000);</span><br><span class="line">    &#125;,</span><br><span class="line">    stop: () =&gt; &#123;</span><br><span class="line">      clearInterval(timerRef.current);</span><br><span class="line">    &#125;,</span><br><span class="line">    reset: () =&gt; &#123;</span><br><span class="line">      clearInterval(timerRef.current);</span><br><span class="line">      setSeconds(0);</span><br><span class="line">    &#125;,</span><br><span class="line">    getSeconds: () =&gt; &#123;</span><br><span class="line">      return seconds;</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;));</span><br><span class="line"></span><br><span class="line">  return (</span><br><span class="line">    &lt;div&gt;</span><br><span class="line">      &lt;p&gt;Seconds: &#123;seconds&#125;&lt;/p&gt;</span><br><span class="line">    &lt;/div&gt;</span><br><span class="line">  );</span><br><span class="line">&#125;);</span><br><span class="line"></span><br><span class="line">// 父组件</span><br><span class="line">function ParentComponent() &#123;</span><br><span class="line">  const timerRef = useRef(null);</span><br><span class="line"></span><br><span class="line">  const startTimer = () =&gt; &#123;</span><br><span class="line">    timerRef.current.start();</span><br><span class="line">  &#125;;</span><br><span class="line"></span><br><span class="line">  const stopTimer = () =&gt; &#123;</span><br><span class="line">    timerRef.current.stop();</span><br><span class="line">  &#125;;</span><br><span class="line"></span><br><span class="line">  const resetTimer = () =&gt; &#123;</span><br><span class="line">    timerRef.current.reset();</span><br><span class="line">  &#125;;</span><br><span class="line"></span><br><span class="line">  const getSeconds = () =&gt; &#123;</span><br><span class="line">    const currentSeconds = timerRef.current.getSeconds();</span><br><span class="line">    alert(`Current Seconds: $&#123;currentSeconds&#125;`);</span><br><span class="line">  &#125;;</span><br><span class="line"></span><br><span class="line">  return (</span><br><span class="line">    &lt;div&gt;</span><br><span class="line">      &lt;Timer ref=&#123;timerRef&#125; /&gt;</span><br><span class="line">      &lt;button onClick=&#123;startTimer&#125;&gt;Start&lt;/button&gt;</span><br><span class="line">      &lt;button onClick=&#123;stopTimer&#125;&gt;Stop&lt;/button&gt;</span><br><span class="line">      &lt;button onClick=&#123;resetTimer&#125;&gt;Reset&lt;/button&gt;</span><br><span class="line">      &lt;button onClick=&#123;getSeconds&#125;&gt;Get Seconds&lt;/button&gt;</span><br><span class="line">    &lt;/div&gt;</span><br><span class="line">  );</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">export default ParentComponent;</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+
+<h3 id="useImperativeHandle-对应-vue3中的实现-ref-和-defineExpose"><a href="#useImperativeHandle-对应-vue3中的实现-ref-和-defineExpose" class="headerlink" title="useImperativeHandle  对应 vue3中的实现  ref 和 defineExpose"></a>useImperativeHandle  对应 vue3中的实现  ref 和 defineExpose</h3><p>ref：用于在父组件中引用子组件或 DOM 元素。<br>defineExpose：用于显式地暴露子组件的属性和方法给父组件。</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br></pre></td><td class="code"><pre><span class="line">子组件 FancyInput.vue</span><br><span class="line"></span><br><span class="line">&lt;template&gt;</span><br><span class="line">  &lt;input</span><br><span class="line">    ref=&quot;inputRef&quot;</span><br><span class="line">    v-model=&quot;value&quot;</span><br><span class="line">    placeholder=&quot;Type something...&quot;</span><br><span class="line">  /&gt;</span><br><span class="line">&lt;/template&gt;</span><br><span class="line"></span><br><span class="line">&lt;script&gt;</span><br><span class="line">import &#123; ref, defineExpose &#125; from &#x27;vue&#x27;;</span><br><span class="line"></span><br><span class="line">export default &#123;</span><br><span class="line">  setup() &#123;</span><br><span class="line">    const inputRef = ref(null);</span><br><span class="line">    const value = ref(&#x27;&#x27;);</span><br><span class="line"></span><br><span class="line">    // 自定义暴露给父组件的方法</span><br><span class="line">    const focus = () =&gt; &#123;</span><br><span class="line">      inputRef.value.focus();</span><br><span class="line">    &#125;;</span><br><span class="line"></span><br><span class="line">    const getValue = () =&gt; &#123;</span><br><span class="line">      return value.value;</span><br><span class="line">    &#125;;</span><br><span class="line"></span><br><span class="line">    // 显式暴露方法给父组件</span><br><span class="line">    defineExpose(&#123;</span><br><span class="line">      focus,</span><br><span class="line">      getValue</span><br><span class="line">    &#125;);</span><br><span class="line"></span><br><span class="line">    return &#123;</span><br><span class="line">      inputRef,</span><br><span class="line">      value</span><br><span class="line">    &#125;;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;;</span><br><span class="line">&lt;/script&gt;</span><br><span class="line"></span><br><span class="line">父组件 ParentComponent.vue</span><br><span class="line"></span><br><span class="line">&lt;template&gt;</span><br><span class="line">  &lt;div&gt;</span><br><span class="line">    &lt;FancyInput ref=&quot;fancyInputRef&quot; /&gt;</span><br><span class="line">    &lt;button @click=&quot;focusInput&quot;&gt;Focus Input&lt;/button&gt;</span><br><span class="line">    &lt;button @click=&quot;getValue&quot;&gt;Get Value&lt;/button&gt;</span><br><span class="line">  &lt;/div&gt;</span><br><span class="line">&lt;/template&gt;</span><br><span class="line"></span><br><span class="line">&lt;script&gt;</span><br><span class="line">import &#123; ref &#125; from &#x27;vue&#x27;;</span><br><span class="line">import FancyInput from &#x27;./FancyInput.vue&#x27;;</span><br><span class="line"></span><br><span class="line">export default &#123;</span><br><span class="line">  components: &#123;</span><br><span class="line">    FancyInput</span><br><span class="line">  &#125;,</span><br><span class="line">  setup() &#123;</span><br><span class="line">    const fancyInputRef = ref(null);</span><br><span class="line"></span><br><span class="line">    const focusInput = () =&gt; &#123;</span><br><span class="line">      fancyInputRef.value.focus();</span><br><span class="line">    &#125;;</span><br><span class="line"></span><br><span class="line">    const getValue = () =&gt; &#123;</span><br><span class="line">      const inputValue = fancyInputRef.value.getValue();</span><br><span class="line">      alert(`Input value: $&#123;inputValue&#125;`);</span><br><span class="line">    &#125;;</span><br><span class="line"></span><br><span class="line">    return &#123;</span><br><span class="line">      fancyInputRef,</span><br><span class="line">      focusInput,</span><br><span class="line">      getValue</span><br><span class="line">    &#125;;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;;</span><br><span class="line">&lt;/script&gt;</span><br><span class="line"></span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<h3 id="useLayoutEffect-同步执行的副作用。"><a href="#useLayoutEffect-同步执行的副作用。" class="headerlink" title="useLayoutEffect 同步执行的副作用。"></a>useLayoutEffect 同步执行的副作用。</h3><p>与 useEffect 类似，但 useLayoutEffect 会在浏览器绘制之前执行，避免闪烁问题。<br>由于 useLayoutEffect 会阻塞浏览器绘制，应谨慎使用，避免性能问题。</p>
+<p>useLayoutEffect 是 React 提供的一个 Hook，用于在浏览器绘制之前同步执行副作用。它与 useEffect 类似，但有一些关键的区别，特别是在性能和执行时机方面。以下是 useLayoutEffect 的详细解释和使用场景。</p>
+<p>示例：使用 useLayoutEffect 读取 DOM 布局</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line">import React, &#123; useLayoutEffect, useRef, useState &#125; from &#x27;react&#x27;;</span><br><span class="line"></span><br><span class="line">function LayoutEffectExample() &#123;</span><br><span class="line">  const divRef = useRef(null);</span><br><span class="line">  const [height, setHeight] = useState(0);</span><br><span class="line"></span><br><span class="line">  useLayoutEffect(() =&gt; &#123;</span><br><span class="line">    if (divRef.current) &#123;</span><br><span class="line">      setHeight(divRef.current.offsetHeight);</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;, []);</span><br><span class="line"></span><br><span class="line">  return (</span><br><span class="line">    &lt;div&gt;</span><br><span class="line">      &lt;div ref=&#123;divRef&#125; style=&#123;&#123; height: &#x27;100px&#x27;, backgroundColor: &#x27;lightblue&#x27; &#125;&#125;&gt;</span><br><span class="line">        This div has a height of &#123;height&#125;px</span><br><span class="line">      &lt;/div&gt;</span><br><span class="line">    &lt;/div&gt;</span><br><span class="line">  );</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">export default LayoutEffectExample;</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+
+<h3 id="useDebugValue：调试自定义-Hook。"><a href="#useDebugValue：调试自定义-Hook。" class="headerlink" title="useDebugValue：调试自定义 Hook。"></a>useDebugValue：调试自定义 Hook。</h3><p>useDebugValue 是 React 提供的一个 Hook，用于在 React DevTools 中显示自定义 Hook 的标签。这有助于调试自定义 Hook，使其在 DevTools 中更易于识别和理解。以下是 useDebugValue 的详细解释和使用场景。</p>
+<p>示例：格式化显示值<br>有时，你可能希望在 DevTools 中显示更复杂的值或格式化后的值。可以传递一个格式化函数来实现这一点。</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line">import React, &#123; useState, useDebugValue &#125; from &#x27;react&#x27;;</span><br><span class="line"></span><br><span class="line">function useCustomHook(initialValue) &#123;</span><br><span class="line">  const [value, setValue] = useState(initialValue);</span><br><span class="line"></span><br><span class="line">  // 使用 useDebugValue 显示格式化后的值</span><br><span class="line">  useDebugValue(value, value =&gt; `Count: $&#123;value&#125;`);</span><br><span class="line"></span><br><span class="line">  return [value, setValue];</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">function App() &#123;</span><br><span class="line">  const [count, setCount] = useCustomHook(0);</span><br><span class="line"></span><br><span class="line">  return (</span><br><span class="line">    &lt;div&gt;</span><br><span class="line">      &lt;p&gt;Count: &#123;count&#125;&lt;/p&gt;</span><br><span class="line">      &lt;button onClick=&#123;() =&gt; setCount(count + 1)&#125;&gt;Increment&lt;/button&gt;</span><br><span class="line">    &lt;/div&gt;</span><br><span class="line">  );</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">export default App;</span><br></pre></td></tr></table></figure>
+
+
+<h3 id="React-lazy-和-Suspense"><a href="#React-lazy-和-Suspense" class="headerlink" title="React.lazy 和 Suspense"></a>React.lazy 和 Suspense</h3><p>在 React 中，React.lazy 和 Suspense 是用于代码分割和懒加载的工具。它们可以帮助你按需加载组件，从而提高应用的性能和加载速度。以下是 React.lazy 和 Suspense 的详细解释和使用场景。</p>
+<p>在实际应用中，React.lazy 和 Suspense 通常与路由结合使用，实现路由懒加载。</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br></pre></td><td class="code"><pre><span class="line">// Home.js</span><br><span class="line">import React from &#x27;react&#x27;;</span><br><span class="line"></span><br><span class="line">const Home = () =&gt; &#123;</span><br><span class="line">  return &lt;div&gt;This is the Home Component&lt;/div&gt;;</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line">export default Home;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">// About.js</span><br><span class="line">import React from &#x27;react&#x27;;</span><br><span class="line"></span><br><span class="line">const About = () =&gt; &#123;</span><br><span class="line">  return &lt;div&gt;This is the About Component&lt;/div&gt;;</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line">export default About;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">// App.js</span><br><span class="line">import React, &#123; Suspense, lazy &#125; from &#x27;react&#x27;;</span><br><span class="line">import &#123; BrowserRouter as Router, Route, Switch, Link &#125; from &#x27;react-router-dom&#x27;;</span><br><span class="line"></span><br><span class="line">const Home = lazy(() =&gt; import(&#x27;./Home&#x27;));</span><br><span class="line">const About = lazy(() =&gt; import(&#x27;./About&#x27;));</span><br><span class="line"></span><br><span class="line">function App() &#123;</span><br><span class="line">  return (</span><br><span class="line">    &lt;Router&gt;</span><br><span class="line">      &lt;div&gt;</span><br><span class="line">        &lt;nav&gt;</span><br><span class="line">          &lt;ul&gt;</span><br><span class="line">            &lt;li&gt;</span><br><span class="line">              &lt;Link to=&quot;/&quot;&gt;Home&lt;/Link&gt;</span><br><span class="line">            &lt;/li&gt;</span><br><span class="line">            &lt;li&gt;</span><br><span class="line">              &lt;Link to=&quot;/about&quot;&gt;About&lt;/Link&gt;</span><br><span class="line">            &lt;/li&gt;</span><br><span class="line">          &lt;/ul&gt;</span><br><span class="line">        &lt;/nav&gt;</span><br><span class="line">        &lt;Suspense fallback=&#123;&lt;div&gt;Loading...&lt;/div&gt;&#125;&gt;</span><br><span class="line">          &lt;Switch&gt;</span><br><span class="line">            &lt;Route exact path=&quot;/&quot; component=&#123;Home&#125; /&gt;</span><br><span class="line">            &lt;Route path=&quot;/about&quot; component=&#123;About&#125; /&gt;</span><br><span class="line">          &lt;/Switch&gt;</span><br><span class="line">        &lt;/Suspense&gt;</span><br><span class="line">      &lt;/div&gt;</span><br><span class="line">    &lt;/Router&gt;</span><br><span class="line">  );</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">export default App;</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<h3 id="React-中的高阶组件"><a href="#React-中的高阶组件" class="headerlink" title="React 中的高阶组件"></a>React 中的高阶组件</h3><p>当然！高阶组件（Higher-Order Component, HOC）是 React 中用于复用组件逻辑的一种高级技术。withAuth 是一个常见的 HOC 示例，用于检查用户是否已认证，并根据认证状态决定渲染哪个组件。</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br><span class="line">100</span><br><span class="line">101</span><br><span class="line">102</span><br><span class="line">103</span><br><span class="line">104</span><br><span class="line">105</span><br><span class="line">106</span><br><span class="line">107</span><br><span class="line">108</span><br><span class="line">109</span><br><span class="line">110</span><br><span class="line">111</span><br><span class="line">112</span><br><span class="line">113</span><br><span class="line">114</span><br><span class="line">115</span><br><span class="line">116</span><br><span class="line">117</span><br><span class="line">118</span><br><span class="line">119</span><br><span class="line">120</span><br><span class="line">121</span><br></pre></td><td class="code"><pre><span class="line">src/hocs/withAuth.js</span><br><span class="line"></span><br><span class="line">import React, &#123; useEffect, useState &#125; from &#x27;react&#x27;;</span><br><span class="line">import &#123; Redirect &#125; from &#x27;react-router-dom&#x27;;</span><br><span class="line"></span><br><span class="line">const withAuth = (WrappedComponent) =&gt; &#123;</span><br><span class="line">  const AuthenticatedComponent = (props) =&gt; &#123;</span><br><span class="line">    const [isAuthenticated, setIsAuthenticated] = useState(null);</span><br><span class="line"></span><br><span class="line">    useEffect(() =&gt; &#123;</span><br><span class="line">      // 模拟异步认证检查</span><br><span class="line">      const checkAuth = async () =&gt; &#123;</span><br><span class="line">        // 这里可以替换为实际的认证检查逻辑</span><br><span class="line">        const isAuthenticated = localStorage.getItem(&#x27;authToken&#x27;);</span><br><span class="line">        setIsAuthenticated(isAuthenticated);</span><br><span class="line">      &#125;;</span><br><span class="line"></span><br><span class="line">      checkAuth();</span><br><span class="line">    &#125;, []);</span><br><span class="line"></span><br><span class="line">    if (isAuthenticated === null) &#123;</span><br><span class="line">      return &lt;div&gt;Loading...&lt;/div&gt;; // 加载状态</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    if (!isAuthenticated) &#123;</span><br><span class="line">      return &lt;Redirect to=&quot;/login&quot; /&gt;; // 未认证时重定向到登录页面</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    return &lt;WrappedComponent &#123;...props&#125; /&gt;;</span><br><span class="line">  &#125;;</span><br><span class="line"></span><br><span class="line">  return AuthenticatedComponent;</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line">export default withAuth;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">src/components/Dashboard.js</span><br><span class="line"></span><br><span class="line">import React from &#x27;react&#x27;;</span><br><span class="line">import withAuth from &#x27;../hocs/withAuth&#x27;;</span><br><span class="line"></span><br><span class="line">const Dashboard = () =&gt; &#123;</span><br><span class="line">  return (</span><br><span class="line">    &lt;div&gt;</span><br><span class="line">      &lt;h1&gt;Dashboard&lt;/h1&gt;</span><br><span class="line">      &lt;p&gt;Welcome to your dashboard!&lt;/p&gt;</span><br><span class="line">    &lt;/div&gt;</span><br><span class="line">  );</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line">export default withAuth(Dashboard);</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">src/components/Login.js</span><br><span class="line"></span><br><span class="line">import React, &#123; useState &#125; from &#x27;react&#x27;;</span><br><span class="line">import &#123; useHistory &#125; from &#x27;react-router-dom&#x27;;</span><br><span class="line"></span><br><span class="line">const Login = () =&gt; &#123;</span><br><span class="line">  const [username, setUsername] = useState(&#x27;&#x27;);</span><br><span class="line">  const [password, setPassword] = useState(&#x27;&#x27;);</span><br><span class="line">  const history = useHistory();</span><br><span class="line"></span><br><span class="line">  const handleLogin = () =&gt; &#123;</span><br><span class="line">    // 模拟登录逻辑</span><br><span class="line">    if (username === &#x27;admin&#x27; &amp;&amp; password === &#x27;password&#x27;) &#123;</span><br><span class="line">      localStorage.setItem(&#x27;authToken&#x27;, &#x27;some-auth-token&#x27;);</span><br><span class="line">      history.push(&#x27;/dashboard&#x27;);</span><br><span class="line">    &#125; else &#123;</span><br><span class="line">      alert(&#x27;Invalid credentials&#x27;);</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;;</span><br><span class="line"></span><br><span class="line">  return (</span><br><span class="line">    &lt;div&gt;</span><br><span class="line">      &lt;h1&gt;Login&lt;/h1&gt;</span><br><span class="line">      &lt;input</span><br><span class="line">        type=&quot;text&quot;</span><br><span class="line">        placeholder=&quot;Username&quot;</span><br><span class="line">        value=&#123;username&#125;</span><br><span class="line">        onChange=&#123;(e) =&gt; setUsername(e.target.value)&#125;</span><br><span class="line">      /&gt;</span><br><span class="line">      &lt;input</span><br><span class="line">        type=&quot;password&quot;</span><br><span class="line">        placeholder=&quot;Password&quot;</span><br><span class="line">        value=&#123;password&#125;</span><br><span class="line">        onChange=&#123;(e) =&gt; setPassword(e.target.value)&#125;</span><br><span class="line">      /&gt;</span><br><span class="line">      &lt;button onClick=&#123;handleLogin&#125;&gt;Login&lt;/button&gt;</span><br><span class="line">    &lt;/div&gt;</span><br><span class="line">  );</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line">export default Login;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">src/App.js</span><br><span class="line"></span><br><span class="line">import React from &#x27;react&#x27;;</span><br><span class="line">import &#123; BrowserRouter as Router, Route, Switch, Redirect &#125; from &#x27;react-router-dom&#x27;;</span><br><span class="line">import Login from &#x27;./components/Login&#x27;;</span><br><span class="line">import Dashboard from &#x27;./components/Dashboard&#x27;;</span><br><span class="line"></span><br><span class="line">function App() &#123;</span><br><span class="line">  return (</span><br><span class="line">    &lt;Router&gt;</span><br><span class="line">      &lt;div className=&quot;App&quot;&gt;</span><br><span class="line">        &lt;Switch&gt;</span><br><span class="line">          &lt;Route path=&quot;/login&quot; component=&#123;Login&#125; /&gt;</span><br><span class="line">          &lt;Route path=&quot;/dashboard&quot; component=&#123;Dashboard&#125; /&gt;</span><br><span class="line">          &lt;Redirect from=&quot;/&quot; to=&quot;/login&quot; /&gt;</span><br><span class="line">        &lt;/Switch&gt;</span><br><span class="line">      &lt;/div&gt;</span><br><span class="line">    &lt;/Router&gt;</span><br><span class="line">  );</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">export default App;</span><br><span class="line"></span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+
+<h3 id="自定义-Hook-useFetch-处理-ajax-请求"><a href="#自定义-Hook-useFetch-处理-ajax-请求" class="headerlink" title="自定义 Hook (useFetch 处理 ajax 请求)"></a>自定义 Hook (useFetch 处理 ajax 请求)</h3><p>当然！自定义 Hook 是 React 中一种强大的工具，可以让你在不同的组件之间复用逻辑。useFetch 是一个常见的自定义 Hook，用于处理数据获取（AJAX 请求）。下面是一个详细的 useFetch 自定义 Hook 的示例，包括如何使用它来获取数据。</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br><span class="line">100</span><br><span class="line">101</span><br><span class="line">102</span><br><span class="line">103</span><br><span class="line">104</span><br><span class="line">105</span><br><span class="line">106</span><br><span class="line">107</span><br><span class="line">108</span><br><span class="line">109</span><br><span class="line">110</span><br><span class="line">111</span><br><span class="line">112</span><br><span class="line">113</span><br><span class="line">114</span><br><span class="line">115</span><br><span class="line">116</span><br><span class="line">117</span><br><span class="line">118</span><br><span class="line">119</span><br><span class="line">120</span><br><span class="line">121</span><br><span class="line">122</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">// src/hooks/useFetch.js</span><br><span class="line">import &#123; useState, useEffect &#125; from &#x27;react&#x27;;</span><br><span class="line"></span><br><span class="line">const useFetch = (url, options = &#123;&#125;) =&gt; &#123;</span><br><span class="line">  const [data, setData] = useState(null);</span><br><span class="line">  const [loading, setLoading] = useState(true);</span><br><span class="line">  const [error, setError] = useState(null);</span><br><span class="line"></span><br><span class="line">  useEffect(() =&gt; &#123;</span><br><span class="line">    let isMounted = true;</span><br><span class="line">    const controller = new AbortController();</span><br><span class="line">    const signal = controller.signal;</span><br><span class="line"></span><br><span class="line">    const fetchData = async () =&gt; &#123;</span><br><span class="line">      try &#123;</span><br><span class="line">        const response = await fetch(url, &#123; ...options, signal &#125;);</span><br><span class="line">        if (!response.ok) &#123;</span><br><span class="line">          throw new Error(`HTTP error! status: $&#123;response.status&#125;`);</span><br><span class="line">        &#125;</span><br><span class="line">        const result = await response.json();</span><br><span class="line">        if (isMounted) &#123;</span><br><span class="line">          setData(result);</span><br><span class="line">          setLoading(false);</span><br><span class="line">        &#125;</span><br><span class="line">      &#125; catch (err) &#123;</span><br><span class="line">        if (isMounted &amp;&amp; err.name !== &#x27;AbortError&#x27;) &#123;</span><br><span class="line">          setError(err);</span><br><span class="line">          setLoading(false);</span><br><span class="line">        &#125;</span><br><span class="line">      &#125;</span><br><span class="line">    &#125;;</span><br><span class="line"></span><br><span class="line">    fetchData();</span><br><span class="line"></span><br><span class="line">    return () =&gt; &#123;</span><br><span class="line">      isMounted = false;</span><br><span class="line">      controller.abort();</span><br><span class="line">    &#125;;</span><br><span class="line">  &#125;, [url, options]);</span><br><span class="line"></span><br><span class="line">  return &#123; data, loading, error &#125;;</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line">export default useFetch;</span><br><span class="line"></span><br><span class="line">// src/components/DataFetcher.js</span><br><span class="line">import React from &#x27;react&#x27;;</span><br><span class="line">import useFetch from &#x27;../hooks/useFetch&#x27;;</span><br><span class="line"></span><br><span class="line">const DataFetcher = () =&gt; &#123;</span><br><span class="line">  const &#123; data, loading, error &#125; = useFetch(&#x27;https://api.example.com/data&#x27;);</span><br><span class="line"></span><br><span class="line">  if (loading) &#123;</span><br><span class="line">    return &lt;div&gt;Loading...&lt;/div&gt;;</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  if (error) &#123;</span><br><span class="line">    return &lt;div&gt;Error: &#123;error.message&#125;&lt;/div&gt;;</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  return (</span><br><span class="line">    &lt;div&gt;</span><br><span class="line">      &lt;h1&gt;Data Fetched&lt;/h1&gt;</span><br><span class="line">      &lt;pre&gt;&#123;JSON.stringify(data, null, 2)&#125;&lt;/pre&gt;</span><br><span class="line">    &lt;/div&gt;</span><br><span class="line">  );</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line">export default DataFetcher;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"></span><br><span class="line">// src/components/DataFetcher.js</span><br><span class="line">import React, &#123; useState &#125; from &#x27;react&#x27;;</span><br><span class="line">import useFetch from &#x27;../hooks/useFetch&#x27;;</span><br><span class="line"></span><br><span class="line">const DataFetcher = () =&gt; &#123;</span><br><span class="line">  const [data, loading, error] = useFetch(&#x27;https://api.example.com/data&#x27;, &#123;</span><br><span class="line">    method: &#x27;POST&#x27;,</span><br><span class="line">    headers: &#123;</span><br><span class="line">      &#x27;Content-Type&#x27;: &#x27;application/json&#x27;,</span><br><span class="line">    &#125;,</span><br><span class="line">    body: JSON.stringify(&#123; key: &#x27;value&#x27; &#125;),</span><br><span class="line">  &#125;);</span><br><span class="line"></span><br><span class="line">  if (loading) &#123;</span><br><span class="line">    return &lt;div&gt;Loading...&lt;/div&gt;;</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  if (error) &#123;</span><br><span class="line">    return &lt;div&gt;Error: &#123;error.message&#125;&lt;/div&gt;;</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  return (</span><br><span class="line">    &lt;div&gt;</span><br><span class="line">      &lt;h1&gt;Data Fetched&lt;/h1&gt;</span><br><span class="line">      &lt;pre&gt;&#123;JSON.stringify(data, null, 2)&#125;&lt;/pre&gt;</span><br><span class="line">    &lt;/div&gt;</span><br><span class="line">  );</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line">export default DataFetcher;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">// src/App.js</span><br><span class="line">import React from &#x27;react&#x27;;</span><br><span class="line">import DataFetcher from &#x27;./components/DataFetcher&#x27;;</span><br><span class="line"></span><br><span class="line">function App() &#123;</span><br><span class="line">  return (</span><br><span class="line">    &lt;div className=&quot;App&quot;&gt;</span><br><span class="line">      &lt;DataFetcher /&gt;</span><br><span class="line">    &lt;/div&gt;</span><br><span class="line">  );</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">export default App;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"></span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+
+
+
+
+
+
+<h3 id="React-中的副作用"><a href="#React-中的副作用" class="headerlink" title="React 中的副作用"></a>React 中的副作用</h3><p>在 React 中，<strong>副作用（side effects）</strong>是指那些与组件渲染逻辑无关的操作。这些操作通常会在组件挂载、更新或卸载时执行，并且可能会对应用程序的状态或外部环境产生影响。常见的副作用包括：</p>
+<ol>
+<li><strong>数据获取</strong>：从 API 获取数据。</li>
+<li><strong>订阅</strong>：订阅事件监听器或其他数据源。</li>
+<li><strong>手动修改 DOM</strong>：直接操作 DOM 元素。</li>
+<li><strong>记录日志</strong>：将信息输出到控制台。</li>
+<li><strong>定时器</strong>：设置和清除定时器。</li>
+<li><strong>浏览器存储</strong>：读取或写入 <code>localStorage</code> 或 <code>sessionStorage</code>。</li>
+</ol>
+<h4 id="为什么需要处理副作用？"><a href="#为什么需要处理副作用？" class="headerlink" title="为什么需要处理副作用？"></a>为什么需要处理副作用？</h4><p>React 的核心理念是通过声明式编程来描述 UI 的样子，即根据当前的状态和属性来决定组件应该渲染什么内容。然而，某些操作不能简单地通过状态和属性的变化来触发，而是需要在特定的时间点（如组件挂载或更新后）执行。这就是为什么我们需要专门的机制来处理副作用。</p>
+<h4 id="如何处理副作用？"><a href="#如何处理副作用？" class="headerlink" title="如何处理副作用？"></a>如何处理副作用？</h4><p>在类组件中，副作用通常通过生命周期方法来处理，例如：</p>
+<ul>
+<li><code>componentDidMount</code>：组件挂载后执行。</li>
+<li><code>componentDidUpdate</code>：组件更新后执行。</li>
+<li><code>componentWillUnmount</code>：组件卸载前执行。</li>
+</ul>
+<p>而在函数组件中，React 提供了 <code>useEffect</code> 钩子来处理副作用。<code>useEffect</code> 可以替代类组件中的生命周期方法，并且更加灵活和直观。</p>
+<h4 id="useEffect-的工作原理"><a href="#useEffect-的工作原理" class="headerlink" title="useEffect 的工作原理"></a><code>useEffect</code> 的工作原理</h4><p><code>useEffect</code> 接收两个参数：</p>
+<ol>
+<li><strong>effect 函数</strong>：包含要执行的副作用逻辑。</li>
+<li><strong>依赖项数组</strong>：指定哪些状态或属性的变化会触发 effect 函数的重新执行。</li>
+</ol>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="title function_">useEffect</span>(<span class="function">() =&gt;</span> &#123;</span><br><span class="line">  <span class="comment">// 副作用逻辑</span></span><br><span class="line">  <span class="keyword">return</span> <span class="function">() =&gt;</span> &#123;</span><br><span class="line">    <span class="comment">// 清理逻辑（可选）</span></span><br><span class="line">  &#125;;</span><br><span class="line">&#125;, [dependencies]); <span class="comment">// 依赖项数组</span></span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>如果依赖项数组为空 <code>[]</code>，则 effect 只会在组件挂载和卸载时执行。</li>
+<li>如果依赖项数组包含某些状态或属性，则 effect 会在这些值变化时执行。</li>
+<li>如果没有提供依赖项数组，默认情况下 effect 会在每次渲染后执行。</li>
+</ul>
+<h4 id="示例：使用-useEffect-处理副作用"><a href="#示例：使用-useEffect-处理副作用" class="headerlink" title="示例：使用 useEffect 处理副作用"></a>示例：使用 <code>useEffect</code> 处理副作用</h4><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> <span class="title class_">React</span>, &#123; useState, useEffect &#125; <span class="keyword">from</span> <span class="string">&#x27;react&#x27;</span>;</span><br><span class="line"></span><br><span class="line"><span class="keyword">function</span> <span class="title function_">MyComponent</span>(<span class="params"></span>) &#123;</span><br><span class="line">  <span class="keyword">const</span> [count, setCount] = <span class="title function_">useState</span>(<span class="number">0</span>);</span><br><span class="line"></span><br><span class="line">  <span class="title function_">useEffect</span>(<span class="function">() =&gt;</span> &#123;</span><br><span class="line">    <span class="variable language_">console</span>.<span class="title function_">log</span>(<span class="string">`Count has changed to <span class="subst">$&#123;count&#125;</span>`</span>);</span><br><span class="line"></span><br><span class="line">    <span class="comment">// 设置定时器</span></span><br><span class="line">    <span class="keyword">const</span> timer = <span class="built_in">setInterval</span>(<span class="function">() =&gt;</span> &#123;</span><br><span class="line">      <span class="title function_">setCount</span>(<span class="function"><span class="params">prevCount</span> =&gt;</span> prevCount + <span class="number">1</span>);</span><br><span class="line">    &#125;, <span class="number">5000</span>);</span><br><span class="line"></span><br><span class="line">    <span class="comment">// 清理定时器</span></span><br><span class="line">    <span class="keyword">return</span> <span class="function">() =&gt;</span> &#123;</span><br><span class="line">      <span class="variable language_">console</span>.<span class="title function_">log</span>(<span class="string">&#x27;Clearing interval&#x27;</span>);</span><br><span class="line">      <span class="built_in">clearInterval</span>(timer);</span><br><span class="line">    &#125;;</span><br><span class="line">  &#125;, [count]); <span class="comment">// 依赖项数组</span></span><br><span class="line"></span><br><span class="line">  <span class="keyword">return</span> (</span><br><span class="line">    <span class="language-xml"><span class="tag">&lt;<span class="name">div</span>&gt;</span></span></span><br><span class="line"><span class="language-xml">      <span class="tag">&lt;<span class="name">p</span>&gt;</span>Count: &#123;count&#125;<span class="tag">&lt;/<span class="name">p</span>&gt;</span></span></span><br><span class="line"><span class="language-xml">      <span class="tag">&lt;<span class="name">button</span> <span class="attr">onClick</span>=<span class="string">&#123;()</span> =&gt;</span> setCount(count + 1)&#125;&gt;Increment<span class="tag">&lt;/<span class="name">button</span>&gt;</span></span></span><br><span class="line"><span class="language-xml">    <span class="tag">&lt;/<span class="name">div</span>&gt;</span></span></span><br><span class="line">  );</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">export</span> <span class="keyword">default</span> <span class="title class_">MyComponent</span>;</span><br></pre></td></tr></table></figure>
+
+<p>在这个例子中：</p>
+<ul>
+<li><code>useEffect</code> 在 <code>count</code> 发生变化时执行。</li>
+<li>它设置了每 5 秒增加一次 <code>count</code> 的定时器。</li>
+<li>当组件卸载或 <code>count</code> 再次变化时，清理定时器以避免内存泄漏。</li>
+</ul>
+<h4 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h4><ul>
+<li><strong>副作用</strong> 是指那些与组件渲染逻辑无关的操作，如数据获取、订阅、手动修改 DOM 等。</li>
+<li>在类组件中，副作用通常通过生命周期方法处理；在函数组件中，使用 <code>useEffect</code> 钩子来处理副作用。</li>
+<li><code>useEffect</code> 提供了一种灵活且直观的方式来管理副作用，确保它们在适当的时间点执行并进行清理。</li>
+</ul>
+<h3 id="什么时候用函数组件什么时候用-class组件"><a href="#什么时候用函数组件什么时候用-class组件" class="headerlink" title="什么时候用函数组件什么时候用 class组件"></a>什么时候用函数组件什么时候用 class组件</h3><p>在 React 中，选择使用函数组件还是类组件取决于具体的需求和场景。随着 React Hooks 的引入，函数组件的功能已经非常强大，可以满足大多数场景的需求。以下是选择使用函数组件或类组件的一些指导原则：</p>
+<ul>
+<li>使用函数组件的情况</li>
+</ul>
+<ol>
+<li><p><strong>简单状态管理</strong>：</p>
+<ul>
+<li>当组件的状态逻辑相对简单时，使用函数组件和 <code>useState</code> 钩子来管理状态。</li>
+<li>示例：<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> <span class="title class_">React</span>, &#123; useState &#125; <span class="keyword">from</span> <span class="string">&#x27;react&#x27;</span>;</span><br><span class="line"></span><br><span class="line"><span class="keyword">function</span> <span class="title function_">Counter</span>(<span class="params"></span>) &#123;</span><br><span class="line">  <span class="keyword">const</span> [count, setCount] = <span class="title function_">useState</span>(<span class="number">0</span>);</span><br><span class="line"></span><br><span class="line">  <span class="keyword">return</span> (</span><br><span class="line">    <span class="language-xml"><span class="tag">&lt;<span class="name">div</span>&gt;</span></span></span><br><span class="line"><span class="language-xml">      <span class="tag">&lt;<span class="name">p</span>&gt;</span>Count: &#123;count&#125;<span class="tag">&lt;/<span class="name">p</span>&gt;</span></span></span><br><span class="line"><span class="language-xml">      <span class="tag">&lt;<span class="name">button</span> <span class="attr">onClick</span>=<span class="string">&#123;()</span> =&gt;</span> setCount(count + 1)&#125;&gt;Increment<span class="tag">&lt;/<span class="name">button</span>&gt;</span></span></span><br><span class="line"><span class="language-xml">    <span class="tag">&lt;/<span class="name">div</span>&gt;</span></span></span><br><span class="line">  );</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></li>
+</ul>
+</li>
+<li><p><strong>不需要生命周期方法</strong>：</p>
+<ul>
+<li>如果组件不需要使用生命周期方法（如 <code>componentDidMount</code>、<code>componentDidUpdate</code> 等），函数组件是一个更好的选择。</li>
+<li>使用 <code>useEffect</code> 钩子可以处理副作用和生命周期相关的逻辑。</li>
+</ul>
+</li>
+<li><p><strong>更好的性能</strong>：</p>
+<ul>
+<li>函数组件通常比类组件性能更好，因为它们没有实例化对象的开销。</li>
+</ul>
+</li>
+<li><p><strong>更简洁的代码</strong>：</p>
+<ul>
+<li>函数组件的代码通常更简洁，易于阅读和维护。</li>
+</ul>
+</li>
+<li><p><strong>Hooks 的丰富功能</strong>：</p>
+<ul>
+<li>使用 <code>useReducer</code>、<code>useContext</code>、<code>useMemo</code>、<code>useCallback</code> 等 Hooks 可以实现复杂的状态管理和优化。</li>
+</ul>
+</li>
+</ol>
+<ul>
+<li>使用类组件的情况</li>
+</ul>
+<ol>
+<li><p><strong>复杂的生命周期逻辑</strong>：</p>
+<ul>
+<li>如果组件需要复杂的生命周期逻辑，类组件可能更合适。</li>
+<li>虽然 <code>useEffect</code> 可以处理大部分生命周期逻辑，但在某些复杂场景下，类组件的生命周期方法可能更直观。</li>
+</ul>
+</li>
+<li><p><strong>需要使用 <code>this</code> 关键字</strong>：</p>
+<ul>
+<li>如果组件需要使用 <code>this</code> 关键字来访问组件实例的方法或属性，类组件是一个更好的选择。</li>
+<li>虽然可以通过 <code>useRef</code> 来实现类似的功能，但类组件的 <code>this</code> 更加直观。</li>
+</ul>
+</li>
+<li><p><strong>代码迁移</strong>：</p>
+<ul>
+<li>如果项目中已经存在大量的类组件，为了保持一致性，可能需要继续使用类组件。</li>
+<li>逐步将类组件迁移到函数组件也是一个可行的策略。</li>
+</ul>
+</li>
+<li><p><strong>团队习惯</strong>：</p>
+<ul>
+<li>如果团队更熟悉类组件的编写方式，可能需要继续使用类组件。</li>
+<li>逐步引入 Hooks 并迁移到函数组件可以减少团队的学习成本。</li>
+</ul>
+</li>
+</ol>
+<ul>
+<li><p>示例对比</p>
+</li>
+<li><p>函数组件示例</p>
+</li>
+</ul>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> <span class="title class_">React</span>, &#123; useState, useEffect &#125; <span class="keyword">from</span> <span class="string">&#x27;react&#x27;</span>;</span><br><span class="line"></span><br><span class="line"><span class="keyword">function</span> <span class="title function_">Timer</span>(<span class="params"></span>) &#123;</span><br><span class="line">  <span class="keyword">const</span> [seconds, setSeconds] = <span class="title function_">useState</span>(<span class="number">0</span>);</span><br><span class="line"></span><br><span class="line">  <span class="title function_">useEffect</span>(<span class="function">() =&gt;</span> &#123;</span><br><span class="line">    <span class="keyword">const</span> interval = <span class="built_in">setInterval</span>(<span class="function">() =&gt;</span> &#123;</span><br><span class="line">      <span class="title function_">setSeconds</span>(<span class="function"><span class="params">prevSeconds</span> =&gt;</span> prevSeconds + <span class="number">1</span>);</span><br><span class="line">    &#125;, <span class="number">1000</span>);</span><br><span class="line"></span><br><span class="line">    <span class="keyword">return</span> <span class="function">() =&gt;</span> <span class="built_in">clearInterval</span>(interval);</span><br><span class="line">  &#125;, []);</span><br><span class="line"></span><br><span class="line">  <span class="keyword">return</span> <span class="language-xml"><span class="tag">&lt;<span class="name">div</span>&gt;</span>Seconds: &#123;seconds&#125;<span class="tag">&lt;/<span class="name">div</span>&gt;</span></span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>类组件示例</li>
+</ul>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> <span class="title class_">React</span>, &#123; <span class="title class_">Component</span> &#125; <span class="keyword">from</span> <span class="string">&#x27;react&#x27;</span>;</span><br><span class="line"></span><br><span class="line"><span class="keyword">class</span> <span class="title class_">Timer</span> <span class="keyword">extends</span> <span class="title class_ inherited__">Component</span> &#123;</span><br><span class="line">  <span class="title function_">constructor</span>(<span class="params">props</span>) &#123;</span><br><span class="line">    <span class="variable language_">super</span>(props);</span><br><span class="line">    <span class="variable language_">this</span>.<span class="property">state</span> = &#123; <span class="attr">seconds</span>: <span class="number">0</span> &#125;;</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  <span class="title function_">componentDidMount</span>(<span class="params"></span>) &#123;</span><br><span class="line">    <span class="variable language_">this</span>.<span class="property">interval</span> = <span class="built_in">setInterval</span>(<span class="function">() =&gt;</span> &#123;</span><br><span class="line">      <span class="variable language_">this</span>.<span class="title function_">setState</span>(<span class="function"><span class="params">prevState</span> =&gt;</span> (&#123; <span class="attr">seconds</span>: prevState.<span class="property">seconds</span> + <span class="number">1</span> &#125;));</span><br><span class="line">    &#125;, <span class="number">1000</span>);</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  <span class="title function_">componentWillUnmount</span>(<span class="params"></span>) &#123;</span><br><span class="line">    <span class="built_in">clearInterval</span>(<span class="variable language_">this</span>.<span class="property">interval</span>);</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  <span class="title function_">render</span>(<span class="params"></span>) &#123;</span><br><span class="line">    <span class="keyword">return</span> <span class="language-xml"><span class="tag">&lt;<span class="name">div</span>&gt;</span>Seconds: &#123;this.state.seconds&#125;<span class="tag">&lt;/<span class="name">div</span>&gt;</span></span>;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li><p>总结</p>
+</li>
+<li><p><strong>函数组件</strong>：</p>
+<ul>
+<li>适用于大多数场景。</li>
+<li>代码更简洁，易于维护。</li>
+<li>支持 Hooks，功能强大。</li>
+</ul>
+</li>
+<li><p><strong>类组件</strong>：</p>
+<ul>
+<li>适用于复杂的生命周期逻辑。</li>
+<li>适用于需要使用 <code>this</code> 关键字的场景。</li>
+<li>适用于代码迁移和团队习惯。</li>
+</ul>
+</li>
+</ul>
+<p>随着 React Hooks 的不断成熟和优化，函数组件已经成为 React 开发中的主流选择。但在某些特定场景下，类组件仍然有其适用性。根据具体需求和团队习惯来选择合适的组件类型。</p>
+<h3 id="react-中ajax-放在那个生命周期里面处理更合适"><a href="#react-中ajax-放在那个生命周期里面处理更合适" class="headerlink" title="react 中ajax 放在那个生命周期里面处理更合适"></a>react 中ajax 放在那个生命周期里面处理更合适</h3><p>在类组件中，通常使用 componentDidMount 生命周期方法来处理 AJAX 请求。这是因为 componentDidMount 在组件挂载到 DOM 后立即调用，是进行数据获取的理想时机。</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">import React, &#123; Component &#125; from &#x27;react&#x27;;</span><br><span class="line"></span><br><span class="line">class DataFetcher extends Component &#123;</span><br><span class="line">  constructor(props) &#123;</span><br><span class="line">    super(props);</span><br><span class="line">    this.state = &#123;</span><br><span class="line">      data: null,</span><br><span class="line">      loading: true,</span><br><span class="line">      error: null</span><br><span class="line">    &#125;;</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  componentDidMount() &#123;</span><br><span class="line">    fetch(&#x27;https://api.example.com/data&#x27;)</span><br><span class="line">      .then(response =&gt; response.json())</span><br><span class="line">      .then(data =&gt; this.setState(&#123; data, loading: false &#125;))</span><br><span class="line">      .catch(error =&gt; this.setState(&#123; error, loading: false &#125;));</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  render() &#123;</span><br><span class="line">    const &#123; data, loading, error &#125; = this.state;</span><br><span class="line"></span><br><span class="line">    if (loading) &#123;</span><br><span class="line">      return &lt;div&gt;Loading...&lt;/div&gt;;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    if (error) &#123;</span><br><span class="line">      return &lt;div&gt;Error: &#123;error.message&#125;&lt;/div&gt;;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    return (</span><br><span class="line">      &lt;div&gt;</span><br><span class="line">        &lt;h1&gt;Data Fetched&lt;/h1&gt;</span><br><span class="line">        &lt;pre&gt;&#123;JSON.stringify(data, null, 2)&#125;&lt;/pre&gt;</span><br><span class="line">      &lt;/div&gt;</span><br><span class="line">    );</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">export default DataFetcher;</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<p>函数组件<br>在函数组件中，使用 useEffect Hook 来处理 AJAX 请求。useEffect 可以替代类组件中的生命周期方法，并且更加灵活。</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">import React, &#123; useState, useEffect &#125; from &#x27;react&#x27;;</span><br><span class="line"></span><br><span class="line">function DataFetcher() &#123;</span><br><span class="line">  const [data, setData] = useState(null);</span><br><span class="line">  const [loading, setLoading] = useState(true);</span><br><span class="line">  const [error, setError] = useState(null);</span><br><span class="line"></span><br><span class="line">  useEffect(() =&gt; &#123;</span><br><span class="line">    fetch(&#x27;https://api.example.com/data&#x27;)</span><br><span class="line">      .then(response =&gt; response.json())</span><br><span class="line">      .then(data =&gt; &#123;</span><br><span class="line">        setData(data);</span><br><span class="line">        setLoading(false);</span><br><span class="line">      &#125;)</span><br><span class="line">      .catch(error =&gt; &#123;</span><br><span class="line">        setError(error);</span><br><span class="line">        setLoading(false);</span><br><span class="line">      &#125;);</span><br><span class="line">  &#125;, []); // 空依赖数组表示只在组件挂载时执行一次</span><br><span class="line"></span><br><span class="line">  if (loading) &#123;</span><br><span class="line">    return &lt;div&gt;Loading...&lt;/div&gt;;</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  if (error) &#123;</span><br><span class="line">    return &lt;div&gt;Error: &#123;error.message&#125;&lt;/div&gt;;</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  return (</span><br><span class="line">    &lt;div&gt;</span><br><span class="line">      &lt;h1&gt;Data Fetched&lt;/h1&gt;</span><br><span class="line">      &lt;pre&gt;&#123;JSON.stringify(data, null, 2)&#125;&lt;/pre&gt;</span><br><span class="line">    &lt;/div&gt;</span><br><span class="line">  );</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">export default DataFetcher;</span><br></pre></td></tr></table></figure>
+
+
+<p>如果需要在组件卸载时取消 AJAX 请求（例如，使用 AbortController），可以在 useEffect 中返回一个清理函数。</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">useEffect(() =&gt; &#123;</span><br><span class="line">  const controller = new AbortController();</span><br><span class="line">  const signal = controller.signal;</span><br><span class="line"></span><br><span class="line">  fetch(&#x27;https://api.example.com/data&#x27;, &#123; signal &#125;)</span><br><span class="line">    .then(response =&gt; response.json())</span><br><span class="line">    .then(data =&gt; &#123;</span><br><span class="line">      setData(data);</span><br><span class="line">      setLoading(false);</span><br><span class="line">    &#125;)</span><br><span class="line">    .catch(error =&gt; &#123;</span><br><span class="line">      if (error.name === &#x27;AbortError&#x27;) &#123;</span><br><span class="line">        return;</span><br><span class="line">      &#125;</span><br><span class="line">      setError(error);</span><br><span class="line">      setLoading(false);</span><br><span class="line">    &#125;);</span><br><span class="line"></span><br><span class="line">  return () =&gt; &#123;</span><br><span class="line">    controller.abort();</span><br><span class="line">  &#125;;</span><br><span class="line">&#125;, []);</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<h3 id="vue-中ajax-放在那个生命周期里面处理更合适"><a href="#vue-中ajax-放在那个生命周期里面处理更合适" class="headerlink" title="vue 中ajax 放在那个生命周期里面处理更合适"></a>vue 中ajax 放在那个生命周期里面处理更合适</h3><p>在 Vue 2 中，通常使用 created 或 mounted 生命周期钩子来处理 AJAX 请求。</p>
+<p>在 Vue 3 中，推荐使用组合式 API (setup 函数) 来处理 AJAX 请求。setup 函数在组件创建之前执行，类似于 Vue 2 的 beforeCreate 钩子，但更推荐在 setup 中进行数据获取。</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br></pre></td><td class="code"><pre><span class="line">// Vue 2</span><br><span class="line">export default &#123;</span><br><span class="line">  data() &#123;</span><br><span class="line">    return &#123;</span><br><span class="line">      data: null,</span><br><span class="line">      loading: true,</span><br><span class="line">      error: null,</span><br><span class="line">      controller: null</span><br><span class="line">    &#125;;</span><br><span class="line">  &#125;,</span><br><span class="line">  created() &#123;</span><br><span class="line">    this.controller = new AbortController();</span><br><span class="line">    const signal = this.controller.signal;</span><br><span class="line"></span><br><span class="line">    fetch(&#x27;https://api.example.com/data&#x27;, &#123; signal &#125;)</span><br><span class="line">      .then(response =&gt; response.json())</span><br><span class="line">      .then(data =&gt; &#123;</span><br><span class="line">        this.data = data;</span><br><span class="line">        this.loading = false;</span><br><span class="line">      &#125;)</span><br><span class="line">      .catch(error =&gt; &#123;</span><br><span class="line">        if (error.name === &#x27;AbortError&#x27;) &#123;</span><br><span class="line">          return;</span><br><span class="line">        &#125;</span><br><span class="line">        this.error = error;</span><br><span class="line">        this.loading = false;</span><br><span class="line">      &#125;);</span><br><span class="line">  &#125;,</span><br><span class="line">  beforeDestroy() &#123;</span><br><span class="line">    this.controller.abort();</span><br><span class="line">  &#125;</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line">// Vue 3</span><br><span class="line">&lt;template&gt;</span><br><span class="line">  &lt;div&gt;</span><br><span class="line">    &lt;div v-if=&quot;loading&quot;&gt;Loading...&lt;/div&gt;</span><br><span class="line">    &lt;div v-else-if=&quot;error&quot;&gt;Error: &#123;&#123; error.message &#125;&#125;&lt;/div&gt;</span><br><span class="line">    &lt;div v-else&gt;</span><br><span class="line">      &lt;h1&gt;Data Fetched&lt;/h1&gt;</span><br><span class="line">      &lt;pre&gt;&#123;&#123; data &#125;&#125;&lt;/pre&gt;</span><br><span class="line">    &lt;/div&gt;</span><br><span class="line">  &lt;/div&gt;</span><br><span class="line">&lt;/template&gt;</span><br><span class="line"></span><br><span class="line">&lt;script&gt;</span><br><span class="line">import &#123; ref, onMounted &#125; from &#x27;vue&#x27;;</span><br><span class="line"></span><br><span class="line">export default &#123;</span><br><span class="line">  setup() &#123;</span><br><span class="line">    const data = ref(null);</span><br><span class="line">    const loading = ref(true);</span><br><span class="line">    const error = ref(null);</span><br><span class="line"></span><br><span class="line">    // 提前发出 AJAX 请求</span><br><span class="line">    fetch(&#x27;https://api.example.com/data&#x27;)</span><br><span class="line">      .then(response =&gt; response.json())</span><br><span class="line">      .then(data =&gt; &#123;</span><br><span class="line">        data.value = data;</span><br><span class="line">        loading.value = false;</span><br><span class="line">      &#125;)</span><br><span class="line">      .catch(error =&gt; &#123;</span><br><span class="line">        error.value = error;</span><br><span class="line">        loading.value = false;</span><br><span class="line">      &#125;);</span><br><span class="line"></span><br><span class="line">    // 可选：在组件挂载后执行其他操作</span><br><span class="line">    onMounted(() =&gt; &#123;</span><br><span class="line">      console.log(&#x27;Component has been mounted&#x27;);</span><br><span class="line">    &#125;);</span><br><span class="line"></span><br><span class="line">    return &#123;</span><br><span class="line">      data,</span><br><span class="line">      loading,</span><br><span class="line">      error</span><br><span class="line">    &#125;;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;;</span><br><span class="line">&lt;/script&gt;</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+
+<h3 id="react-中-如何拆分组件更合适"><a href="#react-中-如何拆分组件更合适" class="headerlink" title="react 中 如何拆分组件更合适"></a>react 中 如何拆分组件更合适</h3><p>在 React 中，合理地拆分组件可以提高代码的可维护性、可重用性和可读性。以下是一些关于如何拆分组件的最佳实践和指导原则：</p>
+<ol>
+<li>单一职责原则 (Single Responsibility Principle)</li>
+<li>组件的粒度 </li>
+<li>可重用性</li>
+<li>逻辑分离</li>
+</ol>
+<p>ProductList 组件：负责显示产品列表。<br>ProductItem 组件：负责显示单个产品项。<br>ProductFilter 组件：负责产品过滤逻辑。</p>
+<ol start="5">
+<li>容器组件与展示组件</li>
+</ol>
+<p>将容器组件（负责数据获取和状态管理）与展示组件（负责渲染UI）分离。</p>
+<p>UserContainer 组件：负责获取用户数据并传递给 UserProfile 组件。<br>UserProfile 组件：负责渲染用户信息。</p>
+<ol start="6">
+<li><p>组合组件</p>
+</li>
+<li><p>命名规范<br>为组件选择有意义的名称，以便清晰地表达其功能。</p>
+</li>
+</ol>
+<p>示例：<br>LoginForm：表示登录表单组件。<br>ProductGallery：表示产品画廊组件。<br>NotificationBar：表示通知栏组件。</p>
+<ol start="8">
+<li><p>避免深层嵌套<br>尽量避免组件嵌套过深，过深的嵌套会使代码难以理解和维护。</p>
+</li>
+<li><p>使用高阶组件 (HOC) 或自定义 Hooks<br>对于可复用的逻辑，可以使用高阶组件或自定义 Hooks。</p>
+</li>
+</ol>
+<p>withAuth HOC：用于处理认证逻辑。<br>useFetch 自定义 Hook：用于处理数据获取逻辑。</p>
+<ol start="10">
+<li>遵循文件结构<br>保持一致的文件结构，便于查找和管理组件。</li>
+</ol>
+<h3 id="react-移动端ui-组件库有哪些"><a href="#react-移动端ui-组件库有哪些" class="headerlink" title="react 移动端ui 组件库有哪些"></a>react 移动端ui 组件库有哪些</h3><p><a target="_blank" rel="noopener" href="https://ant-design-mobile.antgroup.com/zh/components/button#button">https://ant-design-mobile.antgroup.com/zh/components/button#button</a></p>
+
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
     <link itemprop="mainEntityOfPage" href="http://example.com/2024/12/26/english/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -2974,398 +3380,6 @@
   
   
 
-      
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="http://example.com/2024/12/19/browser%E9%97%AE%E9%A2%98%E6%B1%87%E6%80%BB/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.gif">
-      <meta itemprop="name" content="wangzhiwei">
-      <meta itemprop="description" content="javascript nodejs web developer...">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="WBlog">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/2024/12/19/browser%E9%97%AE%E9%A2%98%E6%B1%87%E6%80%BB/" class="post-title-link" itemprop="url">browser问题汇总</a>
-        </h2>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              <span class="post-meta-item-text">发表于</span>
-
-              <time title="创建时间：2024-12-19 09:43:46" itemprop="dateCreated datePublished" datetime="2024-12-19T09:43:46+08:00">2024-12-19</time>
-            </span>
-              <span class="post-meta-item">
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-calendar-check-o"></i>
-                </span>
-                <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2025-03-18 11:10:52" itemprop="dateModified" datetime="2025-03-18T11:10:52+08:00">2025-03-18</time>
-              </span>
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              <span class="post-meta-item-text">分类于</span>
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/%E9%9D%A2%E8%AF%95%E9%A2%98/" itemprop="url" rel="index"><span itemprop="name">面试题</span></a>
-                </span>
-            </span>
-
-          
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <ol>
-<li><p>介绍下重绘和重排（repaint &amp; reflow），以及如何进行优化</p>
-<blockquote>
-<p>参考答案：</p>
-<p>整个页面可以看做是一幅画，这幅画是由浏览器绘制出来的，浏览器绘制这幅画的过程称之为渲染。</p>
-<p>渲染是一件复杂的工作，它大致分为以下几个过程：</p>
-<ol>
-<li>解析 HTML，生成 DOM 树，解析 CSS，生成样式规则树</li>
-<li>将 DOM 树和样式规则树结合，生成渲染树(Render Tree)</li>
-<li>根据生成的渲染树，确定元素的布局信息（元素的尺寸、位置），<strong>这一步称之为 reflow，译作重排或回流</strong></li>
-<li>根据渲染树和布局信息，生成元素的像素信息（元素横纵的像素点，左上角的偏移量、每个像素的颜色等）。<strong>这一步称之为 repaint，译作重绘</strong></li>
-<li>将像素信息提交到 GPU 完成屏幕绘制</li>
-</ol>
-<p>当元素的布局信息发生变化时，会导致重排。</p>
-<p>当元素的像素信息发生变化时，会导致重绘。</p>
-<p>重排一定会导致重绘，因此布局信息的变化一定会导致像素信息的变化。</p>
-<p>在实际开发中，获取和设置元素尺寸、位置均会导致重排和重绘，而仅设置元素的外观（比如背景颜色）则只会导致重绘，不会导致重排。</p>
-<p>重排是一项繁琐的工作，会降低效率，因此在开发中，应该尽量避免直接获取和设置元素的尺寸、位置，尽量使用变量来保存元素的布局信息。</p>
-</blockquote>
-</li>
-<li><p>说说浏览器和 Node 事件循环的区别</p>
-<blockquote>
-<p>参考答案：</p>
-<p>浏览器的事件循环比较简单，它把任务分为宏任务和微任务，当执行栈清空后，会优先调取微任务运行，当微任务队列清空后，才会调取宏任务运行。</p>
-<p>而 node 的事件循环机制比较复杂，它将整个任务调度分为 6 个阶段，当执行栈清空后，将依次循环 6 个阶段：</p>
-<ol>
-<li>timers</li>
-<li>pending callbacks</li>
-<li>idle, prepare</li>
-<li>poll</li>
-<li>check</li>
-<li>close callback</li>
-</ol>
-<p>在进入任何一个阶段时，都将检查微队列中是否有任务需要执行，只有微队列清空后才能顺利进入下一个阶段。</p>
-</blockquote>
-</li>
-<li><p>浏览器缓存读取规则</p>
-<blockquote>
-<p>参考答案：</p>
-<p>当需要获取一个资源时，浏览器会先检查缓存中是否存在，若命中缓存，则不会发送请求。浏览器按照一定的顺序检查缓存，具体顺序是：</p>
-<ol>
-<li><p>service worker</p>
-<p>在 service worker 中，开发者可以根据需要将远程获取的资源缓存到 cache storage 中，之后对该资源的请求会直接从缓存中获取。</p>
-<p>这部分缓存需要前端开发者手动完成的</p>
-</li>
-<li><p>memory cache</p>
-<p>浏览器会自动将请求过的资源自动加入到 memory cache，这主要是为了解决一个页面中有多次相同的请求，比如页面中链接了多张相同的图片。</p>
-<p>memory cache 是浏览器自动完成的，它保存在内存中。</p>
-</li>
-<li><p>disk cache</p>
-<p>当浏览器得到的响应头中包含<code>cache-control</code>等缓存指令时，会按照指令的要求设置 disk cache。请求的资源会被保存在磁盘中，在指定的期限内有效。</p>
-<p>disk cache 是长期的，即使关闭浏览器也不会消失。</p>
-</li>
-</ol>
-</blockquote>
-</li>
-<li><p>为什么通常在发送数据埋点请求的时候使用的是 1x1 像素的透明 gif 图片？</p>
-<blockquote>
-<p>参考答案：</p>
-<p>首先，在很多场景中，处理埋点的服务器很有可能是第三方服务器，比如百度的站点统计埋点，百度就是一个第三方服务器，这就不可避免的带来跨域问题。</p>
-<p>其次，埋点服务方需要提供一种特别利于安装的埋点置入代码，使用传统的 ajax 会使代码变得臃肿。</p>
-<p>同时，埋点请求绝大部分都是 get 请求，又无须得到服务器的响应结果。</p>
-<p>基于以上的特点，使用 img 元素请求服务器就变得理所当然了，img 元素发出的请求天生支持跨域，书写的代码简单，只需要创建一个 img 元素，然后设置 src 为埋点请求地址即可。</p>
-<p>其实请求一旦发出，埋点就成功了，无须得到服务器的响应结果。但如果服务器不给予任何响应的话，可能会导致浏览器端控制台报错，尽管这个报错并不影响实质的功能。为了避免这种情况，服务器于是响应一个最小体积的图片即可，而 1x1 像素的透明 gif 图片是体积最小的图片，自然就选用了它作为响应结果。</p>
-</blockquote>
-</li>
-<li><p>请求时浏览器缓存 from memory cache 和 from disk cache 的依据是什么，哪些数据什么时候存放在 Memory Cache 和 Disk Cache 中？</p>
-<blockquote>
-<p>参考答案：</p>
-<p>memory cache 是浏览器自动完成的，它不关心 http 语义，但会遵守<code>cache-control: no-store</code>指令。浏览器在请求资源后，会自动将资源加入 memory cache，在后续的请求中，若请求的 url 地址和之前缓存的对应地址相同，则直接使用 memory cache。memory cache 只缓存 get 请求，并且缓存的内容在内存中，因此会很快的清理。</p>
-<p>disk cache 遵守 http 缓存语义，它会按照服务器响应头中指定的缓存要求进行缓存，由于它存在于磁盘中，因此，即便浏览器关闭后缓存内容也不会消失。它的保存时间由服务器的<code>cache-control</code>字段指定，当缓存失效后，会重新发送请求到服务器，进入协商缓存的流程。</p>
-</blockquote>
-</li>
-<li><p>什么是浏览器同源策略？</p>
-<blockquote>
-<p>参考答案：</p>
-<p>所谓同源，是指协议、主机、端口均相同的地址。</p>
-<p>同源策略是指，当前页面和页面运行过程中发出的请求必须是同源的，即必须协议、主机、端口均相同，否则即被视为跨域请求。</p>
-<p>浏览器中的大部分内容都是受同源策略限制的，但是以下三个标签可以不受限制：</p>
-<ul>
-<li>img</li>
-<li>script</li>
-<li>link</li>
-</ul>
-</blockquote>
-</li>
-<li><p>DOM Tree 是如何构建的？</p>
-<blockquote>
-<p>参考答案：</p>
-<ol>
-<li>转码: 浏览器将接收到的二进制数据按照指定编码格式转化为 HTML 字符串</li>
-<li>生成 Tokens: 之后开始 parser，浏览器会将 HTML 字符串解析成 Tokens</li>
-<li>构建 Nodes: 对 Node 添加特定的属性，通过指针确定 Node 的父、子、兄弟关系和所属 treeScope</li>
-<li>生成 DOM Tree: 通过 node 包含的指针确定的关系构建出 DOM Tree</li>
-</ol>
-</blockquote>
-</li>
-<li><p>浏览器如何解析 css 选择器？</p>
-<blockquote>
-<p>参考答案：</p>
-<p>浏览器读取到选择器时，会从 DOM 树中找到匹配的对应节点，然后将样式附着到对应的 DOM 元素上。当选择器出现多个层级时，浏览器会使用「从右到左」的顺序进行匹配，对应到 DOM 树的遍历上，是从叶子到根的方向进行筛选，这样可以提升匹配效率。</p>
-</blockquote>
-</li>
-<li><p>浏览器是如何渲染 UI 的？</p>
-<blockquote>
-<p>参考答案：</p>
-<ol>
-<li>浏览器解析 HTML，形成 DOM Tree</li>
-<li>解析 HTML 过程中遇到 CSS，则进行 CSS 解析，生成 Style Rules</li>
-<li>将 DOM Tree 与 Style Rules 合成为 Render Tree</li>
-<li>进入布局（Layout）阶段，为每个节点分配一个应出现在屏幕上的确切坐标</li>
-<li>随后调用 GPU 进行绘制（Paint），遍历 Render Tree 的节点，并将元素呈现出来</li>
-</ol>
-</blockquote>
-</li>
-<li><p>浏览器的主要组成部分是什么？</p>
-<blockquote>
-<p>参考答案：</p>
-<ol>
-<li><p>用户界面（user interface）</p>
-<p>用于呈现浏览器窗口部件，比如地址栏、前进后退按钮、书签、顶部菜单等</p>
-</li>
-<li><p>浏览器引擎（browser engine）</p>
-<p>用户在用户界面和渲染引擎中传递指令</p>
-</li>
-<li><p>渲染引擎（rendering engine）</p>
-<p>负责解析 HTML、CSS，并将解析的内容显示到屏幕上。我们平时说的浏览器内核就是指这部分。</p>
-</li>
-<li><p>网络（networking）</p>
-<p>用户网络调用，比如发送 http 请求</p>
-</li>
-<li><p>用户界面后端（UI backend）</p>
-<p>用于绘制基本的窗口小部件，比如下拉列表、文本框、按钮等，向上提供公开的接口，向下调用操作系统的用户界面。</p>
-</li>
-<li><p>JS 解释器（JavaScript interpreter）</p>
-<p>解释执行 JS 代码。我们平时说的 JS 引擎就是指这部分。</p>
-</li>
-<li><p>数据存储（data storage）</p>
-<p>用户保存数据到磁盘中。比如 cookie、localstorage 等都是使用的这部分功能。</p>
-</li>
-</ol>
-</blockquote>
-</li>
-<li><p>常见的浏览器内核有哪些?</p>
-<blockquote>
-<p>参考答案：</p>
-<table>
-<thead>
-<tr>
-<th>浏览器</th>
-<th>内核（渲染引擎）</th>
-<th>JavaScript 引擎</th>
-</tr>
-</thead>
-<tbody><tr>
-<td>Chrome</td>
-<td>Blink（新） Webkit（旧）</td>
-<td>V8</td>
-</tr>
-<tr>
-<td>FireFox</td>
-<td>Gecko</td>
-<td>SpiderMonkey</td>
-</tr>
-<tr>
-<td>Safari</td>
-<td>Webkit</td>
-<td>JavaScriptCore</td>
-</tr>
-<tr>
-<td>Edge</td>
-<td>EdgeHTML</td>
-<td>Chakra</td>
-</tr>
-<tr>
-<td>IE</td>
-<td>Trident</td>
-<td>Chakra</td>
-</tr>
-<tr>
-<td>PhantomJS</td>
-<td>Webkit</td>
-<td>JavaScriptCore</td>
-</tr>
-<tr>
-<td>Node.js</td>
-<td>无</td>
-<td>V8</td>
-</tr>
-</tbody></table>
-</blockquote>
-</li>
-<li><p>怎样选择合适的缓存策略</p>
-<blockquote>
-<p>参考答案：</p>
-<ol>
-<li><p>对于一次性的资源，比如验证码图片，不进行缓存。</p>
-<p>设置响应头<code>cache-control: no-store</code></p>
-</li>
-<li><p>对于频繁变动的资源，比如某些数据接口，使用协商缓存。</p>
-<p>设置响应头<code>cache-control: no-cache</code>，同时配合<code>ETag</code>标记，让浏览器缓存资源，但每次都会发送请求询问资源是否更新。</p>
-</li>
-<li><p>对于静态资源，比如 JS、CSS、图片等文件，使用强制缓存。</p>
-<p>设置响应头<code>cache-control: max-age=有效时长</code>，设置一个很长的过期时间，比如十年，然后通过文件 hash 的处理更新</p>
-</li>
-</ol>
-</blockquote>
-</li>
-<li><p>为什么用多个域名存储网站资源更有效？</p>
-<blockquote>
-<p>参考答案：</p>
-<p>主要原因是浏览器对同一个域下的 TCP 连接数是有限制的，这样就导致某个网页如果外部资源多了，比如图片很多的网页，在解析页面时，由于 TCP 连接数受限，就无法同时发起多个下载连接，无法充分利用带宽资源。因此，可以把静态资源放到多个域名下，这样就绕开了连接数的限制，做到了并发下载。</p>
-</blockquote>
-</li>
-<li><p>前端需要注意哪些 SEO</p>
-<blockquote>
-<p>参考答案：</p>
-<ol>
-<li><p>语义化</p>
-<p>多使用语义化标签，让正确的标签对应正确的内容。</p>
-</li>
-<li><p>重要内容前置</p>
-<p>可以利用弹性盒布局中的 order 属性，将核心、重要的内容尽量放到文档的前面。</p>
-</li>
-<li><p>服务端渲染</p>
-<p>由于目前的搜索引擎对客户端渲染并不友好，因此使用服务端渲染仍然是 SEO 的重要手段。</p>
-</li>
-<li><p>TDK</p>
-<p>利用 title、meta 元素，设置网页的标题、描述、关键字</p>
-</li>
-</ol>
-</blockquote>
-</li>
-<li><p>浏览器是怎么对 HTML5 的离线储存资源进行管理和加载的呢</p>
-<blockquote>
-<p>参考答案：</p>
-<p>在线的情况下，浏览器发现 html 头部有 manifest 属性，它会请求 manifest 文件，如果是第一次访问 app，那么浏览器就会根据 manifest 文件的内容下载相应的资源并且进行离线存储。如果已经访问过 app 并且资源已经离线存储了，那么浏览器就会使用离线的资源加载页面，然后浏览器会对比新的 manifest 文件与旧的 manifest 文件，如果文件没有发生改变，就不做任何操作，如果文件改变了，那么就会重新下载文件中的资源并进行离线存储。<br>离线的情况下，浏览器就直接使用离线存储的资源。</p>
-</blockquote>
-</li>
-<li><p>如何兼容低版本浏览器</p>
-</li>
-</ol>
-<blockquote>
-<p>参考答案：</p>
-<p>分为三个部分来说</p>
-<p>HTML</p>
-<p>低版本浏览器无法识别新增的HTML5元素，如果要兼容这部分浏览器，需要做以下处理：</p>
-<ol>
-<li>对于非可替换元素，比如article、section、header、footer等，这种元素虽然低版本浏览器不识别，但它仍然会把它们渲染出来，只是没有浏览器的默认样式。因此，我们只需要在css中稍作处理即可，比如给它们都加上<code>display:block</code>。</li>
-<li>对于可替换元素，比如video、audio等，这种元素会涉及低版本浏览器没有功能，因此需要使用条件注释，在低版本浏览器中使用兼容的做法</li>
-</ol>
-<p>CSS</p>
-<p>对于CSS代码，低版本浏览器可能无法识别某些CSS属性，比如圆角边框、背景渐变、过渡动画等。但由于浏览器对于不能识别样式的处理方式是「直接丢弃、不影响后续渲染」，所以，我们可以保持这样的原则：尽量让其兼容，实在不行，至少不影响浏览。按照这样的原则，我们可以对CSS进行以下处理：</p>
-<ol>
-<li>使用厂商前缀，尽量让其兼容。</li>
-<li>对于某些样式使用JS替代，比如渐变、动画等</li>
-</ol>
-<p>JavaScript</p>
-<p>对于JS代码，低版本浏览器无法识别H5的API，因此缺少了一些新功能，比如localstorage、web worker等。不仅如此，低版本浏览器还无法识别ES6的新语法，比如let、const、async、await等。因此，要处理JS的兼容性问题，只能具体情况具体分析，通常，我们会使用下面两种手段来完成兼容：</p>
-<ol>
-<li>模拟API。就是自己写一个功能完全和官方相同的API，来弥补低版本浏览器API没有的情况。比较典型的就是ES5中有大量的数组API，这些API都是可以轻松模拟的。</li>
-<li>编译。某些新语法是无法模拟的，只能通过制作工具对源代码进行编译，将其新语法全部去掉，如果新语法涉及特殊功能，则转换为使用API完成，比较典型的例子就是async和await会被转换为generator的函数调用。</li>
-</ol>
-<p>在前端工程化的今天，上面的几乎所有兼容性问题都可以依靠工程化完成，比如，css可以依托postcss平台完成兼容性处理，JS可以依托babel平台完成兼容性处理。</p>
-</blockquote>
-<ol start="17">
-<li>浏览器怪异模式和普通模式的区别</li>
-</ol>
-<blockquote>
-<p>参考答案：</p>
-<p>标准模式：浏览器按W3C标准解析执行代码</p>
-<p>怪异模式：使用浏览器自己的方式解析执行代码，因为不同浏览器解析执行的方式不一样，所以称之为怪异模式。比如IE中盒模型的宽高使用的是边框盒。</p>
-</blockquote>
-<ol start="18">
-<li>各个浏览器兼容前缀？</li>
-</ol>
-<blockquote>
-<p>参考答案：</p>
-<table>
-<thead>
-<tr>
-<th>前缀</th>
-<th>浏览器</th>
-</tr>
-</thead>
-<tbody><tr>
-<td>-moz-</td>
-<td>firefox</td>
-</tr>
-<tr>
-<td>-webkit-</td>
-<td>chrome、safari</td>
-</tr>
-<tr>
-<td>-o-</td>
-<td>opera</td>
-</tr>
-<tr>
-<td>-ms-</td>
-<td>IE</td>
-</tr>
-</tbody></table>
-</blockquote>
-<ol start="19">
-<li>跨标签页的通讯方式有哪些（哔哩哔哩）</li>
-</ol>
-<blockquote>
-<p>参考答案：</p>
-<ul>
-<li>BroadCast Channel</li>
-<li>Service Worker</li>
-<li>LocalStorage window.onstorage 监听</li>
-<li>Shared Worker 定时器轮询(setInterval)</li>
-<li>IndexedDB 定时器轮询(setInterval)</li>
-<li>cookie 定时器轮询(setInterval)</li>
-<li>window.open window.postMessage</li>
-<li>Websocket</li>
-</ul>
-</blockquote>
-
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
 
   
   <nav class="pagination">
@@ -3435,7 +3449,7 @@
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">62</span>
+          <span class="site-state-item-count">63</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>
