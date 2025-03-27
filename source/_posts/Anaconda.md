@@ -64,6 +64,7 @@ https://pytorch.org/get-started/previous-versions/
 激活虚拟环境
 conda activate pytorch
 
+https://pytorch.org/get-started/previous-versions/
 安装 pytorch
 pip install torch==2.1.2 torchvision==0.16.2 torchaudio==2.1.2
 
