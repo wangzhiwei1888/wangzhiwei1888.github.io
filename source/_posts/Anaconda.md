@@ -109,5 +109,48 @@ https://www.bilibili.com/video/BV14v4y1U7ye?vd_source=ffda878df0ed45bee1ade91d8f
 
 
 
+## 源码安装 yolo
 
-参考：https://space.bilibili.com/141214205
+clone 项目
+git@github.com:ultralytics/ultralytics.git
+
+
+进入项目目录执行
+pip install -e .
+
+
+进行预测
+yolo predict model=yolo11n.pt source='https://ultralytics.com/images/bus.jpg'
+
+输入 pip list 可以看到 
+
+ultralytics        8.3.96      /Users/wangzhiwei/study/ai/anaconda-study/ultralytics
+
+
+```
+修改源码
+
+ultralytics/engine/model.py
+
+def predict(
+    ...
+    print("代码注入")
+    ...
+)
+
+再次执行
+yolo predict model=yolo11n.pt source='https://ultralytics.com/images/bus.jpg'
+
+```
+
+![](../images/yolo_01.png)
+
+![](../images/yolo_02.png)
+
+![](../images/yolo_03.png)
+
+
+参考：
+
+https://space.bilibili.com/141214205
+https://www.bilibili.com/video/BV1CfQqYUEL5?spm_id_from=333.788.videopod.episodes&vd_source=ffda878df0ed45bee1ade91d8f451048
