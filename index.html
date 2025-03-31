@@ -149,6 +149,150 @@
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="http://example.com/2025/03/31/YOLOV8%E6%A8%A1%E5%9E%8B%E9%A2%84%E6%B5%8B/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="wangzhiwei">
+      <meta itemprop="description" content="javascript nodejs web developer...">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="WBlog">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/2025/03/31/YOLOV8%E6%A8%A1%E5%9E%8B%E9%A2%84%E6%B5%8B/" class="post-title-link" itemprop="url">YOLOV8模型预测</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+              
+
+              <time title="创建时间：2025-03-31 13:48:34 / 修改时间：14:37:22" itemprop="dateCreated datePublished" datetime="2025-03-31T13:48:34+08:00">2025-03-31</time>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <h1 id="YOLOV8模型预测"><a href="#YOLOV8模型预测" class="headerlink" title="YOLOV8模型预测"></a>YOLOV8模型预测</h1><p>模型预测基本使用</p>
+<p>激活虚拟环境<br>conda activate yolov8</p>
+<p>命令行：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">yolo predict model=yolo11n.pt source=&#x27;./bus.jpg&#x27;</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<p>test.py</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line">from ultralytics import YOLO</span><br><span class="line">model = YOLO(&#x27;yolo11n.pt&#x27;, task=&#x27;detect&#x27;)</span><br><span class="line"></span><br><span class="line"># 对图片检测</span><br><span class="line"># results = model(source=&#x27;./bus.jpg&#x27;)</span><br><span class="line"></span><br><span class="line"># 对视频检测</span><br><span class="line"># results = model(source=&#x27;./video.mp4&#x27;)</span><br><span class="line"></span><br><span class="line"># 对屏幕检测</span><br><span class="line">results = model(source=&#x27;screen&#x27;)</span><br><span class="line"></span><br><span class="line"># 对摄像头检测</span><br><span class="line">#results = model(source=0)</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">results = model(source=&#x27;./bus.jpg&#x27;, save=True, conf=0.5)</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<p>python test.py</p>
+<p>安装 jupyterlab</p>
+<p>pip install jupyterlab</p>
+<p><img src="/../images/yolo11_01.png"></p>
+<p><img src="/../images/yolo11_02.png"></p>
+<p><img src="/../images/yolo11_03.png"></p>
+<p><img src="/../images/yolo11_04_01.png"></p>
+<p><img src="/../images/yolo11_04.png"></p>
+<p><img src="/../images/yolo11_05.png"></p>
+<p><img src="/../images/yolo11_06.png"></p>
+<p><img src="/../images/yolo11_07_1.png"><br><img src="/../images/yolo11_07_2.png"><br><img src="/../images/yolo11_07_3.png"><br><img src="/../images/yolo11_07_4.png"></p>
+<p>参考：</p>
+<p>参数介绍<br><a target="_blank" rel="noopener" href="https://docs.ultralytics.com/modes/predict/#inference-arguments">https://docs.ultralytics.com/modes/predict/#inference-arguments</a></p>
+<p><a target="_blank" rel="noopener" href="https://www.bilibili.com/video/BV1CfQqYUEL5?spm_id_from=333.788.videopod.episodes&vd_source=ffda878df0ed45bee1ade91d8f451048&p=3">https://www.bilibili.com/video/BV1CfQqYUEL5?spm_id_from=333.788.videopod.episodes&amp;vd_source=ffda878df0ed45bee1ade91d8f451048&amp;p=3</a></p>
+
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="http://example.com/2025/03/28/paddlepaddle/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="wangzhiwei">
+      <meta itemprop="description" content="javascript nodejs web developer...">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="WBlog">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/2025/03/28/paddlepaddle/" class="post-title-link" itemprop="url">paddlepaddle</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+              
+
+              <time title="创建时间：2025-03-28 17:10:35 / 修改时间：17:41:36" itemprop="dateCreated datePublished" datetime="2025-03-28T17:10:35+08:00">2025-03-28</time>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <p><a target="_blank" rel="noopener" href="https://www.paddlepaddle.org.cn/install/quick?docurl=undefined">https://www.paddlepaddle.org.cn/install/quick?docurl=undefined</a></p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br></pre></td><td class="code"><pre><span class="line">安装</span><br><span class="line"></span><br><span class="line">conda create -n paddle3 python=3.8</span><br><span class="line"></span><br><span class="line">conda activate paddle3</span><br><span class="line"></span><br><span class="line">conda install paddlepaddle==3.0.0 -c paddle</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">验证安装</span><br><span class="line"></span><br><span class="line">python</span><br><span class="line"></span><br><span class="line">import paddle</span><br><span class="line">paddle.utils.run_check()</span><br><span class="line"></span><br><span class="line">打印</span><br><span class="line">/opt/anaconda3/envs/paddle3/lib/python3.8/site-packages/paddle/utils/cpp_extension/extension_utils.py:711: UserWarning: No ccache found. Please be aware that recompiling all source files may be required. You can download and install ccache from: https://github.com/ccache/ccache/blob/master/doc/INSTALL.md</span><br><span class="line">  warnings.warn(warning_message)</span><br><span class="line">&gt;&gt;&gt; paddle.utils.run_check()</span><br><span class="line">Running verify PaddlePaddle program ...</span><br><span class="line">I0328 17:09:40.513358 4041525312 pir_interpreter.cc:1541] New Executor is Running ...</span><br><span class="line">I0328 17:09:40.513667 4041525312 pir_interpreter.cc:1564] pir interpreter is running by multi-thread mode ...</span><br><span class="line">PaddlePaddle works well on 1 CPU.</span><br><span class="line">PaddlePaddle is installed successfully! Let&#x27;s start deep learning with PaddlePaddle now.</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+
+<p>brew install ccache</p>
+<p>线性回归</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br></pre></td><td class="code"><pre><span class="line">import paddle</span><br><span class="line"></span><br><span class="line"># 定义一个计算费用的函数，根据行驶距离计算总费用</span><br><span class="line">def calculate_fee(distance_travelled):</span><br><span class="line">    &quot;&quot;&quot;</span><br><span class="line">    根据行驶距离计算总费用。</span><br><span class="line">    </span><br><span class="line">    参数:</span><br><span class="line">    distance_travelled -- 行驶距离</span><br><span class="line">    </span><br><span class="line">    返回:</span><br><span class="line">    总费用</span><br><span class="line">    &quot;&quot;&quot;</span><br><span class="line">    return 10 + distance_travelled * 2</span><br><span class="line"></span><br><span class="line"># 对于一组行驶距离，计算并打印相应的费用</span><br><span class="line">for x in [1.0, 3.0, 5.0, 10.0]:</span><br><span class="line">    print(calculate_fee(x))</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"># 线性回归demo</span><br><span class="line"></span><br><span class="line"># 将行驶距离和对应的费用转换为PaddlePaddle张量</span><br><span class="line">x_data = paddle.to_tensor([[1.0], [3.0], [5.0], [10.0]])</span><br><span class="line">y_data = paddle.to_tensor([[12.0], [16.0], [20.0], [30.0]])</span><br><span class="line"></span><br><span class="line"># 创建一个线性模型，用于拟合行驶距离和费用之间的关系</span><br><span class="line">linear = paddle.nn.Linear(in_features=1, out_features=1)</span><br><span class="line"></span><br><span class="line"># 获取线性模型的初始权重和偏置</span><br><span class="line">w_before_opt = linear.weight.numpy().item()</span><br><span class="line">b_before_opt = linear.bias.numpy().item()</span><br><span class="line">print(&quot;Initial w: %.2f, b: %.2f&quot; % (w_before_opt, b_before_opt))</span><br><span class="line"></span><br><span class="line"># 定义均方误差损失函数</span><br><span class="line">mes_loss = paddle.nn.MSELoss()</span><br><span class="line"></span><br><span class="line"># 创建随机梯度下降优化器</span><br><span class="line">sgd_optimizer = paddle.optimizer.SGD(learning_rate=0.001, parameters=linear.parameters())</span><br><span class="line"></span><br><span class="line"># 设置总训练轮数 可分别tiao换为10000, 20000, 50000</span><br><span class="line">total_epoch = 20000 </span><br><span class="line"></span><br><span class="line"># 开始训练过程</span><br><span class="line">for i in range(total_epoch):</span><br><span class="line">    # 使用线性模型进行预测</span><br><span class="line">    y_predict = linear(x_data)</span><br><span class="line">    # 计算预测值和真实值之间的损失</span><br><span class="line">    loss = mes_loss(y_predict, y_data)</span><br><span class="line">    # 反向传播计算梯度</span><br><span class="line">    loss.backward()</span><br><span class="line">    # 更新模型参数</span><br><span class="line">    sgd_optimizer.step()</span><br><span class="line">    # 清除梯度</span><br><span class="line">    sgd_optimizer.clear_gradients()</span><br><span class="line">    # 每1000轮打印一次训练信息</span><br><span class="line">    if i % 1000 == 0:</span><br><span class="line">        print(i, loss.numpy())</span><br><span class="line"></span><br><span class="line">print(&quot;Training finished, loss= &#123;&#125;&quot;.format(loss.numpy()))</span><br><span class="line"></span><br><span class="line"># 获取训练后的权重和偏置</span><br><span class="line">w_after_opt = linear.weight.numpy().item()</span><br><span class="line">b_after_opt = linear.bias.numpy().item()</span><br><span class="line">print(&quot;Initial w: %.2f, b: %.2f&quot; % (w_after_opt, b_after_opt))</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
     <link itemprop="mainEntityOfPage" href="http://example.com/2025/03/27/Anaconda/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -1889,164 +2033,6 @@
   
   
 
-      
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="http://example.com/2025/02/14/%E6%B5%8F%E8%A7%88%E5%99%A8%E5%A6%82%E4%BD%95%E5%BC%80%E5%90%AFGPU%E5%8A%A0%E9%80%9F%EF%BC%8C%E9%80%9A%E8%BF%87%E4%BB%A3%E7%A0%81%E6%BC%94%E7%A4%BA/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.gif">
-      <meta itemprop="name" content="wangzhiwei">
-      <meta itemprop="description" content="javascript nodejs web developer...">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="WBlog">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/2025/02/14/%E6%B5%8F%E8%A7%88%E5%99%A8%E5%A6%82%E4%BD%95%E5%BC%80%E5%90%AFGPU%E5%8A%A0%E9%80%9F%EF%BC%8C%E9%80%9A%E8%BF%87%E4%BB%A3%E7%A0%81%E6%BC%94%E7%A4%BA/" class="post-title-link" itemprop="url">浏览器如何开启GPU加速，通过代码演示</a>
-        </h2>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              <span class="post-meta-item-text">发表于</span>
-
-              <time title="创建时间：2025-02-14 17:07:23" itemprop="dateCreated datePublished" datetime="2025-02-14T17:07:23+08:00">2025-02-14</time>
-            </span>
-              <span class="post-meta-item">
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-calendar-check-o"></i>
-                </span>
-                <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2025-03-18 11:10:52" itemprop="dateModified" datetime="2025-03-18T11:10:52+08:00">2025-03-18</time>
-              </span>
-
-          
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br></pre></td><td class="code"><pre><span class="line">&lt;!DOCTYPE html&gt;</span><br><span class="line">&lt;html lang=&quot;en&quot;&gt;</span><br><span class="line">&lt;head&gt;</span><br><span class="line">    &lt;meta charset=&quot;UTF-8&quot;&gt;</span><br><span class="line">    &lt;meta name=&quot;viewport&quot; content=&quot;width=device-width, initial-scale=1.0&quot;&gt;</span><br><span class="line">    &lt;title&gt;Document&lt;/title&gt;</span><br><span class="line">&lt;/head&gt;</span><br><span class="line">&lt;body&gt;</span><br><span class="line">    &lt;style&gt;</span><br><span class="line">    </span><br><span class="line">    .div &#123;</span><br><span class="line">        width: 100px;</span><br><span class="line">        height: 100px;</span><br><span class="line">        background: pink;</span><br><span class="line">        margin: 0 auto;</span><br><span class="line">        animation: fadenum ease-in 1s;</span><br><span class="line">        animation-fill-mode: forwards;</span><br><span class="line">        position: absolute;</span><br><span class="line">        will-change: left; // 开启GPU加速</span><br><span class="line">        left: 20px;</span><br><span class="line">        top: 220px;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    @keyframes fadenum &#123;</span><br><span class="line">        0% &#123;</span><br><span class="line">            /* left: 0px; */</span><br><span class="line">            transform: translateX(0); // 浏览器开启GPU加速</span><br><span class="line">        &#125;</span><br><span class="line">        100% &#123;</span><br><span class="line">            /* left: 140px; */</span><br><span class="line">            transform: translateX(140px);</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    &lt;/style&gt;</span><br><span class="line">    </span><br><span class="line"></span><br><span class="line">    &lt;div class=&quot;div&quot;&gt;&lt;/div&gt;</span><br><span class="line">&lt;/body&gt;</span><br><span class="line">&lt;/html&gt;</span><br><span class="line"></span><br></pre></td></tr></table></figure>
-
-<p>未开启GPU加速时，渲染层和div在一层</p>
-<p><img src="/../images/gpu_00.png"></p>
-<p><img src="/../images/gpu_01.png"></p>
-<p>开启GPU加速后，可以看到分层渲染</p>
-<p><img src="/../images/gpu_02.png"></p>
-<p>参考：<a target="_blank" rel="noopener" href="https://www.douyin.com/video/7298924329268546866">https://www.douyin.com/video/7298924329268546866</a></p>
-
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
-      
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="http://example.com/2025/01/17/gitlab/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.gif">
-      <meta itemprop="name" content="wangzhiwei">
-      <meta itemprop="description" content="javascript nodejs web developer...">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="WBlog">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/2025/01/17/gitlab/" class="post-title-link" itemprop="url">gitlab</a>
-        </h2>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              <span class="post-meta-item-text">发表于</span>
-
-              <time title="创建时间：2025-01-17 13:37:59" itemprop="dateCreated datePublished" datetime="2025-01-17T13:37:59+08:00">2025-01-17</time>
-            </span>
-              <span class="post-meta-item">
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-calendar-check-o"></i>
-                </span>
-                <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2025-03-18 11:10:52" itemprop="dateModified" datetime="2025-03-18T11:10:52+08:00">2025-03-18</time>
-              </span>
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              <span class="post-meta-item-text">分类于</span>
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/gitlab/" itemprop="url" rel="index"><span itemprop="name">gitlab</span></a>
-                </span>
-            </span>
-
-          
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <h3 id="第一步-gitlab-新增任务（关联项目）"><a href="#第一步-gitlab-新增任务（关联项目）" class="headerlink" title="第一步 gitlab 新增任务（关联项目）"></a>第一步 gitlab 新增任务（关联项目）</h3><p>gitlab-runner register –tls-ca-file &#x2F;etc&#x2F;gitlab-runner&#x2F;ca.crt</p>
-<p>该命令会在&#x2F;etc&#x2F;gitlab-runner&#x2F;config.toml 文件中新增一条[[runners]]记录</p>
-<p>设置tag 用于 .gitlab-ci.yml 使用</p>
-<p><img src="/../images/gitlab_01.png"></p>
-<h3 id="第二步-编辑-config-toml"><a href="#第二步-编辑-config-toml" class="headerlink" title="第二步 编辑 config.toml"></a>第二步 编辑 config.toml</h3><p>sudo vi &#x2F;etc&#x2F;gitlab-runner&#x2F;config.toml</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">[[runners]]</span><br><span class="line">  name = &quot;项目名称&quot;</span><br><span class="line">  url = &quot;https://gitlab地址/&quot;</span><br><span class="line">  id = 59</span><br><span class="line">  token = &quot;xxxx&quot;</span><br><span class="line">  token_obtained_at = 2025-01-17T03:28:30Z</span><br><span class="line">  token_expires_at = 0001-01-01T00:00:00Z</span><br><span class="line">  tls-ca-file = &quot;/etc/gitlab-runner/ca.crt&quot;</span><br><span class="line">  executor = &quot;docker&quot;</span><br><span class="line">  [runners.custom_build_dir]</span><br><span class="line">  [runners.cache]</span><br><span class="line">    MaxUploadedArchiveSize = 0</span><br><span class="line">    [runners.cache.s3]</span><br><span class="line">    [runners.cache.gcs]</span><br><span class="line">    [runners.cache.azure]</span><br><span class="line">  [runners.docker]</span><br><span class="line">    tls_verify = false</span><br><span class="line">    image = &quot;centos:7&quot;</span><br><span class="line">    privileged = true</span><br><span class="line">    disable_entrypoint_overwrite = false</span><br><span class="line">    oom_kill_disable = false</span><br><span class="line">    disable_cache = false</span><br><span class="line">    volumes = [&quot;/cache&quot;]</span><br><span class="line">    pull_policy = [&quot;if-not-present&quot;]</span><br><span class="line">    shm_size = 0</span><br><span class="line">    network_mtu = 0</span><br><span class="line"></span><br><span class="line"></span><br></pre></td></tr></table></figure>
-
-
-
-<h3 id="第二步项目新增-文件"><a href="#第二步项目新增-文件" class="headerlink" title="第二步项目新增 文件"></a>第二步项目新增 文件</h3><p>.gitlab-ci.yml</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">stages:</span><br><span class="line">  - build_vue</span><br><span class="line"></span><br><span class="line">build_vue:</span><br><span class="line">  tags:</span><br><span class="line">    - h之前注册时候用的tag</span><br><span class="line">  stage: build_vue</span><br><span class="line">  image: 用于打包的镜像</span><br><span class="line">  script:</span><br><span class="line">    - ./build/build_vue.sh</span><br><span class="line">  artifacts:</span><br><span class="line">    paths: # 需要打包的文件</span><br><span class="line">      - ./dist/*</span><br><span class="line">    expire_in: 1 week # 打包文件存储有效期</span><br><span class="line">  rules:</span><br><span class="line">    - if: $BUILD_OS == &quot;kylin&quot;</span><br><span class="line">      when: always</span><br><span class="line">    - if: $BUILD_OS == &quot;centos&quot;</span><br><span class="line">      when: always</span><br><span class="line">    - if: $BUILD_OS == &quot;all&quot; &amp;&amp; $CI_COMMIT_REF_NAME == &quot;分支名称&quot;</span><br><span class="line">      when: always</span><br><span class="line">    - if: $CI_PIPELINE_SOURCE == &quot;merge_request_event&quot; # 确保job在合并请求时自动运行</span><br><span class="line">      when: always</span><br><span class="line">    - if: $CI_PIPELINE_SOURCE == &quot;web&quot; # 确保job在手动触发的时候自动调用两个job</span><br><span class="line">      when: always</span><br><span class="line">    - if: $CI_PIPELINE_SOURCE == &quot;schedule&quot; # schedule来源可以运行job </span><br><span class="line">      when: always</span><br><span class="line"></span><br><span class="line"></span><br></pre></td></tr></table></figure>
-
-<p>build_vue.sh<br>chmod +x build_vue.sh</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">#!/bin/bash</span><br><span class="line">set -e</span><br><span class="line">set -x</span><br><span class="line">echo &quot;开始编译&quot;</span><br><span class="line">cnpm install</span><br><span class="line">cnpm run build</span><br><span class="line"></span><br></pre></td></tr></table></figure>
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
 
   
   <nav class="pagination">
@@ -2116,7 +2102,7 @@
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">63</span>
+          <span class="site-state-item-count">65</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>

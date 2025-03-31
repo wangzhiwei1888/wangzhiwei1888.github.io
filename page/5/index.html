@@ -149,6 +149,244 @@
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="http://example.com/2024/12/18/%E5%86%85%E5%AD%98%E6%B3%84%E6%BC%8F%E6%8E%92%E6%9F%A5/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="wangzhiwei">
+      <meta itemprop="description" content="javascript nodejs web developer...">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="WBlog">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/2024/12/18/%E5%86%85%E5%AD%98%E6%B3%84%E6%BC%8F%E6%8E%92%E6%9F%A5/" class="post-title-link" itemprop="url">内存泄漏排查</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2024-12-18 08:49:05" itemprop="dateCreated datePublished" datetime="2024-12-18T08:49:05+08:00">2024-12-18</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-calendar-check-o"></i>
+                </span>
+                <span class="post-meta-item-text">更新于</span>
+                <time title="修改时间：2025-03-18 11:10:52" itemprop="dateModified" datetime="2025-03-18T11:10:52+08:00">2025-03-18</time>
+              </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/%E5%86%85%E5%AD%98/" itemprop="url" rel="index"><span itemprop="name">内存</span></a>
+                </span>
+                  ，
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/%E5%86%85%E5%AD%98/%E5%86%85%E5%AD%98%E6%B3%84%E6%BC%8F/" itemprop="url" rel="index"><span itemprop="name">内存泄漏</span></a>
+                </span>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <h1 id="demo"><a href="#demo" class="headerlink" title="demo"></a>demo</h1><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br></pre></td><td class="code"><pre><span class="line">mem.js</span><br><span class="line"></span><br><span class="line">const http = require(&#x27;http&#x27;);</span><br><span class="line"></span><br><span class="line">const heapdump = require(&#x27;heapdump&#x27;);</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">leakArray = [];</span><br><span class="line"></span><br><span class="line">// const leakArray = [];</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">const showMem = function()&#123;</span><br><span class="line"></span><br><span class="line">    var mem = process.memoryUsage();</span><br><span class="line">    </span><br><span class="line">    const format = function(bytes)&#123;</span><br><span class="line">        return (bytes / 1024 / 1024).toFixed(2) + &#x27; MB&#x27;;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    console.log(`Memory Usage: $&#123;format(mem.rss - mem.heapUsed)&#125; 堆外, $&#123;format(mem.heapTotal)&#125; heapTotal, $&#123;format(mem.heapUsed)&#125; heapUsed.`);</span><br><span class="line">    // console.log(mem);</span><br><span class="line"></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">var leak = function()&#123;</span><br><span class="line"></span><br><span class="line">    leakArray.push(new Array(20*1024*1024));</span><br><span class="line"></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">http.createServer(function (req, res) &#123;</span><br><span class="line"></span><br><span class="line">    leak();</span><br><span class="line"></span><br><span class="line">    res.writeHead(200, &#123;&#x27;Content-Type&#x27;: &#x27;text/plain&#x27;&#125;);</span><br><span class="line">    res.end(&#x27;Hello World\n&#x27;);</span><br><span class="line"></span><br><span class="line">    showMem();</span><br><span class="line"></span><br><span class="line">&#125;).listen(8001, ()=&gt;&#123;</span><br><span class="line">    console.log(&#x27;Server running at http://127.0.0.1:8001/ pid:&#x27; + process.pid);</span><br><span class="line">&#125;);</span><br><span class="line"></span><br><span class="line">// kill -USR2 pid</span><br><span class="line"></span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+
+<h1 id="工具-heapdump"><a href="#工具-heapdump" class="headerlink" title="工具 heapdump"></a>工具 heapdump</h1><h2 id="触发生成内存快照"><a href="#触发生成内存快照" class="headerlink" title="触发生成内存快照"></a>触发生成内存快照</h2><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">kill -USR2 pid</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<h2 id="分析快照"><a href="#分析快照" class="headerlink" title="分析快照"></a>分析快照</h2><p><img src="/../images/mem_01.png"></p>
+<p><img src="/../images/mem_02.png"></p>
+<h2 id="内存泄漏"><a href="#内存泄漏" class="headerlink" title="内存泄漏"></a>内存泄漏</h2><p>Node 对内存泄漏十分敏感，在巨大的流量面前，哪怕有一个字节的内存泄漏，也会积少成多。</p>
+<p>原因：<br>缓存：过度使用缓存或缓存管理不当，导致不再使用的数据仍然占用内存。<br>队列消费不及时：消息队列中的任务堆积，未能及时处理，导致内存占用持续增加<br>作用域未释放：变量的作用域没有正确释放，尤其是在使用闭包时，可能导致对象无法被垃圾回收机制回收。</p>
+<p>参考：</p>
+<p>V8引擎[垃圾回收]与[内存泄露]<br><a target="_blank" rel="noopener" href="https://juejin.cn/post/6920218829524041741">https://juejin.cn/post/6920218829524041741</a></p>
+<p>Electron V8排查问题之发现的内存泄漏问题如何解决<br><a target="_blank" rel="noopener" href="https://developer.aliyun.com/article/1586548">https://developer.aliyun.com/article/1586548</a></p>
+<p>如何排查 Electron V8 引发的内存 OOM 问题（下）<br><a target="_blank" rel="noopener" href="https://developer.aliyun.com/article/1263248">https://developer.aliyun.com/article/1263248</a></p>
+<p>垃圾回收<br><a target="_blank" rel="noopener" href="https://zh.javascript.info/garbage-collection">https://zh.javascript.info/garbage-collection</a></p>
+
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="http://example.com/2024/12/17/webrtc/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="wangzhiwei">
+      <meta itemprop="description" content="javascript nodejs web developer...">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="WBlog">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/2024/12/17/webrtc/" class="post-title-link" itemprop="url">webrtc</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2024-12-17 09:26:53" itemprop="dateCreated datePublished" datetime="2024-12-17T09:26:53+08:00">2024-12-17</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-calendar-check-o"></i>
+                </span>
+                <span class="post-meta-item-text">更新于</span>
+                <time title="修改时间：2025-03-18 11:10:52" itemprop="dateModified" datetime="2025-03-18T11:10:52+08:00">2025-03-18</time>
+              </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/webrtc/" itemprop="url" rel="index"><span itemprop="name">webrtc</span></a>
+                </span>
+                  ，
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/webrtc/%E9%9F%B3%E8%A7%86%E9%A2%91/" itemprop="url" rel="index"><span itemprop="name">音视频</span></a>
+                </span>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <h1 id="WebRTC-介绍"><a href="#WebRTC-介绍" class="headerlink" title="WebRTC 介绍"></a>WebRTC 介绍</h1><h2 id="1-定义"><a href="#1-定义" class="headerlink" title="1. 定义"></a>1. 定义</h2><p>WebRTC（Web Real-Time Communication）是一种允许网页浏览器进行实时通信（RTC）的技术。它使得浏览器之间可以直接进行音频、视频和其他数据的传输，而无需通过中间服务器。</p>
+<h2 id="2-主要特点"><a href="#2-主要特点" class="headerlink" title="2. 主要特点"></a>2. 主要特点</h2><ul>
+<li><strong>实时通信</strong>：WebRTC 支持低延迟的实时音视频通信。</li>
+<li><strong>点对点通信</strong>：WebRTC 通过点对点（P2P）连接实现直接通信，减少了中间服务器的负担。</li>
+<li><strong>开源标准</strong>：WebRTC 是一个开放标准，由 W3C 和 IETF 维护。</li>
+<li><strong>跨平台</strong>：WebRTC 支持多种浏览器和操作系统，包括 Chrome、Firefox、Safari、Edge 等。</li>
+</ul>
+<h2 id="3-核心组件"><a href="#3-核心组件" class="headerlink" title="3. 核心组件"></a>3. 核心组件</h2><ul>
+<li><strong>RTCPeerConnection</strong>：<ul>
+<li>用于建立和管理点对点连接。</li>
+<li>处理音视频流的传输。</li>
+</ul>
+</li>
+<li><strong>RTCDataChannel</strong>：<ul>
+<li>用于在点对点连接中传输任意数据。</li>
+<li>支持文本和二进制数据。</li>
+</ul>
+</li>
+<li><strong>MediaStream</strong>：<ul>
+<li>代表媒体流，如麦克风输入或摄像头视频。</li>
+<li>可以通过 <code>getUserMedia</code> API 获取。</li>
+</ul>
+</li>
+</ul>
+<h2 id="4-工作流程"><a href="#4-工作流程" class="headerlink" title="4. 工作流程"></a>4. 工作流程</h2><ol>
+<li><p><strong>获取媒体流</strong>：</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">navigator.<span class="property">mediaDevices</span>.<span class="title function_">getUserMedia</span>(&#123; <span class="attr">audio</span>: <span class="literal">true</span>, <span class="attr">video</span>: <span class="literal">true</span> &#125;)</span><br><span class="line">  .<span class="title function_">then</span>(<span class="function"><span class="params">stream</span> =&gt;</span> &#123;</span><br><span class="line">    localVideo.<span class="property">srcObject</span> = stream;</span><br><span class="line">    localStream = stream;</span><br><span class="line">  &#125;)</span><br><span class="line">  .<span class="title function_">catch</span>(<span class="function"><span class="params">error</span> =&gt;</span> <span class="variable language_">console</span>.<span class="title function_">error</span>(<span class="string">&#x27;Error accessing media devices.&#x27;</span>, error));</span><br></pre></td></tr></table></figure>
+</li>
+<li><p><strong>创建 RTCPeerConnection</strong>：</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> pc = <span class="keyword">new</span> <span class="title class_">RTCPeerConnection</span>();</span><br></pre></td></tr></table></figure>
+</li>
+<li><p><strong>添加本地媒体流</strong>：</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">pc.<span class="title function_">addStream</span>(localStream);</span><br></pre></td></tr></table></figure>
+</li>
+<li><p><strong>设置 ICE 服务器</strong>：</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">pc.<span class="title function_">setConfiguration</span>(&#123;</span><br><span class="line">  <span class="attr">iceServers</span>: [</span><br><span class="line">    &#123; <span class="attr">urls</span>: <span class="string">&#x27;stun:stun.l.google.com:19302&#x27;</span> &#125;</span><br><span class="line">  ]</span><br><span class="line">&#125;);</span><br></pre></td></tr></table></figure>
+</li>
+<li><p><strong>创建 Offer</strong>：</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">pc.<span class="title function_">createOffer</span>().<span class="title function_">then</span>(<span class="function"><span class="params">offer</span> =&gt;</span> &#123;</span><br><span class="line">  <span class="keyword">return</span> pc.<span class="title function_">setLocalDescription</span>(offer);</span><br><span class="line">&#125;).<span class="title function_">then</span>(<span class="function">() =&gt;</span> &#123;</span><br><span class="line">  <span class="comment">// 发送 offer 到远端</span></span><br><span class="line">  <span class="title function_">sendToServer</span>(pc.<span class="property">localDescription</span>);</span><br><span class="line">&#125;);</span><br></pre></td></tr></table></figure>
+</li>
+<li><p><strong>接收远端 Answer</strong>：</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">pc.<span class="title function_">setRemoteDescription</span>(<span class="keyword">new</span> <span class="title class_">RTCSessionDescription</span>(remoteDescription));</span><br></pre></td></tr></table></figure>
+</li>
+<li><p><strong>处理 ICE 候选</strong>：</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">pc.<span class="property">onicecandidate</span> = <span class="function"><span class="params">event</span> =&gt;</span> &#123;</span><br><span class="line">  <span class="keyword">if</span> (event.<span class="property">candidate</span>) &#123;</span><br><span class="line">    <span class="title function_">sendToServer</span>(event.<span class="property">candidate</span>);</span><br><span class="line">  &#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+</li>
+<li><p><strong>接收远端 ICE 候选</strong>：</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">pc.<span class="title function_">addIceCandidate</span>(<span class="keyword">new</span> <span class="title class_">RTCIceCandidate</span>(remoteCandidate));</span><br></pre></td></tr></table></figure>
+</li>
+<li><p><strong>接收远端媒体流</strong>：</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">pc.<span class="property">ontrack</span> = <span class="function"><span class="params">event</span> =&gt;</span> &#123;</span><br><span class="line">  remoteVideo.<span class="property">srcObject</span> = event.<span class="property">streams</span>[<span class="number">0</span>];</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure></li>
+</ol>
+<h2 id="5-优势"><a href="#5-优势" class="headerlink" title="5. 优势"></a>5. 优势</h2><ul>
+<li><strong>低延迟</strong>：WebRTC 通过优化的传输协议（如 UDP）实现低延迟通信。</li>
+<li><strong>安全性</strong>：所有数据传输都经过加密，确保通信安全。</li>
+<li><strong>灵活性</strong>：支持多种媒体类型和数据传输方式。</li>
+</ul>
+<h2 id="6-应用场景"><a href="#6-应用场景" class="headerlink" title="6. 应用场景"></a>6. 应用场景</h2><ul>
+<li><strong>视频会议</strong>：如 Zoom、Google Meet 等。</li>
+<li><strong>在线教育</strong>：实时互动课堂。</li>
+<li><strong>远程医疗</strong>：医生与患者之间的视频咨询。</li>
+<li><strong>游戏</strong>：多人在线游戏中的实时通信。</li>
+<li><strong>直播</strong>：实时直播和互动。</li>
+</ul>
+<h2 id="7-挑战"><a href="#7-挑战" class="headerlink" title="7. 挑战"></a>7. 挑战</h2><ul>
+<li><strong>网络环境</strong>：复杂的网络环境可能导致连接不稳定。</li>
+<li><strong>兼容性</strong>：不同浏览器和设备的兼容性问题。</li>
+<li><strong>信令</strong>：需要一个可靠的信令机制来交换连接信息。</li>
+</ul>
+<h3 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h3><p>WebRTC 是一种强大的实时通信技术，适用于多种应用场景。通过其核心组件和工作流程，开发者可以构建高效、安全的实时通信应用。尽管存在一些挑战，但随着技术的发展，这些问题正在逐步得到解决。</p>
+
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
     <link itemprop="mainEntityOfPage" href="http://example.com/2024/12/16/uniapp-%E4%BA%86%E8%A7%A3/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -1175,191 +1413,6 @@ https://docs.fluentbit.io/manual
   
   
 
-      
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="http://example.com/2024/12/13/mqtt-vue/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.gif">
-      <meta itemprop="name" content="wangzhiwei">
-      <meta itemprop="description" content="javascript nodejs web developer...">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="WBlog">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/2024/12/13/mqtt-vue/" class="post-title-link" itemprop="url">mqtt + vue</a>
-        </h2>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              <span class="post-meta-item-text">发表于</span>
-
-              <time title="创建时间：2024-12-13 15:35:26" itemprop="dateCreated datePublished" datetime="2024-12-13T15:35:26+08:00">2024-12-13</time>
-            </span>
-              <span class="post-meta-item">
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-calendar-check-o"></i>
-                </span>
-                <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2025-03-18 11:10:52" itemprop="dateModified" datetime="2025-03-18T11:10:52+08:00">2025-03-18</time>
-              </span>
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              <span class="post-meta-item-text">分类于</span>
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/mqtt/" itemprop="url" rel="index"><span itemprop="name">mqtt</span></a>
-                </span>
-            </span>
-
-          
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <p><a target="_blank" rel="noopener" href="https://www.bilibili.com/video/BV1Tw4m1Q7qG/?spm_id_from=333.337.search-card.all.click&vd_source=ffda878df0ed45bee1ade91d8f451048">https://www.bilibili.com/video/BV1Tw4m1Q7qG/?spm_id_from=333.337.search-card.all.click&amp;vd_source=ffda878df0ed45bee1ade91d8f451048</a><br><a target="_blank" rel="noopener" href="https://www.bilibili.com/video/BV1Zi4y1T78H?spm_id_from=333.788.player.switch&vd_source=ffda878df0ed45bee1ade91d8f451048">https://www.bilibili.com/video/BV1Zi4y1T78H?spm_id_from=333.788.player.switch&amp;vd_source=ffda878df0ed45bee1ade91d8f451048</a></p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">import mqtt from &#x27;mqtt&#x27;;</span><br><span class="line"> </span><br><span class="line">export default &#123;</span><br><span class="line">  name: &#x27;MqttComponent&#x27;,</span><br><span class="line">  data() &#123;</span><br><span class="line">    return &#123;</span><br><span class="line">      client: null,</span><br><span class="line">    &#125;;</span><br><span class="line">  &#125;,</span><br><span class="line">  created() &#123;</span><br><span class="line">    this.connectMqtt();</span><br><span class="line">  &#125;,</span><br><span class="line">  methods: &#123;</span><br><span class="line">    connectMqtt() &#123;</span><br><span class="line">      // 假设你的 MQTT 服务器支持 WebSocket，并且地址是 ws://your.mqtt.broker</span><br><span class="line">      this.client = mqtt.connect(&#x27;ws://your.mqtt.broker&#x27;, &#123;</span><br><span class="line">        clientId: &#x27;unique_client_id&#x27;,</span><br><span class="line">      &#125;);</span><br><span class="line"> </span><br><span class="line">      this.client.on(&#x27;connect&#x27;, () =&gt; &#123;</span><br><span class="line">        console.log(&#x27;MQTT Connected&#x27;);</span><br><span class="line">        // 订阅主题</span><br><span class="line">        this.client.subscribe(&#x27;your/topic&#x27;);</span><br><span class="line">      &#125;);</span><br><span class="line"> </span><br><span class="line">      this.client.on(&#x27;message&#x27;, (topic, message) =&gt; &#123;</span><br><span class="line">        // 处理接收到的消息</span><br><span class="line">        console.log(`Received message on $&#123;topic&#125;: $&#123;message&#125;`);</span><br><span class="line">      &#125;);</span><br><span class="line"> </span><br><span class="line">      this.client.on(&#x27;error&#x27;, (error) =&gt; &#123;</span><br><span class="line">        console.log(&#x27;MQTT Error:&#x27;, error);</span><br><span class="line">      &#125;);</span><br><span class="line">    &#125;,</span><br><span class="line">    publishMessage(topic, message) &#123;</span><br><span class="line">      // 发布消息</span><br><span class="line">      this.client.publish(topic, message);</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;,</span><br><span class="line">  beforeDestroy() &#123;</span><br><span class="line">    if (this.client) &#123;</span><br><span class="line">      this.client.end();</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;,</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line"></span><br></pre></td></tr></table></figure>
-
-<p><img src="/../images/mqtt_01.png"></p>
-<p><img src="/../images/mqtt_02.png"></p>
-<p><img src="/../images/mqtt_03.png"></p>
-<p>疑问：<br>mqtt 我也面没打开的时候，没有 订阅 ，java 还会一直往 mqtt发送消息吗？比如 id为1的集群状态，你那边还会一直发送吗？发送的话，我再次链接的时候会不会收到很多这个状态<br>mqtt只保留最新的一次消息</p>
-<p><img src="/../images/mqtt_04.png"></p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">[admin@cdn116 ~]$ sudo docker run -d --name emqx -p 2883:2883 -p 8083:8083 -p 8084:8084 -p 8883:8883 -p 18083:18083 emqx/emqx</span><br><span class="line"></span><br></pre></td></tr></table></figure>
-
-<p><a target="_blank" rel="noopener" href="http://192.168.40.116:18083/#/dashboard/overview">http://192.168.40.116:18083/#/dashboard/overview</a></p>
-<p>vue mqtt demo</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">&lt;template&gt;</span><br><span class="line">    &lt;div&gt;&#123;&#123;msg&#125;&#125;&lt;/div&gt;</span><br><span class="line">    &lt;button @click=&quot;stop&quot;&gt;stop&lt;/button&gt;</span><br><span class="line">    &lt;button @click=&quot;start&quot;&gt;start&lt;/button&gt;</span><br><span class="line">&lt;/template&gt;</span><br><span class="line"></span><br><span class="line">&lt;script&gt;</span><br><span class="line">import mqtt from &#x27;mqtt&#x27;</span><br><span class="line">import &#123; ref, onUnmounted &#125; from &#x27;vue&#x27;;</span><br><span class="line"></span><br><span class="line">const options = &#123;</span><br><span class="line">    port: 8083,</span><br><span class="line">    connectTimeout: 4000,</span><br><span class="line">    clientId: &#x27;mqttjs_&#x27; + Math.random().toString(16).substr(2, 8),</span><br><span class="line">    reconnectPeriod: 5000 // 自动重连时间间隔</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line">let client = null;</span><br><span class="line"></span><br><span class="line">export default &#123;</span><br><span class="line">    name: &quot;App&quot;,</span><br><span class="line">    setup() &#123;</span><br><span class="line">    </span><br><span class="line">        const msg = ref(&#x27;hello world&#x27;);</span><br><span class="line"></span><br><span class="line">        const start = () =&gt; &#123;</span><br><span class="line">            if (!client || client.connected === false) &#123;</span><br><span class="line">                client = mqtt.connect(&#x27;ws://192.168.40.116/mqtt&#x27;, options);</span><br><span class="line">                setupClientEvents();</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;;</span><br><span class="line"></span><br><span class="line">        const stop = () =&gt; &#123;</span><br><span class="line">            if (client &amp;&amp; client.connected === true) &#123;</span><br><span class="line">                client.end(function() &#123;</span><br><span class="line">                    console.log(&#x27;disconnected&#x27;);</span><br><span class="line">                &#125;);</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">        function setupClientEvents() &#123;</span><br><span class="line">            client.on(&#x27;connect&#x27;, function () &#123;</span><br><span class="line">                console.log(&#x27;Connected to MQTT broker&#x27;);</span><br><span class="line">                for (var i = 1; i &lt;= 10; i++) &#123;</span><br><span class="line">                    client.subscribe(`stock/$&#123;i&#125;/price`, function (err) &#123;</span><br><span class="line">                        if (err) &#123;</span><br><span class="line">                            console.error(&#x27;Subscription error:&#x27;, err);</span><br><span class="line">                        &#125;</span><br><span class="line">                    &#125;);</span><br><span class="line">                &#125;</span><br><span class="line">            &#125;);</span><br><span class="line"></span><br><span class="line">            client.on(&#x27;error&#x27;, function (err) &#123;</span><br><span class="line">                console.error(&#x27;Connection error:&#x27;, err);</span><br><span class="line">            &#125;);</span><br><span class="line"></span><br><span class="line">            client.on(&#x27;message&#x27;, function (topic, message) &#123;</span><br><span class="line">                console.log(topic + &#x27;:&#x27; + message.toString());</span><br><span class="line">                msg.value = JSON.parse(message.toString()).msg;</span><br><span class="line"></span><br><span class="line">            &#125;);</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        onUnmounted(() =&gt; &#123;</span><br><span class="line">            if (client) &#123;</span><br><span class="line">                client.end();</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;);</span><br><span class="line"></span><br><span class="line">        return &#123;</span><br><span class="line">            start,</span><br><span class="line">            stop,</span><br><span class="line">            msg</span><br><span class="line">        &#125;;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line">&lt;/script&gt;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"></span><br><span class="line"></span><br></pre></td></tr></table></figure>
-
-
-
-
-
-<p>yum search mosquitto</p>
-<p>yum install mosquitto.x86_64</p>
-<p>mosquitto_pub<br>mosquitto_sub </p>
-<p>命令就可以执行了</p>
-<p>参考文档</p>
-<p><a target="_blank" rel="noopener" href="https://xw1ei7mxto.feishu.cn/wiki/Wdn2wOBfvis1Hhk6rYccNrvHnYd">https://xw1ei7mxto.feishu.cn/wiki/Wdn2wOBfvis1Hhk6rYccNrvHnYd</a></p>
-<p>开启 mosquitto<br>mosquitto -c &#x2F;etc&#x2F;mosquitto&#x2F;mosquitto.conf -p 1884</p>
-<p>发布消息<br>mosquitto_pub -h 127.0.0.1 -p 1885 -t topic1 -m “Hello, topic1!”</p>
-<p>mosquitto_pub -h 127.0.0.1 -p 1885 -t topic1 -m ‘{“key1”:”value1”,”key2”:”value2”}’</p>
-<p>订阅消息<br>mosquitto_sub -h 127.0.0.1 -p 1884 -t topic1 -i client1 -F ‘%t : %p’</p>
-<p>参考文档：</p>
-<p>发布消息<br>mosquitto_pub -h 192.168.40.116 -p 1883 -t topic1 -m “Hello, topic1!”</p>
-<p>mosquitto_pub -h 192.168.40.116 -p 1883 -t topic1 -m ‘{“key1”:”value1”,”key2”:”value2”}’</p>
-<p>订阅消息<br>mosquitto_sub -h 192.168.40.116 -p 1883 -t topic1 -i client1 -F ‘%t : %p’</p>
-<p>cnpm install mqtt -g</p>
-<p>mqtt pub -h 192.168.40.116 -p 1883 -t topic1 -m ‘{“key1”:”value1”,”key2”:”value2”}’<br>mqtt sub -h 192.168.40.116 -p 1883 -t topic1 -i client1 -F ‘%t : %p’</p>
-<p>mqtt pub -h 192.168.40.116 -p 8083 -t topic1 -m ‘{“key1”:”value1”,”key2”:”value2”}’<br>mqtt sub -h 192.168.40.116 -p 8083 -t topic1 -i client1 -F ‘%t : %p’</p>
-
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
-      
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="http://example.com/2024/12/13/nodejs-%E8%87%AA%E5%B8%A6crypto-%E5%8A%A0%E5%AF%86/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.gif">
-      <meta itemprop="name" content="wangzhiwei">
-      <meta itemprop="description" content="javascript nodejs web developer...">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="WBlog">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/2024/12/13/nodejs-%E8%87%AA%E5%B8%A6crypto-%E5%8A%A0%E5%AF%86/" class="post-title-link" itemprop="url">nodejs 自带crypto 加密</a>
-        </h2>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              <span class="post-meta-item-text">发表于</span>
-
-              <time title="创建时间：2024-12-13 15:29:38" itemprop="dateCreated datePublished" datetime="2024-12-13T15:29:38+08:00">2024-12-13</time>
-            </span>
-              <span class="post-meta-item">
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-calendar-check-o"></i>
-                </span>
-                <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2025-03-18 11:10:52" itemprop="dateModified" datetime="2025-03-18T11:10:52+08:00">2025-03-18</time>
-              </span>
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              <span class="post-meta-item-text">分类于</span>
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/nodejs-crypto/" itemprop="url" rel="index"><span itemprop="name">nodejs crypto</span></a>
-                </span>
-            </span>
-
-          
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <p>nodejs 自带crypto 加密</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line"></span><br><span class="line">import crypto from &#x27;node:crypto&#x27;;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">// nodejs 自带rsa加解密</span><br><span class="line">const &#123; privateKey, publicKey &#125; = crypto.generateKeyPairSync(&#x27;rsa&#x27;, &#123;modulusLength: 1024&#125;);</span><br><span class="line">const encrypted = crypto.publicEncrypt(publicKey, Buffer.from(&#x27;xU7mp91!&#x27;))</span><br><span class="line"></span><br><span class="line">const rsa_pass = encrypted.toString(&#x27;hex&#x27;);</span><br><span class="line">console.log(rsa_pass);</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">const rsa_depass = crypto.privateDecrypt(privateKey, encrypted)</span><br><span class="line"></span><br><span class="line">console.log(rsa_depass.toString());</span><br><span class="line"></span><br><span class="line">//哈希函数</span><br><span class="line">//不能被解密 单项 不可逆的</span><br><span class="line"></span><br><span class="line">let hash = crypto.createHash(&#x27;sha256&#x27;);</span><br><span class="line"></span><br><span class="line">hash.update(&#x27;hello&#x27;);</span><br><span class="line"></span><br><span class="line">console.log(&#x27;sha256===&gt;&#x27;,hash.digest(&#x27;hex&#x27;));</span><br><span class="line"></span><br><span class="line">//md5 包裹一下存储到数据库中， i每次加密后值不变</span><br><span class="line">let hash1 = crypto.createHash(&#x27;md5&#x27;);</span><br><span class="line"></span><br><span class="line">hash1.update(&#x27;hello&#x27;);</span><br><span class="line"></span><br><span class="line">console.log(&#x27;md5===&gt;&#x27;,hash1.digest(&#x27;hex&#x27;));</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">//对称加密算法</span><br><span class="line">//第一个参数： aes-128-cbc 算法</span><br><span class="line">//第二个参数： key 加密的密钥 32位</span><br><span class="line">//第三个参数： iv 初始化向量 16位 保证我们生成的密钥是随机的,密钥串缺少位数，还可以进行补码操作</span><br><span class="line"></span><br><span class="line">let key = crypto.randomBytes(32);</span><br><span class="line">let iv = Buffer.from(crypto.randomBytes(16));</span><br><span class="line">const cipher = crypto.createCipheriv(&#x27;aes-256-cbc&#x27;, key, iv)</span><br><span class="line"></span><br><span class="line">cipher.update(&#x27;123456&#x27;,&#x27;utf-8&#x27;, &#x27;hex&#x27;)</span><br><span class="line"></span><br><span class="line">const result = cipher.final(&#x27;hex&#x27;) //输出16进制</span><br><span class="line"></span><br><span class="line">console.log(&quot;对称加密算法：&quot;,result)</span><br><span class="line"></span><br><span class="line">//解密 相同的算法 相同的key相同的iv</span><br><span class="line">const decipher = crypto.createDecipheriv(&#x27;aes-256-cbc&#x27;, key, iv)</span><br><span class="line">decipher.update(result,&#x27;hex&#x27;,&#x27;utf-8&#x27;)</span><br><span class="line">console.log(decipher.final(&#x27;utf-8&#x27;))</span><br><span class="line"></span><br></pre></td></tr></table></figure>
-
-<p>加密：<br><a target="_blank" rel="noopener" href="https://www.douyin.com/user/self?from_tab_name=main&modal_id=7310094866795613491&showTab=record">https://www.douyin.com/user/self?from_tab_name=main&amp;modal_id=7310094866795613491&amp;showTab=record</a></p>
-
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
 
   
   <nav class="pagination">
@@ -1429,7 +1482,7 @@ https://docs.fluentbit.io/manual
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">63</span>
+          <span class="site-state-item-count">65</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>

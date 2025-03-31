@@ -149,6 +149,191 @@
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="http://example.com/2024/12/13/mqtt-vue/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="wangzhiwei">
+      <meta itemprop="description" content="javascript nodejs web developer...">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="WBlog">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/2024/12/13/mqtt-vue/" class="post-title-link" itemprop="url">mqtt + vue</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2024-12-13 15:35:26" itemprop="dateCreated datePublished" datetime="2024-12-13T15:35:26+08:00">2024-12-13</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-calendar-check-o"></i>
+                </span>
+                <span class="post-meta-item-text">更新于</span>
+                <time title="修改时间：2025-03-18 11:10:52" itemprop="dateModified" datetime="2025-03-18T11:10:52+08:00">2025-03-18</time>
+              </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/mqtt/" itemprop="url" rel="index"><span itemprop="name">mqtt</span></a>
+                </span>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <p><a target="_blank" rel="noopener" href="https://www.bilibili.com/video/BV1Tw4m1Q7qG/?spm_id_from=333.337.search-card.all.click&vd_source=ffda878df0ed45bee1ade91d8f451048">https://www.bilibili.com/video/BV1Tw4m1Q7qG/?spm_id_from=333.337.search-card.all.click&amp;vd_source=ffda878df0ed45bee1ade91d8f451048</a><br><a target="_blank" rel="noopener" href="https://www.bilibili.com/video/BV1Zi4y1T78H?spm_id_from=333.788.player.switch&vd_source=ffda878df0ed45bee1ade91d8f451048">https://www.bilibili.com/video/BV1Zi4y1T78H?spm_id_from=333.788.player.switch&amp;vd_source=ffda878df0ed45bee1ade91d8f451048</a></p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">import mqtt from &#x27;mqtt&#x27;;</span><br><span class="line"> </span><br><span class="line">export default &#123;</span><br><span class="line">  name: &#x27;MqttComponent&#x27;,</span><br><span class="line">  data() &#123;</span><br><span class="line">    return &#123;</span><br><span class="line">      client: null,</span><br><span class="line">    &#125;;</span><br><span class="line">  &#125;,</span><br><span class="line">  created() &#123;</span><br><span class="line">    this.connectMqtt();</span><br><span class="line">  &#125;,</span><br><span class="line">  methods: &#123;</span><br><span class="line">    connectMqtt() &#123;</span><br><span class="line">      // 假设你的 MQTT 服务器支持 WebSocket，并且地址是 ws://your.mqtt.broker</span><br><span class="line">      this.client = mqtt.connect(&#x27;ws://your.mqtt.broker&#x27;, &#123;</span><br><span class="line">        clientId: &#x27;unique_client_id&#x27;,</span><br><span class="line">      &#125;);</span><br><span class="line"> </span><br><span class="line">      this.client.on(&#x27;connect&#x27;, () =&gt; &#123;</span><br><span class="line">        console.log(&#x27;MQTT Connected&#x27;);</span><br><span class="line">        // 订阅主题</span><br><span class="line">        this.client.subscribe(&#x27;your/topic&#x27;);</span><br><span class="line">      &#125;);</span><br><span class="line"> </span><br><span class="line">      this.client.on(&#x27;message&#x27;, (topic, message) =&gt; &#123;</span><br><span class="line">        // 处理接收到的消息</span><br><span class="line">        console.log(`Received message on $&#123;topic&#125;: $&#123;message&#125;`);</span><br><span class="line">      &#125;);</span><br><span class="line"> </span><br><span class="line">      this.client.on(&#x27;error&#x27;, (error) =&gt; &#123;</span><br><span class="line">        console.log(&#x27;MQTT Error:&#x27;, error);</span><br><span class="line">      &#125;);</span><br><span class="line">    &#125;,</span><br><span class="line">    publishMessage(topic, message) &#123;</span><br><span class="line">      // 发布消息</span><br><span class="line">      this.client.publish(topic, message);</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;,</span><br><span class="line">  beforeDestroy() &#123;</span><br><span class="line">    if (this.client) &#123;</span><br><span class="line">      this.client.end();</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;,</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<p><img src="/../images/mqtt_01.png"></p>
+<p><img src="/../images/mqtt_02.png"></p>
+<p><img src="/../images/mqtt_03.png"></p>
+<p>疑问：<br>mqtt 我也面没打开的时候，没有 订阅 ，java 还会一直往 mqtt发送消息吗？比如 id为1的集群状态，你那边还会一直发送吗？发送的话，我再次链接的时候会不会收到很多这个状态<br>mqtt只保留最新的一次消息</p>
+<p><img src="/../images/mqtt_04.png"></p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">[admin@cdn116 ~]$ sudo docker run -d --name emqx -p 2883:2883 -p 8083:8083 -p 8084:8084 -p 8883:8883 -p 18083:18083 emqx/emqx</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<p><a target="_blank" rel="noopener" href="http://192.168.40.116:18083/#/dashboard/overview">http://192.168.40.116:18083/#/dashboard/overview</a></p>
+<p>vue mqtt demo</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">&lt;template&gt;</span><br><span class="line">    &lt;div&gt;&#123;&#123;msg&#125;&#125;&lt;/div&gt;</span><br><span class="line">    &lt;button @click=&quot;stop&quot;&gt;stop&lt;/button&gt;</span><br><span class="line">    &lt;button @click=&quot;start&quot;&gt;start&lt;/button&gt;</span><br><span class="line">&lt;/template&gt;</span><br><span class="line"></span><br><span class="line">&lt;script&gt;</span><br><span class="line">import mqtt from &#x27;mqtt&#x27;</span><br><span class="line">import &#123; ref, onUnmounted &#125; from &#x27;vue&#x27;;</span><br><span class="line"></span><br><span class="line">const options = &#123;</span><br><span class="line">    port: 8083,</span><br><span class="line">    connectTimeout: 4000,</span><br><span class="line">    clientId: &#x27;mqttjs_&#x27; + Math.random().toString(16).substr(2, 8),</span><br><span class="line">    reconnectPeriod: 5000 // 自动重连时间间隔</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line">let client = null;</span><br><span class="line"></span><br><span class="line">export default &#123;</span><br><span class="line">    name: &quot;App&quot;,</span><br><span class="line">    setup() &#123;</span><br><span class="line">    </span><br><span class="line">        const msg = ref(&#x27;hello world&#x27;);</span><br><span class="line"></span><br><span class="line">        const start = () =&gt; &#123;</span><br><span class="line">            if (!client || client.connected === false) &#123;</span><br><span class="line">                client = mqtt.connect(&#x27;ws://192.168.40.116/mqtt&#x27;, options);</span><br><span class="line">                setupClientEvents();</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;;</span><br><span class="line"></span><br><span class="line">        const stop = () =&gt; &#123;</span><br><span class="line">            if (client &amp;&amp; client.connected === true) &#123;</span><br><span class="line">                client.end(function() &#123;</span><br><span class="line">                    console.log(&#x27;disconnected&#x27;);</span><br><span class="line">                &#125;);</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">        function setupClientEvents() &#123;</span><br><span class="line">            client.on(&#x27;connect&#x27;, function () &#123;</span><br><span class="line">                console.log(&#x27;Connected to MQTT broker&#x27;);</span><br><span class="line">                for (var i = 1; i &lt;= 10; i++) &#123;</span><br><span class="line">                    client.subscribe(`stock/$&#123;i&#125;/price`, function (err) &#123;</span><br><span class="line">                        if (err) &#123;</span><br><span class="line">                            console.error(&#x27;Subscription error:&#x27;, err);</span><br><span class="line">                        &#125;</span><br><span class="line">                    &#125;);</span><br><span class="line">                &#125;</span><br><span class="line">            &#125;);</span><br><span class="line"></span><br><span class="line">            client.on(&#x27;error&#x27;, function (err) &#123;</span><br><span class="line">                console.error(&#x27;Connection error:&#x27;, err);</span><br><span class="line">            &#125;);</span><br><span class="line"></span><br><span class="line">            client.on(&#x27;message&#x27;, function (topic, message) &#123;</span><br><span class="line">                console.log(topic + &#x27;:&#x27; + message.toString());</span><br><span class="line">                msg.value = JSON.parse(message.toString()).msg;</span><br><span class="line"></span><br><span class="line">            &#125;);</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        onUnmounted(() =&gt; &#123;</span><br><span class="line">            if (client) &#123;</span><br><span class="line">                client.end();</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;);</span><br><span class="line"></span><br><span class="line">        return &#123;</span><br><span class="line">            start,</span><br><span class="line">            stop,</span><br><span class="line">            msg</span><br><span class="line">        &#125;;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line">&lt;/script&gt;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"></span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+
+
+
+
+<p>yum search mosquitto</p>
+<p>yum install mosquitto.x86_64</p>
+<p>mosquitto_pub<br>mosquitto_sub </p>
+<p>命令就可以执行了</p>
+<p>参考文档</p>
+<p><a target="_blank" rel="noopener" href="https://xw1ei7mxto.feishu.cn/wiki/Wdn2wOBfvis1Hhk6rYccNrvHnYd">https://xw1ei7mxto.feishu.cn/wiki/Wdn2wOBfvis1Hhk6rYccNrvHnYd</a></p>
+<p>开启 mosquitto<br>mosquitto -c &#x2F;etc&#x2F;mosquitto&#x2F;mosquitto.conf -p 1884</p>
+<p>发布消息<br>mosquitto_pub -h 127.0.0.1 -p 1885 -t topic1 -m “Hello, topic1!”</p>
+<p>mosquitto_pub -h 127.0.0.1 -p 1885 -t topic1 -m ‘{“key1”:”value1”,”key2”:”value2”}’</p>
+<p>订阅消息<br>mosquitto_sub -h 127.0.0.1 -p 1884 -t topic1 -i client1 -F ‘%t : %p’</p>
+<p>参考文档：</p>
+<p>发布消息<br>mosquitto_pub -h 192.168.40.116 -p 1883 -t topic1 -m “Hello, topic1!”</p>
+<p>mosquitto_pub -h 192.168.40.116 -p 1883 -t topic1 -m ‘{“key1”:”value1”,”key2”:”value2”}’</p>
+<p>订阅消息<br>mosquitto_sub -h 192.168.40.116 -p 1883 -t topic1 -i client1 -F ‘%t : %p’</p>
+<p>cnpm install mqtt -g</p>
+<p>mqtt pub -h 192.168.40.116 -p 1883 -t topic1 -m ‘{“key1”:”value1”,”key2”:”value2”}’<br>mqtt sub -h 192.168.40.116 -p 1883 -t topic1 -i client1 -F ‘%t : %p’</p>
+<p>mqtt pub -h 192.168.40.116 -p 8083 -t topic1 -m ‘{“key1”:”value1”,”key2”:”value2”}’<br>mqtt sub -h 192.168.40.116 -p 8083 -t topic1 -i client1 -F ‘%t : %p’</p>
+
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="http://example.com/2024/12/13/nodejs-%E8%87%AA%E5%B8%A6crypto-%E5%8A%A0%E5%AF%86/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="wangzhiwei">
+      <meta itemprop="description" content="javascript nodejs web developer...">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="WBlog">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/2024/12/13/nodejs-%E8%87%AA%E5%B8%A6crypto-%E5%8A%A0%E5%AF%86/" class="post-title-link" itemprop="url">nodejs 自带crypto 加密</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2024-12-13 15:29:38" itemprop="dateCreated datePublished" datetime="2024-12-13T15:29:38+08:00">2024-12-13</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-calendar-check-o"></i>
+                </span>
+                <span class="post-meta-item-text">更新于</span>
+                <time title="修改时间：2025-03-18 11:10:52" itemprop="dateModified" datetime="2025-03-18T11:10:52+08:00">2025-03-18</time>
+              </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/nodejs-crypto/" itemprop="url" rel="index"><span itemprop="name">nodejs crypto</span></a>
+                </span>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <p>nodejs 自带crypto 加密</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line"></span><br><span class="line">import crypto from &#x27;node:crypto&#x27;;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">// nodejs 自带rsa加解密</span><br><span class="line">const &#123; privateKey, publicKey &#125; = crypto.generateKeyPairSync(&#x27;rsa&#x27;, &#123;modulusLength: 1024&#125;);</span><br><span class="line">const encrypted = crypto.publicEncrypt(publicKey, Buffer.from(&#x27;xU7mp91!&#x27;))</span><br><span class="line"></span><br><span class="line">const rsa_pass = encrypted.toString(&#x27;hex&#x27;);</span><br><span class="line">console.log(rsa_pass);</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">const rsa_depass = crypto.privateDecrypt(privateKey, encrypted)</span><br><span class="line"></span><br><span class="line">console.log(rsa_depass.toString());</span><br><span class="line"></span><br><span class="line">//哈希函数</span><br><span class="line">//不能被解密 单项 不可逆的</span><br><span class="line"></span><br><span class="line">let hash = crypto.createHash(&#x27;sha256&#x27;);</span><br><span class="line"></span><br><span class="line">hash.update(&#x27;hello&#x27;);</span><br><span class="line"></span><br><span class="line">console.log(&#x27;sha256===&gt;&#x27;,hash.digest(&#x27;hex&#x27;));</span><br><span class="line"></span><br><span class="line">//md5 包裹一下存储到数据库中， i每次加密后值不变</span><br><span class="line">let hash1 = crypto.createHash(&#x27;md5&#x27;);</span><br><span class="line"></span><br><span class="line">hash1.update(&#x27;hello&#x27;);</span><br><span class="line"></span><br><span class="line">console.log(&#x27;md5===&gt;&#x27;,hash1.digest(&#x27;hex&#x27;));</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">//对称加密算法</span><br><span class="line">//第一个参数： aes-128-cbc 算法</span><br><span class="line">//第二个参数： key 加密的密钥 32位</span><br><span class="line">//第三个参数： iv 初始化向量 16位 保证我们生成的密钥是随机的,密钥串缺少位数，还可以进行补码操作</span><br><span class="line"></span><br><span class="line">let key = crypto.randomBytes(32);</span><br><span class="line">let iv = Buffer.from(crypto.randomBytes(16));</span><br><span class="line">const cipher = crypto.createCipheriv(&#x27;aes-256-cbc&#x27;, key, iv)</span><br><span class="line"></span><br><span class="line">cipher.update(&#x27;123456&#x27;,&#x27;utf-8&#x27;, &#x27;hex&#x27;)</span><br><span class="line"></span><br><span class="line">const result = cipher.final(&#x27;hex&#x27;) //输出16进制</span><br><span class="line"></span><br><span class="line">console.log(&quot;对称加密算法：&quot;,result)</span><br><span class="line"></span><br><span class="line">//解密 相同的算法 相同的key相同的iv</span><br><span class="line">const decipher = crypto.createDecipheriv(&#x27;aes-256-cbc&#x27;, key, iv)</span><br><span class="line">decipher.update(result,&#x27;hex&#x27;,&#x27;utf-8&#x27;)</span><br><span class="line">console.log(decipher.final(&#x27;utf-8&#x27;))</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<p>加密：<br><a target="_blank" rel="noopener" href="https://www.douyin.com/user/self?from_tab_name=main&modal_id=7310094866795613491&showTab=record">https://www.douyin.com/user/self?from_tab_name=main&amp;modal_id=7310094866795613491&amp;showTab=record</a></p>
+
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
     <link itemprop="mainEntityOfPage" href="http://example.com/2024/12/13/graphql-express/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -1039,498 +1224,6 @@
   
   
 
-      
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="http://example.com/2024/12/13/Pinia-vue-%E6%96%B0%E7%9A%84%E7%8A%B6%E6%80%81%E7%AE%A1%E7%90%86%E5%BA%93/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.gif">
-      <meta itemprop="name" content="wangzhiwei">
-      <meta itemprop="description" content="javascript nodejs web developer...">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="WBlog">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/2024/12/13/Pinia-vue-%E6%96%B0%E7%9A%84%E7%8A%B6%E6%80%81%E7%AE%A1%E7%90%86%E5%BA%93/" class="post-title-link" itemprop="url">Pinia vue 新的状态管理库</a>
-        </h2>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              <span class="post-meta-item-text">发表于</span>
-
-              <time title="创建时间：2024-12-13 14:14:10" itemprop="dateCreated datePublished" datetime="2024-12-13T14:14:10+08:00">2024-12-13</time>
-            </span>
-              <span class="post-meta-item">
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-calendar-check-o"></i>
-                </span>
-                <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2025-03-18 11:10:52" itemprop="dateModified" datetime="2025-03-18T11:10:52+08:00">2025-03-18</time>
-              </span>
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              <span class="post-meta-item-text">分类于</span>
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/vue3/" itemprop="url" rel="index"><span itemprop="name">vue3</span></a>
-                </span>
-            </span>
-
-          
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <h1 id="Pinia基本概念"><a href="#Pinia基本概念" class="headerlink" title="Pinia基本概念"></a>Pinia基本概念</h1><blockquote>
-<p>面试题：Pinia 相比 Vuex 有什么样的优点？为什么现在官方推荐使用 Pinia ？</p>
-</blockquote>
-<p>Pinia，是一个 Vue 阵营的新的状态管理库，现在 Vue 官方已经推荐使用 Pinia 来代替 Vuex，或者你可以把 Pinia 看作是 Vuex 的最新的版本。</p>
-<ul>
-<li>Pinia 的基本介绍</li>
-<li>Pinia 优势</li>
-</ul>
-<h2 id="Pinia-的基本介绍"><a href="#Pinia-的基本介绍" class="headerlink" title="Pinia 的基本介绍"></a>Pinia 的基本介绍</h2><p>Pinia 是一个西班牙语的单词，表示“菠萝”的意思。因为菠萝是由一小块一小块组成的，这个和 Pinia 的思想就非常的吻合，在 Pinia 中，每个 Store 仓库都是单独的扁平化的存在的。</p>
-<p>Pinia 是由 Vue 官方团队中的一个成员开发的，最早是在 2019 年 11 左右作为一项实验性工作所提出的，当时的目的是将组合 API 融入到 Vuex 中，探索新版本的 Vuex 应有的形态，随着探索的进行，最终发现 Pinia 已经实现了 Vuex5 大部分的提案，因此 Pinia 就作为了最新版本的 Vuex，但是为了尊重作者本人，名字保持不变，仍然叫做 Pinia。</p>
-<p>相比 Vuex，Pinia 的 API 更少而且更简单，还支持组合式 API，还可以和 Typescript 一起使用来做类型的推断。</p>
-<p>pinia 官网：<a target="_blank" rel="noopener" href="https://pinia.vuejs.org/">https://pinia.vuejs.org/</a></p>
-<p><img src="/../images/2023-03-21-093840.png"></p>
-<h2 id="Pinia-优势"><a href="#Pinia-优势" class="headerlink" title="Pinia 优势"></a>Pinia 优势</h2><ol>
-<li>在 Pinia 中，已经不存在 mutations，只有 state、getters、actions</li>
-</ol>
-<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> &#123; defineStore &#125; <span class="keyword">from</span> <span class="string">&#x27;pinia&#x27;</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">export</span> <span class="keyword">const</span> useCounterStore = <span class="title function_">defineStore</span>(<span class="string">&#x27;counter&#x27;</span>,&#123;</span><br><span class="line">  <span class="attr">state</span>: <span class="function">() =&gt;</span> (&#123;</span><br><span class="line">    <span class="attr">count</span>: <span class="number">0</span></span><br><span class="line">  &#125;),</span><br><span class="line">  <span class="attr">getters</span>: &#123;</span><br><span class="line">    <span class="attr">doubleCount</span>: <span class="function"><span class="params">state</span> =&gt;</span> state.<span class="property">count</span> * <span class="number">2</span></span><br><span class="line">  &#125;,</span><br><span class="line">  <span class="attr">actions</span>: &#123;</span><br><span class="line">    <span class="title function_">increment</span>(<span class="params"></span>) &#123;</span><br><span class="line">      <span class="variable language_">this</span>.<span class="property">count</span>++</span><br><span class="line">    &#125;,</span><br><span class="line">  &#125;</span><br><span class="line">&#125;)</span><br><span class="line"></span><br></pre></td></tr></table></figure>
-
-<p>在上面的代码中，我们创建了一个仓库，该仓库中提供三个选项，分别是 state、getters 以及 actions。</p>
-<ol start="2">
-<li>actions 里面支持同步和异步来修改 store，相当于将之前 Vuex 中的 mutation 和 action 合并了</li>
-</ol>
-<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> &#123; defineStore &#125; <span class="keyword">from</span> <span class="string">&#x27;pinia&#x27;</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">export</span> <span class="keyword">const</span> useCounterStore = <span class="title function_">defineStore</span>(&#123;</span><br><span class="line">  <span class="comment">// ...</span></span><br><span class="line">  <span class="attr">actions</span>: &#123;</span><br><span class="line">    <span class="comment">// 同步的修改仓库状态</span></span><br><span class="line">    <span class="title function_">increment</span>(<span class="params"></span>) &#123;</span><br><span class="line">      <span class="variable language_">this</span>.<span class="property">count</span>++</span><br><span class="line">    &#125;,</span><br><span class="line">    <span class="title function_">decrement</span>(<span class="params"></span>) &#123;</span><br><span class="line">      <span class="variable language_">this</span>.<span class="property">count</span>--</span><br><span class="line">    &#125;,</span><br><span class="line">    <span class="comment">// 异步的修改仓库状态</span></span><br><span class="line">    <span class="keyword">async</span> <span class="title function_">incrementAsync</span>(<span class="params"></span>) &#123;</span><br><span class="line">      <span class="keyword">await</span> <span class="keyword">new</span> <span class="title class_">Promise</span>(<span class="function"><span class="params">resolve</span> =&gt;</span> <span class="built_in">setTimeout</span>(resolve, <span class="number">1000</span>))</span><br><span class="line">      <span class="variable language_">this</span>.<span class="title function_">increment</span>()</span><br><span class="line">    &#125;,</span><br><span class="line">    <span class="keyword">async</span> <span class="title function_">decrementAsync</span>(<span class="params"></span>) &#123;</span><br><span class="line">      <span class="keyword">await</span> <span class="keyword">new</span> <span class="title class_">Promise</span>(<span class="function"><span class="params">resolve</span> =&gt;</span> <span class="built_in">setTimeout</span>(resolve, <span class="number">1000</span>))</span><br><span class="line">      <span class="variable language_">this</span>.<span class="title function_">decrement</span>()</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;)</span><br></pre></td></tr></table></figure>
-
-
-
-<ol start="3">
-<li>可以和 TypeScript 一起使用，以此来获得类型推断的支持</li>
-</ol>
-<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> &#123; defineStore &#125; <span class="keyword">from</span> <span class="string">&#x27;pinia&#x27;</span></span><br><span class="line"></span><br><span class="line"><span class="comment">// 这里定义了一个名为 Todo 的接口</span></span><br><span class="line">interface <span class="title class_">Todo</span> &#123;</span><br><span class="line">  <span class="attr">id</span>: number;</span><br><span class="line">  <span class="attr">text</span>: string;</span><br><span class="line">  <span class="attr">done</span>: boolean;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">export</span> <span class="keyword">const</span> useTodoStore = <span class="title function_">defineStore</span>(&#123;</span><br><span class="line">  <span class="attr">id</span>: <span class="string">&#x27;todo&#x27;</span>,</span><br><span class="line">  <span class="attr">state</span>: <span class="function">() =&gt;</span> (&#123;</span><br><span class="line">    <span class="attr">todos</span>: [] <span class="keyword">as</span> <span class="title class_">Todo</span>[],</span><br><span class="line">  &#125;),</span><br><span class="line">  <span class="attr">getters</span>: &#123;</span><br><span class="line">    <span class="attr">completedTodos</span>: <span class="function"><span class="params">state</span> =&gt;</span> state.<span class="property">todos</span>.<span class="title function_">filter</span>(<span class="function"><span class="params">todo</span> =&gt;</span> todo.<span class="property">done</span>),</span><br><span class="line">  &#125;,</span><br><span class="line">  <span class="attr">actions</span>: &#123;</span><br><span class="line">    <span class="comment">// text 指定了是 string 类型</span></span><br><span class="line">    <span class="title function_">addTodoItem</span>(<span class="params">text: string</span>) &#123;</span><br><span class="line">      <span class="keyword">const</span> id = state.<span class="property">todos</span>.<span class="property">length</span> + <span class="number">1</span></span><br><span class="line">      <span class="keyword">const</span> newTodo = &#123; id, text, <span class="attr">done</span>: <span class="literal">false</span> &#125;</span><br><span class="line">      state.<span class="property">todos</span>.<span class="title function_">push</span>(newTodo)</span><br><span class="line">    &#125;,</span><br><span class="line">    <span class="comment">// todo 指定了是 Todo 类型</span></span><br><span class="line">    <span class="title function_">toggleTodoItem</span>(<span class="params">todo: Todo</span>) &#123;</span><br><span class="line">      todo.<span class="property">done</span> = !todo.<span class="property">done</span></span><br><span class="line">    &#125;,</span><br><span class="line">    <span class="keyword">async</span> <span class="title function_">fetchTodos</span>(<span class="params"></span>) &#123;</span><br><span class="line">      <span class="keyword">const</span> response = <span class="keyword">await</span> <span class="title function_">fetch</span>(<span class="string">&#x27;https://jsonplaceholder.typicode.com/todos&#x27;</span>)</span><br><span class="line">      <span class="keyword">const</span> todos = <span class="keyword">await</span> response.<span class="title function_">json</span>() <span class="keyword">as</span> <span class="title class_">Todo</span>[]</span><br><span class="line">      state.<span class="property">todos</span> = todos</span><br><span class="line">    &#125;,</span><br><span class="line">  &#125;,</span><br><span class="line">&#125;)</span><br></pre></td></tr></table></figure>
-
-
-
-<ol start="4">
-<li>关于 Store 仓库，每一个 Store 仓库都是独立的扁平化的存在的，不再像 Vuex 里面是通过 modules 嵌套</li>
-<li>支持插件扩展，可以通过插件（函数）来扩展仓库的功能，为仓库添加全局属性或者全局方法</li>
-</ol>
-<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// ...</span></span><br><span class="line"><span class="comment">// 这里定义了一个名为 localStoragePlugin 的插件，本质上就是一个函数</span></span><br><span class="line"><span class="keyword">const</span> <span class="title function_">localStoragePlugin</span> = (<span class="params">context: PiniaPluginContext</span>) =&gt; &#123;</span><br><span class="line">  <span class="keyword">const</span> key = <span class="string">&#x27;my-app-state&#x27;</span></span><br><span class="line"></span><br><span class="line">  <span class="comment">// 从 localStorage 中恢复状态</span></span><br><span class="line">  context.<span class="property">state</span> = <span class="variable language_">localStorage</span>.<span class="title function_">getItem</span>(key) || context.<span class="property">state</span></span><br><span class="line"></span><br><span class="line">  <span class="comment">// 监听 state 变化，将变化保存到 localStorage</span></span><br><span class="line">  context.<span class="title function_">subscribe</span>(<span class="function">(<span class="params">mutation</span>) =&gt;</span> &#123;</span><br><span class="line">    <span class="variable language_">localStorage</span>.<span class="title function_">setItem</span>(key, context.<span class="property">state</span>)</span><br><span class="line">  &#125;)</span><br><span class="line">&#125;</span><br><span class="line"><span class="comment">// ...</span></span><br><span class="line"></span><br><span class="line"><span class="comment">// 创建 Pinia 实例，并注册 localStoragePlugin 插件</span></span><br><span class="line"><span class="keyword">const</span> pinia = <span class="title function_">createPinia</span>()</span><br><span class="line">pinia.<span class="title function_">use</span>(localStoragePlugin)</span><br></pre></td></tr></table></figure>
-
-
-
-<ol start="6">
-<li>更加轻量，压缩之后体积只有 1kb 左右，基本上可以忽略这个库的存在</li>
-</ol>
-<h2 id="真题解答"><a href="#真题解答" class="headerlink" title="真题解答"></a>真题解答</h2><blockquote>
-<p>题目：Pinia 相比 Vuex 有什么样的优点？为什么现在官方推荐使用 Pinia ？</p>
-<p>参考答案：</p>
-<p>Pinia 是由 Vue.js 团队成员开发的下一代状态管理仓库，相比 Vuex 3.x&#x2F;4.x，Pinia 可以看作是 Vuex5 版本。</p>
-<p>Pinia 具有如下的优势：</p>
-<ul>
-<li><p>mutations 不复存在。只有 state 、getters 、actions。</p>
-</li>
-<li><p>actions 中支持同步和异步方法修改 state 状态。</p>
-</li>
-<li><p>与 TypeScript 一起使用具有可靠的类型推断支持。</p>
-</li>
-<li><p>不再有模块嵌套，只有 Store 的概念，Store 之间可以相互调用。</p>
-</li>
-<li><p>支持插件扩展，可以非常方便实现本地存储等功能。</p>
-</li>
-<li><p>更加轻量，压缩后体积只有 1kb 左右。</p>
-</li>
-</ul>
-</blockquote>
-<h1 id="Pinia快速入门"><a href="#Pinia快速入门" class="headerlink" title="Pinia快速入门"></a>Pinia快速入门</h1><blockquote>
-<p>面试题：是否使用过 Pinia？简单谈一下 Pinia 的使用？</p>
-</blockquote>
-<h2 id="安装-Pinia"><a href="#安装-Pinia" class="headerlink" title="安装 Pinia"></a>安装 Pinia</h2><p>首先第一步，需要安装 Pinia，可以通过下面的命令进行安装：</p>
-<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">npm install pinia</span><br></pre></td></tr></table></figure>
-
-<p>安装完毕后，需要在 Vue 应用中挂载 Pinia</p>
-<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> &#123; createPinia &#125; <span class="keyword">from</span> <span class="string">&quot;pinia&quot;</span>;</span><br><span class="line"><span class="comment">// 创建 pinia 实例</span></span><br><span class="line"><span class="keyword">const</span> pinia = <span class="title function_">createPinia</span>();</span><br><span class="line"><span class="title function_">createApp</span>(<span class="title class_">App</span>).<span class="title function_">use</span>(router).<span class="title function_">use</span>(pinia).<span class="title function_">mount</span>(<span class="string">&quot;#app&quot;</span>);</span><br></pre></td></tr></table></figure>
-
-<p>在 src 目录下面创建仓库目录 store，在该目录下面创建对应的仓库文件，注意名字一般是 useXXXStore</p>
-<p>在仓库文件中，我们可以通过 defineStore 来创建一个 pinia 仓库，如下：</p>
-<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 仓库文件</span></span><br><span class="line"><span class="keyword">import</span> &#123; defineStore &#125; <span class="keyword">from</span> <span class="string">&quot;pinia&quot;</span>;</span><br><span class="line"></span><br><span class="line"><span class="comment">// 第二个参数支持两种风格：options api 以及 composition api</span></span><br><span class="line"><span class="keyword">export</span> <span class="keyword">const</span> useCounterStore = <span class="title function_">defineStore</span>(<span class="string">&quot;counter&quot;</span>, &#123;</span><br><span class="line">  <span class="attr">state</span>: <span class="function">() =&gt;</span> &#123;</span><br><span class="line">    <span class="keyword">return</span> &#123;</span><br><span class="line">      <span class="attr">num</span>: <span class="number">0</span>,</span><br><span class="line">    &#125;;</span><br><span class="line">  &#125;,</span><br><span class="line">&#125;);</span><br></pre></td></tr></table></figure>
-
-<p>创建的时候支持两种风格，选项式 API 以及组合式 API。</p>
-<h2 id="选项式风格"><a href="#选项式风格" class="headerlink" title="选项式风格"></a>选项式风格</h2><p>该风格基本上和之前的 Vuex 是非常相似的，只不过没有 mutation 了，无论是同步的方法还是异步的方法，都写在 actions 里面。</p>
-<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 仓库文件</span></span><br><span class="line"><span class="keyword">import</span> &#123; defineStore &#125; <span class="keyword">from</span> <span class="string">&quot;pinia&quot;</span>;</span><br><span class="line"></span><br><span class="line"><span class="comment">// 第二个参数支持两种风格：options api 以及 composition api</span></span><br><span class="line"><span class="keyword">export</span> <span class="keyword">const</span> useCounterStore = <span class="title function_">defineStore</span>(<span class="string">&quot;counter&quot;</span>, &#123;</span><br><span class="line">  <span class="attr">state</span>: <span class="function">() =&gt;</span> &#123;</span><br><span class="line">    <span class="keyword">return</span> &#123;</span><br><span class="line">      <span class="attr">num</span>: <span class="number">0</span>,</span><br><span class="line">    &#125;;</span><br><span class="line">  &#125;,</span><br><span class="line">  <span class="attr">getters</span>: &#123;</span><br><span class="line">    <span class="comment">// 针对上面 state 的数据做一个二次计算</span></span><br><span class="line">    <span class="comment">// 可以看作是计算属性</span></span><br><span class="line">    <span class="attr">doubleCount</span>: <span class="function">(<span class="params">state</span>) =&gt;</span> state.<span class="property">num</span> * <span class="number">2</span>,</span><br><span class="line">  &#125;,</span><br><span class="line">  <span class="attr">actions</span>: &#123;</span><br><span class="line">    <span class="comment">// 同步方法</span></span><br><span class="line">    <span class="title function_">increment</span>(<span class="params"></span>) &#123;</span><br><span class="line">      <span class="variable language_">this</span>.<span class="property">num</span>++;</span><br><span class="line">    &#125;,</span><br><span class="line">    <span class="title function_">decrement</span>(<span class="params"></span>) &#123;</span><br><span class="line">      <span class="variable language_">this</span>.<span class="property">num</span>--;</span><br><span class="line">    &#125;,</span><br><span class="line">    <span class="comment">// 异步方法</span></span><br><span class="line">    <span class="keyword">async</span> <span class="title function_">asyncIncrement</span>(<span class="params"></span>) &#123;</span><br><span class="line">      <span class="comment">// 等待 1 秒钟</span></span><br><span class="line">      <span class="keyword">await</span> <span class="keyword">new</span> <span class="title class_">Promise</span>(<span class="function">(<span class="params">resolve</span>) =&gt;</span> <span class="built_in">setTimeout</span>(resolve, <span class="number">1000</span>));</span><br><span class="line">      <span class="variable language_">this</span>.<span class="title function_">increment</span>();</span><br><span class="line">    &#125;,</span><br><span class="line">    <span class="keyword">async</span> <span class="title function_">asyncDecrement</span>(<span class="params"></span>) &#123;</span><br><span class="line">      <span class="keyword">await</span> <span class="keyword">new</span> <span class="title class_">Promise</span>(<span class="function">(<span class="params">resolve</span>) =&gt;</span> <span class="built_in">setTimeout</span>(resolve, <span class="number">1000</span>));</span><br><span class="line">      <span class="variable language_">this</span>.<span class="title function_">decrement</span>();</span><br><span class="line">    &#125;,</span><br><span class="line">  &#125;,</span><br><span class="line">&#125;);</span><br><span class="line"></span><br></pre></td></tr></table></figure>
-
-<p>在组件中使用仓库数据时，首先引入仓库方法，并执行该方法：</p>
-<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> &#123; useCounterStore &#125; <span class="keyword">from</span> <span class="string">&quot;@/store/useCounterStore.js&quot;</span>;</span><br><span class="line"><span class="keyword">const</span> store = <span class="title function_">useCounterStore</span>(); <span class="comment">// 拿到仓库</span></span><br></pre></td></tr></table></figure>
-
-<p>如果是要获取数据，为了保持数据的响应式，应该使用 storeToRefs 方法。</p>
-<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> &#123; storeToRefs &#125; <span class="keyword">from</span> <span class="string">&quot;pinia&quot;</span>;</span><br><span class="line"><span class="comment">// 接下来我们可以从仓库中解构数据出来</span></span><br><span class="line"><span class="keyword">const</span> &#123; num, doubleCount &#125; = <span class="title function_">storeToRefs</span>(store);</span><br></pre></td></tr></table></figure>
-
-<p>如果是获取方法，直接从 store 里面解构出来即可。</p>
-<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 从仓库将方法解构出来</span></span><br><span class="line"><span class="keyword">const</span> &#123; increment, asyncIncrement, asyncDecrement &#125; = store;</span><br></pre></td></tr></table></figure>
-
-
-
-<p>另外，仓库还提供了两个好用的 api：</p>
-<ul>
-<li>store.$reset ：重置 state</li>
-<li>store.$patch：变更 state</li>
-</ul>
-<h2 id="真题解答-1"><a href="#真题解答-1" class="headerlink" title="真题解答"></a>真题解答</h2><blockquote>
-<p>题目：是否使用过 Pinia？简单谈一下 Pinia 的使用？<br>参考答案：</p>
-</blockquote>
-<h1 id="Pinia快速入门二"><a href="#Pinia快速入门二" class="headerlink" title="Pinia快速入门二"></a>Pinia快速入门二</h1><blockquote>
-<p>面试题：是否使用过 Pinia？简单谈一下 Pinia 的使用？</p>
-</blockquote>
-<h2 id="安装-Pinia-1"><a href="#安装-Pinia-1" class="headerlink" title="安装 Pinia"></a>安装 Pinia</h2><p>首先第一步，需要安装 Pinia，可以通过下面的命令进行安装：</p>
-<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">npm install pinia</span><br></pre></td></tr></table></figure>
-
-<p>安装完毕后，需要在 Vue 应用中挂载 Pinia</p>
-<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> &#123; createPinia &#125; <span class="keyword">from</span> <span class="string">&quot;pinia&quot;</span>;</span><br><span class="line"><span class="comment">// 创建 pinia 实例</span></span><br><span class="line"><span class="keyword">const</span> pinia = <span class="title function_">createPinia</span>();</span><br><span class="line"><span class="title function_">createApp</span>(<span class="title class_">App</span>).<span class="title function_">use</span>(router).<span class="title function_">use</span>(pinia).<span class="title function_">mount</span>(<span class="string">&quot;#app&quot;</span>);</span><br></pre></td></tr></table></figure>
-
-<p>在 src 目录下面创建仓库目录 store，在该目录下面创建对应的仓库文件，注意名字一般是 useXXXStore</p>
-<p>在仓库文件中，我们可以通过 defineStore 来创建一个 pinia 仓库，如下：</p>
-<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 仓库文件</span></span><br><span class="line"><span class="keyword">import</span> &#123; defineStore &#125; <span class="keyword">from</span> <span class="string">&quot;pinia&quot;</span>;</span><br><span class="line"></span><br><span class="line"><span class="comment">// 第二个参数支持两种风格：options api 以及 composition api</span></span><br><span class="line"><span class="keyword">export</span> <span class="keyword">const</span> useCounterStore = <span class="title function_">defineStore</span>(<span class="string">&quot;counter&quot;</span>, &#123;</span><br><span class="line">  <span class="attr">state</span>: <span class="function">() =&gt;</span> &#123;</span><br><span class="line">    <span class="keyword">return</span> &#123;</span><br><span class="line">      <span class="attr">num</span>: <span class="number">0</span>,</span><br><span class="line">    &#125;;</span><br><span class="line">  &#125;,</span><br><span class="line">&#125;);</span><br></pre></td></tr></table></figure>
-
-<p>创建的时候支持两种风格，选项式 API 以及组合式 API。</p>
-<h2 id="选项式风格-1"><a href="#选项式风格-1" class="headerlink" title="选项式风格"></a>选项式风格</h2><p>该风格基本上和之前的 Vuex 是非常相似的，只不过没有 mutation 了，无论是同步的方法还是异步的方法，都写在 actions 里面。</p>
-<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 仓库文件</span></span><br><span class="line"><span class="keyword">import</span> &#123; defineStore &#125; <span class="keyword">from</span> <span class="string">&quot;pinia&quot;</span>;</span><br><span class="line"></span><br><span class="line"><span class="comment">// 第二个参数支持两种风格：options api 以及 composition api</span></span><br><span class="line"><span class="keyword">export</span> <span class="keyword">const</span> useCounterStore = <span class="title function_">defineStore</span>(<span class="string">&quot;counter&quot;</span>, &#123;</span><br><span class="line">  <span class="attr">state</span>: <span class="function">() =&gt;</span> &#123;</span><br><span class="line">    <span class="keyword">return</span> &#123;</span><br><span class="line">      <span class="attr">num</span>: <span class="number">0</span>,</span><br><span class="line">    &#125;;</span><br><span class="line">  &#125;,</span><br><span class="line">  <span class="attr">getters</span>: &#123;</span><br><span class="line">    <span class="comment">// 针对上面 state 的数据做一个二次计算</span></span><br><span class="line">    <span class="comment">// 可以看作是计算属性</span></span><br><span class="line">    <span class="attr">doubleCount</span>: <span class="function">(<span class="params">state</span>) =&gt;</span> state.<span class="property">num</span> * <span class="number">2</span>,</span><br><span class="line">  &#125;,</span><br><span class="line">  <span class="attr">actions</span>: &#123;</span><br><span class="line">    <span class="comment">// 同步方法</span></span><br><span class="line">    <span class="title function_">increment</span>(<span class="params"></span>) &#123;</span><br><span class="line">      <span class="variable language_">this</span>.<span class="property">num</span>++;</span><br><span class="line">    &#125;,</span><br><span class="line">    <span class="title function_">decrement</span>(<span class="params"></span>) &#123;</span><br><span class="line">      <span class="variable language_">this</span>.<span class="property">num</span>--;</span><br><span class="line">    &#125;,</span><br><span class="line">    <span class="comment">// 异步方法</span></span><br><span class="line">    <span class="keyword">async</span> <span class="title function_">asyncIncrement</span>(<span class="params"></span>) &#123;</span><br><span class="line">      <span class="comment">// 等待 1 秒钟</span></span><br><span class="line">      <span class="keyword">await</span> <span class="keyword">new</span> <span class="title class_">Promise</span>(<span class="function">(<span class="params">resolve</span>) =&gt;</span> <span class="built_in">setTimeout</span>(resolve, <span class="number">1000</span>));</span><br><span class="line">      <span class="variable language_">this</span>.<span class="title function_">increment</span>();</span><br><span class="line">    &#125;,</span><br><span class="line">    <span class="keyword">async</span> <span class="title function_">asyncDecrement</span>(<span class="params"></span>) &#123;</span><br><span class="line">      <span class="keyword">await</span> <span class="keyword">new</span> <span class="title class_">Promise</span>(<span class="function">(<span class="params">resolve</span>) =&gt;</span> <span class="built_in">setTimeout</span>(resolve, <span class="number">1000</span>));</span><br><span class="line">      <span class="variable language_">this</span>.<span class="title function_">decrement</span>();</span><br><span class="line">    &#125;,</span><br><span class="line">  &#125;,</span><br><span class="line">&#125;);</span><br><span class="line"></span><br></pre></td></tr></table></figure>
-
-<p>在组件中使用仓库数据时，首先引入仓库方法，并执行该方法：</p>
-<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> &#123; useCounterStore &#125; <span class="keyword">from</span> <span class="string">&quot;@/store/useCounterStore.js&quot;</span>;</span><br><span class="line"><span class="keyword">const</span> store = <span class="title function_">useCounterStore</span>(); <span class="comment">// 拿到仓库</span></span><br></pre></td></tr></table></figure>
-
-<p>如果是要获取数据，为了保持数据的响应式，应该使用 storeToRefs 方法。</p>
-<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> &#123; storeToRefs &#125; <span class="keyword">from</span> <span class="string">&quot;pinia&quot;</span>;</span><br><span class="line"><span class="comment">// 接下来我们可以从仓库中解构数据出来</span></span><br><span class="line"><span class="keyword">const</span> &#123; num, doubleCount &#125; = <span class="title function_">storeToRefs</span>(store);</span><br></pre></td></tr></table></figure>
-
-<p>如果是获取方法，直接从 store 里面解构出来即可。</p>
-<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 从仓库将方法解构出来</span></span><br><span class="line"><span class="keyword">const</span> &#123; increment, asyncIncrement, asyncDecrement &#125; = store;</span><br></pre></td></tr></table></figure>
-
-
-
-<p>另外，仓库还提供了两个好用的 api：</p>
-<ul>
-<li>store.$reset ：重置 state</li>
-<li>store.$patch：变更 state</li>
-</ul>
-<h2 id="组合式风格"><a href="#组合式风格" class="headerlink" title="组合式风格"></a>组合式风格</h2><p>组合式风格就和 Vue3 中的使用方法是一样的，通过 ref 或者 reactive 来定义仓库数据。</p>
-<p>通过普通的方法来操作仓库数据。无论是数据还是方法最终需要导出出去。</p>
-<p>通过 computed 来做 getter。</p>
-<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> &#123; defineStore &#125; <span class="keyword">from</span> <span class="string">&quot;pinia&quot;</span>;</span><br><span class="line"><span class="keyword">import</span> &#123; reactive, computed &#125; <span class="keyword">from</span> <span class="string">&quot;vue&quot;</span>;</span><br><span class="line"></span><br><span class="line"><span class="comment">// 引入其他仓库</span></span><br><span class="line"><span class="keyword">import</span> &#123; useCounterStore &#125; <span class="keyword">from</span> <span class="string">&quot;./useCounterStore.js&quot;</span>;</span><br><span class="line"></span><br><span class="line"><span class="keyword">export</span> <span class="keyword">const</span> useListStore = <span class="title function_">defineStore</span>(<span class="string">&quot;list&quot;</span>, <span class="function">() =&gt;</span> &#123;</span><br><span class="line">  <span class="keyword">const</span> counterStore = <span class="title function_">useCounterStore</span>();</span><br><span class="line">  <span class="comment">// 组合 api 风格</span></span><br><span class="line"></span><br><span class="line">  <span class="comment">// 创建仓库数据，类似于 state</span></span><br><span class="line">  <span class="keyword">const</span> list = <span class="title function_">reactive</span>(&#123;</span><br><span class="line">    <span class="attr">items</span>: [</span><br><span class="line">      &#123;</span><br><span class="line">        <span class="attr">text</span>: <span class="string">&quot;学习 Pinia&quot;</span>,</span><br><span class="line">        <span class="attr">isCompleted</span>: <span class="literal">true</span>,</span><br><span class="line">      &#125;,</span><br><span class="line">      &#123;</span><br><span class="line">        <span class="attr">text</span>: <span class="string">&quot;打羽毛球&quot;</span>,</span><br><span class="line">        <span class="attr">isCompleted</span>: <span class="literal">false</span>,</span><br><span class="line">      &#125;,</span><br><span class="line">      &#123;</span><br><span class="line">        <span class="attr">text</span>: <span class="string">&quot;玩游戏&quot;</span>,</span><br><span class="line">        <span class="attr">isCompleted</span>: <span class="literal">true</span>,</span><br><span class="line">      &#125;,</span><br><span class="line">    ],</span><br><span class="line">    <span class="attr">counter</span>: <span class="number">100</span>,</span><br><span class="line">  &#125;);</span><br><span class="line"></span><br><span class="line">  <span class="comment">// 使用 vue 里面的计算属性来做 getters</span></span><br><span class="line">  <span class="keyword">const</span> doubleCounter = <span class="title function_">computed</span>(<span class="function">() =&gt;</span> &#123;</span><br><span class="line">    <span class="keyword">return</span> list.<span class="property">counter</span> * <span class="number">2</span>;</span><br><span class="line">  &#125;);</span><br><span class="line">  <span class="comment">// 接下来我们再来创建一个 getter，该 getter 使用的是其他仓库的数据</span></span><br><span class="line">  <span class="keyword">const</span> otherCounter = <span class="title function_">computed</span>(<span class="function">() =&gt;</span> &#123;</span><br><span class="line">    <span class="keyword">return</span> counterStore.<span class="property">doubleCount</span> * <span class="number">3</span>;</span><br><span class="line">  &#125;);</span><br><span class="line"></span><br><span class="line">  <span class="comment">// 添加新的事项</span></span><br><span class="line">  <span class="keyword">function</span> <span class="title function_">addItem</span>(<span class="params">newItem</span>) &#123;</span><br><span class="line">    list.<span class="property">items</span>.<span class="title function_">push</span>(&#123;</span><br><span class="line">      <span class="attr">text</span>: newItem,</span><br><span class="line">      <span class="attr">isCompleted</span>: <span class="literal">false</span>,</span><br><span class="line">    &#125;);</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  <span class="comment">// 切换事项对应的完成状态</span></span><br><span class="line">  <span class="keyword">function</span> <span class="title function_">completeHandle</span>(<span class="params">index</span>) &#123;</span><br><span class="line">    list.<span class="property">items</span>[index].<span class="property">isCompleted</span> = !list.<span class="property">items</span>[index].<span class="property">isCompleted</span>;</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  <span class="comment">// 删除待办事项对应下标的某一项</span></span><br><span class="line">  <span class="keyword">function</span> <span class="title function_">deleteItem</span>(<span class="params">index</span>) &#123;</span><br><span class="line">    list.<span class="property">items</span>.<span class="title function_">splice</span>(index, <span class="number">1</span>);</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  <span class="keyword">return</span> &#123;</span><br><span class="line">    list,</span><br><span class="line">    doubleCounter,</span><br><span class="line">    otherCounter,</span><br><span class="line">    addItem,</span><br><span class="line">    completeHandle,</span><br><span class="line">    deleteItem,</span><br><span class="line">  &#125;;</span><br><span class="line">&#125;);</span><br><span class="line"></span><br></pre></td></tr></table></figure>
-
-<p>在一个仓库中，可以使用其他仓库的 getter 数据。两种风格都可以使用。</p>
-<h2 id="真题解答-2"><a href="#真题解答-2" class="headerlink" title="真题解答"></a>真题解答</h2><blockquote>
-<p>题目：是否使用过 Pinia？简单谈一下 Pinia 的使用？<br>参考答案：</p>
-<p>在 Pinia 中，核心概念有</p>
-<ul>
-<li>state：仓库的核心，主要是用于维护仓库的数据</li>
-<li>getters：用于对数据做二次计算的，等同于 store 的 state 的计算值</li>
-<li>actions ：对仓库状态进行操作的方法</li>
-</ul>
-<p>相比 Vuex，Pinia 中没有 mutations，同步方法和异步方法都放在 actions 里面。Pinia 同时支持 Vue2 和 Vue3，内部支持两种编码风格，分别是：</p>
-<ul>
-<li>选项式 API ：编码风格基本就和之前的 Vuex 是相似的</li>
-<li>组合式 API ： 编码风格和 Vue3 非常相似，使用 ref 或者 reactive 来定义仓库数据，使用 computed 来做 getters，actions 里面的方法直接书写即可，最后将数据和方法通过 return 导出。</li>
-</ul>
-</blockquote>
-<h1 id="最佳实践与补充内容"><a href="#最佳实践与补充内容" class="headerlink" title="最佳实践与补充内容"></a>最佳实践与补充内容</h1><blockquote>
-<p>面试题：在目前的 Vue 应用中，使用状态管理库进行状态管理时有哪些最佳实践？请列举一至两条</p>
-</blockquote>
-<h1 id="添加插件"><a href="#添加插件" class="headerlink" title="添加插件"></a>添加插件</h1><blockquote>
-<p>面试题：是否给 Pinia 添加过插件？具体添加的方式是什么？</p>
-</blockquote>
-<p>在 Pinia 中，我们可以为仓库添加插件，通过添加插件能够扩展以下的内容：</p>
-<ul>
-<li>为 store 添加新的属性</li>
-<li>定义 store 时增加新的选项</li>
-<li>为 store 增加新的方法</li>
-<li>包装现有的方法</li>
-<li>改变甚至取消 action</li>
-<li>实现副作用，如<a target="_blank" rel="noopener" href="https://developer.mozilla.org/en-US/docs/Web/API/Window/localStorage">本地存储</a></li>
-<li><strong>仅</strong>应用插件于特定 store</li>
-</ul>
-<h2 id="自定义插件"><a href="#自定义插件" class="headerlink" title="自定义插件"></a>自定义插件</h2><p>首先建议插件单独拿一个目录来存放，一个插件就是一个方法：</p>
-<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">export</span> <span class="keyword">function</span> <span class="title function_">myPiniaPlugin1</span>(<span class="params"></span>) &#123;</span><br><span class="line">  <span class="comment">// 给所有的仓库添加了一条全局属性</span></span><br><span class="line">  <span class="keyword">return</span> &#123;</span><br><span class="line">    <span class="attr">secret</span>: <span class="string">&quot;the cake is a lie&quot;</span>,</span><br><span class="line">  &#125;;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">export</span> <span class="keyword">function</span> <span class="title function_">myPiniaPlugin2</span>(<span class="params">context</span>) &#123;</span><br><span class="line">  <span class="comment">//   console.log(context);</span></span><br><span class="line">  <span class="keyword">const</span> &#123; store &#125; = context;</span><br><span class="line">  store.<span class="property">test</span> = <span class="string">&quot;this is a test&quot;</span>;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * 给特定的仓库来扩展内容</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@param</span> &#123;<span class="type">*</span>&#125; <span class="variable">param0</span></span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="keyword">export</span> <span class="keyword">function</span> <span class="title function_">myPiniaPlugin3</span>(<span class="params">&#123; store &#125;</span>) &#123;</span><br><span class="line">  <span class="keyword">if</span> (store.<span class="property">$id</span> === <span class="string">&quot;counter&quot;</span>) &#123;</span><br><span class="line">    <span class="comment">// 为当前 id 为 counter 的仓库来扩展属性</span></span><br><span class="line">    <span class="keyword">return</span> &#123;</span><br><span class="line">      <span class="attr">name</span>: <span class="string">&quot;my name is pinia&quot;</span>,</span><br><span class="line">    &#125;;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * 重置仓库状态</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="keyword">export</span> <span class="keyword">function</span> <span class="title function_">myPiniaPlugin4</span>(<span class="params">&#123; store &#125;</span>) &#123;</span><br><span class="line">  <span class="comment">// 我们首先可以将初始状态深拷贝一份</span></span><br><span class="line">  <span class="keyword">const</span> state = <span class="title function_">deepClone</span>(store.<span class="property">$state</span>);</span><br><span class="line">  store.<span class="property">reset</span> = <span class="function">() =&gt;</span> &#123;</span><br><span class="line">    store.$patch(<span class="title function_">deepClone</span>(state));</span><br><span class="line">  &#125;;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<p>每个插件在扩展内容时，会对所有的仓库进行内容扩展，如果想要针对某一个仓库进行内容扩展，可以通过 context.store.$id 来指定某一个仓库来扩展内容。</p>
-<p>插件书写完毕后，需要通过 <em>pinia</em> 实例对插件进行一个注册操作。</p>
-<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 引入自定义插件</span></span><br><span class="line"><span class="keyword">import</span> &#123;</span><br><span class="line">  myPiniaPlugin1,</span><br><span class="line">  myPiniaPlugin2,</span><br><span class="line">  myPiniaPlugin3,</span><br><span class="line">  myPiniaPlugin4,</span><br><span class="line">&#125; <span class="keyword">from</span> <span class="string">&quot;./plugins&quot;</span>;</span><br><span class="line"></span><br><span class="line">pinia.<span class="title function_">use</span>(myPiniaPlugin1);</span><br><span class="line">pinia.<span class="title function_">use</span>(myPiniaPlugin2);</span><br><span class="line">pinia.<span class="title function_">use</span>(myPiniaPlugin3);</span><br><span class="line">pinia.<span class="title function_">use</span>(myPiniaPlugin4);</span><br></pre></td></tr></table></figure>
-
-
-
-<h2 id="添加第三方插件"><a href="#添加第三方插件" class="headerlink" title="添加第三方插件"></a>添加第三方插件</h2><p>有一些第三方插件，直接通过 npm 安装使用即可。</p>
-<p>具体的使用方法一定要参阅文档。</p>
-<h2 id="真题解答-3"><a href="#真题解答-3" class="headerlink" title="真题解答"></a>真题解答</h2><blockquote>
-<p>题目：是否给 Pinia 添加过插件？具体添加的方式是什么？<br>参考答案：</p>
-<p>在 Pinia 中可以非常方便的添加插件。一个插件就是一个函数，该函数接收一个 context 上下文对象，通过 context 对象可以拿到诸如 store、app 等信息。</p>
-<p>每个插件在扩展内容时，会对所有的仓库进行内容扩展，如果想要针对某一个仓库进行内容扩展，可以通过 context.store.$id 来指定某一个仓库来扩展内容。</p>
-<p>插件书写完毕后，需要通过 <em>pinia</em> 实例对插件进行一个注册操作。</p>
-<p>另外，我们还可以使用一些第三方插件，直接通过 npm 安装使用即可。安装完毕后，使用方法和自定义插件是一样的，具体的使用方法一定要参阅文档。</p>
-</blockquote>
-<h2 id="最佳实践"><a href="#最佳实践" class="headerlink" title="最佳实践"></a>最佳实践</h2><ul>
-<li>分离状态逻辑和业务逻辑</li>
-</ul>
-<p>实际上这个就是我们使用状态管理库的目的，我们使用状态管理库，就是为了将组件的状态分离出来，这样可以方便我们维护，也方便组件之间进行状态的共享。</p>
-<p>没有使用状态管理库：</p>
-<p><img src="/../images/2022-11-04-023144.png"></p>
-<p>使用状态管理库之后：</p>
-<p><img src="/../images/2022-11-04-023459.png"></p>
-<p>但是需要注意一点，并非所有的 Vue 应用都需要使用状态管理库，这个取决于我们所开发的应用的规模大小。如果只是小规模的 Vue 应用，使用状态管理库反而显得更麻烦。</p>
-<ul>
-<li>选择 Pinia 来进行状态管理</li>
-</ul>
-<p>目前 Vue 官方已经推荐开发者使用 Pinia 来替代 Vuex 作为状态管理库，你可以将 Pinia 看作是 Vuex5.x</p>
-<p>相比 Vuex，Pinia 真的真的真的很轻量，大小只有 1kb 左右，基本上可以忽略</p>
-<p>当然相比之前的 Vuex，还有一些其他的优点：</p>
-<p><a target="_blank" rel="noopener" href="https://pinia.vuejs.org/zh/introduction.html#comparison-with-vuex">https://pinia.vuejs.org/zh/introduction.html#comparison-with-vuex</a></p>
-<p>另外如果你之前的项目使用的是 Vuex，那么你可以看一下官方的迁移指南：</p>
-<p><a target="_blank" rel="noopener" href="https://pinia.vuejs.org/zh/cookbook/migration-vuex.html">https://pinia.vuejs.org/zh/cookbook/migration-vuex.html</a></p>
-<ul>
-<li>避免直接操作 store 的状态</li>
-</ul>
-<p>虽然我们可以直接操作 store 的状态，但是在 Pinia 中我们最好还是避免直接操作 store 里面的状态，而是通过对应的 getters 来读取，actions 来修改</p>
-<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">&lt;!-- 计数器--&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">button</span> <span class="attr">class</span>=<span class="string">&quot;btn&quot;</span> @<span class="attr">click</span>=<span class="string">&quot;num++&quot;</span>&gt;</span>+<span class="tag">&lt;/<span class="name">button</span>&gt;</span></span><br></pre></td></tr></table></figure>
-
-<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 待办事项</span></span><br><span class="line"><span class="keyword">function</span> <span class="title function_">addHandle</span>(<span class="params"></span>) &#123;</span><br><span class="line">  <span class="keyword">if</span> (newItem.<span class="property">value</span>) &#123;</span><br><span class="line">    <span class="variable language_">console</span>.<span class="title function_">log</span>(list.<span class="property">value</span>.<span class="property">items</span>);</span><br><span class="line">    <span class="comment">// 直接操作 store 的状态</span></span><br><span class="line">    list.<span class="property">value</span>.<span class="property">items</span>.<span class="title function_">push</span>(&#123;</span><br><span class="line">      text : newItem.<span class="property">value</span>,</span><br><span class="line">      <span class="attr">isCompleted</span>: <span class="literal">false</span>,</span><br><span class="line">    &#125;);</span><br><span class="line">    newItem.<span class="property">value</span> = <span class="string">&quot;&quot;</span>;</span><br><span class="line">  &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">    <span class="variable language_">window</span>.<span class="title function_">alert</span>(<span class="string">&quot;请填写新增项目&quot;</span>);</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<p>与其对应的应该使用 getters 和 actions 等 API 来处理状态的读取和修改</p>
-<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">button</span> <span class="attr">class</span>=<span class="string">&quot;btn&quot;</span> @<span class="attr">click</span>=<span class="string">&quot;increment&quot;</span>&gt;</span>+<span class="tag">&lt;/<span class="name">button</span>&gt;</span></span><br></pre></td></tr></table></figure>
-
-<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">function</span> <span class="title function_">addHandle</span>(<span class="params"></span>) &#123;</span><br><span class="line">  <span class="keyword">if</span> (newItem.<span class="property">value</span>) &#123;</span><br><span class="line">    <span class="title function_">addItem</span>(newItem.<span class="property">value</span>);</span><br><span class="line">    newItem.<span class="property">value</span> = <span class="string">&quot;&quot;</span>;</span><br><span class="line">  &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">    <span class="variable language_">window</span>.<span class="title function_">alert</span>(<span class="string">&quot;请填写新增项目&quot;</span>);</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<p>这样做的好处在于提高了代码的可维护性，应该数据的改变始终来自于 actions 的方法，而不是分散于组件的各个部分。</p>
-<ul>
-<li>使用 TypeScript</li>
-</ul>
-<p>Pinia 本身就是使用 typescript 编写的，因此我们在使用 pinia 的时候，能够非常方便的、非常自然的使用 typescript，使用 typescript 可以更好的提供类型检查和代码提示，让我们的代码更加可靠和易于维护。</p>
-<p>官方文档对应：<a target="_blank" rel="noopener" href="https://pinia.vuejs.org/zh/core-concepts/state.html#typescript">https://pinia.vuejs.org/zh/core-concepts/state.html#typescript</a></p>
-<ul>
-<li>将状态划分为多个模块</li>
-</ul>
-<p>在一个大型应用中，如果将所有组件的状态放置在一个状态仓库中，那么会显得该状态仓库非常的臃肿。因此一般在大型项目中，是一定会将状态仓库进行拆分的。</p>
-<p>在早期的 Vuex 中，就已经支持将状态仓库按照不同的功能模块进行拆分，只不过在 Vuex 时期，状态仓库拆分时按照的是嵌套的方式进行代码组织的。</p>
-<p>在 Pinia 中，组织状态仓库的形式不再采用像 Vuex 一样的嵌套，而是采用的是扁平化的设计，每一个状态仓库都是独立的，这个其实也是 Pinia 这个名字的来源。</p>
-<h2 id="补充内容"><a href="#补充内容" class="headerlink" title="补充内容"></a>补充内容</h2><ul>
-<li>辅助函数</li>
-<li>订阅 state 以及 action</li>
-<li>插件选项</li>
-</ul>
-<h2 id="真题解答-4"><a href="#真题解答-4" class="headerlink" title="真题解答"></a>真题解答</h2><blockquote>
-<p>题目：在目前的 Vue 应用中，使用状态管理库进行状态管理时有哪些最佳实践？请列举一至两条</p>
-<p>参考答案：</p>
-<p>在使用 Vue 开发应用时，有关组件的状态管理这一块，有如下的最佳实践：</p>
-<ul>
-<li>使用专门的状态仓库来管理组件状态，以达到状态逻辑和业务逻辑的分离</li>
-<li>比起 Vuex，目前更推荐使用 Pinia 来管理仓库的状态</li>
-<li>尽量都集中使用 actions 中的方法来操作 store 的状态，避免直接操作 store</li>
-<li>使用 typescript 以便得到更好的类型提示</li>
-<li>根据不同的功能模块来创建对应的独立的状态仓库</li>
-</ul>
-</blockquote>
-<h1 id="Pinia部分源码解析"><a href="#Pinia部分源码解析" class="headerlink" title="Pinia部分源码解析"></a>Pinia部分源码解析</h1><p>养成阅读源码的习惯，有如下的好处：</p>
-<ul>
-<li>阅读源码可以帮助我们扩宽自己的视野，可以看到优秀的程序员是如何书写代码的，从而提升我们自己的编码水平</li>
-<li>知其然知其所以然。如果你阅读过源码，那么你自然能够知道某一个 API 是如何实现，背后的实现原理是什么，那么你也就能够自然的避免在使用该 API 时可能会遇到的一些 bug，会有一些自己独特的优化心得</li>
-<li>最后一点就是阅读源码能够冲击大厂，大厂在面试的时候不会考察某个 API 如何使用，没什么意义，因为 API 经常也在变化，一般都是考察 API 背后的原理</li>
-</ul>
-<p>阅读源码时的一些注意事项</p>
-<ul>
-<li>阅读源码基于你已经使用过了该库或者该框架，对里面的 API 已经很熟悉了，是一种自发的行为</li>
-<li>阅读源码一定要<strong>耐心</strong></li>
-<li>不要<strong>陷入于细节</strong>，在阅读源码的时候往往需要你站在一个更高的角度</li>
-</ul>
-<h2 id="defineStore-方法"><a href="#defineStore-方法" class="headerlink" title="defineStore 方法"></a>defineStore 方法</h2><p>回顾 defineStore 方法的使用。defineStore 方法支持两种变成风格，一种是 option store，另一种是 setup store</p>
-<p>option store 风格：</p>
-<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">export</span> <span class="keyword">const</span> useCounterStore = <span class="title function_">defineStore</span>(<span class="string">&#x27;counter&#x27;</span>, &#123;</span><br><span class="line">  <span class="attr">state</span>: <span class="function">() =&gt;</span> (&#123; <span class="attr">count</span>: <span class="number">0</span> &#125;),</span><br><span class="line">  <span class="attr">getters</span>: &#123;</span><br><span class="line">    <span class="attr">double</span>: <span class="function">(<span class="params">state</span>) =&gt;</span> state.<span class="property">count</span> * <span class="number">2</span>,</span><br><span class="line">  &#125;,</span><br><span class="line">  <span class="attr">actions</span>: &#123;</span><br><span class="line">    <span class="title function_">increment</span>(<span class="params"></span>) &#123;</span><br><span class="line">      <span class="variable language_">this</span>.<span class="property">count</span>++</span><br><span class="line">    &#125;,</span><br><span class="line">  &#125;,</span><br><span class="line">&#125;)</span><br></pre></td></tr></table></figure>
-
-<p>option store 风格可以将 id 写到选项里面：</p>
-<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">export</span> <span class="keyword">const</span> useCounterStore = <span class="title function_">defineStore</span>(&#123;</span><br><span class="line">  <span class="attr">id</span>: <span class="string">&#x27;counter&#x27;</span>,</span><br><span class="line">  <span class="attr">state</span>: <span class="function">() =&gt;</span> (&#123; <span class="attr">count</span>: <span class="number">0</span> &#125;),</span><br><span class="line">  <span class="attr">getters</span>: &#123;</span><br><span class="line">    <span class="attr">double</span>: <span class="function">(<span class="params">state</span>) =&gt;</span> state.<span class="property">count</span> * <span class="number">2</span>,</span><br><span class="line">  &#125;,</span><br><span class="line">  <span class="attr">actions</span>: &#123;</span><br><span class="line">    <span class="title function_">increment</span>(<span class="params"></span>) &#123;</span><br><span class="line">      <span class="variable language_">this</span>.<span class="property">count</span>++</span><br><span class="line">    &#125;,</span><br><span class="line">  &#125;,</span><br><span class="line">&#125;)</span><br></pre></td></tr></table></figure>
-
-<p>setup store 风格：</p>
-<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">export</span> <span class="keyword">const</span> useCounterStore = <span class="title function_">defineStore</span>(<span class="string">&#x27;counter&#x27;</span>, <span class="function">() =&gt;</span> &#123;</span><br><span class="line">  <span class="keyword">const</span> count = <span class="title function_">ref</span>(<span class="number">0</span>)</span><br><span class="line">  <span class="keyword">function</span> <span class="title function_">increment</span>(<span class="params"></span>) &#123;</span><br><span class="line">    count.<span class="property">value</span>++</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  <span class="keyword">return</span> &#123; count, increment &#125;</span><br><span class="line">&#125;)</span><br></pre></td></tr></table></figure>
-
-<p>defineStore 对应的源码如下：</p>
-<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">function</span> <span class="title function_">defineStore</span>(<span class="params"></span></span><br><span class="line"><span class="params"><span class="comment">// <span class="doctag">TODO:</span> add proper types from above</span></span></span><br><span class="line"><span class="params">idOrOptions, setup, setupOptions</span>) &#123;</span><br><span class="line">    <span class="keyword">let</span> id;</span><br><span class="line">    <span class="keyword">let</span> options;</span><br><span class="line">    <span class="comment">// isSetupStore 会是一个布尔值，如果是 setup 函数，isSetupStore 为 true，否则为 false</span></span><br><span class="line">    <span class="keyword">const</span> isSetupStore = <span class="keyword">typeof</span> setup === <span class="string">&#x27;function&#x27;</span>;</span><br><span class="line">    <span class="keyword">if</span> (<span class="keyword">typeof</span> idOrOptions === <span class="string">&#x27;string&#x27;</span>) &#123;</span><br><span class="line">        <span class="comment">// 如果进入此 if，说明 idOrOptions 是该仓库的 id</span></span><br><span class="line">        <span class="comment">// id 是 defineStore 函数内部的变量，存储仓库 id</span></span><br><span class="line">        id = idOrOptions;</span><br><span class="line">        <span class="comment">// the option store setup will contain the actual options in this case</span></span><br><span class="line">        <span class="comment">// 如果是 setup 风格，就将第三个参数（如果有）赋值给 options，否则就将配置对象赋值给 options</span></span><br><span class="line">        options = isSetupStore ? setupOptions : setup;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">else</span> &#123;</span><br><span class="line">        <span class="comment">// idOrOptions 参数为配置对象</span></span><br><span class="line">        options = idOrOptions;</span><br><span class="line">        id = idOrOptions.<span class="property">id</span>;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="comment">// 这个函数就是最终返回给外部的函数</span></span><br><span class="line">    <span class="comment">// 外部通过执行这个函数拿到 store 仓库 </span></span><br><span class="line">    <span class="keyword">function</span> <span class="title function_">useStore</span>(<span class="params">pinia, hot</span>) &#123;</span><br><span class="line">        <span class="keyword">const</span> currentInstance = <span class="title function_">getCurrentInstance</span>();</span><br><span class="line">        pinia =</span><br><span class="line">            <span class="comment">// in test mode, ignore the argument provided as we can always retrieve a</span></span><br><span class="line">            <span class="comment">// pinia instance with getActivePinia()</span></span><br><span class="line">            (pinia) ||</span><br><span class="line">                (currentInstance &amp;&amp; <span class="title function_">inject</span>(piniaSymbol, <span class="literal">null</span>));</span><br><span class="line">        <span class="keyword">if</span> (pinia)</span><br><span class="line">            <span class="title function_">setActivePinia</span>(pinia);</span><br><span class="line">        <span class="keyword">if</span> (!activePinia) &#123;</span><br><span class="line">            <span class="keyword">throw</span> <span class="keyword">new</span> <span class="title class_">Error</span>(<span class="string">`[🍍]: getActivePinia was called with no active Pinia. Did you forget to install pinia?\n`</span> +</span><br><span class="line">                <span class="string">`\tconst pinia = createPinia()\n`</span> +</span><br><span class="line">                <span class="string">`\tapp.use(pinia)\n`</span> +</span><br><span class="line">                <span class="string">`This will fail in production.`</span>);</span><br><span class="line">        &#125;</span><br><span class="line">        pinia = activePinia;</span><br><span class="line">        <span class="keyword">if</span> (!pinia.<span class="property">_s</span>.<span class="title function_">has</span>(id)) &#123;</span><br><span class="line">            <span class="comment">// creating the store registers it in `pinia._s`</span></span><br><span class="line">            <span class="comment">// 创建一个仓库，并且将这个仓库注册到 pinia._s</span></span><br><span class="line">            <span class="comment">// 根据不同的风格开始创建仓库</span></span><br><span class="line">            <span class="keyword">if</span> (isSetupStore) &#123;</span><br><span class="line">                <span class="comment">// 如果是 setup 风格，调用的是 createSetupStore</span></span><br><span class="line">                <span class="title function_">createSetupStore</span>(id, setup, options, pinia);</span><br><span class="line">            &#125;</span><br><span class="line">            <span class="keyword">else</span> &#123;</span><br><span class="line">                <span class="comment">// 如果是 option 风格，调用的是 createOptionsStore</span></span><br><span class="line">                <span class="comment">// createOptionsStore 方法背后实际上也是在调用 createSetupStore，内部会创建一个名为 setup 的函数</span></span><br><span class="line">                <span class="comment">// 将选项转为 setup 函数内部的项目，然后调用 createSetupStore 方法，将 setup 函数作为第二个参数传递过去</span></span><br><span class="line">                <span class="comment">// 因此理论上来讲，setup 实践上要更加高效一些，因为 option store 背后也是转为 setup，这些是你不阅读源码无法知道的</span></span><br><span class="line">                <span class="title function_">createOptionsStore</span>(id, options, pinia);</span><br><span class="line">            &#125;</span><br><span class="line">            <span class="comment">/* istanbul ignore else */</span></span><br><span class="line">            &#123;</span><br><span class="line">                <span class="comment">// @ts-expect-error: not the right inferred type</span></span><br><span class="line">                useStore.<span class="property">_pinia</span> = pinia;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">const</span> store = pinia.<span class="property">_s</span>.<span class="title function_">get</span>(id);</span><br><span class="line">        <span class="keyword">if</span> (hot) &#123;</span><br><span class="line">            <span class="keyword">const</span> hotId = <span class="string">&#x27;__hot:&#x27;</span> + id;</span><br><span class="line">            <span class="keyword">const</span> newStore = isSetupStore</span><br><span class="line">                ? <span class="title function_">createSetupStore</span>(hotId, setup, options, pinia, <span class="literal">true</span>)</span><br><span class="line">                : <span class="title function_">createOptionsStore</span>(hotId, <span class="title function_">assign</span>(&#123;&#125;, options), pinia, <span class="literal">true</span>);</span><br><span class="line">            hot.<span class="title function_">_hotUpdate</span>(newStore);</span><br><span class="line">            <span class="comment">// cleanup the state properties and the store from the cache</span></span><br><span class="line">            <span class="keyword">delete</span> pinia.<span class="property">state</span>.<span class="property">value</span>[hotId];</span><br><span class="line">            pinia.<span class="property">_s</span>.<span class="title function_">delete</span>(hotId);</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="comment">// save stores in instances to access them devtools</span></span><br><span class="line">        <span class="keyword">if</span> (<span class="variable constant_">IS_CLIENT</span> &amp;&amp;</span><br><span class="line">            currentInstance &amp;&amp;</span><br><span class="line">            currentInstance.<span class="property">proxy</span> &amp;&amp;</span><br><span class="line">            <span class="comment">// avoid adding stores that are just built for hot module replacement</span></span><br><span class="line">            !hot) &#123;</span><br><span class="line">            <span class="keyword">const</span> vm = currentInstance.<span class="property">proxy</span>;</span><br><span class="line">            <span class="keyword">const</span> cache = <span class="string">&#x27;_pStores&#x27;</span> <span class="keyword">in</span> vm ? vm.<span class="property">_pStores</span> : (vm.<span class="property">_pStores</span> = &#123;&#125;);</span><br><span class="line">            cache[id] = store;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="comment">// StoreGeneric cannot be casted towards Store</span></span><br><span class="line">        <span class="keyword">return</span> store;</span><br><span class="line">    &#125;</span><br><span class="line">    useStore.<span class="property">$id</span> = id; <span class="comment">// 在 useStore 函数上面还挂了一个 $id，存储了该仓库的 id</span></span><br><span class="line">    <span class="keyword">return</span> useStore; <span class="comment">// 在向外部返回这个函数</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-
-
-<h2 id="storeToRefs-方法"><a href="#storeToRefs-方法" class="headerlink" title="storeToRefs 方法"></a>storeToRefs 方法</h2><p>首先我们还是回顾该方法的用法：</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">&lt;script setup&gt;</span><br><span class="line">import &#123; storeToRefs &#125; from &#x27;pinia&#x27;</span><br><span class="line">const store = useCounterStore()</span><br><span class="line">const &#123; name, doubleCount &#125; = storeToRefs(store)</span><br><span class="line">const &#123; increment &#125; = store</span><br><span class="line">&lt;/script&gt;</span><br></pre></td></tr></table></figure>
-
-<p>源码如下：</p>
-<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">function</span> <span class="title function_">storeToRefs</span>(<span class="params">store</span>) &#123;</span><br><span class="line">    <span class="comment">// See https://github.com/vuejs/pinia/issues/852</span></span><br><span class="line">    <span class="comment">// It&#x27;s easier to just use toRefs() even if it includes more stuff</span></span><br><span class="line">    <span class="comment">// 针对 Vue2 版本的处理</span></span><br><span class="line">    <span class="keyword">if</span> (isVue2) &#123;</span><br><span class="line">        <span class="comment">// @ts-expect-error: toRefs include methods and others</span></span><br><span class="line">        <span class="keyword">return</span> <span class="title function_">toRefs</span>(store);</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">else</span> &#123;</span><br><span class="line">        store = <span class="title function_">toRaw</span>(store);</span><br><span class="line">        <span class="comment">// 创建了一个空对象</span></span><br><span class="line">        <span class="keyword">const</span> refs = &#123;&#125;;</span><br><span class="line">        <span class="comment">// 遍历仓库对象</span></span><br><span class="line">        <span class="keyword">for</span> (<span class="keyword">const</span> key <span class="keyword">in</span> store) &#123;</span><br><span class="line">            <span class="comment">// 拿到仓库对象对应的每一项的值</span></span><br><span class="line">            <span class="keyword">const</span> value = store[key];</span><br><span class="line">            <span class="keyword">if</span> (<span class="title function_">isRef</span>(value) || <span class="title function_">isReactive</span>(value)) &#123;</span><br><span class="line">                <span class="comment">// @ts-expect-error: the key is state or getter</span></span><br><span class="line">                <span class="comment">// 如果这个值本身是响应式的，将这个值以原本的 key 添加到 refs 对象上面</span></span><br><span class="line">                refs[key] =</span><br><span class="line">                    <span class="comment">// ---</span></span><br><span class="line">                    <span class="title function_">toRef</span>(store, key);</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="comment">// 整个 for 循环完了之后，所有响应式的值被添加到了 refs 对象上面</span></span><br><span class="line">        <span class="comment">// 向外部返回这个 refs 对象</span></span><br><span class="line">        <span class="keyword">return</span> refs;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
-      
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="http://example.com/2024/12/13/vue3%20%E5%85%B1%E4%BA%AB%E6%95%B0%E6%8D%AE/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.gif">
-      <meta itemprop="name" content="wangzhiwei">
-      <meta itemprop="description" content="javascript nodejs web developer...">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="WBlog">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/2024/12/13/vue3%20%E5%85%B1%E4%BA%AB%E6%95%B0%E6%8D%AE/" class="post-title-link" itemprop="url">vue3 共享数据</a>
-        </h2>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              <span class="post-meta-item-text">发表于</span>
-
-              <time title="创建时间：2024-12-13 13:55:14" itemprop="dateCreated datePublished" datetime="2024-12-13T13:55:14+08:00">2024-12-13</time>
-            </span>
-              <span class="post-meta-item">
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-calendar-check-o"></i>
-                </span>
-                <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2025-03-18 11:10:52" itemprop="dateModified" datetime="2025-03-18T11:10:52+08:00">2025-03-18</time>
-              </span>
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              <span class="post-meta-item-text">分类于</span>
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/vue3/" itemprop="url" rel="index"><span itemprop="name">vue3</span></a>
-                </span>
-            </span>
-
-          
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <h1 id="vuex方案"><a href="#vuex方案" class="headerlink" title="vuex方案"></a>vuex方案</h1><p>安装<code>vuex@4.x</code></p>
-<p>两个重要变动：</p>
-<ul>
-<li>去掉了构造函数<code>Vuex</code>，而使用<code>createStore</code>创建仓库</li>
-<li>为了配合<code>composition api</code>，新增<code>useStore</code>函数获得仓库对象</li>
-</ul>
-<h1 id="global-state"><a href="#global-state" class="headerlink" title="global state"></a>global state</h1><p>由于<code>vue3</code>的响应式系统本身可以脱离组件而存在，因此可以充分利用这一点，轻松制造多个全局响应式数据</p>
-<p><img src="/../images/20201026171519.png"></p>
-<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// store/useLoginUser 提供当前登录用户的共享数据</span></span><br><span class="line"><span class="comment">// 以下代码仅供参考</span></span><br><span class="line"><span class="keyword">import</span> &#123; reactive, readonly &#125; <span class="keyword">from</span> <span class="string">&quot;vue&quot;</span>;</span><br><span class="line"><span class="keyword">import</span> * <span class="keyword">as</span> userServ <span class="keyword">from</span> <span class="string">&quot;../api/user&quot;</span>; <span class="comment">// 导入api模块</span></span><br><span class="line"><span class="comment">// 创建默认的全局单例响应式数据，仅供该模块内部使用</span></span><br><span class="line"><span class="keyword">const</span> state = <span class="title function_">reactive</span>(&#123; <span class="attr">user</span>: <span class="literal">null</span>, <span class="attr">loading</span>: <span class="literal">false</span> &#125;);</span><br><span class="line"><span class="comment">// 对外暴露的数据是只读的，不能直接修改</span></span><br><span class="line"><span class="comment">// 也可以进一步使用toRefs进行封装，从而避免解构或展开后响应式丢失</span></span><br><span class="line"><span class="keyword">export</span> <span class="keyword">const</span> loginUserStore = <span class="title function_">readonly</span>(state);</span><br><span class="line"></span><br><span class="line"><span class="comment">// 登录</span></span><br><span class="line"><span class="keyword">export</span> <span class="keyword">async</span> <span class="keyword">function</span> <span class="title function_">login</span>(<span class="params">loginId, loginPwd</span>) &#123;</span><br><span class="line">  state.<span class="property">loading</span> = <span class="literal">true</span>;</span><br><span class="line">  <span class="keyword">const</span> user = <span class="keyword">await</span> userServ.<span class="title function_">login</span>(loginId, loginPwd);</span><br><span class="line">  state.<span class="property">loginUser</span> = user;</span><br><span class="line">  state.<span class="property">loading</span> = <span class="literal">false</span>;</span><br><span class="line">&#125;</span><br><span class="line"><span class="comment">// 退出</span></span><br><span class="line"><span class="keyword">export</span> <span class="keyword">async</span> <span class="keyword">function</span> <span class="title function_">loginOut</span>(<span class="params"></span>) &#123;</span><br><span class="line">  state.<span class="property">loading</span> = <span class="literal">true</span>;</span><br><span class="line">  <span class="keyword">await</span> userServ.<span class="title function_">loginOut</span>();</span><br><span class="line">  state.<span class="property">loading</span> = <span class="literal">false</span>;</span><br><span class="line">  state.<span class="property">loginUser</span> = <span class="literal">null</span>;</span><br><span class="line">&#125;</span><br><span class="line"><span class="comment">// 恢复登录状态</span></span><br><span class="line"><span class="keyword">export</span> <span class="keyword">async</span> <span class="keyword">function</span> <span class="title function_">whoAmI</span>(<span class="params"></span>) &#123;</span><br><span class="line">  state.<span class="property">loading</span> = <span class="literal">true</span>;</span><br><span class="line">  <span class="keyword">const</span> user = <span class="keyword">await</span> userServ.<span class="title function_">whoAmI</span>();</span><br><span class="line">  state.<span class="property">loading</span> = <span class="literal">false</span>;</span><br><span class="line">  state.<span class="property">loginUser</span> = user;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-
-
-<h1 id="Provide-Inject"><a href="#Provide-Inject" class="headerlink" title="Provide&amp;Inject"></a>Provide&amp;Inject</h1><p>在<code>vue2</code>中，提供了<code>provide</code>和<code>inject</code>配置，可以让开发者在高层组件中注入数据，然后在后代组件中使用</p>
-<p><img src="/../images/20201026173949.png"></p>
-<p>除了兼容<code>vue2</code>的配置式注入，<code>vue3</code>在<code>composition api</code>中添加了<code>provide</code>和<code>inject</code>方法，可以在<code>setup</code>函数中注入和使用数据</p>
-<p><img src="/../images/20201026174039.png"></p>
-<p>考虑到有些数据需要在整个vue应用中使用，<code>vue3</code>还在应用实例中加入了<code>provide</code>方法，用于提供整个应用的共享数据</p>
-<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="title function_">creaetApp</span>(<span class="title class_">App</span>)</span><br><span class="line">  .<span class="title function_">provide</span>(<span class="string">&quot;foo&quot;</span>, <span class="title function_">ref</span>(<span class="number">1</span>))</span><br><span class="line">  .<span class="title function_">provide</span>(<span class="string">&quot;bar&quot;</span>, <span class="title function_">ref</span>(<span class="number">2</span>))</span><br><span class="line">	.<span class="title function_">mount</span>(<span class="string">&quot;#app&quot;</span>);</span><br></pre></td></tr></table></figure>
-
-
-<p><img src="/../images/20201026174611.png"></p>
-<p>因此，我们可以利用这一点，在整个vue应用中提供共享数据</p>
-<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// store/useLoginUser 提供当前登录用户的共享数据</span></span><br><span class="line"><span class="comment">// 以下代码仅供参考</span></span><br><span class="line"><span class="keyword">import</span> &#123; readonly, reactive, inject &#125; <span class="keyword">from</span> <span class="string">&quot;vue&quot;</span>;</span><br><span class="line"><span class="keyword">const</span> key = <span class="title class_">Symbol</span>(); <span class="comment">// Provide的key</span></span><br><span class="line"></span><br><span class="line"><span class="comment">// 在传入的vue应用实例中提供数据</span></span><br><span class="line"><span class="keyword">export</span> <span class="keyword">function</span> <span class="title function_">provideStore</span>(<span class="params">app</span>) &#123;</span><br><span class="line">  <span class="comment">// 创建默认的响应式数据</span></span><br><span class="line">  <span class="keyword">const</span> state = <span class="title function_">reactive</span>(&#123; <span class="attr">user</span>: <span class="literal">null</span>, <span class="attr">loading</span>: <span class="literal">false</span> &#125;);</span><br><span class="line">  <span class="comment">// 登录</span></span><br><span class="line">  <span class="keyword">async</span> <span class="keyword">function</span> <span class="title function_">login</span>(<span class="params">loginId, loginPwd</span>) &#123;</span><br><span class="line">    state.<span class="property">loading</span> = <span class="literal">true</span>;</span><br><span class="line">    <span class="keyword">const</span> user = <span class="keyword">await</span> userServ.<span class="title function_">login</span>(loginId, loginPwd);</span><br><span class="line">    state.<span class="property">loginUser</span> = user;</span><br><span class="line">    state.<span class="property">loading</span> = <span class="literal">false</span>;</span><br><span class="line">  &#125;</span><br><span class="line">  <span class="comment">// 退出</span></span><br><span class="line">  <span class="keyword">async</span> <span class="keyword">function</span> <span class="title function_">loginOut</span>(<span class="params"></span>) &#123;</span><br><span class="line">    state.<span class="property">loading</span> = <span class="literal">true</span>;</span><br><span class="line">    <span class="keyword">await</span> userServ.<span class="title function_">loginOut</span>();</span><br><span class="line">    state.<span class="property">loading</span> = <span class="literal">false</span>;</span><br><span class="line">    state.<span class="property">loginUser</span> = <span class="literal">null</span>;</span><br><span class="line">  &#125;</span><br><span class="line">  <span class="comment">// 恢复登录状态</span></span><br><span class="line">  <span class="keyword">async</span> <span class="keyword">function</span> <span class="title function_">whoAmI</span>(<span class="params"></span>) &#123;</span><br><span class="line">    state.<span class="property">loading</span> = <span class="literal">true</span>;</span><br><span class="line">    <span class="keyword">const</span> user = <span class="keyword">await</span> userServ.<span class="title function_">whoAmI</span>();</span><br><span class="line">    state.<span class="property">loading</span> = <span class="literal">false</span>;</span><br><span class="line">    state.<span class="property">loginUser</span> = user;</span><br><span class="line">  &#125;</span><br><span class="line">  <span class="comment">// 提供全局数据</span></span><br><span class="line">  app.<span class="title function_">provide</span>(key, &#123;</span><br><span class="line">    <span class="attr">state</span>: <span class="title function_">readonly</span>(state), <span class="comment">// 对外只读</span></span><br><span class="line">    login,</span><br><span class="line">    loginOut,</span><br><span class="line">    whoAmI,</span><br><span class="line">  &#125;);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">export</span> <span class="keyword">function</span> <span class="title function_">useStore</span>(<span class="params">defaultValue = <span class="literal">null</span></span>) &#123;</span><br><span class="line">  <span class="keyword">return</span> <span class="title function_">inject</span>(key, defaultValue);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">// store/index</span></span><br><span class="line"><span class="comment">// 应用所有store</span></span><br><span class="line"><span class="keyword">import</span> &#123; provideStore <span class="keyword">as</span> provideLoginUserStore &#125; <span class="keyword">from</span> <span class="string">&quot;./useLoginUser&quot;</span>;</span><br><span class="line"><span class="comment">// 继续导入其他共享数据模块...</span></span><br><span class="line"><span class="comment">// import &#123; provideStore as provideNewsStore &#125; from &quot;./useNews&quot;</span></span><br><span class="line"></span><br><span class="line"><span class="comment">// 提供统一的数据注入接口</span></span><br><span class="line"><span class="keyword">export</span> <span class="keyword">default</span> <span class="keyword">function</span> <span class="title function_">provideStore</span>(<span class="params">app</span>) &#123;</span><br><span class="line">  <span class="title function_">provideLoginUserStore</span>(app);</span><br><span class="line">  <span class="comment">// 继续注入其他共享数据</span></span><br><span class="line">  <span class="comment">// provideNewsStore(app);</span></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">// main.js</span></span><br><span class="line"><span class="keyword">import</span> &#123; createApp &#125; <span class="keyword">from</span> <span class="string">&quot;vue&quot;</span>;</span><br><span class="line"><span class="keyword">import</span> provideStore <span class="keyword">from</span> <span class="string">&quot;./store&quot;</span>;</span><br><span class="line"><span class="keyword">const</span> app = <span class="title function_">createApp</span>(<span class="title class_">App</span>);</span><br><span class="line"><span class="title function_">provideStore</span>(app);</span><br><span class="line">app.<span class="title function_">mount</span>(<span class="string">&quot;#app&quot;</span>);</span><br><span class="line"></span><br></pre></td></tr></table></figure>
-
-
-
-<h1 id="对比"><a href="#对比" class="headerlink" title="对比"></a>对比</h1><table>
-<thead>
-<tr>
-<th></th>
-<th>vuex</th>
-<th>global state</th>
-<th>Provide&amp;Inject</th>
-</tr>
-</thead>
-<tbody><tr>
-<td>组件数据共享</td>
-<td>✅</td>
-<td>✅</td>
-<td>✅</td>
-</tr>
-<tr>
-<td>可否脱离组件</td>
-<td>✅</td>
-<td>✅</td>
-<td>❌</td>
-</tr>
-<tr>
-<td>调试工具</td>
-<td>✅</td>
-<td>❌</td>
-<td>✅</td>
-</tr>
-<tr>
-<td>状态树</td>
-<td>✅</td>
-<td>自行决定</td>
-<td>自行决定</td>
-</tr>
-<tr>
-<td>量级</td>
-<td>重</td>
-<td>轻</td>
-<td>轻</td>
-</tr>
-</tbody></table>
-
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
 
   
   <nav class="pagination">
@@ -1600,7 +1293,7 @@
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">63</span>
+          <span class="site-state-item-count">65</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>
