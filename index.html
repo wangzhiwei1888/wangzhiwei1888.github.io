@@ -149,6 +149,166 @@
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="http://example.com/2025/04/01/YOLOv8-%E6%A8%A1%E5%9E%8B%E8%AE%AD%E7%BB%83/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="wangzhiwei">
+      <meta itemprop="description" content="javascript nodejs web developer...">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="WBlog">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/2025/04/01/YOLOv8-%E6%A8%A1%E5%9E%8B%E8%AE%AD%E7%BB%83/" class="post-title-link" itemprop="url">YOLOv8 模型训练</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+              
+
+              <time title="创建时间：2025-04-01 09:57:57 / 修改时间：11:09:35" itemprop="dateCreated datePublished" datetime="2025-04-01T09:57:57+08:00">2025-04-01</time>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <p>模型训练</p>
+<p>yolo task&#x3D;detect mode&#x3D;train data&#x3D;yolo-qie.yaml model&#x3D;yolov8n.pt epochs&#x3D;50 workers&#x3D;1 batch&#x3D;16</p>
+<p>训练的三种方式</p>
+<p>命令行方式</p>
+<p>cd &#x2F;Users&#x2F;wangzhiwei&#x2F;study&#x2F;ai&#x2F;anaconda-study&#x2F;ultralytics</p>
+<p>yolo task&#x3D;detect mode&#x3D;train data&#x3D;yolo-qie.yaml model&#x3D;yolov8n.pt epochs&#x3D;50 workers&#x3D;1 batch&#x3D;16</p>
+<p>Results saved to &#x2F;Users&#x2F;wangzhiwei&#x2F;study&#x2F;ai&#x2F;anaconda-study&#x2F;ultralytics&#x2F;runs&#x2F;detect&#x2F;train8</p>
+<p>脚本方式</p>
+<p>├── datasets (ultralytics 项目外)<br>│   └── qie<br>│       ├── images<br>│       │   ├── train<br>│       │   └── val<br>│       ├── labels<br>│       │   ├── classes.txt<br>│       │   ├── train<br>│       │   ├── train.cache<br>│       │   ├── val<br>│       │   └── val.cache<br>│       └── yolo11n.pt<br>└── ultralytics<br>    └── yolov11-train.py</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">yolo-qie.yaml</span><br><span class="line"></span><br><span class="line">path: qie # dataset root dir</span><br><span class="line">train: images/train # train images (relative to &#x27;path&#x27;) 4 images</span><br><span class="line">val: images/val # val images (relative to &#x27;path&#x27;) 4 images</span><br><span class="line">test: # test images (optional)</span><br><span class="line"></span><br><span class="line"># Classes</span><br><span class="line">names:</span><br><span class="line">  0: qie</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">yolov11-train.py</span><br><span class="line"></span><br><span class="line">from ultralytics import YOLO</span><br><span class="line">model = YOLO(&quot;yolov8n.pt&quot;) # yolo11 的仓库也可以用 yolov8n.pt 训练</span><br><span class="line">model.train(data=&quot;yolo-qie.yaml&quot;, epochs=50, batch=16, workers=0)</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">训练结果</span><br><span class="line">Results saved to /Users/wangzhiwei/study/ai/anaconda-study/ultralytics/runs/detect/train7</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+
+<p>默认配置方式<br><img src="/../images/yolo_train_10.png"></p>
+<p>验证训练结果<br>cd &#x2F;Users&#x2F;wangzhiwei&#x2F;study&#x2F;ai&#x2F;anaconda-study&#x2F;ultralytics</p>
+<p>yolo detect predict model&#x3D;runs&#x2F;detect&#x2F;train8&#x2F;weights&#x2F;best.pt source&#x3D;.&#x2F;video.mp4 show&#x3D;True conf&#x3D;0.03</p>
+<p>参考：<br><a target="_blank" rel="noopener" href="https://www.bilibili.com/video/BV1CfQqYUEL5?spm_id_from=333.788.player.switch&vd_source=ffda878df0ed45bee1ade91d8f451048&p=5">https://www.bilibili.com/video/BV1CfQqYUEL5?spm_id_from=333.788.player.switch&amp;vd_source=ffda878df0ed45bee1ade91d8f451048&amp;p=5</a></p>
+
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="http://example.com/2025/03/31/YOLOv8-%E6%95%B0%E6%8D%AE%E9%9B%86%E6%9E%84%E5%BB%BA/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="wangzhiwei">
+      <meta itemprop="description" content="javascript nodejs web developer...">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="WBlog">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/2025/03/31/YOLOv8-%E6%95%B0%E6%8D%AE%E9%9B%86%E6%9E%84%E5%BB%BA/" class="post-title-link" itemprop="url">YOLOv8 数据集构建</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2025-03-31 16:02:54" itemprop="dateCreated datePublished" datetime="2025-03-31T16:02:54+08:00">2025-03-31</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-calendar-check-o"></i>
+                </span>
+                <span class="post-meta-item-text">更新于</span>
+                <time title="修改时间：2025-04-01 09:57:28" itemprop="dateModified" datetime="2025-04-01T09:57:28+08:00">2025-04-01</time>
+              </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <ol>
+<li>准备数据集</li>
+<li>labelimg 标注</li>
+<li>make sence 数据集标注</li>
+<li>roboflow 公开数据集</li>
+</ol>
+<p>数据准备：</p>
+<p>图片类型数据： 直接标注<br>视频类型数据： 抽帧处理，导出为图片，再进行标注</p>
+<p>extract.py 文件 提取视频帧</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">import cv2</span><br><span class="line">import os</span><br><span class="line"></span><br><span class="line">def extract_frames(video_path, output_folder, frame_interval=1):</span><br><span class="line">    # Print the video path for verification</span><br><span class="line">    print(f&quot;Attempting to open video file: &#123;video_path&#125;&quot;)</span><br><span class="line"></span><br><span class="line">    # Check if the video file exists</span><br><span class="line">    if not os.path.exists(video_path):</span><br><span class="line">        print(f&quot;Error: Video file does not exist at &#123;video_path&#125;&quot;)</span><br><span class="line">        return</span><br><span class="line"></span><br><span class="line">    # Create the output folder if it doesn&#x27;t exist</span><br><span class="line">    if not os.path.exists(output_folder):</span><br><span class="line">        os.makedirs(output_folder)</span><br><span class="line"></span><br><span class="line">    # Open the video file</span><br><span class="line">    cap = cv2.VideoCapture(video_path)</span><br><span class="line">    if not cap.isOpened():</span><br><span class="line">        print(&quot;Error: Could not open video.&quot;)</span><br><span class="line">        return</span><br><span class="line"></span><br><span class="line">    frame_count = 0</span><br><span class="line">    saved_frame_count = 0</span><br><span class="line"></span><br><span class="line">    while True:</span><br><span class="line">        # Read a frame from the video</span><br><span class="line">        ret, frame = cap.read()</span><br><span class="line">        if not ret:</span><br><span class="line">            break</span><br><span class="line"></span><br><span class="line">        # Save the frame every &#x27;frame_interval&#x27; frames</span><br><span class="line">        if frame_count % frame_interval == 0:</span><br><span class="line">            frame_filename = os.path.join(output_folder, f&quot;frame_&#123;saved_frame_count:04d&#125;.jpg&quot;)</span><br><span class="line">            cv2.imwrite(frame_filename, frame)</span><br><span class="line">            saved_frame_count += 1</span><br><span class="line"></span><br><span class="line">        frame_count += 1</span><br><span class="line"></span><br><span class="line">    # Release the video capture object</span><br><span class="line">    cap.release()</span><br><span class="line">    print(f&quot;Extracted &#123;saved_frame_count&#125; frames.&quot;)</span><br><span class="line"></span><br><span class="line"># Example usage</span><br><span class="line">video_path = &#x27;./video.mp4&#x27;</span><br><span class="line">output_folder = &#x27;./output_frames&#x27;</span><br><span class="line">extract_frames(video_path, output_folder, frame_interval=30)</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<p>labelimg 标注：</p>
+<p>pip install labelimg</p>
+<p>labelimg –version</p>
+<p>命令行执行 labelimg 命令打开 labelimg mac 环境操作发生闪退。</p>
+<p>make sense 数据集标注：<br><a target="_blank" rel="noopener" href="https://www.makesense.ai/">https://www.makesense.ai/</a></p>
+<p>公开数据集<br><a target="_blank" rel="noopener" href="https://public.roboflow.com/object-detection">https://public.roboflow.com/object-detection</a></p>
+<p><a target="_blank" rel="noopener" href="https://universe.roboflow.com/">https://universe.roboflow.com/</a></p>
+<p>参考：<br><a target="_blank" rel="noopener" href="https://www.bilibili.com/video/BV1CfQqYUEL5?spm_id_from=333.788.videopod.episodes&vd_source=ffda878df0ed45bee1ade91d8f451048&p=4">https://www.bilibili.com/video/BV1CfQqYUEL5?spm_id_from=333.788.videopod.episodes&amp;vd_source=ffda878df0ed45bee1ade91d8f451048&amp;p=4</a></p>
+
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
     <link itemprop="mainEntityOfPage" href="http://example.com/2025/03/31/YOLOV8%E6%A8%A1%E5%9E%8B%E9%A2%84%E6%B5%8B/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -1875,164 +2035,6 @@
   
   
 
-      
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="http://example.com/2025/02/24/%E4%B8%AD%E6%96%87%E6%96%87%E5%AD%97%E5%A4%84%E7%90%86%EF%BC%88%E6%9C%97%E8%AF%BB%EF%BC%8C%E6%8B%BC%E9%9F%B3%EF%BC%8C%E7%BB%84%E8%AF%8D%EF%BC%8C%E6%89%8B%E5%86%99%EF%BC%8C%E7%AC%94%E7%94%BB%EF%BC%89-%E6%96%87%E5%AD%97%E8%AF%86%E5%88%AB/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.gif">
-      <meta itemprop="name" content="wangzhiwei">
-      <meta itemprop="description" content="javascript nodejs web developer...">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="WBlog">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/2025/02/24/%E4%B8%AD%E6%96%87%E6%96%87%E5%AD%97%E5%A4%84%E7%90%86%EF%BC%88%E6%9C%97%E8%AF%BB%EF%BC%8C%E6%8B%BC%E9%9F%B3%EF%BC%8C%E7%BB%84%E8%AF%8D%EF%BC%8C%E6%89%8B%E5%86%99%EF%BC%8C%E7%AC%94%E7%94%BB%EF%BC%89-%E6%96%87%E5%AD%97%E8%AF%86%E5%88%AB/" class="post-title-link" itemprop="url">中文文字处理（朗读，拼音，组词，手写，笔画）+ 文字识别</a>
-        </h2>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              <span class="post-meta-item-text">发表于</span>
-
-              <time title="创建时间：2025-02-24 14:51:29" itemprop="dateCreated datePublished" datetime="2025-02-24T14:51:29+08:00">2025-02-24</time>
-            </span>
-              <span class="post-meta-item">
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-calendar-check-o"></i>
-                </span>
-                <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2025-03-18 11:10:52" itemprop="dateModified" datetime="2025-03-18T11:10:52+08:00">2025-03-18</time>
-              </span>
-
-          
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <h3 id="中文文字处理（朗读，拼音，组词，手写，笔画）-文字识别"><a href="#中文文字处理（朗读，拼音，组词，手写，笔画）-文字识别" class="headerlink" title="中文文字处理（朗读，拼音，组词，手写，笔画）+ 文字识别"></a>中文文字处理（朗读，拼音，组词，手写，笔画）+ 文字识别</h3><h3 id="朗读，拼音，组词"><a href="#朗读，拼音，组词" class="headerlink" title="朗读，拼音，组词"></a>朗读，拼音，组词</h3><p><a target="_blank" rel="noopener" href="https://theajack.github.io/cnchar/doc/words.html#_1-%E4%BB%8B%E7%BB%8D">https://theajack.github.io/cnchar/doc/words.html#_1-%E4%BB%8B%E7%BB%8D</a></p>
-<h3 id="手写，笔画"><a href="#手写，笔画" class="headerlink" title="手写，笔画"></a>手写，笔画</h3><p><a target="_blank" rel="noopener" href="https://hanziwriter.org/cn/docs.html">https://hanziwriter.org/cn/docs.html</a></p>
-<h3 id="文字识别-（电脑打的字，识别率比较高，手写识别率比较低）"><a href="#文字识别-（电脑打的字，识别率比较高，手写识别率比较低）" class="headerlink" title="文字识别 （电脑打的字，识别率比较高，手写识别率比较低）"></a>文字识别 （电脑打的字，识别率比较高，手写识别率比较低）</h3><p><a target="_blank" rel="noopener" href="https://github.com/naptha/tesseract.js?tab=readme-ov-file">https://github.com/naptha/tesseract.js?tab=readme-ov-file</a></p>
-<p><a target="_blank" rel="noopener" href="https://www.bilibili.com/video/BV1MP4y167sn/?spm_id_from=333.337.search-card.all.click">https://www.bilibili.com/video/BV1MP4y167sn/?spm_id_from=333.337.search-card.all.click</a></p>
-<h3 id="文字识别-（手写识别率比较高）"><a href="#文字识别-（手写识别率比较高）" class="headerlink" title="文字识别 （手写识别率比较高）"></a>文字识别 （手写识别率比较高）</h3><p><a target="_blank" rel="noopener" href="https://ai.baidu.com/tech/ocr">https://ai.baidu.com/tech/ocr</a></p>
-<p>个人认证 500 次&#x2F;月</p>
-<p><a target="_blank" rel="noopener" href="https://www.xfyun.cn/doc/words/wordRecg/API.html#%E6%8E%A5%E5%8F%A3%E8%AF%B4%E6%98%8E">https://www.xfyun.cn/doc/words/wordRecg/API.html#%E6%8E%A5%E5%8F%A3%E8%AF%B4%E6%98%8E</a></p>
-<p>服务量 10万<br>有效期 90天<br>单价 免费</p>
-<p>野路子<br><a target="_blank" rel="noopener" href="https://ocr.wdku.net/index_handwriting">https://ocr.wdku.net/index_handwriting</a></p>
-<h3 id="其他文字识别方案"><a href="#其他文字识别方案" class="headerlink" title="其他文字识别方案"></a>其他文字识别方案</h3><p>Umi-OCR 文字识别工具 （免费+中文）<br><a target="_blank" rel="noopener" href="https://github.com/hiroi-sora/Umi-OCR?tab=readme-ov-file">https://github.com/hiroi-sora/Umi-OCR?tab=readme-ov-file</a><br><a target="_blank" rel="noopener" href="https://www.bilibili.com/video/BV1bxHZeoE3w/?spm_id_from=333.337.search-card.all.click&vd_source=ffda878df0ed45bee1ade91d8f451048">https://www.bilibili.com/video/BV1bxHZeoE3w/?spm_id_from=333.337.search-card.all.click&amp;vd_source=ffda878df0ed45bee1ade91d8f451048</a></p>
-<p>api 文档<br><a target="_blank" rel="noopener" href="https://github.com/hiroi-sora/Umi-OCR_v2/blob/main/docs/README_HTTP.md">https://github.com/hiroi-sora/Umi-OCR_v2/blob/main/docs/README_HTTP.md</a></p>
-<p><img src="/../images/o_01.png"></p>
-
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
-      
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="http://example.com/2025/02/21/langchain-chatchat-ubuntu%E4%B8%8B%E5%AE%89%E8%A3%85/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.gif">
-      <meta itemprop="name" content="wangzhiwei">
-      <meta itemprop="description" content="javascript nodejs web developer...">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="WBlog">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/2025/02/21/langchain-chatchat-ubuntu%E4%B8%8B%E5%AE%89%E8%A3%85/" class="post-title-link" itemprop="url">langchain-chatchat ubuntu下安装</a>
-        </h2>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              <span class="post-meta-item-text">发表于</span>
-
-              <time title="创建时间：2025-02-21 16:09:35" itemprop="dateCreated datePublished" datetime="2025-02-21T16:09:35+08:00">2025-02-21</time>
-            </span>
-              <span class="post-meta-item">
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-calendar-check-o"></i>
-                </span>
-                <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2025-03-18 11:10:52" itemprop="dateModified" datetime="2025-03-18T11:10:52+08:00">2025-03-18</time>
-              </span>
-
-          
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <h2 id="环境安装-conda"><a href="#环境安装-conda" class="headerlink" title="环境安装 conda"></a>环境安装 conda</h2><p>conda python 版本管理 工具</p>
-<p>unbutu 下安装 conda</p>
-<p>wget <a target="_blank" rel="noopener" href="https://repo.anaconda.com/miniconda/Miniconda3-latest-Linux-x86_64.sh">https://repo.anaconda.com/miniconda/Miniconda3-latest-Linux-x86_64.sh</a></p>
-<p>chmod +x Miniconda3-latest-Linux-x86_64.sh<br>.&#x2F;Miniconda3-latest-Linux-x86_64.sh</p>
-<p>yes</p>
-<p>确认</p>
-<p>yes</p>
-<h2 id="安装python"><a href="#安装python" class="headerlink" title="安装python"></a>安装python</h2><p>conda create -n ttt python&#x3D;3.10</p>
-<p>切换环境<br>conda activate ttt</p>
-<h2 id="安装-langchain-chatchat"><a href="#安装-langchain-chatchat" class="headerlink" title="安装 langchain-chatchat"></a>安装 langchain-chatchat</h2><p>采用清华源安装<br>pip install “langchain-chatchat[xinference]” -U -i <a target="_blank" rel="noopener" href="https://pypi.tuna.tsinghua.edu.cn/simple">https://pypi.tuna.tsinghua.edu.cn/simple</a></p>
-<p>pip install “xinference[all]” -i <a target="_blank" rel="noopener" href="https://pypi.tuna.tsinghua.edu.cn/simple">https://pypi.tuna.tsinghua.edu.cn/simple</a></p>
-<p>XINFERENCE_MODEL_SRC&#x3D;modelscope xinference-local –host 0.0.0.0 –port 9997</p>
-<p><img src="/../images/l_01.png"></p>
-<p><img src="/../images/l_02.png"></p>
-<p>机器配置</p>
-<p>要有显卡</p>
-<p>参考：<br><a target="_blank" rel="noopener" href="https://github.com/chatchat-space/Langchain-Chatchat">https://github.com/chatchat-space/Langchain-Chatchat</a> </p>
-<p><a target="_blank" rel="noopener" href="https://www.bilibili.com/video/BV1NQUNYWEb8/?spm_id_from=333.337.search-card.all.click&vd_source=ffda878df0ed45bee1ade91d8f451048">https://www.bilibili.com/video/BV1NQUNYWEb8/?spm_id_from=333.337.search-card.all.click&amp;vd_source=ffda878df0ed45bee1ade91d8f451048</a></p>
-
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
 
   
   <nav class="pagination">
@@ -2102,7 +2104,7 @@
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">65</span>
+          <span class="site-state-item-count">67</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>

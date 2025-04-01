@@ -149,6 +149,369 @@
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="http://example.com/2024/12/28/react19-0-0-%E7%89%88%E6%9C%AC%E5%92%8C16-8%E7%89%88%E6%9C%AC%E7%9B%B8%E6%AF%94%E6%9B%B4%E6%96%B0%E4%BA%86%E5%93%AA%E4%BA%9B%E5%8A%9F%E8%83%BD/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="wangzhiwei">
+      <meta itemprop="description" content="javascript nodejs web developer...">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="WBlog">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/2024/12/28/react19-0-0-%E7%89%88%E6%9C%AC%E5%92%8C16-8%E7%89%88%E6%9C%AC%E7%9B%B8%E6%AF%94%E6%9B%B4%E6%96%B0%E4%BA%86%E5%93%AA%E4%BA%9B%E5%8A%9F%E8%83%BD/" class="post-title-link" itemprop="url">react19.0.0 版本和16.8版本相比更新了哪些功能</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2024-12-28 09:42:17" itemprop="dateCreated datePublished" datetime="2024-12-28T09:42:17+08:00">2024-12-28</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-calendar-check-o"></i>
+                </span>
+                <span class="post-meta-item-text">更新于</span>
+                <time title="修改时间：2025-03-18 11:10:52" itemprop="dateModified" datetime="2025-03-18T11:10:52+08:00">2025-03-18</time>
+              </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/react/" itemprop="url" rel="index"><span itemprop="name">react</span></a>
+                </span>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <p>React 19.0.0 并不是一个官方发布的版本号。React 的最新稳定版本是 18.x 系列。假设你指的是 React 18.0.0 相对于 React 16.8.0 的更新，以下是主要的更新和新功能：</p>
+<h3 id="React-18-0-0-相对于-React-16-8-0-的主要更新"><a href="#React-18-0-0-相对于-React-16-8-0-的主要更新" class="headerlink" title="React 18.0.0 相对于 React 16.8.0 的主要更新"></a>React 18.0.0 相对于 React 16.8.0 的主要更新</h3><ol>
+<li><p><strong>并发模式（Concurrent Mode）</strong></p>
+<ul>
+<li><strong>自动批处理（Automatic Batching）</strong>: React 18 提供了自动批处理功能，可以将多个状态更新合并到一个批处理中，从而减少不必要的重渲染。</li>
+<li><strong>Suspense</strong>: 提供了更强大的 Suspense 功能，可以用于数据获取和代码分割，支持并发渲染。</li>
+</ul>
+</li>
+<li><p><strong>新的 API</strong></p>
+<ul>
+<li><strong>startTransition</strong>: 用于标记非紧急更新，帮助优化性能。</li>
+<li><strong>useId</strong>: 生成唯一的 ID，用于无障碍（ARIA）属性。</li>
+<li><strong>useSyncExternalStore</strong>: 用于集成外部存储系统，如 Redux。</li>
+</ul>
+</li>
+<li><p><strong>更好的性能</strong></p>
+<ul>
+<li><strong>时间切片（Time Slicing）</strong>: 允许 React 在渲染过程中中断并重新开始，以避免阻塞主线程。</li>
+<li><strong>优先级调度（Priority Scheduling）</strong>: 根据更新的优先级进行调度，确保重要的更新优先渲染。</li>
+</ul>
+</li>
+<li><p><strong>新的 Hooks</strong></p>
+<ul>
+<li><strong>useTransition</strong>: 用于标记非紧急更新，帮助优化性能。</li>
+<li><strong>useDeferredValue</strong>: 用于延迟更新非关键部分，保持 UI 响应性。</li>
+<li><strong>useId</strong>: 生成唯一的 ID，用于无障碍（ARIA）属性。</li>
+<li><strong>useSyncExternalStore</strong>: 用于集成外部存储系统，如 Redux。</li>
+</ul>
+</li>
+<li><p><strong>更好的开发者体验</strong></p>
+<ul>
+<li><strong>Strict Mode</strong>: 提供更多的警告和检查，帮助开发者发现潜在的问题。</li>
+<li><strong>更好的错误边界</strong>: 改进了错误边界的处理，确保在渲染过程中发生的错误不会导致整个应用崩溃。</li>
+</ul>
+</li>
+<li><p><strong>更好的服务器端渲染（SSR）</strong></p>
+<ul>
+<li><strong>Streaming SSR</strong>: 支持流式服务器端渲染，可以更快地将内容发送到客户端。</li>
+<li><strong>Selective Hydration</strong>: 允许部分组件进行水合，而不是整个应用，从而提高性能。</li>
+</ul>
+</li>
+</ol>
+<h3 id="React-16-8-0-的主要更新"><a href="#React-16-8-0-的主要更新" class="headerlink" title="React 16.8.0 的主要更新"></a>React 16.8.0 的主要更新</h3><p>React 16.8.0 是一个重要的版本，因为它引入了 Hooks，这是 React 的一个重大更新。以下是 React 16.8.0 的主要更新：</p>
+<ol>
+<li><p><strong>Hooks</strong></p>
+<ul>
+<li><strong>useState</strong>: 允许在函数组件中使用状态。</li>
+<li><strong>useEffect</strong>: 允许在函数组件中执行副作用操作。</li>
+<li><strong>useContext</strong>: 允许在函数组件中使用 Context。</li>
+<li><strong>useReducer</strong>: 允许在函数组件中使用 reducer 模式。</li>
+<li><strong>useCallback</strong>: 允许在函数组件中缓存回调函数。</li>
+<li><strong>useMemo</strong>: 允许在函数组件中缓存计算结果。</li>
+<li><strong>useRef</strong>: 允许在函数组件中创建可变的引用。</li>
+<li><strong>useImperativeHandle</strong>: 允许在函数组件中自定义暴露给父组件的实例值。</li>
+<li><strong>useLayoutEffect</strong>: 允许在函数组件中执行同步的副作用操作。</li>
+</ul>
+</li>
+<li><p><strong>Fragments</strong></p>
+<ul>
+<li>支持 <code>key</code> 属性的 Fragments，允许在列表中使用 Fragments 而不引入额外的 DOM 节点。</li>
+</ul>
+</li>
+<li><p><strong>Profiler</strong></p>
+<ul>
+<li>引入了 <code>Profiler</code> 组件，用于测量组件树的渲染性能。</li>
+</ul>
+</li>
+<li><p><strong>Strict Mode</strong></p>
+<ul>
+<li>提供了 Strict Mode，帮助开发者发现潜在的问题。</li>
+</ul>
+</li>
+</ol>
+<h3 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h3><ul>
+<li><strong>React 18.0.0</strong> 引入了并发模式、新的 API、更好的性能、新的 Hooks 和更好的开发者体验。</li>
+<li><strong>React 16.8.0</strong> 引入了 Hooks，这是 React 的一个重大更新，允许在函数组件中使用状态和副作用。</li>
+</ul>
+<p>如果你指的是其他版本的 React，请提供正确的版本号，以便我能更准确地回答你的问题。</p>
+
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="http://example.com/2024/12/28/%E9%A1%B9%E7%9B%AE%E4%B8%AD%E7%9A%84%E7%BB%84%E4%BB%B6%E5%A6%82%E4%BD%95%E6%89%93%E5%8C%85%E6%88%90%E7%8B%AC%E7%AB%8B%E8%BF%90%E8%A1%8C%E7%9A%84js/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="wangzhiwei">
+      <meta itemprop="description" content="javascript nodejs web developer...">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="WBlog">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/2024/12/28/%E9%A1%B9%E7%9B%AE%E4%B8%AD%E7%9A%84%E7%BB%84%E4%BB%B6%E5%A6%82%E4%BD%95%E6%89%93%E5%8C%85%E6%88%90%E7%8B%AC%E7%AB%8B%E8%BF%90%E8%A1%8C%E7%9A%84js/" class="post-title-link" itemprop="url">项目中的组件如何打包成独立运行的js</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2024-12-28 09:30:46" itemprop="dateCreated datePublished" datetime="2024-12-28T09:30:46+08:00">2024-12-28</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-calendar-check-o"></i>
+                </span>
+                <span class="post-meta-item-text">更新于</span>
+                <time title="修改时间：2025-03-18 11:10:52" itemprop="dateModified" datetime="2025-03-18T11:10:52+08:00">2025-03-18</time>
+              </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <p>要将项目中的组件打包成独立运行的 JavaScript 文件，可以使用 Webpack 或 Vite 等构建工具。以下是使用这两种工具的详细步骤：</p>
+<h3 id="使用-Webpack-打包组件"><a href="#使用-Webpack-打包组件" class="headerlink" title="使用 Webpack 打包组件"></a>使用 Webpack 打包组件</h3><ol>
+<li><p><strong>安装 Webpack 和相关依赖</strong></p>
+<p>首先，确保你已经安装了 Node.js 和 npm。然后在项目目录中安装 Webpack 和 Webpack CLI：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">npm install --save-dev webpack webpack-cli</span><br></pre></td></tr></table></figure>
+</li>
+<li><p><strong>创建 Webpack 配置文件</strong></p>
+<p>在项目根目录下创建一个 <code>webpack.config.js</code> 文件，并配置 Webpack 以打包你的组件：</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> path = <span class="built_in">require</span>(<span class="string">&#x27;path&#x27;</span>)</span><br><span class="line"></span><br><span class="line"><span class="variable language_">module</span>.<span class="property">exports</span> = &#123;</span><br><span class="line">  <span class="attr">entry</span>: <span class="string">&#x27;./src/index.js&#x27;</span>, <span class="comment">// 你的组件入口文件</span></span><br><span class="line">  <span class="attr">output</span>: &#123;</span><br><span class="line">    <span class="attr">path</span>: path.<span class="title function_">resolve</span>(__dirname, <span class="string">&#x27;dist&#x27;</span>),</span><br><span class="line">    <span class="attr">filename</span>: <span class="string">&#x27;bundle.js&#x27;</span>,</span><br><span class="line">    <span class="attr">library</span>: <span class="string">&#x27;MyComponent&#x27;</span>, <span class="comment">// 可选：如果你希望组件可以通过全局变量访问</span></span><br><span class="line">    <span class="attr">libraryTarget</span>: <span class="string">&#x27;umd&#x27;</span>, <span class="comment">// 可选：支持多种模块系统</span></span><br><span class="line">  &#125;,</span><br><span class="line">  <span class="attr">module</span>: &#123;</span><br><span class="line">    <span class="attr">rules</span>: [</span><br><span class="line">      &#123;</span><br><span class="line">        <span class="attr">test</span>: <span class="regexp">/\.js$/</span>,</span><br><span class="line">        <span class="attr">exclude</span>: <span class="regexp">/node_modules/</span>,</span><br><span class="line">        <span class="attr">use</span>: &#123;</span><br><span class="line">          <span class="attr">loader</span>: <span class="string">&#x27;babel-loader&#x27;</span>,</span><br><span class="line">          <span class="attr">options</span>: &#123;</span><br><span class="line">            <span class="attr">presets</span>: [<span class="string">&#x27;@babel/preset-env&#x27;</span>, <span class="string">&#x27;@babel/preset-react&#x27;</span>], <span class="comment">// 根据需要添加</span></span><br><span class="line">          &#125;,</span><br><span class="line">        &#125;,</span><br><span class="line">      &#125;,</span><br><span class="line">    ],</span><br><span class="line">  &#125;,</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+</li>
+<li><p><strong>安装 Babel 和相关预设</strong></p>
+<p>如果你需要支持 ES6+ 语法或 React，安装 Babel 及其相关预设：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">npm install --save-dev babel-loader @babel/core @babel/preset-env @babel/preset-react</span><br></pre></td></tr></table></figure>
+</li>
+<li><p><strong>编写组件代码</strong></p>
+<p>确保你的组件代码在 <code>src/index.js</code> 中，或者根据 <code>entry</code> 配置调整入口文件路径。</p>
+</li>
+<li><p><strong>运行 Webpack 打包</strong></p>
+<p>在 <code>package.json</code> 中添加一个脚本来运行 Webpack：</p>
+<figure class="highlight json"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="attr">&quot;scripts&quot;</span><span class="punctuation">:</span> <span class="punctuation">&#123;</span></span><br><span class="line">  <span class="attr">&quot;build&quot;</span><span class="punctuation">:</span> <span class="string">&quot;webpack&quot;</span></span><br><span class="line"><span class="punctuation">&#125;</span></span><br></pre></td></tr></table></figure>
+
+<p>然后运行打包命令：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">npm run build</span><br></pre></td></tr></table></figure>
+
+<p>打包完成后，你会在 <code>dist</code> 目录下看到 <code>bundle.js</code> 文件。</p>
+</li>
+</ol>
+<h3 id="使用-Vite-打包组件"><a href="#使用-Vite-打包组件" class="headerlink" title="使用 Vite 打包组件"></a>使用 Vite 打包组件</h3><ol>
+<li><p><strong>安装 Vite</strong></p>
+<p>首先，确保你已经安装了 Node.js 和 npm。然后在项目目录中安装 Vite：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">npm init vite@latest</span><br></pre></td></tr></table></figure>
+
+<p>按照提示选择合适的模板（例如，选择 <code>vanilla</code> 或 <code>react</code>）。</p>
+</li>
+<li><p><strong>配置 Vite</strong></p>
+<p>Vite 默认配置已经支持打包为独立的 JavaScript 文件。你可以在 <code>vite.config.js</code> 中进行一些自定义配置：</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> &#123; defineConfig &#125; <span class="keyword">from</span> <span class="string">&#x27;vite&#x27;</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">export</span> <span class="keyword">default</span> <span class="title function_">defineConfig</span>(&#123;</span><br><span class="line">  <span class="attr">build</span>: &#123;</span><br><span class="line">    <span class="attr">lib</span>: &#123;</span><br><span class="line">      <span class="attr">entry</span>: <span class="string">&#x27;src/index.js&#x27;</span>, <span class="comment">// 你的组件入口文件</span></span><br><span class="line">      <span class="attr">name</span>: <span class="string">&#x27;MyComponent&#x27;</span>, <span class="comment">// 可选：如果你希望组件可以通过全局变量访问</span></span><br><span class="line">      <span class="attr">fileName</span>: <span class="function"><span class="params">format</span> =&gt;</span> <span class="string">`my-component.<span class="subst">$&#123;format&#125;</span>.js`</span>,</span><br><span class="line">    &#125;,</span><br><span class="line">    <span class="attr">rollupOptions</span>: &#123;</span><br><span class="line">      <span class="attr">external</span>: [<span class="string">&#x27;vue&#x27;</span>, <span class="string">&#x27;react&#x27;</span>], <span class="comment">// 根据需要排除的依赖</span></span><br><span class="line">      <span class="attr">output</span>: &#123;</span><br><span class="line">        <span class="attr">globals</span>: &#123;</span><br><span class="line">          <span class="attr">vue</span>: <span class="string">&#x27;Vue&#x27;</span>,</span><br><span class="line">          <span class="attr">react</span>: <span class="string">&#x27;React&#x27;</span>,</span><br><span class="line">        &#125;,</span><br><span class="line">      &#125;,</span><br><span class="line">    &#125;,</span><br><span class="line">  &#125;,</span><br><span class="line">&#125;)</span><br></pre></td></tr></table></figure>
+</li>
+<li><p><strong>编写组件代码</strong></p>
+<p>确保你的组件代码在 <code>src/index.js</code> 中，或者根据 <code>entry</code> 配置调整入口文件路径。</p>
+</li>
+<li><p><strong>运行 Vite 打包</strong></p>
+<p>在 <code>package.json</code> 中添加一个脚本来运行 Vite 打包：</p>
+<figure class="highlight json"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="attr">&quot;scripts&quot;</span><span class="punctuation">:</span> <span class="punctuation">&#123;</span></span><br><span class="line">  <span class="attr">&quot;build&quot;</span><span class="punctuation">:</span> <span class="string">&quot;vite build&quot;</span></span><br><span class="line"><span class="punctuation">&#125;</span></span><br></pre></td></tr></table></figure>
+
+<p>然后运行打包命令：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">npm run build</span><br></pre></td></tr></table></figure>
+
+<p>打包完成后，你会在 <code>dist</code> 目录下看到生成的 JavaScript 文件。</p>
+</li>
+</ol>
+<h3 id="示例代码"><a href="#示例代码" class="headerlink" title="示例代码"></a>示例代码</h3><h4 id="Webpack-示例"><a href="#Webpack-示例" class="headerlink" title="Webpack 示例"></a>Webpack 示例</h4><p><strong>webpack.config.js</strong></p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> path = <span class="built_in">require</span>(<span class="string">&#x27;path&#x27;</span>)</span><br><span class="line"></span><br><span class="line"><span class="variable language_">module</span>.<span class="property">exports</span> = &#123;</span><br><span class="line">  <span class="attr">entry</span>: <span class="string">&#x27;./src/index.js&#x27;</span>,</span><br><span class="line">  <span class="attr">output</span>: &#123;</span><br><span class="line">    <span class="attr">path</span>: path.<span class="title function_">resolve</span>(__dirname, <span class="string">&#x27;dist&#x27;</span>),</span><br><span class="line">    <span class="attr">filename</span>: <span class="string">&#x27;bundle.js&#x27;</span>,</span><br><span class="line">    <span class="attr">library</span>: <span class="string">&#x27;MyComponent&#x27;</span>,</span><br><span class="line">    <span class="attr">libraryTarget</span>: <span class="string">&#x27;umd&#x27;</span>,</span><br><span class="line">  &#125;,</span><br><span class="line">  <span class="attr">module</span>: &#123;</span><br><span class="line">    <span class="attr">rules</span>: [</span><br><span class="line">      &#123;</span><br><span class="line">        <span class="attr">test</span>: <span class="regexp">/\.js$/</span>,</span><br><span class="line">        <span class="attr">exclude</span>: <span class="regexp">/node_modules/</span>,</span><br><span class="line">        <span class="attr">use</span>: &#123;</span><br><span class="line">          <span class="attr">loader</span>: <span class="string">&#x27;babel-loader&#x27;</span>,</span><br><span class="line">          <span class="attr">options</span>: &#123;</span><br><span class="line">            <span class="attr">presets</span>: [<span class="string">&#x27;@babel/preset-env&#x27;</span>, <span class="string">&#x27;@babel/preset-react&#x27;</span>],</span><br><span class="line">          &#125;,</span><br><span class="line">        &#125;,</span><br><span class="line">      &#125;,</span><br><span class="line">    ],</span><br><span class="line">  &#125;,</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p><strong>src&#x2F;index.js</strong></p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> <span class="title class_">React</span> <span class="keyword">from</span> <span class="string">&#x27;react&#x27;</span></span><br><span class="line"><span class="keyword">import</span> <span class="title class_">ReactDOM</span> <span class="keyword">from</span> <span class="string">&#x27;react-dom&#x27;</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">const</span> <span class="title function_">MyComponent</span> = (<span class="params"></span>) =&gt; <span class="language-xml"><span class="tag">&lt;<span class="name">div</span>&gt;</span>Hello from React!<span class="tag">&lt;/<span class="name">div</span>&gt;</span></span></span><br><span class="line"></span><br><span class="line"><span class="keyword">export</span> <span class="keyword">default</span> <span class="title class_">MyComponent</span></span><br></pre></td></tr></table></figure>
+
+<p><strong>package.json</strong></p>
+<figure class="highlight json"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="punctuation">&#123;</span></span><br><span class="line">  <span class="attr">&quot;scripts&quot;</span><span class="punctuation">:</span> <span class="punctuation">&#123;</span></span><br><span class="line">    <span class="attr">&quot;build&quot;</span><span class="punctuation">:</span> <span class="string">&quot;webpack&quot;</span></span><br><span class="line">  <span class="punctuation">&#125;</span><span class="punctuation">,</span></span><br><span class="line">  <span class="attr">&quot;devDependencies&quot;</span><span class="punctuation">:</span> <span class="punctuation">&#123;</span></span><br><span class="line">    <span class="attr">&quot;webpack&quot;</span><span class="punctuation">:</span> <span class="string">&quot;^5.0.0&quot;</span><span class="punctuation">,</span></span><br><span class="line">    <span class="attr">&quot;webpack-cli&quot;</span><span class="punctuation">:</span> <span class="string">&quot;^4.0.0&quot;</span><span class="punctuation">,</span></span><br><span class="line">    <span class="attr">&quot;babel-loader&quot;</span><span class="punctuation">:</span> <span class="string">&quot;^8.0.0&quot;</span><span class="punctuation">,</span></span><br><span class="line">    <span class="attr">&quot;@babel/core&quot;</span><span class="punctuation">:</span> <span class="string">&quot;^7.0.0&quot;</span><span class="punctuation">,</span></span><br><span class="line">    <span class="attr">&quot;@babel/preset-env&quot;</span><span class="punctuation">:</span> <span class="string">&quot;^7.0.0&quot;</span><span class="punctuation">,</span></span><br><span class="line">    <span class="attr">&quot;@babel/preset-react&quot;</span><span class="punctuation">:</span> <span class="string">&quot;^7.0.0&quot;</span></span><br><span class="line">  <span class="punctuation">&#125;</span></span><br><span class="line"><span class="punctuation">&#125;</span></span><br></pre></td></tr></table></figure>
+
+<h4 id="Vite-示例"><a href="#Vite-示例" class="headerlink" title="Vite 示例"></a>Vite 示例</h4><p><strong>vite.config.js</strong></p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> &#123; defineConfig &#125; <span class="keyword">from</span> <span class="string">&#x27;vite&#x27;</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">export</span> <span class="keyword">default</span> <span class="title function_">defineConfig</span>(&#123;</span><br><span class="line">  <span class="attr">build</span>: &#123;</span><br><span class="line">    <span class="attr">lib</span>: &#123;</span><br><span class="line">      <span class="attr">entry</span>: <span class="string">&#x27;src/index.js&#x27;</span>,</span><br><span class="line">      <span class="attr">name</span>: <span class="string">&#x27;MyComponent&#x27;</span>,</span><br><span class="line">      <span class="attr">fileName</span>: <span class="function"><span class="params">format</span> =&gt;</span> <span class="string">`my-component.<span class="subst">$&#123;format&#125;</span>.js`</span>,</span><br><span class="line">    &#125;,</span><br><span class="line">    <span class="attr">rollupOptions</span>: &#123;</span><br><span class="line">      <span class="attr">external</span>: [<span class="string">&#x27;react&#x27;</span>],</span><br><span class="line">      <span class="attr">output</span>: &#123;</span><br><span class="line">        <span class="attr">globals</span>: &#123;</span><br><span class="line">          <span class="attr">react</span>: <span class="string">&#x27;React&#x27;</span>,</span><br><span class="line">        &#125;,</span><br><span class="line">      &#125;,</span><br><span class="line">    &#125;,</span><br><span class="line">  &#125;,</span><br><span class="line">&#125;)</span><br></pre></td></tr></table></figure>
+
+<p><strong>src&#x2F;index.js</strong></p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> <span class="title class_">React</span> <span class="keyword">from</span> <span class="string">&#x27;react&#x27;</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">const</span> <span class="title function_">MyComponent</span> = (<span class="params"></span>) =&gt; <span class="language-xml"><span class="tag">&lt;<span class="name">div</span>&gt;</span>Hello from React!<span class="tag">&lt;/<span class="name">div</span>&gt;</span></span></span><br><span class="line"></span><br><span class="line"><span class="keyword">export</span> <span class="keyword">default</span> <span class="title class_">MyComponent</span></span><br></pre></td></tr></table></figure>
+
+<p><strong>package.json</strong></p>
+<figure class="highlight json"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="punctuation">&#123;</span></span><br><span class="line">  <span class="attr">&quot;scripts&quot;</span><span class="punctuation">:</span> <span class="punctuation">&#123;</span></span><br><span class="line">    <span class="attr">&quot;build&quot;</span><span class="punctuation">:</span> <span class="string">&quot;vite build&quot;</span></span><br><span class="line">  <span class="punctuation">&#125;</span><span class="punctuation">,</span></span><br><span class="line">  <span class="attr">&quot;devDependencies&quot;</span><span class="punctuation">:</span> <span class="punctuation">&#123;</span></span><br><span class="line">    <span class="attr">&quot;vite&quot;</span><span class="punctuation">:</span> <span class="string">&quot;^2.0.0&quot;</span></span><br><span class="line">  <span class="punctuation">&#125;</span></span><br><span class="line"><span class="punctuation">&#125;</span></span><br></pre></td></tr></table></figure>
+
+<p>通过以上步骤，你可以将项目中的组件打包成独立运行的 JavaScript 文件，并在其他项目中使用。</p>
+<p>libraryTarget: ‘umd’, &#x2F;&#x2F; 可选：支持多种模块系统 umd 是什么意思，除了 umd 还有哪些类型</p>
+<p><code>libraryTarget: &#39;umd&#39;</code> 是 Webpack 配置中的一个选项，用于指定打包后的库如何暴露。UMD（Universal Module Definition）是一种模块格式，它使得你的库可以在多种环境中使用，包括 CommonJS、AMD（Asynchronous Module Definition）和全局变量。</p>
+<h3 id="UMD-的含义"><a href="#UMD-的含义" class="headerlink" title="UMD 的含义"></a>UMD 的含义</h3><p>UMD 是一种模块封装格式，旨在让模块在不同的环境中都能正常工作。具体来说，UMD 模块可以被 CommonJS 模块加载器（如 Node.js）、AMD 模块加载器（如 RequireJS）以及浏览器全局变量中使用。</p>
+<h3 id="其他常见的-libraryTarget-类型"><a href="#其他常见的-libraryTarget-类型" class="headerlink" title="其他常见的 libraryTarget 类型"></a>其他常见的 <code>libraryTarget</code> 类型</h3><p>除了 <code>umd</code>，Webpack 还支持其他几种 <code>libraryTarget</code> 类型，每种类型适用于不同的环境：</p>
+<ol>
+<li><p><strong><code>var</code></strong></p>
+<ul>
+<li><strong>描述</strong>: 默认值。将库暴露为一个全局变量。</li>
+<li><strong>示例</strong>: <code>libraryTarget: &#39;MyLibrary&#39;</code></li>
+<li><strong>使用场景</strong>: 适用于浏览器环境，通过 <code>&lt;script&gt;</code> 标签引入。</li>
+</ul>
+</li>
+<li><p><strong><code>this</code></strong></p>
+<ul>
+<li><strong>描述</strong>: 将库暴露为 <code>this</code> 对象的一个属性。</li>
+<li><strong>示例</strong>: <code>libraryTarget: &#39;MyLibrary&#39;</code></li>
+<li><strong>使用场景</strong>: 适用于浏览器环境，通常在模块化环境中使用。</li>
+</ul>
+</li>
+<li><p><strong><code>window</code></strong></p>
+<ul>
+<li><strong>描述</strong>: 将库暴露为 <code>window</code> 对象的一个属性。</li>
+<li><strong>示例</strong>: <code>libraryTarget: &#39;MyLibrary&#39;</code></li>
+<li><strong>使用场景</strong>: 适用于浏览器环境，通过 <code>&lt;script&gt;</code> 标签引入。</li>
+</ul>
+</li>
+<li><p><strong><code>global</code></strong></p>
+<ul>
+<li><strong>描述</strong>: 将库暴露为 <code>global</code> 对象的一个属性。</li>
+<li><strong>示例</strong>: <code>libraryTarget: &#39;MyLibrary&#39;</code></li>
+<li><strong>使用场景</strong>: 适用于 Node.js 环境。</li>
+</ul>
+</li>
+<li><p><strong><code>commonjs</code></strong></p>
+<ul>
+<li><strong>描述</strong>: 将库暴露为 CommonJS 模块。</li>
+<li><strong>示例</strong>: <code>libraryTarget: &#39;MyLibrary&#39;</code></li>
+<li><strong>使用场景</strong>: 适用于 Node.js 环境。</li>
+</ul>
+</li>
+<li><p><strong><code>commonjs2</code></strong></p>
+<ul>
+<li><strong>描述</strong>: 将库暴露为 CommonJS2 模块。</li>
+<li><strong>示例</strong>: <code>libraryTarget: &#39;MyLibrary&#39;</code></li>
+<li><strong>使用场景</strong>: 适用于 Node.js 环境，与 <code>commonjs</code> 类似，但使用 <code>module.exports</code> 而不是 <code>exports</code>。</li>
+</ul>
+</li>
+<li><p><strong><code>amd</code></strong></p>
+<ul>
+<li><strong>描述</strong>: 将库暴露为 AMD 模块。</li>
+<li><strong>示例</strong>: <code>libraryTarget: &#39;MyLibrary&#39;</code></li>
+<li><strong>使用场景</strong>: 适用于使用 RequireJS 等 AMD 加载器的浏览器环境。</li>
+</ul>
+</li>
+<li><p><strong><code>amd-require</code></strong></p>
+<ul>
+<li><strong>描述</strong>: 将库暴露为 AMD 模块，但使用 <code>require</code> 语法。</li>
+<li><strong>示例</strong>: <code>libraryTarget: &#39;MyLibrary&#39;</code></li>
+<li><strong>使用场景</strong>: 适用于使用 RequireJS 等 AMD 加载器的浏览器环境。</li>
+</ul>
+</li>
+</ol>
+<h3 id="示例"><a href="#示例" class="headerlink" title="示例"></a>示例</h3><p>假设你有一个简单的库，希望它可以在多种环境中使用，你可以这样配置 Webpack：</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> path = <span class="built_in">require</span>(<span class="string">&#x27;path&#x27;</span>)</span><br><span class="line"></span><br><span class="line"><span class="variable language_">module</span>.<span class="property">exports</span> = &#123;</span><br><span class="line">  <span class="attr">entry</span>: <span class="string">&#x27;./src/index.js&#x27;</span>,</span><br><span class="line">  <span class="attr">output</span>: &#123;</span><br><span class="line">    <span class="attr">path</span>: path.<span class="title function_">resolve</span>(__dirname, <span class="string">&#x27;dist&#x27;</span>),</span><br><span class="line">    <span class="attr">filename</span>: <span class="string">&#x27;my-library.js&#x27;</span>,</span><br><span class="line">    <span class="attr">library</span>: <span class="string">&#x27;MyLibrary&#x27;</span>,</span><br><span class="line">    <span class="attr">libraryTarget</span>: <span class="string">&#x27;umd&#x27;</span>, <span class="comment">// 支持多种模块系统</span></span><br><span class="line">  &#125;,</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>通过设置 <code>libraryTarget: &#39;umd&#39;</code>，你的库可以在浏览器中通过全局变量访问，也可以在 Node.js 中通过 <code>require</code> 引入，还可以在使用 AMD 加载器的环境中通过 <code>define</code> 引入。</p>
+<h3 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h3><ul>
+<li><strong>UMD</strong>: 支持 CommonJS、AMD 和全局变量，适用于多种环境。</li>
+<li><strong>var</strong>: 默认值，暴露为全局变量。</li>
+<li><strong>this</strong>: 暴露为 <code>this</code> 对象的一个属性。</li>
+<li><strong>window</strong>: 暴露为 <code>window</code> 对象的一个属性。</li>
+<li><strong>global</strong>: 暴露为 <code>global</code> 对象的一个属性。</li>
+<li><strong>commonjs</strong>: 暴露为 CommonJS 模块。</li>
+<li><strong>commonjs2</strong>: 暴露为 CommonJS2 模块。</li>
+<li><strong>amd</strong>: 暴露为 AMD 模块。</li>
+<li><strong>amd-require</strong>: 暴露为 AMD 模块，使用 <code>require</code> 语法。</li>
+</ul>
+<p>选择合适的 <code>libraryTarget</code> 可以确保你的库在目标环境中能够正常工作。</p>
+
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
     <link itemprop="mainEntityOfPage" href="http://example.com/2024/12/28/vue-%E7%9A%84%E9%A1%B9%E7%9B%AE%E9%9B%86%E6%88%90react-%E9%99%A4%E4%BA%86%E7%94%A8%E5%BE%AE%E5%89%8D%E7%AB%AF%E7%9A%84%E6%96%B9%E5%BC%8F%E8%BF%98%E6%9C%89%E5%88%AB%E7%9A%84%E5%8A%9E%E6%B3%95%E5%90%97%EF%BC%9F/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -2039,319 +2402,6 @@
   
   
 
-      
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="http://example.com/2024/12/23/typescript%E5%A4%8D%E4%B9%A0/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.gif">
-      <meta itemprop="name" content="wangzhiwei">
-      <meta itemprop="description" content="javascript nodejs web developer...">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="WBlog">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/2024/12/23/typescript%E5%A4%8D%E4%B9%A0/" class="post-title-link" itemprop="url">typescript复习</a>
-        </h2>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              <span class="post-meta-item-text">发表于</span>
-
-              <time title="创建时间：2024-12-23 17:34:43" itemprop="dateCreated datePublished" datetime="2024-12-23T17:34:43+08:00">2024-12-23</time>
-            </span>
-              <span class="post-meta-item">
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-calendar-check-o"></i>
-                </span>
-                <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2025-03-18 11:10:52" itemprop="dateModified" datetime="2025-03-18T11:10:52+08:00">2025-03-18</time>
-              </span>
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              <span class="post-meta-item-text">分类于</span>
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/typescript/" itemprop="url" rel="index"><span itemprop="name">typescript</span></a>
-                </span>
-            </span>
-
-          
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <h2 id="安装"><a href="#安装" class="headerlink" title="安装"></a>安装</h2><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">cnpm i typescript</span><br><span class="line">cnpm i @types/node</span><br><span class="line"></span><br><span class="line">npx tsc --init</span><br><span class="line"></span><br><span class="line">生成  tsconfig.json</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">npx tsc </span><br><span class="line">npx tsc --watch </span><br></pre></td></tr></table></figure>
-
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line">nodejs 环境的tsconfig.json 配置</span><br><span class="line">&#123;</span><br><span class="line">  &quot;compilerOptions&quot;: &#123;</span><br><span class="line">    </span><br><span class="line">    &quot;target&quot;: &quot;es2016&quot;, //目标代码</span><br><span class="line">    &quot;lib&quot;: [&quot;es2016&quot;], //开发时的库</span><br><span class="line">    // &quot;module&quot;:&quot;ES2015&quot;, //模块规范</span><br><span class="line">    &quot;module&quot;:&quot;CommonJS&quot;, //设置编译结果中使用的模块化标准</span><br><span class="line">    &quot;outDir&quot;: &quot;dist&quot;, //输出目录</span><br><span class="line">    &quot;strictNullChecks&quot;: true, //严格空检查</span><br><span class="line">    &quot;removeComments&quot;: true, //编译结果移除注释</span><br><span class="line">    &quot;esModuleInterop&quot;: true, //兼启用es模块化交互非es模块导出</span><br><span class="line">    &quot;noEmitOnError&quot;: true, // 编译错误不输出编译结果</span><br><span class="line">    // &quot;moduleResolution&quot;: &quot;node&quot; //设置解析模块的模式</span><br><span class="line">  &#125;,</span><br><span class="line">  &quot;include&quot;: [&quot;src/**/*&quot;],  //指定编译文件</span><br><span class="line">  // &quot;files&quot;: [&quot;src/index.ts&quot;] //指定编译文件,</span><br><span class="line">  </span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"></span><br></pre></td></tr></table></figure>
-
-<h2 id="泛型"><a href="#泛型" class="headerlink" title="泛型"></a>泛型</h2><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br></pre></td><td class="code"><pre><span class="line">// 泛型 在函数中使用</span><br><span class="line"></span><br><span class="line">function take2&lt;T = number&gt;(arr: T[], n: number): T[]</span><br><span class="line">&#123;</span><br><span class="line"></span><br><span class="line">    if (n &gt; arr.length) &#123;</span><br><span class="line">        return arr;</span><br><span class="line">    &#125;</span><br><span class="line">    const newArr:T[] = [];</span><br><span class="line"></span><br><span class="line">    for (let i = 0; i &lt; n; i++) &#123;</span><br><span class="line">        newArr.push(arr[i]);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    return newArr;</span><br><span class="line"></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">take2&lt;number&gt;([1,2], 3);</span><br><span class="line"></span><br><span class="line">take2&lt;string&gt;([&#x27;1&#x27;,&#x27;2&#x27;], 3);</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"></span><br><span class="line"></span><br></pre></td></tr></table></figure>
-
-<p>函数的泛型应用</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">function combin&lt;T extends number | string&gt;(a: T, b: T): T&#123;</span><br><span class="line">    return (a as any) + (b as any) as T;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">const res = combin(1,2);</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">const res1 = combin(&#x27;a&#x27;,&#x27;b&#x27;);</span><br><span class="line"></span><br><span class="line">// const res2 = combin(3,&#x27;b&#x27;); // 报错</span><br><span class="line"></span><br></pre></td></tr></table></figure>
-
-
-
-
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line">函数中的泛型应用</span><br><span class="line"></span><br><span class="line">type callBack&lt;T&gt; = (n: T, i: number) =&gt; boolean;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">function filter&lt;T&gt;(arr: T[], callback: callBack&lt;T&gt;): T[]</span><br><span class="line">&#123;</span><br><span class="line">    const newArr: T[] = [];</span><br><span class="line">    for (let i = 0; i &lt; arr.length; i++) &#123;</span><br><span class="line">        if (callback(arr[i], i)) &#123;</span><br><span class="line">            newArr.push(arr[i]);</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    return newArr;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">const arr = [1, 2, 3, 4, 5];</span><br><span class="line"></span><br><span class="line">console.log(filter(arr, (n) =&gt; n &gt; 2));</span><br><span class="line"></span><br></pre></td></tr></table></figure>
-
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">构造函数中的泛型应用</span><br><span class="line"></span><br><span class="line">class ArrayHelper&lt;T&gt; &#123;</span><br><span class="line"></span><br><span class="line">    constructor(private arr: T[])</span><br><span class="line">    &#123;</span><br><span class="line"></span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    take(n: number): T[]</span><br><span class="line">    &#123;</span><br><span class="line">        if (n &gt; this.arr.length) &#123;</span><br><span class="line">            return this.arr;</span><br><span class="line">        &#125;</span><br><span class="line">        const newArr:T[] = [];</span><br><span class="line">        for (let i = 0; i &lt; n; i++) &#123;</span><br><span class="line">            newArr.push(this.arr[i]);</span><br><span class="line">        &#125;</span><br><span class="line">        return newArr;</span><br><span class="line">    &#125;</span><br><span class="line">    filter(callback: callBack&lt;T&gt;): T[]</span><br><span class="line">    &#123;</span><br><span class="line">        const newArr: T[] = [];</span><br><span class="line">        for (let i = 0; i &lt; this.arr.length; i++) &#123;</span><br><span class="line">            if (callback(this.arr[i], i)) &#123;</span><br><span class="line">                newArr.push(this.arr[i]);</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        return newArr;</span><br><span class="line">   &#125;</span><br><span class="line"></span><br><span class="line">   shuffle() &#123;</span><br><span class="line"></span><br><span class="line">    for (let i = this.arr.length - 1; i &gt; 0; i--) &#123;</span><br><span class="line">        const j = Math.floor(Math.random() * (i + 1));</span><br><span class="line">        [this.arr[i], this.arr[j]] = [this.arr[j], this.arr[i]];</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">   &#125;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"></span><br><span class="line">const helper = new ArrayHelper(arr);</span><br><span class="line"></span><br><span class="line">const newA = helper.filter(n =&gt; n &gt; 2);</span><br><span class="line"></span><br><span class="line">console.log(newA);</span><br><span class="line"></span><br><span class="line">helper.shuffle();</span><br><span class="line"></span><br><span class="line">console.log(helper.take(3));</span><br></pre></td></tr></table></figure>
-
-<p>泛型约束</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">interface hasNameProperty &#123;</span><br><span class="line">    name: string;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">function nameToUpperCase &lt;T extends hasNameProperty&gt; (obj: T): T</span><br><span class="line">&#123;</span><br><span class="line"></span><br><span class="line">    obj.name = obj.name.split(&quot; &quot;)</span><br><span class="line">        .map(n =&gt; n[0].toUpperCase() + n.slice(1))</span><br><span class="line">        .join(&quot; &quot;);</span><br><span class="line"></span><br><span class="line">    return obj;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">const o = &#123;</span><br><span class="line">    name: &quot;john wang&quot;,</span><br><span class="line">    age: 30</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">const newO = nameToUpperCase(o);</span><br><span class="line"></span><br><span class="line">console.log(newO.name);</span><br><span class="line"></span><br></pre></td></tr></table></figure>
-
-
-<h2 id="导入三方模块"><a href="#导入三方模块" class="headerlink" title="导入三方模块"></a>导入三方模块</h2><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line">// 导入文件系统模块 在 ts 中异常</span><br><span class="line">// import fs from &#x27;fs&#x27;;</span><br><span class="line"></span><br><span class="line">//需要改写为 </span><br><span class="line">import &#123;readFileSync&#125; from &#x27;fs&#x27;;</span><br><span class="line"></span><br><span class="line">//或改写为</span><br><span class="line">//import * as fs from &quot;fs&quot;;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">const input = readFileSync(&#x27;./input.txt&#x27;, &#x27;utf-8&#x27;).split(&#x27;\n&#x27;);</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"></span><br><span class="line">编译后代码</span><br><span class="line"></span><br><span class="line">&quot;use strict&quot;;</span><br><span class="line">Object.defineProperty(exports, &quot;__esModule&quot;, &#123; value: true &#125;);</span><br><span class="line">const fs_1 = require(&quot;fs&quot;);</span><br><span class="line">const input = (0, fs_1.readFileSync)(&#x27;./input.txt&#x27;, &#x27;utf-8&#x27;).split(&#x27;\n&#x27;);</span><br><span class="line"></span><br><span class="line"></span><br></pre></td></tr></table></figure>
-
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">//或改写为</span><br><span class="line">import * as fs from &quot;fs&quot;;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">const input = fs.readFileSync(&#x27;./input.txt&#x27;, &#x27;utf-8&#x27;).split(&#x27;\n&#x27;);</span><br><span class="line"></span><br><span class="line">编译后代码</span><br><span class="line"></span><br><span class="line">&quot;use strict&quot;;</span><br><span class="line">var __createBinding = (this &amp;&amp; this.__createBinding) || (Object.create ? (function(o, m, k, k2) &#123;</span><br><span class="line">    if (k2 === undefined) k2 = k;</span><br><span class="line">    var desc = Object.getOwnPropertyDescriptor(m, k);</span><br><span class="line">    if (!desc || (&quot;get&quot; in desc ? !m.__esModule : desc.writable || desc.configurable)) &#123;</span><br><span class="line">      desc = &#123; enumerable: true, get: function() &#123; return m[k]; &#125; &#125;;</span><br><span class="line">    &#125;</span><br><span class="line">    Object.defineProperty(o, k2, desc);</span><br><span class="line">&#125;) : (function(o, m, k, k2) &#123;</span><br><span class="line">    if (k2 === undefined) k2 = k;</span><br><span class="line">    o[k2] = m[k];</span><br><span class="line">&#125;));</span><br><span class="line">var __setModuleDefault = (this &amp;&amp; this.__setModuleDefault) || (Object.create ? (function(o, v) &#123;</span><br><span class="line">    Object.defineProperty(o, &quot;default&quot;, &#123; enumerable: true, value: v &#125;);</span><br><span class="line">&#125;) : function(o, v) &#123;</span><br><span class="line">    o[&quot;default&quot;] = v;</span><br><span class="line">&#125;);</span><br><span class="line">var __importStar = (this &amp;&amp; this.__importStar) || (function () &#123;</span><br><span class="line">    var ownKeys = function(o) &#123;</span><br><span class="line">        ownKeys = Object.getOwnPropertyNames || function (o) &#123;</span><br><span class="line">            var ar = [];</span><br><span class="line">            for (var k in o) if (Object.prototype.hasOwnProperty.call(o, k)) ar[ar.length] = k;</span><br><span class="line">            return ar;</span><br><span class="line">        &#125;;</span><br><span class="line">        return ownKeys(o);</span><br><span class="line">    &#125;;</span><br><span class="line">    return function (mod) &#123;</span><br><span class="line">        if (mod &amp;&amp; mod.__esModule) return mod;</span><br><span class="line">        var result = &#123;&#125;;</span><br><span class="line">        if (mod != null) for (var k = ownKeys(mod), i = 0; i &lt; k.length; i++) if (k[i] !== &quot;default&quot;) __createBinding(result, mod, k[i]);</span><br><span class="line">        __setModuleDefault(result, mod);</span><br><span class="line">        return result;</span><br><span class="line">    &#125;;</span><br><span class="line">&#125;)();</span><br><span class="line">Object.defineProperty(exports, &quot;__esModule&quot;, &#123; value: true &#125;);</span><br><span class="line">const fs = __importStar(require(&quot;fs&quot;));</span><br><span class="line">const input = fs.readFileSync(&#x27;./input.txt&#x27;, &#x27;utf-8&#x27;).split(&#x27;\n&#x27;);</span><br><span class="line"></span><br><span class="line"></span><br></pre></td></tr></table></figure>
-
-
-
-<p>非要用 import fs from ‘fs’; 要改写 配置文件</p>
-<p>增加<br>“esModuleInterop”: true, &#x2F;&#x2F;兼容es6模块</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">import fs from &#x27;fs&#x27;;</span><br><span class="line">const input = fs.readFileSync(&#x27;./input.txt&#x27;, &#x27;utf-8&#x27;).split(&#x27;\n&#x27;);</span><br><span class="line"></span><br><span class="line">编译后代码</span><br><span class="line"></span><br><span class="line">&quot;use strict&quot;;</span><br><span class="line">var __importDefault = (this &amp;&amp; this.__importDefault) || function (mod) &#123;</span><br><span class="line">    return (mod &amp;&amp; mod.__esModule) ? mod : &#123; &quot;default&quot;: mod &#125;;</span><br><span class="line">&#125;;</span><br><span class="line">Object.defineProperty(exports, &quot;__esModule&quot;, &#123; value: true &#125;);</span><br><span class="line">const fs_1 = __importDefault(require(&quot;fs&quot;));</span><br><span class="line">const input = fs_1.default.readFileSync(&#x27;./input.txt&#x27;, &#x27;utf-8&#x27;).split(&#x27;\n&#x27;);</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"></span><br><span class="line"></span><br><span class="line"></span><br></pre></td></tr></table></figure>
-
-
-<h2 id="TS中书写-commjs-模块代码"><a href="#TS中书写-commjs-模块代码" class="headerlink" title="TS中书写 commjs 模块代码"></a>TS中书写 commjs 模块代码</h2><p>导出 export &#x3D; xxxx</p>
-<p>导入 import xxx &#x3D; require(‘xxx’);</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br></pre></td><td class="code"><pre><span class="line">c.ts</span><br><span class="line">export = &#123;</span><br><span class="line">    add: (a:number,b:number)=&gt;a+b,</span><br><span class="line">    name: &#x27;c&#x27;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">05.ts</span><br><span class="line"></span><br><span class="line">import aa = require(&#x27;./c&#x27;);</span><br><span class="line"></span><br><span class="line">console.log(aa.name)</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">编译后代码</span><br><span class="line"></span><br><span class="line">&quot;use strict&quot;;</span><br><span class="line">Object.defineProperty(exports, &quot;__esModule&quot;, &#123; value: true &#125;);</span><br><span class="line">const aa = require(&quot;./c&quot;);</span><br><span class="line">console.log(aa.name);</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">&quot;use strict&quot;;</span><br><span class="line">module.exports = &#123;</span><br><span class="line">    add: (a, b) =&gt; a + b,</span><br><span class="line">    name: &#x27;c&#x27;</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line"></span><br></pre></td></tr></table></figure>
-
-
-
-
-<h2 id="枚举"><a href="#枚举" class="headerlink" title="枚举"></a>枚举</h2><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">enum Gend &#123;</span><br><span class="line">    Male = &#x27;male&#x27;,</span><br><span class="line">    Female = &#x27;female&#x27;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">let gen: Gend;</span><br><span class="line"></span><br><span class="line">gen = Gend.Male;</span><br><span class="line">gen = Gend.Female;</span><br><span class="line"></span><br><span class="line">会参与编译 枚举属性的值是字符串或数字，为数字时会自增，可以赋值（不建议）</span><br><span class="line"></span><br><span class="line"></span><br></pre></td></tr></table></figure>
-
-
-<h2 id="接口和别名"><a href="#接口和别名" class="headerlink" title="接口和别名"></a>接口和别名</h2><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">type Gender = &#x27;male&#x27; | &#x27;female&#x27;;</span><br><span class="line">let gender: Gender;</span><br><span class="line">gender = &#x27;male&#x27;;</span><br><span class="line">gender = &#x27;female&#x27;;</span><br><span class="line"></span><br><span class="line">function showGender(gender: Gender): void</span><br><span class="line">&#123;</span><br><span class="line">    console.log(gender);</span><br><span class="line">&#125;</span><br><span class="line"></span><br></pre></td></tr></table></figure>
-
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line"></span><br><span class="line">//接口</span><br><span class="line">interface Person &#123;</span><br><span class="line">    name: string;</span><br><span class="line">    age: number;</span><br><span class="line">    sayHello(): void;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">// 类型别名</span><br><span class="line">type Person2 = &#123;</span><br><span class="line">    name: string;</span><br><span class="line">    age: number;</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"></span><br><span class="line">let p1: Person = &#123;</span><br><span class="line">    name: &#x27;zhangsan&#x27;,</span><br><span class="line">    age: 18,</span><br><span class="line">    sayHello()&#123;</span><br><span class="line">        console.log(&#x27;hello&#x27;);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">let p2: Person2 = &#123;</span><br><span class="line">    name: &#x27;zhangsan&#x27;,</span><br><span class="line">    age: 18</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"></span><br><span class="line">type Condition = (n: number) =&gt; boolean;</span><br><span class="line"></span><br><span class="line">function sum(number: number[], callback: Condition) &#123;</span><br><span class="line"></span><br><span class="line">    let s = 0;</span><br><span class="line"></span><br><span class="line">    number.forEach(n =&gt; &#123;</span><br><span class="line">        if (callback(n)) &#123;</span><br><span class="line">            s += n;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">const result =  sum([1,2,3,4,5], n =&gt; n % 2 === 0);</span><br><span class="line"></span><br><span class="line">console.log(result);</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"></span><br></pre></td></tr></table></figure>
-
-
-<h2 id="接口（Interface）和类型别名（Type-Alias）的区别"><a href="#接口（Interface）和类型别名（Type-Alias）的区别" class="headerlink" title="接口（Interface）和类型别名（Type Alias）的区别"></a>接口（Interface）和类型别名（Type Alias）的区别</h2><p>在 TypeScript 中，接口和类型别名都可以用来定义对象的形状，但它们有一些关键的区别。以下是它们的主要差异：</p>
-<h3 id="1-扩展性（Extensibility）"><a href="#1-扩展性（Extensibility）" class="headerlink" title="1. 扩展性（Extensibility）"></a>1. 扩展性（Extensibility）</h3><ul>
-<li><p><strong>接口</strong>：可以使用 <code>extends</code> 关键字来扩展其他接口。</p>
-<figure class="highlight typescript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">interface</span> <span class="title class_">Person</span> &#123;</span><br><span class="line">    <span class="attr">name</span>: <span class="built_in">string</span>;</span><br><span class="line">    <span class="attr">age</span>: <span class="built_in">number</span>;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">interface</span> <span class="title class_">Employee</span> <span class="keyword">extends</span> <span class="title class_">Person</span> &#123;</span><br><span class="line">    <span class="attr">employeeId</span>: <span class="built_in">number</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-</li>
-<li><p><strong>类型别名</strong>：不能直接扩展其他类型别名，但可以通过交叉类型（intersection types）实现类似的效果。</p>
-<figure class="highlight typescript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">type</span> <span class="title class_">Person</span> = &#123;</span><br><span class="line">    <span class="attr">name</span>: <span class="built_in">string</span>;</span><br><span class="line">    <span class="attr">age</span>: <span class="built_in">number</span>;</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line"><span class="keyword">type</span> <span class="title class_">Employee</span> = <span class="title class_">Person</span> &amp; &#123;</span><br><span class="line">    <span class="attr">employeeId</span>: <span class="built_in">number</span>;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure></li>
-</ul>
-<h3 id="2-合并（Merging）"><a href="#2-合并（Merging）" class="headerlink" title="2. 合并（Merging）"></a>2. 合并（Merging）</h3><ul>
-<li><p><strong>接口</strong>：支持声明合并（declaration merging），即多个同名接口会自动合并为一个接口。</p>
-<figure class="highlight typescript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">interface</span> <span class="title class_">Person</span> &#123;</span><br><span class="line">    <span class="attr">name</span>: <span class="built_in">string</span>;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">interface</span> <span class="title class_">Person</span> &#123;</span><br><span class="line">    <span class="attr">age</span>: <span class="built_in">number</span>;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">// 等价于</span></span><br><span class="line"><span class="keyword">interface</span> <span class="title class_">Person</span> &#123;</span><br><span class="line">    <span class="attr">name</span>: <span class="built_in">string</span>;</span><br><span class="line">    <span class="attr">age</span>: <span class="built_in">number</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-</li>
-<li><p><strong>类型别名</strong>：不支持声明合并，多个同名类型别名会导致编译错误。</p>
-</li>
-</ul>
-<h3 id="3-使用场景"><a href="#3-使用场景" class="headerlink" title="3. 使用场景"></a>3. 使用场景</h3><ul>
-<li><p><strong>接口</strong>：主要用于定义对象的形状，通常用于描述类、函数参数或返回值等。</p>
-<figure class="highlight typescript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">interface</span> <span class="title class_">User</span> &#123;</span><br><span class="line">    <span class="attr">id</span>: <span class="built_in">number</span>;</span><br><span class="line">    <span class="attr">name</span>: <span class="built_in">string</span>;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">class</span> <span class="title class_">Admin</span> <span class="keyword">implements</span> <span class="title class_">User</span> &#123;</span><br><span class="line">    <span class="attr">id</span>: <span class="built_in">number</span>;</span><br><span class="line">    <span class="attr">name</span>: <span class="built_in">string</span>;</span><br><span class="line">    <span class="attr">role</span>: <span class="built_in">string</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-</li>
-<li><p><strong>类型别名</strong>：更加灵活，可以用于定义原始类型、联合类型、元组等复杂类型。</p>
-<figure class="highlight typescript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">type</span> <span class="variable constant_">ID</span> = <span class="built_in">number</span> | <span class="built_in">string</span>;</span><br><span class="line"></span><br><span class="line"><span class="keyword">type</span> <span class="title class_">Point</span> = [<span class="built_in">number</span>, <span class="built_in">number</span>];</span><br><span class="line"></span><br><span class="line"><span class="keyword">type</span> <span class="title class_">PartialPerson</span> = &#123;</span><br><span class="line">    name?: <span class="built_in">string</span>;</span><br><span class="line">    age?: <span class="built_in">number</span>;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure></li>
-</ul>
-<h3 id="4-可重载（Overloading）"><a href="#4-可重载（Overloading）" class="headerlink" title="4. 可重载（Overloading）"></a>4. 可重载（Overloading）</h3><ul>
-<li><p><strong>接口</strong>：可以用于函数重载。</p>
-<figure class="highlight typescript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">interface</span> <span class="title class_">Func</span> &#123;</span><br><span class="line">    (<span class="attr">a</span>: <span class="built_in">number</span>): <span class="built_in">number</span>;</span><br><span class="line">    (<span class="attr">a</span>: <span class="built_in">string</span>): <span class="built_in">string</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-</li>
-<li><p><strong>类型别名</strong>：不能直接用于函数重载，但可以通过函数类型定义实现类似效果。</p>
-<figure class="highlight typescript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">type</span> <span class="title class_">Func</span> = &#123;</span><br><span class="line">    (<span class="attr">a</span>: <span class="built_in">number</span>): <span class="built_in">number</span>;</span><br><span class="line">    (<span class="attr">a</span>: <span class="built_in">string</span>): <span class="built_in">string</span>;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure></li>
-</ul>
-<h3 id="5-性能"><a href="#5-性能" class="headerlink" title="5. 性能"></a>5. 性能</h3><ul>
-<li><strong>接口</strong>：编译后会被优化掉，不会生成额外的 JavaScript 代码。</li>
-<li><strong>类型别名</strong>：同样不会生成额外的 JavaScript 代码，但在某些情况下可能会有细微的性能差异。</li>
-</ul>
-<h3 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h3><ul>
-<li>如果你需要定义对象的形状并且希望支持扩展和合并，建议使用接口。</li>
-<li>如果你需要定义更复杂的类型（如联合类型、元组等），或者需要更高的灵活性，建议使用类型别名。</li>
-</ul>
-<p>在你的代码中，<code>Person</code> 和 <code>Person2</code> 分别使用了接口和类型别名来定义相同的内容。你可以根据上述区别选择更适合你需求的方式。</p>
-<h2 id="可重载"><a href="#可重载" class="headerlink" title="可重载"></a>可重载</h2><p>在 TypeScript 中，函数重载（Function Overloading） 是指定义多个具有相同名称但参数列表不同的函数签名。编译器会根据调用时传递的参数类型和数量来选择最匹配的函数签名。函数重载允许你为同一个函数提供多种调用方式，从而提高代码的灵活性和可读性。</p>
-<p>示例：</p>
-<p>typescript</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">// 定义两个重载签名</span><br><span class="line">function add(a: number, b: number): number;</span><br><span class="line">function add(a: string, b: string): string;</span><br><span class="line"></span><br><span class="line">// 实现函数</span><br><span class="line">function add(a: any, b: any): any &#123;</span><br><span class="line">    return a + b;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">// 调用</span><br><span class="line">console.log(add(1, 2));      // 输出: 3</span><br><span class="line">console.log(add(&quot;hello&quot;, &quot; world&quot;));  // 输出: hello world</span><br><span class="line"></span><br></pre></td></tr></table></figure>
-
-<h2 id="访问修饰符"><a href="#访问修饰符" class="headerlink" title="访问修饰符"></a>访问修饰符</h2><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">class User &#123;</span><br><span class="line">    </span><br><span class="line">    readonly id:number</span><br><span class="line">    name:string</span><br><span class="line">    age:number</span><br><span class="line">    pid?:string</span><br><span class="line"></span><br><span class="line">    // ts语法 访问修饰符</span><br><span class="line">    private publishNumber:number = 3</span><br><span class="line">    private curNumber:number = 0</span><br><span class="line"></span><br><span class="line">    constructor(name:string,age:number)&#123;</span><br><span class="line">        this.id = Math.random();</span><br><span class="line">        this.name = name;</span><br><span class="line">        this.age = age;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    publish()&#123;</span><br><span class="line">        if (this.curNumber &gt;= this.publishNumber) &#123;</span><br><span class="line">            console.log(`$&#123;this.name&#125; 已经发布文章上限`);</span><br><span class="line">            return;</span><br><span class="line">        &#125;</span><br><span class="line">        this.curNumber++;</span><br><span class="line">        console.log(`$&#123;this.name&#125; 发布了第$&#123;this.curNumber&#125;篇文章`);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">const u = new User(&#x27;张三&#x27;,18);</span><br><span class="line">u.pid = &#x27;1111&#x27;;</span><br><span class="line">// u.id = 2;</span><br><span class="line">console.log(u.id);</span><br><span class="line">console.log(u.pid);</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">u.publish();</span><br><span class="line">u.publish();</span><br><span class="line">u.publish();</span><br><span class="line">u.publish();</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">编译后代码</span><br><span class="line">==&gt;&gt;</span><br><span class="line"></span><br><span class="line">class User &#123;</span><br><span class="line">    constructor(name, age) &#123;</span><br><span class="line">        this.publishNumber = 3;</span><br><span class="line">        this.curNumber = 0;</span><br><span class="line">        this.id = Math.random();</span><br><span class="line">        this.name = name;</span><br><span class="line">        this.age = age;</span><br><span class="line">    &#125;</span><br><span class="line">    publish() &#123;</span><br><span class="line">        if (this.curNumber &gt;= this.publishNumber) &#123;</span><br><span class="line">            console.log(`$&#123;this.name&#125; 已经发布文章上限`);</span><br><span class="line">            return;</span><br><span class="line">        &#125;</span><br><span class="line">        this.curNumber++;</span><br><span class="line">        console.log(`$&#123;this.name&#125; 发布了第$&#123;this.curNumber&#125;篇文章`);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line">const u = new User(&#x27;张三&#x27;, 18);</span><br><span class="line">u.pid = &#x27;1111&#x27;;</span><br><span class="line">console.log(u.id);</span><br><span class="line">console.log(u.pid);</span><br><span class="line">u.publish();</span><br><span class="line">u.publish();</span><br><span class="line">u.publish();</span><br><span class="line">u.publish();</span><br><span class="line"></span><br><span class="line"></span><br></pre></td></tr></table></figure>
-
-
-<h2 id="React-TS"><a href="#React-TS" class="headerlink" title="React + TS"></a>React + TS</h2><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line"></span><br><span class="line"></span><br><span class="line"></span><br></pre></td></tr></table></figure>
-
-
-<h2 id="JSX-和-TSX-的区别"><a href="#JSX-和-TSX-的区别" class="headerlink" title="JSX 和 TSX 的区别"></a>JSX 和 TSX 的区别</h2><p>在 React 开发中，JSX 和 TSX 是两种不同的文件扩展名，它们用于定义组件的模板语法。以下是它们的主要区别：</p>
-<h3 id="1-文件扩展名"><a href="#1-文件扩展名" class="headerlink" title="1. 文件扩展名"></a>1. 文件扩展名</h3><ul>
-<li><strong>JSX</strong>: 文件扩展名为 <code>.jsx</code>，主要用于编写 React 组件，但不包含 TypeScript 类型检查。</li>
-<li><strong>TSX</strong>: 文件扩展名为 <code>.tsx</code>，不仅支持 JSX 语法，还集成了 TypeScript 的类型检查功能。</li>
-</ul>
-<h3 id="2-类型检查"><a href="#2-类型检查" class="headerlink" title="2. 类型检查"></a>2. 类型检查</h3><ul>
-<li><strong>JSX</strong>: 没有内置的类型检查功能，因此无法在编译时捕获类型错误。</li>
-<li><strong>TSX</strong>: 支持 TypeScript 的类型检查，可以在编译时检测并报告类型错误，提高代码的健壮性和可维护性。</li>
-</ul>
-<h3 id="3-语法兼容性"><a href="#3-语法兼容性" class="headerlink" title="3. 语法兼容性"></a>3. 语法兼容性</h3><ul>
-<li><strong>JSX</strong>: 只能使用 JavaScript 语法。</li>
-<li><strong>TSX</strong>: 可以使用 TypeScript 语法，包括类型注解、接口、泛型等。</li>
-</ul>
-<h3 id="4-示例代码"><a href="#4-示例代码" class="headerlink" title="4. 示例代码"></a>4. 示例代码</h3><h3 id="JSX-示例"><a href="#JSX-示例" class="headerlink" title="JSX 示例"></a>JSX 示例</h3><figure class="highlight jsx"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// MyComponent.jsx</span></span><br><span class="line"><span class="keyword">import</span> <span class="title class_">React</span> <span class="keyword">from</span> <span class="string">&#x27;react&#x27;</span>;</span><br><span class="line"></span><br><span class="line"><span class="keyword">function</span> <span class="title function_">MyComponent</span>(<span class="params">props</span>) &#123;</span><br><span class="line">    <span class="keyword">return</span> (</span><br><span class="line">        <span class="language-xml"><span class="tag">&lt;<span class="name">div</span>&gt;</span></span></span><br><span class="line"><span class="language-xml">            <span class="tag">&lt;<span class="name">h1</span>&gt;</span>Hello, &#123;props.name&#125;<span class="tag">&lt;/<span class="name">h1</span>&gt;</span></span></span><br><span class="line"><span class="language-xml">        <span class="tag">&lt;/<span class="name">div</span>&gt;</span></span></span><br><span class="line">    );</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">export</span> <span class="keyword">default</span> <span class="title class_">MyComponent</span>;</span><br></pre></td></tr></table></figure>
-
-<h3 id="TSX-示例"><a href="#TSX-示例" class="headerlink" title="TSX 示例"></a>TSX 示例</h3><figure class="highlight tsx"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// MyComponent.tsx</span></span><br><span class="line"><span class="keyword">import</span> <span class="title class_">React</span> <span class="keyword">from</span> <span class="string">&#x27;react&#x27;</span>;</span><br><span class="line"></span><br><span class="line"><span class="keyword">interface</span> <span class="title class_">MyComponentProps</span> &#123;</span><br><span class="line">    <span class="attr">name</span>: <span class="built_in">string</span>;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * </span></span><br><span class="line"><span class="comment"> * React.FC&lt;MyComponentProps&gt; 是 TypeScript 中用于定义 React 函数组件的一种类型。</span></span><br><span class="line"><span class="comment">    React.FC 是 React.FunctionComponent 的缩写，它是一个泛型，可以接受一个对象作为参数，这个对象描述了组件的属性类型。</span></span><br><span class="line"><span class="comment">    MyComponentProps 是你自定义的一个接口或类型，用来定义组件接收的 props 类型。</span></span><br><span class="line"><span class="comment">    使用 React.FC&lt;MyComponentProps&gt; 有以下好处：</span></span><br><span class="line"><span class="comment"></span></span><br><span class="line"><span class="comment">    明确指定了组件的 props 类型，增强了代码的可读性和可维护性。</span></span><br><span class="line"><span class="comment">    提供了更好的编辑器支持，如自动补全和类型检查。</span></span><br><span class="line"><span class="comment"></span></span><br><span class="line"><span class="comment"> ** /</span></span><br><span class="line"><span class="comment"></span></span><br><span class="line"><span class="comment"> // 推荐使用</span></span><br><span class="line"><span class="comment">const MyComponent: React.FC&lt;MyComponentProps&gt; = (&#123; name &#125;) =&gt; &#123;</span></span><br><span class="line"><span class="comment">    return (</span></span><br><span class="line"><span class="comment">        &lt;div&gt;</span></span><br><span class="line"><span class="comment">            &lt;h1&gt;Hello, &#123;name&#125;&lt;/h1&gt;</span></span><br><span class="line"><span class="comment">        &lt;/div&gt;</span></span><br><span class="line"><span class="comment">    );</span></span><br><span class="line"><span class="comment">&#125;;</span></span><br><span class="line"><span class="comment"></span></span><br><span class="line"><span class="comment">export default MyComponent;</span></span><br><span class="line"><span class="comment"></span></span><br><span class="line"><span class="comment"></span></span><br><span class="line"><span class="comment">或者</span></span><br><span class="line"><span class="comment"></span></span><br><span class="line"><span class="comment">export function MyComponent(props: MyComponentProps) &#123;</span></span><br><span class="line"><span class="comment">    return (</span></span><br><span class="line"><span class="comment">        &lt;div&gt;</span></span><br><span class="line"><span class="comment">            &lt;h1&gt;Hello, &#123;props.name&#125;&lt;/h1&gt;</span></span><br><span class="line"><span class="comment">        &lt;/div&gt;</span></span><br><span class="line"><span class="comment">    )</span></span><br><span class="line"><span class="comment">&#125;</span></span><br><span class="line"><span class="comment"></span></span><br><span class="line"><span class="comment"></span></span><br></pre></td></tr></table></figure>
-
-<h3 id="5-编译和工具支持"><a href="#5-编译和工具支持" class="headerlink" title="5. 编译和工具支持"></a>5. 编译和工具支持</h3><ul>
-<li><strong>JSX</strong>: 使用 Babel 等工具进行编译，通常与 Webpack 或其他模块打包工具结合使用。</li>
-<li><strong>TSX</strong>: 使用 TypeScript 编译器（tsc）进行编译，同时可以与 Babel 结合使用以支持更广泛的浏览器兼容性。</li>
-</ul>
-<h3 id="6-性能"><a href="#6-性能" class="headerlink" title="6. 性能"></a>6. 性能</h3><ul>
-<li><strong>JSX</strong> 和 <strong>TSX</strong> 在运行时性能上没有显著差异，因为最终都会被编译为普通的 JavaScript 代码。但是，TSX 提供了更好的开发时体验，减少了潜在的类型错误。</li>
-</ul>
-<h3 id="总结-1"><a href="#总结-1" class="headerlink" title="总结"></a>总结</h3><ul>
-<li>如果你希望在 React 项目中使用 TypeScript 进行类型检查和增强的开发体验，建议使用 <code>.tsx</code> 文件。</li>
-<li>如果你只需要简单的 JSX 语法且不需要 TypeScript 的类型检查，可以选择 <code>.jsx</code> 文件。</li>
-</ul>
-<p>在现代 React 开发中，推荐使用 <code>.tsx</code> 文件，因为它提供了更好的类型安全性和开发体验。</p>
-<h2 id="tsx-中-extends-React-Component-使用举例"><a href="#tsx-中-extends-React-Component-使用举例" class="headerlink" title="tsx 中 extends React.Component 使用举例"></a>tsx 中 extends React.Component 使用举例</h2><p>在 TypeScript 中，如果你使用 <code>tsx</code> 文件并希望定义一个继承自 <code>React.Component</code> 的类组件，你可以按照以下步骤进行。假设你已经安装了 <code>react</code> 和 <code>react-dom</code>，并且已经正确配置了 <code>tsconfig.json</code> 以支持 JSX。</p>
-<p>以下是一个简单的例子：</p>
-<ol>
-<li><p>首先，确保你已经安装了 <code>@types/react</code> 和 <code>@types/react-dom</code>，以便 TypeScript 能够识别 React 类型。</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">npm install --save-dev @types/react @types/react-dom</span><br></pre></td></tr></table></figure>
-</li>
-<li><p>创建一个 <code>.tsx</code> 文件，例如 <code>MyComponent.tsx</code>，并在其中定义一个继承自 <code>React.Component</code> 的类组件。</p>
-<figure class="highlight tsx"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> <span class="title class_">React</span> <span class="keyword">from</span> <span class="string">&#x27;react&#x27;</span>;</span><br><span class="line"></span><br><span class="line"><span class="keyword">interface</span> <span class="title class_">MyComponentProps</span> &#123;</span><br><span class="line">  <span class="attr">name</span>: <span class="built_in">string</span>;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">interface</span> <span class="title class_">MyComponentState</span> &#123;</span><br><span class="line">  <span class="attr">count</span>: <span class="built_in">number</span>;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">class</span> <span class="title class_">MyComponent</span> <span class="keyword">extends</span> <span class="title class_ inherited__">React.Component</span>&lt;<span class="title class_">MyComponentProps</span>, <span class="title class_">MyComponentState</span>&gt; &#123;</span><br><span class="line">  <span class="title function_">constructor</span>(<span class="params"><span class="attr">props</span>: <span class="title class_">MyComponentProps</span></span>) &#123;</span><br><span class="line">    <span class="variable language_">super</span>(props);</span><br><span class="line">    <span class="variable language_">this</span>.<span class="property">state</span> = &#123;</span><br><span class="line">      <span class="attr">count</span>: <span class="number">0</span>,</span><br><span class="line">    &#125;;</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  incrementCount = <span class="function">() =&gt;</span> &#123;</span><br><span class="line">    <span class="variable language_">this</span>.<span class="title function_">setState</span>(<span class="function">(<span class="params">prevState</span>) =&gt;</span> (&#123;</span><br><span class="line">      <span class="attr">count</span>: prevState.<span class="property">count</span> + <span class="number">1</span>,</span><br><span class="line">    &#125;));</span><br><span class="line">  &#125;;</span><br><span class="line"></span><br><span class="line">  <span class="title function_">render</span>(<span class="params"></span>) &#123;</span><br><span class="line">    <span class="keyword">return</span> (</span><br><span class="line">      <span class="language-xml"><span class="tag">&lt;<span class="name">div</span>&gt;</span></span></span><br><span class="line"><span class="language-xml">        <span class="tag">&lt;<span class="name">h1</span>&gt;</span>Hello, &#123;this.props.name&#125;!<span class="tag">&lt;/<span class="name">h1</span>&gt;</span></span></span><br><span class="line"><span class="language-xml">        <span class="tag">&lt;<span class="name">p</span>&gt;</span>You clicked &#123;this.state.count&#125; times<span class="tag">&lt;/<span class="name">p</span>&gt;</span></span></span><br><span class="line"><span class="language-xml">        <span class="tag">&lt;<span class="name">button</span> <span class="attr">onClick</span>=<span class="string">&#123;this.incrementCount&#125;</span>&gt;</span>Click me<span class="tag">&lt;/<span class="name">button</span>&gt;</span></span></span><br><span class="line"><span class="language-xml">      <span class="tag">&lt;/<span class="name">div</span>&gt;</span></span></span><br><span class="line">    );</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">export</span> <span class="keyword">default</span> <span class="title class_">MyComponent</span>;</span><br></pre></td></tr></table></figure></li>
-</ol>
-<p>在这个例子中：</p>
-<ul>
-<li><code>MyComponentProps</code> 定义了组件的 props 类型。</li>
-<li><code>MyComponentState</code> 定义了组件的状态类型。</li>
-<li><code>MyComponent</code> 类继承自 <code>React.Component</code>，并指定了 props 和 state 的类型。</li>
-<li><code>incrementCount</code> 方法用于更新组件的状态。</li>
-<li><code>render</code> 方法返回组件的 JSX 结构。</li>
-</ul>
-<p>确保你的 <code>tsconfig.json</code> 文件配置正确，以便支持 JSX 语法。你可以在 <code>compilerOptions</code> 中添加 <code>&quot;jsx&quot;: &quot;react&quot;</code> 来明确指定 JSX 的处理方式。</p>
-<figure class="highlight json"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="punctuation">&#123;</span></span><br><span class="line">  <span class="attr">&quot;compilerOptions&quot;</span><span class="punctuation">:</span> <span class="punctuation">&#123;</span></span><br><span class="line">    <span class="attr">&quot;target&quot;</span><span class="punctuation">:</span> <span class="string">&quot;es2016&quot;</span><span class="punctuation">,</span></span><br><span class="line">    <span class="attr">&quot;lib&quot;</span><span class="punctuation">:</span> <span class="punctuation">[</span><span class="string">&quot;es2016&quot;</span><span class="punctuation">,</span> <span class="string">&quot;dom&quot;</span><span class="punctuation">]</span><span class="punctuation">,</span></span><br><span class="line">    <span class="attr">&quot;module&quot;</span><span class="punctuation">:</span> <span class="string">&quot;CommonJS&quot;</span><span class="punctuation">,</span></span><br><span class="line">    <span class="attr">&quot;outDir&quot;</span><span class="punctuation">:</span> <span class="string">&quot;dist&quot;</span><span class="punctuation">,</span></span><br><span class="line">    <span class="attr">&quot;strictNullChecks&quot;</span><span class="punctuation">:</span> <span class="literal"><span class="keyword">true</span></span><span class="punctuation">,</span></span><br><span class="line">    <span class="attr">&quot;removeComments&quot;</span><span class="punctuation">:</span> <span class="literal"><span class="keyword">true</span></span><span class="punctuation">,</span></span><br><span class="line">    <span class="attr">&quot;esModuleInterop&quot;</span><span class="punctuation">:</span> <span class="literal"><span class="keyword">true</span></span><span class="punctuation">,</span></span><br><span class="line">    <span class="attr">&quot;noEmitOnError&quot;</span><span class="punctuation">:</span> <span class="literal"><span class="keyword">true</span></span><span class="punctuation">,</span></span><br><span class="line">    <span class="attr">&quot;jsx&quot;</span><span class="punctuation">:</span> <span class="string">&quot;react&quot;</span></span><br><span class="line">  <span class="punctuation">&#125;</span><span class="punctuation">,</span></span><br><span class="line">  <span class="attr">&quot;include&quot;</span><span class="punctuation">:</span> <span class="punctuation">[</span><span class="string">&quot;src/**/*&quot;</span><span class="punctuation">]</span></span><br><span class="line"><span class="punctuation">&#125;</span></span><br></pre></td></tr></table></figure>
-
-<p>这样配置后，TypeScript 就能够正确处理 <code>.tsx</code> 文件中的 JSX 语法。</p>
-<h2 id="TS-VUE3"><a href="#TS-VUE3" class="headerlink" title="TS + VUE3"></a>TS + VUE3</h2><p><a target="_blank" rel="noopener" href="https://cn.vuejs.org/guide/typescript/composition-api.html">https://cn.vuejs.org/guide/typescript/composition-api.html</a></p>
-
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
-      
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="http://example.com/2024/12/20/%E6%B2%B9%E7%8C%B4%E8%84%9A%E6%9C%AC%E4%B8%AD%E6%93%8D%E4%BD%9Cdom%E6%8E%A7%E5%88%B6vue-element-%E4%B8%AD-el-input-%E7%9A%84%E5%80%BC/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.gif">
-      <meta itemprop="name" content="wangzhiwei">
-      <meta itemprop="description" content="javascript nodejs web developer...">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="WBlog">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/2024/12/20/%E6%B2%B9%E7%8C%B4%E8%84%9A%E6%9C%AC%E4%B8%AD%E6%93%8D%E4%BD%9Cdom%E6%8E%A7%E5%88%B6vue-element-%E4%B8%AD-el-input-%E7%9A%84%E5%80%BC/" class="post-title-link" itemprop="url">油猴脚本中操作dom控制vue-element 中 el-input 的值</a>
-        </h2>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              <span class="post-meta-item-text">发表于</span>
-
-              <time title="创建时间：2024-12-20 09:06:08" itemprop="dateCreated datePublished" datetime="2024-12-20T09:06:08+08:00">2024-12-20</time>
-            </span>
-              <span class="post-meta-item">
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-calendar-check-o"></i>
-                </span>
-                <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2025-03-18 11:10:52" itemprop="dateModified" datetime="2025-03-18T11:10:52+08:00">2025-03-18</time>
-              </span>
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              <span class="post-meta-item-text">分类于</span>
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/%E5%B7%A5%E5%85%B7%E9%9B%86%E5%90%88/" itemprop="url" rel="index"><span itemprop="name">工具集合</span></a>
-                </span>
-            </span>
-
-          
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <p>要使用油猴插件（Tampermonkey）修改Vue-Element的el-input的值，关键在于理解Vue的响应式原理和事件触发机制。以下是具体的步骤和代码示例：</p>
-<ol>
-<li>获取el-input元素：首先，你需要定位到页面中的el-input元素。可以使用CSS选择器来获取这个元素。</li>
-<li>修改值：直接设置input元素的value属性是不够的，因为这样不会触发Vue的响应式更新。你需要手动触发一个input事件来通知Vue更新其数据。</li>
-<li>触发事件：创建一个新的Event对象，并使用dispatchEvent方法来触发input事件，这样Vue就能检测到输入框的值变化。</li>
-</ol>
-<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// ==UserScript==</span></span><br><span class="line"><span class="comment">// @name         login</span></span><br><span class="line"><span class="comment">// @namespace    https://192.168.40.51:8000</span></span><br><span class="line"><span class="comment">// @version      2024-12-20</span></span><br><span class="line"><span class="comment">// @description  try to take over the world!</span></span><br><span class="line"><span class="comment">// @author       jason</span></span><br><span class="line"><span class="comment">// @match        https://192.168.40.51:8000/*</span></span><br><span class="line"><span class="comment">// @icon         data:image/gif;base64,R0lGODlhAQABAAAAACH5BAEKAAEALAAAAAABAAEAAAICTAEAOw==</span></span><br><span class="line"><span class="comment">// @grant        none</span></span><br><span class="line"><span class="comment">// @run-at       document-idle</span></span><br><span class="line"><span class="comment">// ==/UserScript==</span></span><br><span class="line"></span><br><span class="line">(<span class="keyword">function</span>(<span class="params"></span>) &#123;</span><br><span class="line">    <span class="string">&#x27;use strict&#x27;</span>;</span><br><span class="line">    <span class="variable language_">console</span>.<span class="title function_">log</span>(<span class="string">&#x27;hello login&#x27;</span>);</span><br><span class="line">    <span class="built_in">setTimeout</span>(<span class="function">()=&gt;</span> &#123;</span><br><span class="line">        <span class="keyword">const</span> userName = <span class="variable language_">document</span>.<span class="title function_">querySelectorAll</span>(<span class="string">&#x27;.el-input__inner&#x27;</span>)[<span class="number">0</span>];</span><br><span class="line">        <span class="keyword">if</span> (userName) &#123;</span><br><span class="line">            userName.<span class="property">value</span> = <span class="string">&#x27;admin&#x27;</span>;</span><br><span class="line">            userName.<span class="title function_">dispatchEvent</span>(<span class="keyword">new</span> <span class="title class_">Event</span>(<span class="string">&#x27;input&#x27;</span>, &#123; <span class="attr">bubbles</span>: <span class="literal">true</span>, <span class="attr">cancelable</span>: <span class="literal">true</span> &#125;));</span><br><span class="line">        &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">            <span class="variable language_">console</span>.<span class="title function_">error</span>(<span class="string">&#x27;Username input not found&#x27;</span>);</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        <span class="keyword">const</span> passWord = <span class="variable language_">document</span>.<span class="title function_">querySelectorAll</span>(<span class="string">&#x27;.el-input__inner&#x27;</span>)[<span class="number">1</span>];</span><br><span class="line">        <span class="keyword">if</span> (passWord) &#123;</span><br><span class="line">            passWord.<span class="property">value</span> = <span class="string">&#x27;xxx&#x27;</span>;</span><br><span class="line">            passWord.<span class="title function_">dispatchEvent</span>(<span class="keyword">new</span> <span class="title class_">Event</span>(<span class="string">&#x27;input&#x27;</span>, &#123; <span class="attr">bubbles</span>: <span class="literal">true</span>, <span class="attr">cancelable</span>: <span class="literal">true</span> &#125;));</span><br><span class="line">        &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">            <span class="variable language_">console</span>.<span class="title function_">error</span>(<span class="string">&#x27;Password input not found&#x27;</span>);</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="built_in">setTimeout</span>(<span class="function">()=&gt;</span> &#123;</span><br><span class="line">            <span class="variable language_">document</span>.<span class="title function_">querySelector</span>(<span class="string">&#x27;.el-button&#x27;</span>).<span class="title function_">click</span>()</span><br><span class="line">        &#125;, <span class="number">1000</span>)</span><br><span class="line">    &#125;, <span class="number">1000</span>)</span><br><span class="line">    </span><br><span class="line"></span><br><span class="line">&#125;)();</span><br><span class="line"></span><br></pre></td></tr></table></figure>
-
-<p>拦截所有ajax请求</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br></pre></td><td class="code"><pre><span class="line">// ==UserScript==</span><br><span class="line">// @name         拦截所有ajax请求</span><br><span class="line">// @namespace    https://192.168.40.51:8000</span><br><span class="line">// @version      2024-12-20</span><br><span class="line">// @description  try to take over the world!</span><br><span class="line">// @author       jason</span><br><span class="line">// @match        http://192.168.40.117:8080/*</span><br><span class="line">// @match        https://192.168.40.51:8000/*</span><br><span class="line">// @match        https://192.168.40.46/*</span><br><span class="line">// @match        http://192.168.40.115:8080/*</span><br><span class="line">// @match        https://192.168.40.116/*</span><br><span class="line">// @match        http://localhost:8000/*</span><br><span class="line">// @match        https://localhost:8000/*</span><br><span class="line">// @icon         data:image/gif;base64,R0lGODlhAQABAAAAACH5BAEKAAEALAAAAAABAAEAAAICTAEAOw==</span><br><span class="line">// @grant        none</span><br><span class="line">// @run-at       document-start</span><br><span class="line">// ==/UserScript==</span><br><span class="line"></span><br><span class="line">(function() &#123;</span><br><span class="line">    &#x27;use strict&#x27;;</span><br><span class="line"></span><br><span class="line">    // 保存原始的 XMLHttpRequest 方法</span><br><span class="line">    const originalOpen = XMLHttpRequest.prototype.open;</span><br><span class="line">    const originalSend = XMLHttpRequest.prototype.send;</span><br><span class="line">    const originalSetRequestHeader = XMLHttpRequest.prototype.setRequestHeader;</span><br><span class="line"></span><br><span class="line">    // 重写 open 方法</span><br><span class="line">    XMLHttpRequest.prototype.open = function(method, url, async) &#123;</span><br><span class="line">        this._method = method;</span><br><span class="line">        this._url = url;</span><br><span class="line">        this._async = async;</span><br><span class="line">        this._requestHeaders = &#123;&#125;; // 用于存储请求头</span><br><span class="line">        this._requestData = null; // 用于存储请求体</span><br><span class="line">        originalOpen.apply(this, arguments);</span><br><span class="line">    &#125;;</span><br><span class="line"></span><br><span class="line">    // 重写 setRequestHeader 方法</span><br><span class="line">    XMLHttpRequest.prototype.setRequestHeader = function(header, value) &#123;</span><br><span class="line">        this._requestHeaders[header] = value;</span><br><span class="line">        originalSetRequestHeader.apply(this, arguments);</span><br><span class="line">    &#125;;</span><br><span class="line"></span><br><span class="line">    // 重写 send 方法</span><br><span class="line">    XMLHttpRequest.prototype.send = function(data) &#123;</span><br><span class="line">        // 捕获请求体</span><br><span class="line">        if (data instanceof FormData) &#123;</span><br><span class="line">            const formData = new FormData();</span><br><span class="line">            data.forEach((value, key) =&gt; &#123;</span><br><span class="line">                formData.append(key, value);</span><br><span class="line">            &#125;);</span><br><span class="line">            this._requestData = formData;</span><br><span class="line">        &#125; else if (data instanceof Blob || data instanceof ArrayBuffer) &#123;</span><br><span class="line">            this._requestData = data;</span><br><span class="line">        &#125; else &#123;</span><br><span class="line">            this._requestData = data;</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        this.addEventListener(&#x27;load&#x27;, function() &#123;</span><br><span class="line">            console.log(&#x27;AJAX Request:&#x27;, &#123;</span><br><span class="line">                method: this._method,</span><br><span class="line">                url: this._url,</span><br><span class="line">                async: this._async,</span><br><span class="line">                requestHeaders: this._requestHeaders, // 添加请求头信息</span><br><span class="line">                requestData: this._requestData, // 添加请求体信息</span><br><span class="line">                response: this.responseText,</span><br><span class="line">                status: this.status,</span><br><span class="line">                statusText: this.statusText</span><br><span class="line">            &#125;);</span><br><span class="line">        &#125;);</span><br><span class="line"></span><br><span class="line">        originalSend.apply(this, arguments);</span><br><span class="line">    &#125;;</span><br><span class="line"></span><br><span class="line">    console.log(&#x27;hello login&#x27;);</span><br><span class="line">    // 其他代码...</span><br><span class="line">&#125;)();</span><br><span class="line"></span><br><span class="line"></span><br></pre></td></tr></table></figure>
-
-
-<p>在油猴脚本中，@run-at 元数据块用于指定脚本何时执行。不同的 @run-at 值会影响脚本的执行时机，从而影响脚本的行为和效果。以下是常见的 @run-at 值及其含义：</p>
-<p>@run-at document-start</p>
-<p>含义：脚本在文档解析开始时立即执行，此时 document.documentElement 可能尚未创建，document.head 也尚未完全加载。<br>适用场景：适用于需要在页面加载之前执行某些操作的情况，例如修改页面的初始加载行为。<br>@run-at document-end</p>
-<p>含义：脚本在文档解析完成后执行，此时 document.body 已经可用，但所有外部资源（如图片、样式表、子框架等）可能尚未加载完成。<br>适用场景：适用于需要在页面加载完成后执行某些操作的情况，但不需要等待所有外部资源加载完成。<br>@run-at document-idle</p>
-<p>含义：脚本在文档解析完成后且所有外部资源（如图片、样式表、子框架等）加载完成后执行。<br>适用场景：适用于需要在页面完全加载后执行某些操作的情况，确保所有资源都已加载完毕。</p>
-<p>注意匹配规则设置</p>
-<p>&#x2F;&#x2F; @match        <a target="_blank" rel="noopener" href="http://192.168.40.117:8080/">http://192.168.40.117:8080/</a>*<br>&#x2F;&#x2F; @match        <a target="_blank" rel="noopener" href="https://192.168.40.51:8000/">https://192.168.40.51:8000/</a>*<br>&#x2F;&#x2F; @match        <a target="_blank" rel="noopener" href="https://192.168.40.46/">https://192.168.40.46/</a>*<br>&#x2F;&#x2F; @match        <a target="_blank" rel="noopener" href="http://192.168.40.115:8080/">http://192.168.40.115:8080/</a>*</p>
-<p>http https 要区分 <a target="_blank" rel="noopener" href="https://192.168.40.46/">https://192.168.40.46/</a>* 改为 <a target="_blank" rel="noopener" href="https://192.168.40.*/">https://192.168.40.*/</a>* 不生效</p>
-<p>与其他库（如react）集成： 当你需要与不基于 Vue 的库或框架集成时，可能会用到 dispatchEvent 来触发特定的事件。</p>
-
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
 
   
   <nav class="pagination">
@@ -2421,7 +2471,7 @@
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">65</span>
+          <span class="site-state-item-count">67</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>
