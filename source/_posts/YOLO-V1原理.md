@@ -44,6 +44,8 @@ tags:
 
 ![](../images/yolov1_ppt/yolov1_ppt-08.png)
 
+regression problem. 回归问题
+
 ![](../images/yolov1_ppt/yolov1_ppt-09.png)
 ![](../images/yolov1_ppt/yolov1_ppt-10.png)
 
@@ -68,6 +70,18 @@ Ci 是网格中存在物体的概率，Ci 取1 否则取0
 （1 i obj）如果有某个物体的中心落在第i 个 网格中，这一项取1，否则取0，取1 就会计算后面的平方损失
 
 ![](../images/yolov1_ppt/yolov1_ppt-11.png)
+
+
+### 推理阶段 每个 网格 都有 2个 bounding box
+
+（图一）7*7*2 = 98个 bounding box，每个 bounding box 都有一个置信度，我们用粗细来区分了不同的置信度，置信度越大就越粗
+
+（图二）同时我们还可以得到 每个 bounding box 的 类别概率,右侧的有计算公式
+
+中这个 网格里有物体的情况下 是第i个类别的概率 条件概率 * 网格中有物体的概率 * 预测框和真实框之间的Iou 
+= 网格是第i 类的概率 * Iou
+
+
 ![](../images/yolov1_ppt/yolov1_ppt-12.png)
 ![](../images/yolov1_ppt/yolov1_ppt-13.png)
 ![](../images/yolov1_ppt/yolov1_ppt-14.png)
