@@ -1,0 +1,427 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 7.3.0">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+<link rel="stylesheet" href="/lib/font-awesome/css/font-awesome.min.css">
+
+<script id="hexo-configurations">
+    var NexT = window.NexT || {};
+    var CONFIG = {"hostname":"example.com","root":"/","scheme":"Muse","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":false,"show_result":false,"style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":false,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}}};
+  </script>
+
+  <meta name="description" content="Predicts only two boxes per grid cell (same class)• Poor performance with small, clustered objects.• Struggles with multiple categories per grid cell.• Issues with unusual object aspect ratios.• Lower">
+<meta property="og:type" content="article">
+<meta property="og:title" content="YOLO V2原理">
+<meta property="og:url" content="http://example.com/2025/04/02/YOLO-V2%E5%8E%9F%E7%90%86/index.html">
+<meta property="og:site_name" content="WBlog">
+<meta property="og:description" content="Predicts only two boxes per grid cell (same class)• Poor performance with small, clustered objects.• Struggles with multiple categories per grid cell.• Issues with unusual object aspect ratios.• Lower">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="http://example.com/images/yolov2/yolov2-01.png">
+<meta property="og:image" content="http://example.com/images/yolov2/yolov2-02.png">
+<meta property="og:image" content="http://example.com/images/yolov2/yolov2-03.png">
+<meta property="og:image" content="http://example.com/images/yolov2/yolov2-04.png">
+<meta property="og:image" content="http://example.com/images/yolov2/yolov2-05.png">
+<meta property="og:image" content="http://example.com/images/yolov2/yolov2-06.png">
+<meta property="og:image" content="http://example.com/images/yolov2/yolov2-07.png">
+<meta property="og:image" content="http://example.com/images/yolov2/yolov2-08.png">
+<meta property="og:image" content="http://example.com/images/yolov2/yolov2-09.png">
+<meta property="og:image" content="http://example.com/images/yolov2/yolov2-10.png">
+<meta property="og:image" content="http://example.com/images/yolov2/yolov2-11.png">
+<meta property="og:image" content="http://example.com/images/yolov2/yolov2-12.png">
+<meta property="og:image" content="http://example.com/images/yolov2/yolov2-13.png">
+<meta property="og:image" content="http://example.com/images/yolov2/yolov2-14.png">
+<meta property="og:image" content="http://example.com/images/yolov2/yolov2-15.png">
+<meta property="og:image" content="http://example.com/images/yolov2/yolov2-16.png">
+<meta property="og:image" content="http://example.com/images/yolov2/yolov2-17.png">
+<meta property="og:image" content="http://example.com/images/yolov2/yolov2-18.png">
+<meta property="og:image" content="http://example.com/images/yolov2/yolov2-19.png">
+<meta property="og:image" content="http://example.com/images/yolov2/yolov2-20.png">
+<meta property="og:image" content="http://example.com/images/yolov2/yolov2-21.png">
+<meta property="og:image" content="http://example.com/images/yolov2/yolov2-22.png">
+<meta property="og:image" content="http://example.com/images/yolov2/yolov2-23.png">
+<meta property="og:image" content="http://example.com/images/yolov2/yolov2-24.png">
+<meta property="og:image" content="http://example.com/images/yolov2/yolov2-25.png">
+<meta property="og:image" content="http://example.com/images/yolov2/yolov2-26.png">
+<meta property="og:image" content="http://example.com/images/yolov2/yolov2-27.png">
+<meta property="og:image" content="http://example.com/images/yolov2/yolov2-28.png">
+<meta property="og:image" content="http://example.com/images/yolov2/yolov2-29.png">
+<meta property="article:published_time" content="2025-04-02T02:28:18.000Z">
+<meta property="article:modified_time" content="2025-04-02T03:29:02.535Z">
+<meta property="article:author" content="wangzhiwei">
+<meta property="article:tag" content="javascript nodejs web developer fe engineer">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="http://example.com/images/yolov2/yolov2-01.png">
+
+<link rel="canonical" href="http://example.com/2025/04/02/YOLO-V2%E5%8E%9F%E7%90%86/">
+
+
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome : false,
+    isPost : true,
+    lang   : 'zh-CN'
+  };
+</script>
+
+  <title>YOLO V2原理 | WBlog</title>
+  
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div class="container use-motion">
+    <div class="headband"></div>
+
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏">
+      <span class="toggle-line toggle-line-first"></span>
+      <span class="toggle-line toggle-line-middle"></span>
+      <span class="toggle-line toggle-line-last"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <h1 class="site-title">WBlog</h1>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+      <p class="site-subtitle" itemprop="description">wangzhiwei blog</p>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+    </div>
+  </div>
+</div>
+
+
+
+
+<nav class="site-nav">
+  <ul id="menu" class="menu">
+        <li class="menu-item menu-item-home">
+
+    <a href="/" rel="section"><i class="fa fa-fw fa-home"></i>首页</a>
+
+  </li>
+        <li class="menu-item menu-item-archives">
+
+    <a href="/archives/" rel="section"><i class="fa fa-fw fa-archive"></i>归档</a>
+
+  </li>
+  </ul>
+</nav>
+
+
+
+
+</div>
+    </header>
+
+    
+  <div class="back-to-top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+
+
+    <main class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+
+          <div class="content post posts-expand">
+            
+
+    
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="http://example.com/2025/04/02/YOLO-V2%E5%8E%9F%E7%90%86/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="wangzhiwei">
+      <meta itemprop="description" content="javascript nodejs web developer...">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="WBlog">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          YOLO V2原理
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+              
+
+              <time title="创建时间：2025-04-02 10:28:18 / 修改时间：11:29:02" itemprop="dateCreated datePublished" datetime="2025-04-02T10:28:18+08:00">2025-04-02</time>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+        <p>Predicts only two boxes per grid cell (same class)<br>• Poor performance with small, clustered objects.<br>• Struggles with multiple categories per grid cell.<br>• Issues with unusual object aspect ratios.<br>• Lower accuracy compared to other methods.</p>
+<p>每个网格单元仅预测两个盒子（同一类）<br>•小的聚集物对象的性能差。<br>•每个网格单元格与多个类别的斗争。<br>•与异常对象宽高比的问题。<br>•与其他方法相比，精度较低。<br>•最多预测49个分类</p>
+<p><img src="/../images/yolov2/yolov2-01.png"></p>
+<p><img src="/../images/yolov2/yolov2-02.png"></p>
+<p>网络结构的改进<br>    突出 Darknet19（骨干网络）的关键特性。<br>    提取细粒度特征，从而实现更好的目标定位和详细的预测。<br>训练策略的改进。<br>    高分辨率分类器<br>    多尺度训练<br>训练阶段：<br>    关注输出张量如何与真实标签关联。<br>测试阶段：<br>    将输出张量转换为最终预测结果。</p>
+<p><img src="/../images/yolov2/yolov2-03.png"></p>
+<p>卷积操作：<br>    3x3 滤波器：提取空间特征，同时保留空间信息。<br>    1x1 滤波器：调整通道维度，减少计算量。<br>优点：<br>    减少参数，提高效率。<br>    保持足够的感受野。<br>批归一化（Batch Normalization）：<br>    有助于加速模型收敛，并防止梯度消失。提高模型稳定性，在 Darknet19 中，批归一化被用于每个卷积层。<br>全局平均池化（Global Average Pooling）:<br>在网络的最后阶段，我们把输出的特征图的每一个通道，构成一个值，下图中输出特征图是1000个通道的，我们把每一个通道的值求平均，得到一个值。就得到了1000维度的向量。<br>将它输出到 softmax层，进行分类，能够大大减少，参数爆炸的问题。<br>两个 3x3 卷积 &#x3D; 一个 5x5 卷积<br>三个 3x3 卷积 &#x3D; 一个 7x7 卷积</p>
+<p><img src="/../images/yolov2/yolov2-04.png"></p>
+<p>批归一化（Batch Normalization）<br>深度学习挑战：<br>    内部协变量偏移（Internal Covariate Shift, ICS）：在训练过程中，层输入的分布会发生变化。<br>后果：<br>    梯度消失或梯度爆炸。<br>    需要仔细调整超参数（例如学习率、初始化）。<br>    限制了饱和非线性激活函数（例如 sigmoid）的使用。<br>思路：<br>    每个小批量（mini-batch）对层输入进行归一化，使其具有零均值和单位方差。</p>
+<p><img src="/../images/yolov2/yolov2-05.png"></p>
+<p>FC （全链接层）<br>对于输入的小数据量x, 有m个样本组成，每个样本有d个特征，可以理解为 d * m 的矩阵<br>每一行代表一个样本，每一列代表一个特征</p>
+<p>为们要对矩阵中的每一个元素进行归一化， </p>
+<p>1、计算每个特征的均值，对于第k个特征，他的计算公式为右侧第一个<br>我们会将第k个特征的m条样本累加求和，再除以m，得到第k个特征的均值。<br>2、计算每个特征的方差，对于第k个特征，他的计算公式为右侧第二个<br>3、对与列上的每一个元素第k个特征的第i个元素，我们就用它原来的值减去第k个特征的均值，再除以标准差 ，来得到更新后的值，，他的计算公式为右侧第二个 E 为小的波动，防止分母为0<br>4、</p>
+<p><img src="/../images/yolov2/yolov2-06.png"></p>
+<p>Conv (卷积网络)</p>
+<p><img src="/../images/yolov2/yolov2-07.png"><br><img src="/../images/yolov2/yolov2-08.png"><br><img src="/../images/yolov2/yolov2-09.png"><br><img src="/../images/yolov2/yolov2-10.png"><br><img src="/../images/yolov2/yolov2-11.png"><br><img src="/../images/yolov2/yolov2-12.png"><br><img src="/../images/yolov2/yolov2-13.png"><br><img src="/../images/yolov2/yolov2-14.png"><br><img src="/../images/yolov2/yolov2-15.png"><br><img src="/../images/yolov2/yolov2-16.png"><br><img src="/../images/yolov2/yolov2-17.png"><br><img src="/../images/yolov2/yolov2-18.png"><br><img src="/../images/yolov2/yolov2-19.png"><br><img src="/../images/yolov2/yolov2-20.png"><br><img src="/../images/yolov2/yolov2-21.png"><br><img src="/../images/yolov2/yolov2-22.png"><br><img src="/../images/yolov2/yolov2-23.png"><br><img src="/../images/yolov2/yolov2-24.png"><br><img src="/../images/yolov2/yolov2-25.png"><br><img src="/../images/yolov2/yolov2-26.png"><br><img src="/../images/yolov2/yolov2-27.png"><br><img src="/../images/yolov2/yolov2-28.png"><br><img src="/../images/yolov2/yolov2-29.png"></p>
+<p>参考：<br><a target="_blank" rel="noopener" href="https://www.bilibili.com/video/BV1dxPCeUEvE/?spm_id_from=333.1387.upload.video_card.click&vd_source=ffda878df0ed45bee1ade91d8f451048">https://www.bilibili.com/video/BV1dxPCeUEvE/?spm_id_from=333.1387.upload.video_card.click&amp;vd_source=ffda878df0ed45bee1ade91d8f451048</a></p>
+
+    </div>
+
+    
+    
+    
+
+      <footer class="post-footer">
+
+        
+
+
+        
+    <div class="post-nav">
+      <div class="post-nav-item">
+    <a href="/2025/04/01/YOLO-V1%E5%8E%9F%E7%90%86/" rel="prev" title="YOLO V1原理">
+      <i class="fa fa-chevron-left"></i> YOLO V1原理
+    </a></div>
+      <div class="post-nav-item"></div>
+    </div>
+      </footer>
+    
+  </article>
+  
+  
+  
+
+
+
+          </div>
+          
+
+<script>
+  window.addEventListener('tabs:register', () => {
+    let { activeClass } = CONFIG.comments;
+    if (CONFIG.comments.storage) {
+      activeClass = localStorage.getItem('comments_active') || activeClass;
+    }
+    if (activeClass) {
+      let activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      if (activeTab) {
+        activeTab.click();
+      }
+    }
+  });
+  if (CONFIG.comments.storage) {
+    window.addEventListener('tabs:click', event => {
+      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
+      let commentClass = event.target.classList[1];
+      localStorage.setItem('comments_active', commentClass);
+    });
+  }
+</script>
+
+        </div>
+          
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line toggle-line-first"></span>
+    <span class="toggle-line toggle-line-middle"></span>
+    <span class="toggle-line toggle-line-last"></span>
+  </div>
+
+  <aside class="sidebar">
+    <div class="sidebar-inner">
+
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <div class="post-toc-wrap sidebar-panel">
+      </div>
+      <!--/noindex-->
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+  <p class="site-author-name" itemprop="name">wangzhiwei</p>
+  <div class="site-description" itemprop="description">javascript nodejs web developer...</div>
+</div>
+<div class="site-state-wrap motion-element">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">69</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+        <span class="site-state-item-count">56</span>
+        <span class="site-state-item-name">分类</span>
+      </div>
+      <div class="site-state-item site-state-tags">
+        <span class="site-state-item-count">62</span>
+        <span class="site-state-item-name">标签</span>
+      </div>
+  </nav>
+</div>
+
+
+
+      </div>
+
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+    </main>
+
+    <footer class="footer">
+      <div class="footer-inner">
+        
+
+        
+
+<div class="copyright">
+  
+  &copy; 
+  <span itemprop="copyrightYear">2025</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">wangzhiwei</span>
+</div>
+  <div class="powered-by">由 <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> & <a href="https://muse.theme-next.org/" class="theme-link" rel="noopener" target="_blank">NexT.Muse</a> 强力驱动
+  </div>
+
+        
+
+
+
+
+
+
+
+
+      </div>
+    </footer>
+  </div>
+
+  
+  <script src="/lib/anime.min.js"></script>
+  <script src="/lib/velocity/velocity.min.js"></script>
+  <script src="/lib/velocity/velocity.ui.min.js"></script>
+
+<script src="/js/utils.js"></script>
+
+<script src="/js/motion.js"></script>
+
+
+<script src="/js/schemes/muse.js"></script>
+
+
+<script src="/js/next-boot.js"></script>
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  
+
+</body>
+</html>
