@@ -29,6 +29,17 @@ tags:
 https://matpool.com/application/
 
 
+# 上传文件 
+
+```
+
+scp -P 28508 -r /path/to/local/directory root@px-asia-3.matpool.com:/path/to/remote/directory/
+
+```
+
+# 最好是把资源提前存储到网盘上，比较省时间
+
+![](../images/llama_factory/img13.png)
 
 # 参考视频
 【大模型微调！手把手带你用LLaMA-Factory工具微调Qwen大模型！有手就行，零代码微调任意大语言模型】 https://www.bilibili.com/video/BV1Q8rYYdErf/?p=2&share_source=copy_web&vd_source=314434c1c439c02d05fc140813b03c9c
