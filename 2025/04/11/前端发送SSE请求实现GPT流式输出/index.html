@@ -1,0 +1,399 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 7.3.0">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+<link rel="stylesheet" href="/lib/font-awesome/css/font-awesome.min.css">
+
+<script id="hexo-configurations">
+    var NexT = window.NexT || {};
+    var CONFIG = {"hostname":"example.com","root":"/","scheme":"Muse","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":false,"show_result":false,"style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":false,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}}};
+  </script>
+
+  <meta name="description" content="fetchEventSource1234567891011121314151617181920212223242526272829303132333435import &#123; fetchEventSource &#125; from &#x27;@microsoft&#x2F;fetch-event-source&#x27;;async function startStream() &#123;  a">
+<meta property="og:type" content="article">
+<meta property="og:title" content="前端发送SSE请求实现GPT流式输出">
+<meta property="og:url" content="http://example.com/2025/04/11/%E5%89%8D%E7%AB%AF%E5%8F%91%E9%80%81SSE%E8%AF%B7%E6%B1%82%E5%AE%9E%E7%8E%B0GPT%E6%B5%81%E5%BC%8F%E8%BE%93%E5%87%BA/index.html">
+<meta property="og:site_name" content="WBlog">
+<meta property="og:description" content="fetchEventSource1234567891011121314151617181920212223242526272829303132333435import &#123; fetchEventSource &#125; from &#x27;@microsoft&#x2F;fetch-event-source&#x27;;async function startStream() &#123;  a">
+<meta property="og:locale" content="zh_CN">
+<meta property="article:published_time" content="2025-04-11T02:26:31.000Z">
+<meta property="article:modified_time" content="2025-04-11T02:36:11.431Z">
+<meta property="article:author" content="wangzhiwei">
+<meta property="article:tag" content="javascript nodejs web developer fe engineer">
+<meta name="twitter:card" content="summary">
+
+<link rel="canonical" href="http://example.com/2025/04/11/%E5%89%8D%E7%AB%AF%E5%8F%91%E9%80%81SSE%E8%AF%B7%E6%B1%82%E5%AE%9E%E7%8E%B0GPT%E6%B5%81%E5%BC%8F%E8%BE%93%E5%87%BA/">
+
+
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome : false,
+    isPost : true,
+    lang   : 'zh-CN'
+  };
+</script>
+
+  <title>前端发送SSE请求实现GPT流式输出 | WBlog</title>
+  
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div class="container use-motion">
+    <div class="headband"></div>
+
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏">
+      <span class="toggle-line toggle-line-first"></span>
+      <span class="toggle-line toggle-line-middle"></span>
+      <span class="toggle-line toggle-line-last"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <h1 class="site-title">WBlog</h1>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+      <p class="site-subtitle" itemprop="description">wangzhiwei blog</p>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+    </div>
+  </div>
+</div>
+
+
+
+
+<nav class="site-nav">
+  <ul id="menu" class="menu">
+        <li class="menu-item menu-item-home">
+
+    <a href="/" rel="section"><i class="fa fa-fw fa-home"></i>首页</a>
+
+  </li>
+        <li class="menu-item menu-item-archives">
+
+    <a href="/archives/" rel="section"><i class="fa fa-fw fa-archive"></i>归档</a>
+
+  </li>
+  </ul>
+</nav>
+
+
+
+
+</div>
+    </header>
+
+    
+  <div class="back-to-top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+
+
+    <main class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+
+          <div class="content post posts-expand">
+            
+
+    
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="http://example.com/2025/04/11/%E5%89%8D%E7%AB%AF%E5%8F%91%E9%80%81SSE%E8%AF%B7%E6%B1%82%E5%AE%9E%E7%8E%B0GPT%E6%B5%81%E5%BC%8F%E8%BE%93%E5%87%BA/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="wangzhiwei">
+      <meta itemprop="description" content="javascript nodejs web developer...">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="WBlog">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          前端发送SSE请求实现GPT流式输出
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+              
+
+              <time title="创建时间：2025-04-11 10:26:31 / 修改时间：10:36:11" itemprop="dateCreated datePublished" datetime="2025-04-11T10:26:31+08:00">2025-04-11</time>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+        <h2 id="fetchEventSource"><a href="#fetchEventSource" class="headerlink" title="fetchEventSource"></a>fetchEventSource</h2><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br></pre></td><td class="code"><pre><span class="line">import &#123; fetchEventSource &#125; from &#x27;@microsoft/fetch-event-source&#x27;;</span><br><span class="line"></span><br><span class="line">async function startStream() &#123;</span><br><span class="line">  await fetchEventSource(&#x27;request url&#x27;, &#123;</span><br><span class="line">    method: &#x27;POST&#x27;,</span><br><span class="line">    headers: &#123;</span><br><span class="line">      &#x27;Content-Type&#x27;: &#x27;application/json&#x27;,</span><br><span class="line">      &#x27;Authorization&#x27;: &#x27;Bearer YOUR_TOKEN&#x27;,</span><br><span class="line">    &#125;,</span><br><span class="line">    body: JSON.stringify(&#123; query: &quot;Hello&quot; &#125;),</span><br><span class="line">    onopen(response) &#123;</span><br><span class="line">      // 连接成功时触发</span><br><span class="line">      if (response.ok) return;</span><br><span class="line">      throw new Error(&#x27;连接失败&#x27;);</span><br><span class="line">    &#125;,</span><br><span class="line">    onmessage(event) &#123;</span><br><span class="line">      // 接收服务器发送的每条事件</span><br><span class="line">      console.log(&#x27;收到数据:&#x27;, event.data);</span><br><span class="line">      // 请求完成</span><br><span class="line">      console.log(&#x27;请求结束标记&#x27;, data.done)</span><br><span class="line">    &#125;,</span><br><span class="line">    onclose() &#123;</span><br><span class="line">      // 连接关闭时触发</span><br><span class="line">      console.log(&#x27;连接终止&#x27;);</span><br><span class="line">    &#125;,</span><br><span class="line">    onerror(err) &#123;</span><br><span class="line">      // 错误处理（默认会抛出异常并自动重试）</span><br><span class="line">      console.error(&#x27;错误:&#x27;, err);</span><br><span class="line">      throw err; // 抛出错误会触发重试机制</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+
+
+
+<h2 id="rehypeRaw-支持-markdown-中含有-html-标签"><a href="#rehypeRaw-支持-markdown-中含有-html-标签" class="headerlink" title="rehypeRaw 支持 markdown 中含有 html 标签"></a>rehypeRaw 支持 markdown 中含有 html 标签</h2><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">import &#123; Avatar &#125; from &quot;antd&quot;</span><br><span class="line">import ReactMardown from &quot;react-markdown&quot;;</span><br><span class="line">import remarkGfm from &#x27;remark-gfm&#x27;</span><br><span class="line">import &#123; CopyToClipboard &#125; from &#x27;react-copy-to-clipboard&#x27;;</span><br><span class="line">import rehypeRaw from &#x27;rehype-raw&#x27;</span><br><span class="line"></span><br><span class="line">import &#123;</span><br><span class="line">    CopyOutlined,</span><br><span class="line">    SyncOutlined</span><br><span class="line">&#125; from &#x27;@ant-design/icons&#x27;;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">function ChatAnswer( &#123; item, onCopy &#125;: ChatAnswerProps ) &#123;</span><br><span class="line">    return (</span><br><span class="line">        &lt;div className=&quot;chat-answer&quot;&gt;</span><br><span class="line">            &lt;Avatar style=&#123;&#123; backgroundColor: &#x27;#2B65F7&#x27; &#125;&#125; size=&#123;40&#125;&gt;AI&lt;/Avatar&gt;</span><br><span class="line">            &lt;div className=&quot;chat-answer-content&quot; &gt;</span><br><span class="line">                &#123;</span><br><span class="line">                    !item.answer &amp;&amp;</span><br><span class="line">                    &lt;div className=&#x27;loading-box&#x27;&gt;</span><br><span class="line">                        &lt;SyncOutlined spin /&gt; 思考中...</span><br><span class="line">                    &lt;/div&gt;</span><br><span class="line">                &#125;</span><br><span class="line">                &lt;div style=&#123;&#123;paddingTop: 10&#125;&#125;&gt;</span><br><span class="line">                    &lt;ReactMardown remarkPlugins=&#123;[remarkGfm]&#125; rehypePlugins=&#123;[rehypeRaw]&#125;&gt;</span><br><span class="line">                        &#123;</span><br><span class="line">                            item.answer &amp;&amp;</span><br><span class="line">                            item.answer</span><br><span class="line">                        &#125;</span><br><span class="line">                    &lt;/ReactMardown&gt;</span><br><span class="line">                &lt;/div&gt;</span><br><span class="line">                &#123;</span><br><span class="line">                    item.answer &amp;&amp;</span><br><span class="line">                    &lt;CopyToClipboard text=&#123;item.answer&#125;</span><br><span class="line">                        onCopy=&#123;onCopy&#125;&gt;</span><br><span class="line">                        &lt;span className=&#x27;copy-btn&#x27;&gt;&lt;CopyOutlined /&gt; 复制&lt;/span&gt;</span><br><span class="line">                    &lt;/CopyToClipboard&gt;</span><br><span class="line">                &#125;</span><br><span class="line">            &lt;/div&gt;</span><br><span class="line">        &lt;/div&gt;</span><br><span class="line">    )</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">export default ChatAnswer</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+
+<h2 id="处理流式输出的标签"><a href="#处理流式输出的标签" class="headerlink" title="处理流式输出的标签"></a>处理流式输出的标签</h2><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">if (tep_mesg == &#x27;\u003cthink\u003e&#x27;) &#123;</span><br><span class="line">          tep_mesg = &quot;&lt;div class=&#x27;think&#x27;&gt;&quot;</span><br><span class="line">        &#125; else if (tep_mesg == &#x27;\u003c/think\u003e&#x27;) &#123;</span><br><span class="line">          tep_mesg = &quot;&lt;/div&gt;&quot;</span><br><span class="line">        &#125;</span><br></pre></td></tr></table></figure>
+
+<h2 id="具体参考代码"><a href="#具体参考代码" class="headerlink" title="具体参考代码"></a>具体参考代码</h2><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line"></span><br><span class="line">import &#123; PostHistoryAPI &#125; from &#x27;@/apis/chat&#x27;;</span><br><span class="line">import &#123; fetchEventSource &#125; from &#x27;@microsoft/fetch-event-source&#x27;;</span><br><span class="line">import hljs from &#x27;highlight.js&#x27;;</span><br><span class="line">export async function sendMessage(tagDefault: string, msg: string, list: any[], setList: any, messageApi: any, setDone: any, id: number) &#123;</span><br><span class="line"></span><br><span class="line">  setDone(false)</span><br><span class="line">  let answer = &#x27;&#x27;</span><br><span class="line">  const lastObj = &#123; ask: msg, answer: &#x27;&#x27; &#125;;</span><br><span class="line"></span><br><span class="line">  await fetchEventSource(&#x27;http://xxx/v1/chat/completions&#x27;, &#123;</span><br><span class="line">    method: &#x27;POST&#x27;,</span><br><span class="line">    headers: &#123;</span><br><span class="line">      &#x27;Content-Type&#x27;: &#x27;application/json&#x27;,</span><br><span class="line">      &#x27;Authorization&#x27;: &#x27;Bearer vllm&#x27;,</span><br><span class="line">    &#125;,</span><br><span class="line">    body: JSON.stringify(&#123;</span><br><span class="line">        &quot;model&quot;: tagDefault,</span><br><span class="line">        &quot;messages&quot;: [</span><br><span class="line">          &#123;&quot;role&quot;: &quot;user&quot;, &quot;content&quot;: msg&#125;</span><br><span class="line">        ],</span><br><span class="line">        &quot;stream&quot;: true</span><br><span class="line">      &#125;),</span><br><span class="line">    onmessage(event) &#123;</span><br><span class="line">      // 接收服务器发送的每条事件</span><br><span class="line">      console.log(&#x27;收到数据:&#x27;, event.data);</span><br><span class="line"></span><br><span class="line">      </span><br><span class="line">      </span><br><span class="line">      if (event.data &amp;&amp; event.data === &#x27;[DONE]&#x27;) &#123;</span><br><span class="line">        console.log(&#x27;请求完成&#x27;);</span><br><span class="line"></span><br><span class="line">        setDone(true)</span><br><span class="line">        //将数据插入到历史接口</span><br><span class="line">        PostHistoryAPI(&#123;</span><br><span class="line">            groupId: id,</span><br><span class="line">            ...lastObj</span><br><span class="line">        &#125;).then(res =&gt; &#123;</span><br><span class="line"></span><br><span class="line">            if (res.data.code !== 0) &#123;</span><br><span class="line">                messageApi.error(res.data.message)</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;)</span><br><span class="line">        hljs.highlightAll();</span><br><span class="line"></span><br><span class="line">      &#125; else &#123;</span><br><span class="line">        console.log(&#x27;收到数据:&#x27;, JSON.parse(event.data).choices[0].delta.content);</span><br><span class="line">        </span><br><span class="line">        let tep_mesg = JSON.parse(event.data).choices[0].delta.content;</span><br><span class="line">        if (tep_mesg == &#x27;\u003cthink\u003e&#x27;) &#123;</span><br><span class="line">          tep_mesg = &quot;&lt;div class=&#x27;think&#x27;&gt;&quot;</span><br><span class="line">        &#125; else if (tep_mesg == &#x27;\u003c/think\u003e&#x27;) &#123;</span><br><span class="line">          tep_mesg = &quot;&lt;/div&gt;&quot;</span><br><span class="line">        &#125;</span><br><span class="line">        </span><br><span class="line">        answer += tep_mesg</span><br><span class="line"></span><br><span class="line">        if (answer) &#123;</span><br><span class="line">            lastObj.answer = answer</span><br><span class="line">            setList([...list, lastObj])</span><br><span class="line">        &#125;</span><br><span class="line">      &#125;</span><br><span class="line">      // 请求完成</span><br><span class="line">    &#125;,</span><br><span class="line">    onclose() &#123;</span><br><span class="line">      // 连接关闭时触发</span><br><span class="line">      console.log(&#x27;连接终止&#x27;);</span><br><span class="line">    &#125;,</span><br><span class="line">    onerror(err) &#123;</span><br><span class="line">      // 错误处理（默认会抛出异常并自动重试）</span><br><span class="line">      console.error(&#x27;错误:&#x27;, err);</span><br><span class="line">      throw err; // 抛出错误会触发重试机制</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;);</span><br><span class="line">&#125;</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<h2 id="EventSource"><a href="#EventSource" class="headerlink" title="EventSource"></a>EventSource</h2><p>‘@microsoft&#x2F;fetch-event-source’ (之前用过pc兼容没问题，移动端兼容性好像不太好，当时是自己用原声js的 EventSource)</p>
+<p>EventSource<br><a target="_blank" rel="noopener" href="https://developer.mozilla.org/en-US/docs/Web/API/Server-sent_events/Using_server-sent_events">https://developer.mozilla.org/en-US/docs/Web/API/Server-sent_events/Using_server-sent_events</a></p>
+<p>参考地址：<br><a target="_blank" rel="noopener" href="https://juejin.cn/post/7476881372810313762">https://juejin.cn/post/7476881372810313762</a><br><a target="_blank" rel="noopener" href="https://www.npmjs.com/package/react-markdown">https://www.npmjs.com/package/react-markdown</a><br><a target="_blank" rel="noopener" href="https://www.npmjs.com/package/rehype-raw">https://www.npmjs.com/package/rehype-raw</a></p>
+
+    </div>
+
+    
+    
+    
+
+      <footer class="post-footer">
+
+        
+
+
+        
+    <div class="post-nav">
+      <div class="post-nav-item">
+    <a href="/2025/04/10/LLama-factory-%E5%AE%9E%E9%AA%8C/" rel="prev" title="LLama-factory 实验">
+      <i class="fa fa-chevron-left"></i> LLama-factory 实验
+    </a></div>
+      <div class="post-nav-item">
+    <a href="/2025/04/11/Gradio%E6%90%AD%E5%BB%BA%E5%A4%A7%E6%A8%A1%E5%9E%8B%E9%A1%B5%E9%9D%A2/" rel="next" title="Gradio搭建大模型页面">
+      Gradio搭建大模型页面 <i class="fa fa-chevron-right"></i>
+    </a></div>
+    </div>
+      </footer>
+    
+  </article>
+  
+  
+  
+
+
+
+          </div>
+          
+
+<script>
+  window.addEventListener('tabs:register', () => {
+    let { activeClass } = CONFIG.comments;
+    if (CONFIG.comments.storage) {
+      activeClass = localStorage.getItem('comments_active') || activeClass;
+    }
+    if (activeClass) {
+      let activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      if (activeTab) {
+        activeTab.click();
+      }
+    }
+  });
+  if (CONFIG.comments.storage) {
+    window.addEventListener('tabs:click', event => {
+      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
+      let commentClass = event.target.classList[1];
+      localStorage.setItem('comments_active', commentClass);
+    });
+  }
+</script>
+
+        </div>
+          
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line toggle-line-first"></span>
+    <span class="toggle-line toggle-line-middle"></span>
+    <span class="toggle-line toggle-line-last"></span>
+  </div>
+
+  <aside class="sidebar">
+    <div class="sidebar-inner">
+
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#fetchEventSource"><span class="nav-number">1.</span> <span class="nav-text">fetchEventSource</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#rehypeRaw-%E6%94%AF%E6%8C%81-markdown-%E4%B8%AD%E5%90%AB%E6%9C%89-html-%E6%A0%87%E7%AD%BE"><span class="nav-number">2.</span> <span class="nav-text">rehypeRaw 支持 markdown 中含有 html 标签</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%A4%84%E7%90%86%E6%B5%81%E5%BC%8F%E8%BE%93%E5%87%BA%E7%9A%84%E6%A0%87%E7%AD%BE"><span class="nav-number">3.</span> <span class="nav-text">处理流式输出的标签</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%85%B7%E4%BD%93%E5%8F%82%E8%80%83%E4%BB%A3%E7%A0%81"><span class="nav-number">4.</span> <span class="nav-text">具体参考代码</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#EventSource"><span class="nav-number">5.</span> <span class="nav-text">EventSource</span></a></li></ol></div>
+      </div>
+      <!--/noindex-->
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+  <p class="site-author-name" itemprop="name">wangzhiwei</p>
+  <div class="site-description" itemprop="description">javascript nodejs web developer...</div>
+</div>
+<div class="site-state-wrap motion-element">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">77</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+        <span class="site-state-item-count">56</span>
+        <span class="site-state-item-name">分类</span>
+      </div>
+      <div class="site-state-item site-state-tags">
+        <span class="site-state-item-count">62</span>
+        <span class="site-state-item-name">标签</span>
+      </div>
+  </nav>
+</div>
+
+
+
+      </div>
+
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+    </main>
+
+    <footer class="footer">
+      <div class="footer-inner">
+        
+
+        
+
+<div class="copyright">
+  
+  &copy; 
+  <span itemprop="copyrightYear">2025</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">wangzhiwei</span>
+</div>
+  <div class="powered-by">由 <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> & <a href="https://muse.theme-next.org/" class="theme-link" rel="noopener" target="_blank">NexT.Muse</a> 强力驱动
+  </div>
+
+        
+
+
+
+
+
+
+
+
+      </div>
+    </footer>
+  </div>
+
+  
+  <script src="/lib/anime.min.js"></script>
+  <script src="/lib/velocity/velocity.min.js"></script>
+  <script src="/lib/velocity/velocity.ui.min.js"></script>
+
+<script src="/js/utils.js"></script>
+
+<script src="/js/motion.js"></script>
+
+
+<script src="/js/schemes/muse.js"></script>
+
+
+<script src="/js/next-boot.js"></script>
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  
+
+</body>
+</html>

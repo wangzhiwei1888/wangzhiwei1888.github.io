@@ -149,6 +149,283 @@
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="http://example.com/2025/04/11/huggingface-%E4%B8%8A%E7%9A%84%E6%A8%A1%E5%9E%8B%E5%BE%AE%E8%B0%83%E5%90%8E%E5%A6%82%E4%BD%95%E5%9C%A8-ollama-%E4%B8%AD%E4%BD%BF%E7%94%A8/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="wangzhiwei">
+      <meta itemprop="description" content="javascript nodejs web developer...">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="WBlog">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/2025/04/11/huggingface-%E4%B8%8A%E7%9A%84%E6%A8%A1%E5%9E%8B%E5%BE%AE%E8%B0%83%E5%90%8E%E5%A6%82%E4%BD%95%E5%9C%A8-ollama-%E4%B8%AD%E4%BD%BF%E7%94%A8/" class="post-title-link" itemprop="url">huggingface 上的模型微调后如何在 ollama 中使用</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+              
+
+              <time title="创建时间：2025-04-11 10:51:39 / 修改时间：10:52:03" itemprop="dateCreated datePublished" datetime="2025-04-11T10:51:39+08:00">2025-04-11</time>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <h2 id="以下是将HuggingFace上的模型微调后在Ollama中使用的方法："><a href="#以下是将HuggingFace上的模型微调后在Ollama中使用的方法：" class="headerlink" title="以下是将HuggingFace上的模型微调后在Ollama中使用的方法："></a>以下是将HuggingFace上的模型微调后在Ollama中使用的方法：</h2><h3 id="1-微调模型"><a href="#1-微调模型" class="headerlink" title="1. 微调模型"></a>1. 微调模型</h3><p>首先，你需要在HuggingFace上微调一个模型。可以使用HuggingFace的Transformers库来加载预训练模型，然后进行微调。例如：</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">from</span> transformers <span class="keyword">import</span> AutoModelForCausalLM, AutoTokenizer, TrainingArguments, Trainer</span><br><span class="line"></span><br><span class="line">model_name = <span class="string">&quot;your_model_name&quot;</span></span><br><span class="line">tokenizer = AutoTokenizer.from_pretrained(model_name)</span><br><span class="line">model = AutoModelForCausalLM.from_pretrained(model_name)</span><br><span class="line"></span><br><span class="line"><span class="comment"># 准备训练数据</span></span><br><span class="line">train_dataset = ...  <span class="comment"># 你的训练数据</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 设置训练参数</span></span><br><span class="line">training_args = TrainingArguments(</span><br><span class="line">    output_dir=<span class="string">&quot;./output&quot;</span>,</span><br><span class="line">    num_train_epochs=<span class="number">3</span>,</span><br><span class="line">    per_device_train_batch_size=<span class="number">4</span>,</span><br><span class="line">    save_steps=<span class="number">500</span>,</span><br><span class="line">    logging_dir=<span class="string">&quot;./logs&quot;</span>,</span><br><span class="line">)</span><br><span class="line"></span><br><span class="line"><span class="comment"># 创建Trainer并训练模型</span></span><br><span class="line">trainer = Trainer(</span><br><span class="line">    model=model,</span><br><span class="line">    args=training_args,</span><br><span class="line">    train_dataset=train_dataset,</span><br><span class="line">)</span><br><span class="line">trainer.train()</span><br><span class="line"></span><br><span class="line"><span class="comment"># 保存微调后的模型</span></span><br><span class="line">model.save_pretrained(<span class="string">&quot;./output/finetuned_model&quot;</span>)</span><br><span class="line">tokenizer.save_pretrained(<span class="string">&quot;./output/finetuned_model&quot;</span>)</span><br></pre></td></tr></table></figure>
+
+
+<h3 id="2-转换模型格式"><a href="#2-转换模型格式" class="headerlink" title="2. 转换模型格式"></a>2. 转换模型格式</h3><p>Ollama支持GGUF格式的模型。你需要将微调后的模型转换为GGUF格式。可以使用llama.cpp工具来完成这个转换：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 安装llama.cpp</span></span><br><span class="line">git <span class="built_in">clone</span> https://github.com/ggml-org/llama.cpp.git</span><br><span class="line"><span class="built_in">cd</span> llama.cpp</span><br><span class="line">make</span><br><span class="line"></span><br><span class="line"><span class="comment"># 转换模型</span></span><br><span class="line">python convert_hf_to_gguf.py ./output/finetuned_model ./output/finetuned_model.gguf</span><br></pre></td></tr></table></figure>
+
+
+<h3 id="3-导入Ollama"><a href="#3-导入Ollama" class="headerlink" title="3. 导入Ollama"></a>3. 导入Ollama</h3><p>将转换后的GGUF模型文件导入Ollama：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 创建Ollama模型</span></span><br><span class="line">ollama create my_finetuned_model ./output/finetuned_model.gguf</span><br><span class="line"></span><br><span class="line"><span class="comment"># 运行模型</span></span><br><span class="line">ollama run my_finetuned_model <span class="string">&quot;生成文本&quot;</span></span><br></pre></td></tr></table></figure>
+
+
+<h3 id="4-使用Ollama-API"><a href="#4-使用Ollama-API" class="headerlink" title="4. 使用Ollama API"></a>4. 使用Ollama API</h3><p>你还可以通过Ollama的API来调用微调后的模型：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 启动Ollama服务</span></span><br><span class="line">ollama serve</span><br><span class="line"></span><br><span class="line"><span class="comment"># 使用HTTP请求调用模型</span></span><br><span class="line">curl -X POST http://localhost:11434/api/generate -d <span class="string">&#x27;&#123;&quot;model&quot;: &quot;my_finetuned_model&quot;, &quot;prompt&quot;: &quot;生成文本&quot;&#125;&#x27;</span></span><br></pre></td></tr></table></figure>
+
+
+<h3 id="注意事项"><a href="#注意事项" class="headerlink" title="注意事项"></a>注意事项</h3><ul>
+<li>确保你的微调模型已经保存为全精度版本。</li>
+<li>在转换模型格式时，可能需要根据你的硬件环境（如CUDA）进行相应的配置。</li>
+<li>如果模型较大，转换和导入过程可能需要较长时间。</li>
+</ul>
+<p>通过以上步骤，你就可以将HuggingFace上的模型微调后在Ollama中使用了。</p>
+
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="http://example.com/2025/04/11/%E4%B8%AD%E6%96%87%E6%89%8B%E5%86%99%E4%BD%93%E8%AF%86%E5%88%AB/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="wangzhiwei">
+      <meta itemprop="description" content="javascript nodejs web developer...">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="WBlog">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/2025/04/11/%E4%B8%AD%E6%96%87%E6%89%8B%E5%86%99%E4%BD%93%E8%AF%86%E5%88%AB/" class="post-title-link" itemprop="url">中文手写体识别</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+              
+
+              <time title="创建时间：2025-04-11 10:48:28 / 修改时间：10:49:25" itemprop="dateCreated datePublished" datetime="2025-04-11T10:48:28+08:00">2025-04-11</time>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <h2 id="中文手写体识别"><a href="#中文手写体识别" class="headerlink" title="中文手写体识别"></a>中文手写体识别</h2><p>stepfun-ai&#x2F;GOT-OCR-2.0-hf</p>
+<p><a target="_blank" rel="noopener" href="https://huggingface.co/stepfun-ai/GOT-OCR-2.0-hf">https://huggingface.co/stepfun-ai/GOT-OCR-2.0-hf</a></p>
+<p>体验地址：<br><a target="_blank" rel="noopener" href="https://huggingface.co/spaces/yonigozlan/GOT-OCR-Transformers">https://huggingface.co/spaces/yonigozlan/GOT-OCR-Transformers</a></p>
+
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="http://example.com/2025/04/11/Gradio%E6%90%AD%E5%BB%BA%E5%A4%A7%E6%A8%A1%E5%9E%8B%E9%A1%B5%E9%9D%A2/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="wangzhiwei">
+      <meta itemprop="description" content="javascript nodejs web developer...">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="WBlog">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/2025/04/11/Gradio%E6%90%AD%E5%BB%BA%E5%A4%A7%E6%A8%A1%E5%9E%8B%E9%A1%B5%E9%9D%A2/" class="post-title-link" itemprop="url">Gradio搭建大模型页面</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+              
+
+              <time title="创建时间：2025-04-11 10:37:30 / 修改时间：10:41:11" itemprop="dateCreated datePublished" datetime="2025-04-11T10:37:30+08:00">2025-04-11</time>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <h2 id="gradio-搭建大模型页面"><a href="#gradio-搭建大模型页面" class="headerlink" title="gradio 搭建大模型页面"></a>gradio 搭建大模型页面</h2><h2 id="思考，koa-搭建大模型页面"><a href="#思考，koa-搭建大模型页面" class="headerlink" title="思考，koa 搭建大模型页面"></a>思考，koa 搭建大模型页面</h2><h2 id="gradio-的实现原理"><a href="#gradio-的实现原理" class="headerlink" title="gradio 的实现原理"></a>gradio 的实现原理</h2><h2 id="如何为开源项目-gradio-贡献组件"><a href="#如何为开源项目-gradio-贡献组件" class="headerlink" title="如何为开源项目 gradio 贡献组件"></a>如何为开源项目 gradio 贡献组件</h2><h2 id="待看"><a href="#待看" class="headerlink" title="待看"></a>待看</h2><p><a target="_blank" rel="noopener" href="https://www.bilibili.com/video/BV19m411U7K8/?spm_id_from=333.337.search-card.all.click&vd_source=ffda878df0ed45bee1ade91d8f451048">https://www.bilibili.com/video/BV19m411U7K8/?spm_id_from=333.337.search-card.all.click&amp;vd_source=ffda878df0ed45bee1ade91d8f451048</a></p>
+<h2 id="参考资料"><a href="#参考资料" class="headerlink" title="参考资料"></a>参考资料</h2><p><a target="_blank" rel="noopener" href="https://github.com/gradio-app/gradio">https://github.com/gradio-app/gradio</a></p>
+<p><a target="_blank" rel="noopener" href="https://www.gradio.app/playground">https://www.gradio.app/playground</a></p>
+<p><a target="_blank" rel="noopener" href="https://www.bilibili.com/video/BV1cMZFYDENE/?spm_id_from=333.1391.0.0&p=18&vd_source=ffda878df0ed45bee1ade91d8f451048">https://www.bilibili.com/video/BV1cMZFYDENE/?spm_id_from=333.1391.0.0&amp;p=18&amp;vd_source=ffda878df0ed45bee1ade91d8f451048</a></p>
+<p><a target="_blank" rel="noopener" href="https://www.bilibili.com/video/BV1ZB42167Mm/?spm_id_from=333.1391.0.0&vd_source=ffda878df0ed45bee1ade91d8f451048">https://www.bilibili.com/video/BV1ZB42167Mm/?spm_id_from=333.1391.0.0&amp;vd_source=ffda878df0ed45bee1ade91d8f451048</a></p>
+
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="http://example.com/2025/04/11/%E5%89%8D%E7%AB%AF%E5%8F%91%E9%80%81SSE%E8%AF%B7%E6%B1%82%E5%AE%9E%E7%8E%B0GPT%E6%B5%81%E5%BC%8F%E8%BE%93%E5%87%BA/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="wangzhiwei">
+      <meta itemprop="description" content="javascript nodejs web developer...">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="WBlog">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/2025/04/11/%E5%89%8D%E7%AB%AF%E5%8F%91%E9%80%81SSE%E8%AF%B7%E6%B1%82%E5%AE%9E%E7%8E%B0GPT%E6%B5%81%E5%BC%8F%E8%BE%93%E5%87%BA/" class="post-title-link" itemprop="url">前端发送SSE请求实现GPT流式输出</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+              
+
+              <time title="创建时间：2025-04-11 10:26:31 / 修改时间：10:36:11" itemprop="dateCreated datePublished" datetime="2025-04-11T10:26:31+08:00">2025-04-11</time>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <h2 id="fetchEventSource"><a href="#fetchEventSource" class="headerlink" title="fetchEventSource"></a>fetchEventSource</h2><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br></pre></td><td class="code"><pre><span class="line">import &#123; fetchEventSource &#125; from &#x27;@microsoft/fetch-event-source&#x27;;</span><br><span class="line"></span><br><span class="line">async function startStream() &#123;</span><br><span class="line">  await fetchEventSource(&#x27;request url&#x27;, &#123;</span><br><span class="line">    method: &#x27;POST&#x27;,</span><br><span class="line">    headers: &#123;</span><br><span class="line">      &#x27;Content-Type&#x27;: &#x27;application/json&#x27;,</span><br><span class="line">      &#x27;Authorization&#x27;: &#x27;Bearer YOUR_TOKEN&#x27;,</span><br><span class="line">    &#125;,</span><br><span class="line">    body: JSON.stringify(&#123; query: &quot;Hello&quot; &#125;),</span><br><span class="line">    onopen(response) &#123;</span><br><span class="line">      // 连接成功时触发</span><br><span class="line">      if (response.ok) return;</span><br><span class="line">      throw new Error(&#x27;连接失败&#x27;);</span><br><span class="line">    &#125;,</span><br><span class="line">    onmessage(event) &#123;</span><br><span class="line">      // 接收服务器发送的每条事件</span><br><span class="line">      console.log(&#x27;收到数据:&#x27;, event.data);</span><br><span class="line">      // 请求完成</span><br><span class="line">      console.log(&#x27;请求结束标记&#x27;, data.done)</span><br><span class="line">    &#125;,</span><br><span class="line">    onclose() &#123;</span><br><span class="line">      // 连接关闭时触发</span><br><span class="line">      console.log(&#x27;连接终止&#x27;);</span><br><span class="line">    &#125;,</span><br><span class="line">    onerror(err) &#123;</span><br><span class="line">      // 错误处理（默认会抛出异常并自动重试）</span><br><span class="line">      console.error(&#x27;错误:&#x27;, err);</span><br><span class="line">      throw err; // 抛出错误会触发重试机制</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+
+
+
+<h2 id="rehypeRaw-支持-markdown-中含有-html-标签"><a href="#rehypeRaw-支持-markdown-中含有-html-标签" class="headerlink" title="rehypeRaw 支持 markdown 中含有 html 标签"></a>rehypeRaw 支持 markdown 中含有 html 标签</h2><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">import &#123; Avatar &#125; from &quot;antd&quot;</span><br><span class="line">import ReactMardown from &quot;react-markdown&quot;;</span><br><span class="line">import remarkGfm from &#x27;remark-gfm&#x27;</span><br><span class="line">import &#123; CopyToClipboard &#125; from &#x27;react-copy-to-clipboard&#x27;;</span><br><span class="line">import rehypeRaw from &#x27;rehype-raw&#x27;</span><br><span class="line"></span><br><span class="line">import &#123;</span><br><span class="line">    CopyOutlined,</span><br><span class="line">    SyncOutlined</span><br><span class="line">&#125; from &#x27;@ant-design/icons&#x27;;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">function ChatAnswer( &#123; item, onCopy &#125;: ChatAnswerProps ) &#123;</span><br><span class="line">    return (</span><br><span class="line">        &lt;div className=&quot;chat-answer&quot;&gt;</span><br><span class="line">            &lt;Avatar style=&#123;&#123; backgroundColor: &#x27;#2B65F7&#x27; &#125;&#125; size=&#123;40&#125;&gt;AI&lt;/Avatar&gt;</span><br><span class="line">            &lt;div className=&quot;chat-answer-content&quot; &gt;</span><br><span class="line">                &#123;</span><br><span class="line">                    !item.answer &amp;&amp;</span><br><span class="line">                    &lt;div className=&#x27;loading-box&#x27;&gt;</span><br><span class="line">                        &lt;SyncOutlined spin /&gt; 思考中...</span><br><span class="line">                    &lt;/div&gt;</span><br><span class="line">                &#125;</span><br><span class="line">                &lt;div style=&#123;&#123;paddingTop: 10&#125;&#125;&gt;</span><br><span class="line">                    &lt;ReactMardown remarkPlugins=&#123;[remarkGfm]&#125; rehypePlugins=&#123;[rehypeRaw]&#125;&gt;</span><br><span class="line">                        &#123;</span><br><span class="line">                            item.answer &amp;&amp;</span><br><span class="line">                            item.answer</span><br><span class="line">                        &#125;</span><br><span class="line">                    &lt;/ReactMardown&gt;</span><br><span class="line">                &lt;/div&gt;</span><br><span class="line">                &#123;</span><br><span class="line">                    item.answer &amp;&amp;</span><br><span class="line">                    &lt;CopyToClipboard text=&#123;item.answer&#125;</span><br><span class="line">                        onCopy=&#123;onCopy&#125;&gt;</span><br><span class="line">                        &lt;span className=&#x27;copy-btn&#x27;&gt;&lt;CopyOutlined /&gt; 复制&lt;/span&gt;</span><br><span class="line">                    &lt;/CopyToClipboard&gt;</span><br><span class="line">                &#125;</span><br><span class="line">            &lt;/div&gt;</span><br><span class="line">        &lt;/div&gt;</span><br><span class="line">    )</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">export default ChatAnswer</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+
+<h2 id="处理流式输出的标签"><a href="#处理流式输出的标签" class="headerlink" title="处理流式输出的标签"></a>处理流式输出的标签</h2><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">if (tep_mesg == &#x27;\u003cthink\u003e&#x27;) &#123;</span><br><span class="line">          tep_mesg = &quot;&lt;div class=&#x27;think&#x27;&gt;&quot;</span><br><span class="line">        &#125; else if (tep_mesg == &#x27;\u003c/think\u003e&#x27;) &#123;</span><br><span class="line">          tep_mesg = &quot;&lt;/div&gt;&quot;</span><br><span class="line">        &#125;</span><br></pre></td></tr></table></figure>
+
+<h2 id="具体参考代码"><a href="#具体参考代码" class="headerlink" title="具体参考代码"></a>具体参考代码</h2><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line"></span><br><span class="line">import &#123; PostHistoryAPI &#125; from &#x27;@/apis/chat&#x27;;</span><br><span class="line">import &#123; fetchEventSource &#125; from &#x27;@microsoft/fetch-event-source&#x27;;</span><br><span class="line">import hljs from &#x27;highlight.js&#x27;;</span><br><span class="line">export async function sendMessage(tagDefault: string, msg: string, list: any[], setList: any, messageApi: any, setDone: any, id: number) &#123;</span><br><span class="line"></span><br><span class="line">  setDone(false)</span><br><span class="line">  let answer = &#x27;&#x27;</span><br><span class="line">  const lastObj = &#123; ask: msg, answer: &#x27;&#x27; &#125;;</span><br><span class="line"></span><br><span class="line">  await fetchEventSource(&#x27;http://xxx/v1/chat/completions&#x27;, &#123;</span><br><span class="line">    method: &#x27;POST&#x27;,</span><br><span class="line">    headers: &#123;</span><br><span class="line">      &#x27;Content-Type&#x27;: &#x27;application/json&#x27;,</span><br><span class="line">      &#x27;Authorization&#x27;: &#x27;Bearer vllm&#x27;,</span><br><span class="line">    &#125;,</span><br><span class="line">    body: JSON.stringify(&#123;</span><br><span class="line">        &quot;model&quot;: tagDefault,</span><br><span class="line">        &quot;messages&quot;: [</span><br><span class="line">          &#123;&quot;role&quot;: &quot;user&quot;, &quot;content&quot;: msg&#125;</span><br><span class="line">        ],</span><br><span class="line">        &quot;stream&quot;: true</span><br><span class="line">      &#125;),</span><br><span class="line">    onmessage(event) &#123;</span><br><span class="line">      // 接收服务器发送的每条事件</span><br><span class="line">      console.log(&#x27;收到数据:&#x27;, event.data);</span><br><span class="line"></span><br><span class="line">      </span><br><span class="line">      </span><br><span class="line">      if (event.data &amp;&amp; event.data === &#x27;[DONE]&#x27;) &#123;</span><br><span class="line">        console.log(&#x27;请求完成&#x27;);</span><br><span class="line"></span><br><span class="line">        setDone(true)</span><br><span class="line">        //将数据插入到历史接口</span><br><span class="line">        PostHistoryAPI(&#123;</span><br><span class="line">            groupId: id,</span><br><span class="line">            ...lastObj</span><br><span class="line">        &#125;).then(res =&gt; &#123;</span><br><span class="line"></span><br><span class="line">            if (res.data.code !== 0) &#123;</span><br><span class="line">                messageApi.error(res.data.message)</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;)</span><br><span class="line">        hljs.highlightAll();</span><br><span class="line"></span><br><span class="line">      &#125; else &#123;</span><br><span class="line">        console.log(&#x27;收到数据:&#x27;, JSON.parse(event.data).choices[0].delta.content);</span><br><span class="line">        </span><br><span class="line">        let tep_mesg = JSON.parse(event.data).choices[0].delta.content;</span><br><span class="line">        if (tep_mesg == &#x27;\u003cthink\u003e&#x27;) &#123;</span><br><span class="line">          tep_mesg = &quot;&lt;div class=&#x27;think&#x27;&gt;&quot;</span><br><span class="line">        &#125; else if (tep_mesg == &#x27;\u003c/think\u003e&#x27;) &#123;</span><br><span class="line">          tep_mesg = &quot;&lt;/div&gt;&quot;</span><br><span class="line">        &#125;</span><br><span class="line">        </span><br><span class="line">        answer += tep_mesg</span><br><span class="line"></span><br><span class="line">        if (answer) &#123;</span><br><span class="line">            lastObj.answer = answer</span><br><span class="line">            setList([...list, lastObj])</span><br><span class="line">        &#125;</span><br><span class="line">      &#125;</span><br><span class="line">      // 请求完成</span><br><span class="line">    &#125;,</span><br><span class="line">    onclose() &#123;</span><br><span class="line">      // 连接关闭时触发</span><br><span class="line">      console.log(&#x27;连接终止&#x27;);</span><br><span class="line">    &#125;,</span><br><span class="line">    onerror(err) &#123;</span><br><span class="line">      // 错误处理（默认会抛出异常并自动重试）</span><br><span class="line">      console.error(&#x27;错误:&#x27;, err);</span><br><span class="line">      throw err; // 抛出错误会触发重试机制</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;);</span><br><span class="line">&#125;</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<h2 id="EventSource"><a href="#EventSource" class="headerlink" title="EventSource"></a>EventSource</h2><p>‘@microsoft&#x2F;fetch-event-source’ (之前用过pc兼容没问题，移动端兼容性好像不太好，当时是自己用原声js的 EventSource)</p>
+<p>EventSource<br><a target="_blank" rel="noopener" href="https://developer.mozilla.org/en-US/docs/Web/API/Server-sent_events/Using_server-sent_events">https://developer.mozilla.org/en-US/docs/Web/API/Server-sent_events/Using_server-sent_events</a></p>
+<p>参考地址：<br><a target="_blank" rel="noopener" href="https://juejin.cn/post/7476881372810313762">https://juejin.cn/post/7476881372810313762</a><br><a target="_blank" rel="noopener" href="https://www.npmjs.com/package/react-markdown">https://www.npmjs.com/package/react-markdown</a><br><a target="_blank" rel="noopener" href="https://www.npmjs.com/package/rehype-raw">https://www.npmjs.com/package/rehype-raw</a></p>
+
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
     <link itemprop="mainEntityOfPage" href="http://example.com/2025/04/10/LLama-factory-%E5%AE%9E%E9%AA%8C/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -555,310 +832,6 @@
   
   
 
-      
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="http://example.com/2025/04/01/YOLOv8-%E6%A8%A1%E5%9E%8B%E8%AE%AD%E7%BB%83/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.gif">
-      <meta itemprop="name" content="wangzhiwei">
-      <meta itemprop="description" content="javascript nodejs web developer...">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="WBlog">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/2025/04/01/YOLOv8-%E6%A8%A1%E5%9E%8B%E8%AE%AD%E7%BB%83/" class="post-title-link" itemprop="url">YOLOv8 模型训练</a>
-        </h2>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              <span class="post-meta-item-text">发表于</span>
-              
-
-              <time title="创建时间：2025-04-01 09:57:57 / 修改时间：11:09:35" itemprop="dateCreated datePublished" datetime="2025-04-01T09:57:57+08:00">2025-04-01</time>
-            </span>
-
-          
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <p>模型训练</p>
-<p>yolo task&#x3D;detect mode&#x3D;train data&#x3D;yolo-qie.yaml model&#x3D;yolov8n.pt epochs&#x3D;50 workers&#x3D;1 batch&#x3D;16</p>
-<p>训练的三种方式</p>
-<p>命令行方式</p>
-<p>cd &#x2F;Users&#x2F;wangzhiwei&#x2F;study&#x2F;ai&#x2F;anaconda-study&#x2F;ultralytics</p>
-<p>yolo task&#x3D;detect mode&#x3D;train data&#x3D;yolo-qie.yaml model&#x3D;yolov8n.pt epochs&#x3D;50 workers&#x3D;1 batch&#x3D;16</p>
-<p>Results saved to &#x2F;Users&#x2F;wangzhiwei&#x2F;study&#x2F;ai&#x2F;anaconda-study&#x2F;ultralytics&#x2F;runs&#x2F;detect&#x2F;train8</p>
-<p>脚本方式</p>
-<p>├── datasets (ultralytics 项目外)<br>│   └── qie<br>│       ├── images<br>│       │   ├── train<br>│       │   └── val<br>│       ├── labels<br>│       │   ├── classes.txt<br>│       │   ├── train<br>│       │   ├── train.cache<br>│       │   ├── val<br>│       │   └── val.cache<br>│       └── yolo11n.pt<br>└── ultralytics<br>    └── yolov11-train.py</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">yolo-qie.yaml</span><br><span class="line"></span><br><span class="line">path: qie # dataset root dir</span><br><span class="line">train: images/train # train images (relative to &#x27;path&#x27;) 4 images</span><br><span class="line">val: images/val # val images (relative to &#x27;path&#x27;) 4 images</span><br><span class="line">test: # test images (optional)</span><br><span class="line"></span><br><span class="line"># Classes</span><br><span class="line">names:</span><br><span class="line">  0: qie</span><br><span class="line"></span><br></pre></td></tr></table></figure>
-
-
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">yolov11-train.py</span><br><span class="line"></span><br><span class="line">from ultralytics import YOLO</span><br><span class="line">model = YOLO(&quot;yolov8n.pt&quot;) # yolo11 的仓库也可以用 yolov8n.pt 训练</span><br><span class="line">model.train(data=&quot;yolo-qie.yaml&quot;, epochs=50, batch=16, workers=0)</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">训练结果</span><br><span class="line">Results saved to /Users/wangzhiwei/study/ai/anaconda-study/ultralytics/runs/detect/train7</span><br><span class="line"></span><br></pre></td></tr></table></figure>
-
-
-<p>默认配置方式<br><img src="/../images/yolo_train_10.png"></p>
-<p>验证训练结果<br>cd &#x2F;Users&#x2F;wangzhiwei&#x2F;study&#x2F;ai&#x2F;anaconda-study&#x2F;ultralytics</p>
-<p>yolo detect predict model&#x3D;runs&#x2F;detect&#x2F;train8&#x2F;weights&#x2F;best.pt source&#x3D;.&#x2F;video.mp4 show&#x3D;True conf&#x3D;0.03</p>
-<p>参考：<br><a target="_blank" rel="noopener" href="https://www.bilibili.com/video/BV1CfQqYUEL5?spm_id_from=333.788.player.switch&vd_source=ffda878df0ed45bee1ade91d8f451048&p=5">https://www.bilibili.com/video/BV1CfQqYUEL5?spm_id_from=333.788.player.switch&amp;vd_source=ffda878df0ed45bee1ade91d8f451048&amp;p=5</a></p>
-
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
-      
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="http://example.com/2025/03/31/YOLOv8-%E6%95%B0%E6%8D%AE%E9%9B%86%E6%9E%84%E5%BB%BA/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.gif">
-      <meta itemprop="name" content="wangzhiwei">
-      <meta itemprop="description" content="javascript nodejs web developer...">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="WBlog">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/2025/03/31/YOLOv8-%E6%95%B0%E6%8D%AE%E9%9B%86%E6%9E%84%E5%BB%BA/" class="post-title-link" itemprop="url">YOLOv8 数据集构建</a>
-        </h2>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              <span class="post-meta-item-text">发表于</span>
-
-              <time title="创建时间：2025-03-31 16:02:54" itemprop="dateCreated datePublished" datetime="2025-03-31T16:02:54+08:00">2025-03-31</time>
-            </span>
-              <span class="post-meta-item">
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-calendar-check-o"></i>
-                </span>
-                <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2025-04-01 09:57:28" itemprop="dateModified" datetime="2025-04-01T09:57:28+08:00">2025-04-01</time>
-              </span>
-
-          
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <ol>
-<li>准备数据集</li>
-<li>labelimg 标注</li>
-<li>make sence 数据集标注</li>
-<li>roboflow 公开数据集</li>
-</ol>
-<p>数据准备：</p>
-<p>图片类型数据： 直接标注<br>视频类型数据： 抽帧处理，导出为图片，再进行标注</p>
-<p>extract.py 文件 提取视频帧</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">import cv2</span><br><span class="line">import os</span><br><span class="line"></span><br><span class="line">def extract_frames(video_path, output_folder, frame_interval=1):</span><br><span class="line">    # Print the video path for verification</span><br><span class="line">    print(f&quot;Attempting to open video file: &#123;video_path&#125;&quot;)</span><br><span class="line"></span><br><span class="line">    # Check if the video file exists</span><br><span class="line">    if not os.path.exists(video_path):</span><br><span class="line">        print(f&quot;Error: Video file does not exist at &#123;video_path&#125;&quot;)</span><br><span class="line">        return</span><br><span class="line"></span><br><span class="line">    # Create the output folder if it doesn&#x27;t exist</span><br><span class="line">    if not os.path.exists(output_folder):</span><br><span class="line">        os.makedirs(output_folder)</span><br><span class="line"></span><br><span class="line">    # Open the video file</span><br><span class="line">    cap = cv2.VideoCapture(video_path)</span><br><span class="line">    if not cap.isOpened():</span><br><span class="line">        print(&quot;Error: Could not open video.&quot;)</span><br><span class="line">        return</span><br><span class="line"></span><br><span class="line">    frame_count = 0</span><br><span class="line">    saved_frame_count = 0</span><br><span class="line"></span><br><span class="line">    while True:</span><br><span class="line">        # Read a frame from the video</span><br><span class="line">        ret, frame = cap.read()</span><br><span class="line">        if not ret:</span><br><span class="line">            break</span><br><span class="line"></span><br><span class="line">        # Save the frame every &#x27;frame_interval&#x27; frames</span><br><span class="line">        if frame_count % frame_interval == 0:</span><br><span class="line">            frame_filename = os.path.join(output_folder, f&quot;frame_&#123;saved_frame_count:04d&#125;.jpg&quot;)</span><br><span class="line">            cv2.imwrite(frame_filename, frame)</span><br><span class="line">            saved_frame_count += 1</span><br><span class="line"></span><br><span class="line">        frame_count += 1</span><br><span class="line"></span><br><span class="line">    # Release the video capture object</span><br><span class="line">    cap.release()</span><br><span class="line">    print(f&quot;Extracted &#123;saved_frame_count&#125; frames.&quot;)</span><br><span class="line"></span><br><span class="line"># Example usage</span><br><span class="line">video_path = &#x27;./video.mp4&#x27;</span><br><span class="line">output_folder = &#x27;./output_frames&#x27;</span><br><span class="line">extract_frames(video_path, output_folder, frame_interval=30)</span><br><span class="line"></span><br></pre></td></tr></table></figure>
-
-<p>labelimg 标注：</p>
-<p>pip install labelimg</p>
-<p>labelimg –version</p>
-<p>命令行执行 labelimg 命令打开 labelimg mac 环境操作发生闪退。</p>
-<p>make sense 数据集标注：<br><a target="_blank" rel="noopener" href="https://www.makesense.ai/">https://www.makesense.ai/</a></p>
-<p>公开数据集<br><a target="_blank" rel="noopener" href="https://public.roboflow.com/object-detection">https://public.roboflow.com/object-detection</a></p>
-<p><a target="_blank" rel="noopener" href="https://universe.roboflow.com/">https://universe.roboflow.com/</a></p>
-<p>参考：<br><a target="_blank" rel="noopener" href="https://www.bilibili.com/video/BV1CfQqYUEL5?spm_id_from=333.788.videopod.episodes&vd_source=ffda878df0ed45bee1ade91d8f451048&p=4">https://www.bilibili.com/video/BV1CfQqYUEL5?spm_id_from=333.788.videopod.episodes&amp;vd_source=ffda878df0ed45bee1ade91d8f451048&amp;p=4</a></p>
-
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
-      
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="http://example.com/2025/03/31/YOLOV8%E6%A8%A1%E5%9E%8B%E9%A2%84%E6%B5%8B/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.gif">
-      <meta itemprop="name" content="wangzhiwei">
-      <meta itemprop="description" content="javascript nodejs web developer...">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="WBlog">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/2025/03/31/YOLOV8%E6%A8%A1%E5%9E%8B%E9%A2%84%E6%B5%8B/" class="post-title-link" itemprop="url">YOLOV8模型预测</a>
-        </h2>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              <span class="post-meta-item-text">发表于</span>
-              
-
-              <time title="创建时间：2025-03-31 13:48:34 / 修改时间：14:37:22" itemprop="dateCreated datePublished" datetime="2025-03-31T13:48:34+08:00">2025-03-31</time>
-            </span>
-
-          
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <h1 id="YOLOV8模型预测"><a href="#YOLOV8模型预测" class="headerlink" title="YOLOV8模型预测"></a>YOLOV8模型预测</h1><p>模型预测基本使用</p>
-<p>激活虚拟环境<br>conda activate yolov8</p>
-<p>命令行：</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">yolo predict model=yolo11n.pt source=&#x27;./bus.jpg&#x27;</span><br><span class="line"></span><br></pre></td></tr></table></figure>
-
-<p>test.py</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line">from ultralytics import YOLO</span><br><span class="line">model = YOLO(&#x27;yolo11n.pt&#x27;, task=&#x27;detect&#x27;)</span><br><span class="line"></span><br><span class="line"># 对图片检测</span><br><span class="line"># results = model(source=&#x27;./bus.jpg&#x27;)</span><br><span class="line"></span><br><span class="line"># 对视频检测</span><br><span class="line"># results = model(source=&#x27;./video.mp4&#x27;)</span><br><span class="line"></span><br><span class="line"># 对屏幕检测</span><br><span class="line">results = model(source=&#x27;screen&#x27;)</span><br><span class="line"></span><br><span class="line"># 对摄像头检测</span><br><span class="line">#results = model(source=0)</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">results = model(source=&#x27;./bus.jpg&#x27;, save=True, conf=0.5)</span><br><span class="line"></span><br></pre></td></tr></table></figure>
-
-<p>python test.py</p>
-<p>安装 jupyterlab</p>
-<p>pip install jupyterlab</p>
-<p><img src="/../images/yolo11_01.png"></p>
-<p><img src="/../images/yolo11_02.png"></p>
-<p><img src="/../images/yolo11_03.png"></p>
-<p><img src="/../images/yolo11_04_01.png"></p>
-<p><img src="/../images/yolo11_04.png"></p>
-<p><img src="/../images/yolo11_05.png"></p>
-<p><img src="/../images/yolo11_06.png"></p>
-<p><img src="/../images/yolo11_07_1.png"><br><img src="/../images/yolo11_07_2.png"><br><img src="/../images/yolo11_07_3.png"><br><img src="/../images/yolo11_07_4.png"></p>
-<p>参考：</p>
-<p>参数介绍<br><a target="_blank" rel="noopener" href="https://docs.ultralytics.com/modes/predict/#inference-arguments">https://docs.ultralytics.com/modes/predict/#inference-arguments</a></p>
-<p><a target="_blank" rel="noopener" href="https://www.bilibili.com/video/BV1CfQqYUEL5?spm_id_from=333.788.videopod.episodes&vd_source=ffda878df0ed45bee1ade91d8f451048&p=3">https://www.bilibili.com/video/BV1CfQqYUEL5?spm_id_from=333.788.videopod.episodes&amp;vd_source=ffda878df0ed45bee1ade91d8f451048&amp;p=3</a></p>
-
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
-      
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="http://example.com/2025/03/28/paddlepaddle/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.gif">
-      <meta itemprop="name" content="wangzhiwei">
-      <meta itemprop="description" content="javascript nodejs web developer...">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="WBlog">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/2025/03/28/paddlepaddle/" class="post-title-link" itemprop="url">paddlepaddle</a>
-        </h2>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              <span class="post-meta-item-text">发表于</span>
-              
-
-              <time title="创建时间：2025-03-28 17:10:35 / 修改时间：17:41:36" itemprop="dateCreated datePublished" datetime="2025-03-28T17:10:35+08:00">2025-03-28</time>
-            </span>
-
-          
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <p><a target="_blank" rel="noopener" href="https://www.paddlepaddle.org.cn/install/quick?docurl=undefined">https://www.paddlepaddle.org.cn/install/quick?docurl=undefined</a></p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br></pre></td><td class="code"><pre><span class="line">安装</span><br><span class="line"></span><br><span class="line">conda create -n paddle3 python=3.8</span><br><span class="line"></span><br><span class="line">conda activate paddle3</span><br><span class="line"></span><br><span class="line">conda install paddlepaddle==3.0.0 -c paddle</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">验证安装</span><br><span class="line"></span><br><span class="line">python</span><br><span class="line"></span><br><span class="line">import paddle</span><br><span class="line">paddle.utils.run_check()</span><br><span class="line"></span><br><span class="line">打印</span><br><span class="line">/opt/anaconda3/envs/paddle3/lib/python3.8/site-packages/paddle/utils/cpp_extension/extension_utils.py:711: UserWarning: No ccache found. Please be aware that recompiling all source files may be required. You can download and install ccache from: https://github.com/ccache/ccache/blob/master/doc/INSTALL.md</span><br><span class="line">  warnings.warn(warning_message)</span><br><span class="line">&gt;&gt;&gt; paddle.utils.run_check()</span><br><span class="line">Running verify PaddlePaddle program ...</span><br><span class="line">I0328 17:09:40.513358 4041525312 pir_interpreter.cc:1541] New Executor is Running ...</span><br><span class="line">I0328 17:09:40.513667 4041525312 pir_interpreter.cc:1564] pir interpreter is running by multi-thread mode ...</span><br><span class="line">PaddlePaddle works well on 1 CPU.</span><br><span class="line">PaddlePaddle is installed successfully! Let&#x27;s start deep learning with PaddlePaddle now.</span><br><span class="line"></span><br></pre></td></tr></table></figure>
-
-
-<p>brew install ccache</p>
-<p>线性回归</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br></pre></td><td class="code"><pre><span class="line">import paddle</span><br><span class="line"></span><br><span class="line"># 定义一个计算费用的函数，根据行驶距离计算总费用</span><br><span class="line">def calculate_fee(distance_travelled):</span><br><span class="line">    &quot;&quot;&quot;</span><br><span class="line">    根据行驶距离计算总费用。</span><br><span class="line">    </span><br><span class="line">    参数:</span><br><span class="line">    distance_travelled -- 行驶距离</span><br><span class="line">    </span><br><span class="line">    返回:</span><br><span class="line">    总费用</span><br><span class="line">    &quot;&quot;&quot;</span><br><span class="line">    return 10 + distance_travelled * 2</span><br><span class="line"></span><br><span class="line"># 对于一组行驶距离，计算并打印相应的费用</span><br><span class="line">for x in [1.0, 3.0, 5.0, 10.0]:</span><br><span class="line">    print(calculate_fee(x))</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"># 线性回归demo</span><br><span class="line"></span><br><span class="line"># 将行驶距离和对应的费用转换为PaddlePaddle张量</span><br><span class="line">x_data = paddle.to_tensor([[1.0], [3.0], [5.0], [10.0]])</span><br><span class="line">y_data = paddle.to_tensor([[12.0], [16.0], [20.0], [30.0]])</span><br><span class="line"></span><br><span class="line"># 创建一个线性模型，用于拟合行驶距离和费用之间的关系</span><br><span class="line">linear = paddle.nn.Linear(in_features=1, out_features=1)</span><br><span class="line"></span><br><span class="line"># 获取线性模型的初始权重和偏置</span><br><span class="line">w_before_opt = linear.weight.numpy().item()</span><br><span class="line">b_before_opt = linear.bias.numpy().item()</span><br><span class="line">print(&quot;Initial w: %.2f, b: %.2f&quot; % (w_before_opt, b_before_opt))</span><br><span class="line"></span><br><span class="line"># 定义均方误差损失函数</span><br><span class="line">mes_loss = paddle.nn.MSELoss()</span><br><span class="line"></span><br><span class="line"># 创建随机梯度下降优化器</span><br><span class="line">sgd_optimizer = paddle.optimizer.SGD(learning_rate=0.001, parameters=linear.parameters())</span><br><span class="line"></span><br><span class="line"># 设置总训练轮数 可分别tiao换为10000, 20000, 50000</span><br><span class="line">total_epoch = 20000 </span><br><span class="line"></span><br><span class="line"># 开始训练过程</span><br><span class="line">for i in range(total_epoch):</span><br><span class="line">    # 使用线性模型进行预测</span><br><span class="line">    y_predict = linear(x_data)</span><br><span class="line">    # 计算预测值和真实值之间的损失</span><br><span class="line">    loss = mes_loss(y_predict, y_data)</span><br><span class="line">    # 反向传播计算梯度</span><br><span class="line">    loss.backward()</span><br><span class="line">    # 更新模型参数</span><br><span class="line">    sgd_optimizer.step()</span><br><span class="line">    # 清除梯度</span><br><span class="line">    sgd_optimizer.clear_gradients()</span><br><span class="line">    # 每1000轮打印一次训练信息</span><br><span class="line">    if i % 1000 == 0:</span><br><span class="line">        print(i, loss.numpy())</span><br><span class="line"></span><br><span class="line">print(&quot;Training finished, loss= &#123;&#125;&quot;.format(loss.numpy()))</span><br><span class="line"></span><br><span class="line"># 获取训练后的权重和偏置</span><br><span class="line">w_after_opt = linear.weight.numpy().item()</span><br><span class="line">b_after_opt = linear.bias.numpy().item()</span><br><span class="line">print(&quot;Initial w: %.2f, b: %.2f&quot; % (w_after_opt, b_after_opt))</span><br><span class="line"></span><br></pre></td></tr></table></figure>
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
 
   
   <nav class="pagination">
@@ -928,7 +901,7 @@
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">73</span>
+          <span class="site-state-item-count">77</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>
