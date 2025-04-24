@@ -1,0 +1,407 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 7.3.0">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+<link rel="stylesheet" href="/lib/font-awesome/css/font-awesome.min.css">
+
+<script id="hexo-configurations">
+    var NexT = window.NexT || {};
+    var CONFIG = {"hostname":"example.com","root":"/","scheme":"Muse","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":false,"show_result":false,"style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":false,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}}};
+  </script>
+
+  <meta name="description" content="是的，可以通过命令行工具发送消息到 ws:&#x2F;&#x2F;localhost:8080，但需要借助一些工具，比如 wscat。 1. 安装 wscatwscat 是一个命令行工具，可以用来测试 WebSocket 服务。 1npm install -g wscat  2. 连接到 WebSocket 服务器使用 wscat 连接到服务器： 1wscat -c ws:&#x2F;&#x2F;localhost:8080  连接成功">
+<meta property="og:type" content="article">
+<meta property="og:title" content="是否可以通过 命令行发送 ws:&#x2F;&#x2F;localhost:8080">
+<meta property="og:url" content="http://example.com/2025/04/24/%E6%98%AF%E5%90%A6%E5%8F%AF%E4%BB%A5%E9%80%9A%E8%BF%87-%E5%91%BD%E4%BB%A4%E8%A1%8C%E5%8F%91%E9%80%81-ws-localhost-8080/index.html">
+<meta property="og:site_name" content="WBlog">
+<meta property="og:description" content="是的，可以通过命令行工具发送消息到 ws:&#x2F;&#x2F;localhost:8080，但需要借助一些工具，比如 wscat。 1. 安装 wscatwscat 是一个命令行工具，可以用来测试 WebSocket 服务。 1npm install -g wscat  2. 连接到 WebSocket 服务器使用 wscat 连接到服务器： 1wscat -c ws:&#x2F;&#x2F;localhost:8080  连接成功">
+<meta property="og:locale" content="zh_CN">
+<meta property="article:published_time" content="2025-04-24T10:08:00.000Z">
+<meta property="article:modified_time" content="2025-04-24T10:09:18.346Z">
+<meta property="article:author" content="wangzhiwei">
+<meta property="article:tag" content="javascript nodejs web developer fe engineer">
+<meta name="twitter:card" content="summary">
+
+<link rel="canonical" href="http://example.com/2025/04/24/%E6%98%AF%E5%90%A6%E5%8F%AF%E4%BB%A5%E9%80%9A%E8%BF%87-%E5%91%BD%E4%BB%A4%E8%A1%8C%E5%8F%91%E9%80%81-ws-localhost-8080/">
+
+
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome : false,
+    isPost : true,
+    lang   : 'zh-CN'
+  };
+</script>
+
+  <title>是否可以通过 命令行发送 ws://localhost:8080 | WBlog</title>
+  
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div class="container use-motion">
+    <div class="headband"></div>
+
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏">
+      <span class="toggle-line toggle-line-first"></span>
+      <span class="toggle-line toggle-line-middle"></span>
+      <span class="toggle-line toggle-line-last"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <h1 class="site-title">WBlog</h1>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+      <p class="site-subtitle" itemprop="description">wangzhiwei blog</p>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+    </div>
+  </div>
+</div>
+
+
+
+
+<nav class="site-nav">
+  <ul id="menu" class="menu">
+        <li class="menu-item menu-item-home">
+
+    <a href="/" rel="section"><i class="fa fa-fw fa-home"></i>首页</a>
+
+  </li>
+        <li class="menu-item menu-item-archives">
+
+    <a href="/archives/" rel="section"><i class="fa fa-fw fa-archive"></i>归档</a>
+
+  </li>
+  </ul>
+</nav>
+
+
+
+
+</div>
+    </header>
+
+    
+  <div class="back-to-top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+
+
+    <main class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+
+          <div class="content post posts-expand">
+            
+
+    
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="http://example.com/2025/04/24/%E6%98%AF%E5%90%A6%E5%8F%AF%E4%BB%A5%E9%80%9A%E8%BF%87-%E5%91%BD%E4%BB%A4%E8%A1%8C%E5%8F%91%E9%80%81-ws-localhost-8080/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="wangzhiwei">
+      <meta itemprop="description" content="javascript nodejs web developer...">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="WBlog">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          是否可以通过 命令行发送 ws://localhost:8080
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+              
+
+              <time title="创建时间：2025-04-24 18:08:00 / 修改时间：18:09:18" itemprop="dateCreated datePublished" datetime="2025-04-24T18:08:00+08:00">2025-04-24</time>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+        <p>是的，可以通过命令行工具发送消息到 <code>ws://localhost:8080</code>，但需要借助一些工具，比如 <code>wscat</code>。</p>
+<h3 id="1-安装-wscat"><a href="#1-安装-wscat" class="headerlink" title="1. 安装 wscat"></a>1. <strong>安装 wscat</strong></h3><p><code>wscat</code> 是一个命令行工具，可以用来测试 WebSocket 服务。</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">npm install -g wscat</span><br></pre></td></tr></table></figure>
+
+<h3 id="2-连接到-WebSocket-服务器"><a href="#2-连接到-WebSocket-服务器" class="headerlink" title="2. 连接到 WebSocket 服务器"></a>2. <strong>连接到 WebSocket 服务器</strong></h3><p>使用 <code>wscat</code> 连接到服务器：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">wscat -c ws://localhost:8080</span><br></pre></td></tr></table></figure>
+
+<p>连接成功后，你应该看到类似这样的提示：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">connected (press CTRL+C to quit)</span><br></pre></td></tr></table></figure>
+
+<h3 id="3-发送消息"><a href="#3-发送消息" class="headerlink" title="3. 发送消息"></a>3. <strong>发送消息</strong></h3><p>当连接成功后，可以发送 JSON 格式的指令。例如：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&gt; &#123;<span class="string">&quot;windowSize&quot;</span>: 10, <span class="string">&quot;predictionTime&quot;</span>: 5&#125;</span><br></pre></td></tr></table></figure>
+
+<h3 id="4-查看返回消息"><a href="#4-查看返回消息" class="headerlink" title="4. 查看返回消息"></a>4. <strong>查看返回消息</strong></h3><p>服务器会将监控和预测数据发送回客户端，你可以在命令行中看到返回的 JSON 消息。</p>
+<h3 id="5-断开连接"><a href="#5-断开连接" class="headerlink" title="5. 断开连接"></a>5. <strong>断开连接</strong></h3><p>按 <code>Ctrl+C</code> 断开连接。</p>
+<h3 id="6-其他命令行工具"><a href="#6-其他命令行工具" class="headerlink" title="6. 其他命令行工具"></a>6. <strong>其他命令行工具</strong></h3><ul>
+<li>**<code>websocat</code>**：另一个选择，使用方法类似：<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">websocat ws://localhost:8080</span><br></pre></td></tr></table></figure>
+安装方法：<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">cargo install websocat</span><br></pre></td></tr></table></figure></li>
+<li>**<code>socat</code>**：通过 <code>socat</code> 也可以实现类似功能，但语法略有不同。</li>
+</ul>
+<p>使用这些工具，你可以快速测试 WebSocket 服务器的功能。</p>
+<p>package.json</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line">&#123;</span><br><span class="line">  &quot;name&quot;: &quot;nodejs-backend&quot;,</span><br><span class="line">  &quot;version&quot;: &quot;1.0.0&quot;,</span><br><span class="line">  &quot;description&quot;: &quot;&quot;,</span><br><span class="line">  &quot;main&quot;: &quot;index.js&quot;,</span><br><span class="line">  &quot;scripts&quot;: &#123;</span><br><span class="line">    &quot;test&quot;: &quot;echo \&quot;Error: no test specified\&quot; &amp;&amp; exit 1&quot;</span><br><span class="line">  &#125;,</span><br><span class="line">  &quot;keywords&quot;: [],</span><br><span class="line">  &quot;author&quot;: &quot;&quot;,</span><br><span class="line">  &quot;license&quot;: &quot;ISC&quot;,</span><br><span class="line">  &quot;dependencies&quot;: &#123;</span><br><span class="line">    &quot;systeminformation&quot;: &quot;^5.25.11&quot;,</span><br><span class="line">    &quot;websocket&quot;: &quot;^1.0.35&quot;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+
+<p>server.js</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br><span class="line">100</span><br><span class="line">101</span><br><span class="line">102</span><br><span class="line">103</span><br><span class="line">104</span><br><span class="line">105</span><br><span class="line">106</span><br><span class="line">107</span><br><span class="line">108</span><br><span class="line">109</span><br><span class="line">110</span><br><span class="line">111</span><br><span class="line">112</span><br><span class="line">113</span><br><span class="line">114</span><br><span class="line">115</span><br><span class="line">116</span><br><span class="line">117</span><br><span class="line">118</span><br><span class="line">119</span><br><span class="line">120</span><br><span class="line">121</span><br><span class="line">122</span><br><span class="line">123</span><br><span class="line">124</span><br><span class="line">125</span><br><span class="line">126</span><br><span class="line">127</span><br><span class="line">128</span><br><span class="line">129</span><br><span class="line">130</span><br><span class="line">131</span><br><span class="line">132</span><br><span class="line">133</span><br><span class="line">134</span><br><span class="line">135</span><br><span class="line">136</span><br><span class="line">137</span><br><span class="line">138</span><br><span class="line">139</span><br><span class="line">140</span><br><span class="line">141</span><br><span class="line">142</span><br><span class="line">143</span><br><span class="line">144</span><br><span class="line">145</span><br><span class="line">146</span><br><span class="line">147</span><br><span class="line">148</span><br><span class="line">149</span><br><span class="line">150</span><br><span class="line">151</span><br><span class="line">152</span><br><span class="line">153</span><br><span class="line">154</span><br><span class="line">155</span><br><span class="line">156</span><br><span class="line">157</span><br><span class="line">158</span><br><span class="line">159</span><br><span class="line">160</span><br><span class="line">161</span><br><span class="line">162</span><br><span class="line">163</span><br><span class="line">164</span><br><span class="line">165</span><br><span class="line">166</span><br><span class="line">167</span><br><span class="line">168</span><br><span class="line">169</span><br><span class="line">170</span><br><span class="line">171</span><br></pre></td><td class="code"><pre><span class="line">// 指定与服务器和监控过程相关的导入。</span><br><span class="line">const http = require(&quot;http&quot;); // 导入 &#x27;http&#x27; 模块以创建 HTTP 服务器。</span><br><span class="line">const WebSocketServer = require(&quot;websocket&quot;).server; // 导入 WebSocket 服务器模块。</span><br><span class="line">const si = require(&#x27;systeminformation&#x27;); // 导入 &#x27;systeminformation&#x27; 库以获取设备的系统信息。</span><br><span class="line">const fs = require(&#x27;fs&#x27;); // 导入 &#x27;fs&#x27; 模块以处理文件系统。</span><br><span class="line"></span><br><span class="line">// 与机器学习相关的导入。</span><br><span class="line">// var MLP = require(&#x27;mlp&#x27;); // 导入 &#x27;mlp&#x27; 库，用于多层感知机预测。</span><br><span class="line">// var KNN = require(&#x27;ml-knn&#x27;); // 导入 &#x27;ml-knn&#x27; 库，用于 K 最近邻分类。</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">// 声明并初始化将在服务器脚本中使用的全局变量。</span><br><span class="line">var monitoringInterval; // 声明一个用于监控间隔的变量。</span><br><span class="line">var sampleSize = 0; // 初始化一个用于样本大小的变量，在数据收集阶段使用。</span><br><span class="line">var predTime = 0; // 初始化一个用于预测时间的变量，表示用户希望进行预测的时间点。</span><br><span class="line">var predRX = 0; // 初始化一个用于预测下载速度的变量，单位为 Kb/s。</span><br><span class="line">var predTX = 0; // 初始化一个用于预测上传速度的变量，单位为 Kb/s。</span><br><span class="line">var predLat = 0; // 初始化一个用于预测延迟的变量，单位为 ms。</span><br><span class="line">var scoreQoS = &quot;&quot;; // 初始化一个用于 QoS（服务质量）得分的变量。</span><br><span class="line">var latency = 0; // 初始化一个用于延迟测量的变量，单位为 ms。</span><br><span class="line">var averageLatency = 0; // 初始化一个用于计算平均延迟的变量，单位为 ms。</span><br><span class="line">var deviceActivity = &quot;&quot;; // 初始化一个用于确定设备活动状态的变量，状态可以是“空闲”“浏览”或“流媒体”。</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">// 从本地存储的数据库中获取一些之前存储的下载速度值。</span><br><span class="line">const contents1 = fs.readFileSync(&quot;./Databases/downloadSpeed.txt&quot;, &#x27;utf-8&#x27;); // 读取 &#x27;downloadSpeed.txt&#x27; 文件的内容。</span><br><span class="line">var downloadArray = contents1.split(/\r?\n/); // 将内容分割成一个数组，假设每一行代表一个值。</span><br><span class="line"></span><br><span class="line">// 从本地存储的数据库中获取一些之前存储的上传速度值。</span><br><span class="line">const contents2 = fs.readFileSync(&quot;./Databases/uploadSpeed.txt&quot;, &#x27;utf-8&#x27;); // 读取 &#x27;uploadSpeed.txt&#x27; 文件的内容。</span><br><span class="line">var uploadArray = contents2.split(/\r?\n/); // 将内容分割成一个数组，假设每一行代表一个值。</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"></span><br><span class="line"></span><br><span class="line">// 在 8080 端口上托管服务器连接。</span><br><span class="line">const server = http.createServer(); // 创建 HTTP 服务器实例。</span><br><span class="line">server.listen(8080); // 在 8080 端口上监听传入的 HTTP 请求。</span><br><span class="line">console.log(&quot;Server started on port 8080...&quot;); // 记录消息，指示服务器已启动。</span><br><span class="line">console.log(&quot;Waiting for connection...&quot;); // 记录消息，指示服务器正在等待连接。</span><br><span class="line"></span><br><span class="line">// 创建 WebSocket 服务器实例，并将其附加到之前创建的 HTTP 服务器。</span><br><span class="line">const wsServer = new WebSocketServer(&#123;</span><br><span class="line">    httpServer: server,</span><br><span class="line">&#125;);</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">// 通过 WebSocket 服务器监听客户端的连接请求。</span><br><span class="line">wsServer.on(&quot;request&quot;, function (request) &#123;</span><br><span class="line">    // 接受客户端的连接。</span><br><span class="line">    const connection = request.accept(null, request.origin);</span><br><span class="line">    // 使用 &quot;message&quot; 关键字接受来自客户端的消息。</span><br><span class="line">    connection.on(&quot;message&quot;, function (message) &#123;</span><br><span class="line">        // 此处包含列表 5-16 的内容</span><br><span class="line"></span><br><span class="line">        // 获取从客户端获得的消息。</span><br><span class="line">        // 在这种情况下，收到的第一条消息是客户端发送的 URL。</span><br><span class="line">        // 这确保了通信是正常的。</span><br><span class="line">        console.log(&quot;Message from Client:&quot;, message.utf8Data);</span><br><span class="line">        // 初始化一个变量以包含客户端发送的消息。</span><br><span class="line">        var clientMessage = message.utf8Data;</span><br><span class="line">        // 检查客户端发送的消息中是否包含 JSONObject 中的 &quot;windowSize&quot; 变量。</span><br><span class="line">        // 这作为触发监控过程的决定因素。</span><br><span class="line">        // 收到 &quot;windowSize&quot; 变量意味着客户端运行正常。</span><br><span class="line">        if (clientMessage.includes(&quot;windowSize&quot;)) &#123;</span><br><span class="line">            const msg = JSON.parse(clientMessage); // 初始化一个常量以解析消息。</span><br><span class="line">            // 从 JSONObject 中获取 &quot;windowSize&quot; 和 &quot;predictionTime&quot; 的值。</span><br><span class="line">            sampleSize = msg.windowSize; // &quot;windowSize&quot; 的值。</span><br><span class="line">            predTime = msg.predictionTime; // &quot;predictionTime&quot; 的值。</span><br><span class="line">            // 初始化一个计数器，以知道已收集了多少网络流量。</span><br><span class="line">            var counter = 0;</span><br><span class="line">            // 初始化一个数组，以包含延迟项。</span><br><span class="line">            var latencyArray = [];</span><br><span class="line">            // 初始化一个计数器，以知道已收集了多少延迟值。</span><br><span class="line">            var counterLatency = 0;</span><br><span class="line">            // 使用 setInterval 方法创建一个每秒运行一次的函数。</span><br><span class="line">            // 该方法以函数和毫秒为单位的时间间隔作为输入。</span><br><span class="line">            monitoringInterval = setInterval(function () &#123;</span><br><span class="line">                // 此处包含列表 5-17 和列表 5-18 的内容</span><br><span class="line"></span><br><span class="line">                // 从 Wi-Fi 接口获取网络数据。</span><br><span class="line">                si.networkStats().then(data =&gt; &#123;</span><br><span class="line">                    // 计算每秒接收的数据包数量，即下载速度。</span><br><span class="line">                    var RX = Math.round((((data[0].rx_sec) / 1000) + Number.EPSILON) * 100) / 100;</span><br><span class="line">                    // 计算每秒发送的数据包数量，即上传速度。</span><br><span class="line">                    var TX = Math.round((((data[0].tx_sec) / 1000) + Number.EPSILON) * 100) / 100;</span><br><span class="line">                    // 使用 push() 方法将新读取的流量添加到预加载的数组中。</span><br><span class="line">                    // 预加载的数组以时间序列方式存储参数。</span><br><span class="line">                    // 根据设备活动，这可能会提高算法的性能。</span><br><span class="line">                    downloadArray.push(RX); // 将下载速度值添加到其预加载的数组中。</span><br><span class="line">                    uploadArray.push(TX); // 将上传速度值添加到其预加载的数组中。</span><br><span class="line">                    // 将值记录到控制台。</span><br><span class="line">                    console.log(&quot;Download Speed: &quot; + RX + &quot; KB/s&quot;);</span><br><span class="line">                    console.log(&quot;Upload Speed: &quot; + TX + &quot; KB/s&quot;);</span><br><span class="line">                    console.log(&quot;-----------------------------&quot;);</span><br><span class="line">                    // 当记录了六十个值时，停止监控过程并触发机器学习算法。</span><br><span class="line">                    if (counter == 60) &#123;</span><br><span class="line">                        // 使用 clearInterval() 方法停止监控过程。</span><br><span class="line">                        clearInterval(monitoringInterval);</span><br><span class="line">                        // 调用预测方法，对下载速度进行时间序列预测。</span><br><span class="line">                        // 确保如果算法失败并返回 NaN，则再次调用该方法。</span><br><span class="line">                        while (true) &#123;</span><br><span class="line">                            predRX = predictMLP(downloadArray, parseInt(sampleSize), parseInt(predTime), 0.1, 0.01);</span><br><span class="line">                            if (!isNaN(predRX)) &#123;</span><br><span class="line">                                // 如果获得实际数字，则退出循环。</span><br><span class="line">                                break;</span><br><span class="line">                            &#125;</span><br><span class="line">                        &#125;</span><br><span class="line">                        // 调用预测方法，对上传速度进行时间序列预测。</span><br><span class="line">                        // 确保如果算法失败并返回 NaN，则再次调用该方法。</span><br><span class="line">                        while (true) &#123;</span><br><span class="line">                            predTX = predictMLP(uploadArray, parseInt(sampleSize), parseInt(predTime), 0.1, 0.01);</span><br><span class="line">                            if (!isNaN(predTX)) &#123;</span><br><span class="line">                                // 如果获得实际数字，则退出循环。</span><br><span class="line">                                break;</span><br><span class="line">                            &#125;</span><br><span class="line">                        &#125;</span><br><span class="line">                        // 调用预测方法，对延迟进行时间序列预测。</span><br><span class="line">                        // 确保如果算法失败并返回 NaN，则再次调用该方法。</span><br><span class="line">                        while (true) &#123;</span><br><span class="line">                            predLat = predictMLP(latencyArray, parseInt(sampleSize), parseInt(predTime), 0.1, 0.01);</span><br><span class="line">                            if (!isNaN(predLat)) &#123;</span><br><span class="line">                                // 如果获得实际数字，则退出循环。</span><br><span class="line">                                break;</span><br><span class="line">                            &#125;</span><br><span class="line">                        &#125;</span><br><span class="line">                        // 通过调用分类方法对设备活动进行分类。</span><br><span class="line">                        deviceActivity = calculateKNN(RX, TX);</span><br><span class="line">                        // 创建一个包含预测和分类结果的常量变量。</span><br><span class="line">                        const predictionMessage = &#123;</span><br><span class="line">                            downloadSpeed: RX,</span><br><span class="line">                            uploadSpeed: TX,</span><br><span class="line">                            predictedDownloadSpeed: predRX,</span><br><span class="line">                            predictedUploadSpeed: predTX,</span><br><span class="line">                            predictedLatency: predLat,</span><br><span class="line">                            predictedQoS: scoreQoS,</span><br><span class="line">                            deviceActivity: deviceActivity,</span><br><span class="line">                            averageLatency: averageLatency</span><br><span class="line">                        &#125;;</span><br><span class="line">                        // 将指标消息封装在 JSON 格式的字符串中，并通过 WebSocket 连接发送。</span><br><span class="line">                        connection.send(JSON.stringify(predictionMessage));</span><br><span class="line">                    &#125; else &#123;</span><br><span class="line">                        // 创建一个包含每秒发送给客户端的网络流量值的常量变量。</span><br><span class="line">                        // 添加所有 3 个实时值。</span><br><span class="line">                        const jsonMessage = &#123;</span><br><span class="line">                            downloadSpeed: RX,</span><br><span class="line">                            uploadSpeed: TX,</span><br><span class="line">                            latency: latency</span><br><span class="line">                        &#125;;</span><br><span class="line">                        // 将实时消息封装在 JSON 格式的字符串中，并通过 WebSocket 连接发送。</span><br><span class="line">                        connection.send(JSON.stringify(jsonMessage));</span><br><span class="line">                        // 增加网络流量计数器。</span><br><span class="line">                        counter = counter + 1;</span><br><span class="line">                    &#125;</span><br><span class="line">                &#125;)</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">            &#125;, 1000); // 指定监控过程的时间间隔为 1000 毫秒。</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;);</span><br><span class="line">    // 使用 &quot;close&quot; 关键字处理客户端断开连接。</span><br><span class="line">    connection.on(&quot;close&quot;, function (reasonCode, description) &#123;</span><br><span class="line">        // 记录消息，指示客户端已断开连接。</span><br><span class="line">        console.log(&quot;Client has disconnected.&quot;);</span><br><span class="line">        // 当客户端断开连接时，停止监控过程。</span><br><span class="line">        clearInterval(monitoringInterval);</span><br><span class="line">    &#125;);</span><br><span class="line">&#125;);</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"></span><br></pre></td></tr></table></figure>
+    </div>
+
+    
+    
+    
+
+      <footer class="post-footer">
+
+        
+
+
+        
+    <div class="post-nav">
+      <div class="post-nav-item">
+    <a href="/2025/04/11/huggingface-%E4%B8%8A%E7%9A%84%E6%A8%A1%E5%9E%8B%E5%BE%AE%E8%B0%83%E5%90%8E%E5%A6%82%E4%BD%95%E5%9C%A8-ollama-%E4%B8%AD%E4%BD%BF%E7%94%A8/" rel="prev" title="huggingface 上的模型微调后如何在 ollama 中使用">
+      <i class="fa fa-chevron-left"></i> huggingface 上的模型微调后如何在 ollama 中使用
+    </a></div>
+      <div class="post-nav-item"></div>
+    </div>
+      </footer>
+    
+  </article>
+  
+  
+  
+
+
+
+          </div>
+          
+
+<script>
+  window.addEventListener('tabs:register', () => {
+    let { activeClass } = CONFIG.comments;
+    if (CONFIG.comments.storage) {
+      activeClass = localStorage.getItem('comments_active') || activeClass;
+    }
+    if (activeClass) {
+      let activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      if (activeTab) {
+        activeTab.click();
+      }
+    }
+  });
+  if (CONFIG.comments.storage) {
+    window.addEventListener('tabs:click', event => {
+      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
+      let commentClass = event.target.classList[1];
+      localStorage.setItem('comments_active', commentClass);
+    });
+  }
+</script>
+
+        </div>
+          
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line toggle-line-first"></span>
+    <span class="toggle-line toggle-line-middle"></span>
+    <span class="toggle-line toggle-line-last"></span>
+  </div>
+
+  <aside class="sidebar">
+    <div class="sidebar-inner">
+
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#1-%E5%AE%89%E8%A3%85-wscat"><span class="nav-number">1.</span> <span class="nav-text">1. 安装 wscat</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2-%E8%BF%9E%E6%8E%A5%E5%88%B0-WebSocket-%E6%9C%8D%E5%8A%A1%E5%99%A8"><span class="nav-number">2.</span> <span class="nav-text">2. 连接到 WebSocket 服务器</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#3-%E5%8F%91%E9%80%81%E6%B6%88%E6%81%AF"><span class="nav-number">3.</span> <span class="nav-text">3. 发送消息</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#4-%E6%9F%A5%E7%9C%8B%E8%BF%94%E5%9B%9E%E6%B6%88%E6%81%AF"><span class="nav-number">4.</span> <span class="nav-text">4. 查看返回消息</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#5-%E6%96%AD%E5%BC%80%E8%BF%9E%E6%8E%A5"><span class="nav-number">5.</span> <span class="nav-text">5. 断开连接</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#6-%E5%85%B6%E4%BB%96%E5%91%BD%E4%BB%A4%E8%A1%8C%E5%B7%A5%E5%85%B7"><span class="nav-number">6.</span> <span class="nav-text">6. 其他命令行工具</span></a></li></ol></div>
+      </div>
+      <!--/noindex-->
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+  <p class="site-author-name" itemprop="name">wangzhiwei</p>
+  <div class="site-description" itemprop="description">javascript nodejs web developer...</div>
+</div>
+<div class="site-state-wrap motion-element">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">78</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+        <span class="site-state-item-count">56</span>
+        <span class="site-state-item-name">分类</span>
+      </div>
+      <div class="site-state-item site-state-tags">
+        <span class="site-state-item-count">62</span>
+        <span class="site-state-item-name">标签</span>
+      </div>
+  </nav>
+</div>
+
+
+
+      </div>
+
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+    </main>
+
+    <footer class="footer">
+      <div class="footer-inner">
+        
+
+        
+
+<div class="copyright">
+  
+  &copy; 
+  <span itemprop="copyrightYear">2025</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">wangzhiwei</span>
+</div>
+  <div class="powered-by">由 <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> & <a href="https://muse.theme-next.org/" class="theme-link" rel="noopener" target="_blank">NexT.Muse</a> 强力驱动
+  </div>
+
+        
+
+
+
+
+
+
+
+
+      </div>
+    </footer>
+  </div>
+
+  
+  <script src="/lib/anime.min.js"></script>
+  <script src="/lib/velocity/velocity.min.js"></script>
+  <script src="/lib/velocity/velocity.ui.min.js"></script>
+
+<script src="/js/utils.js"></script>
+
+<script src="/js/motion.js"></script>
+
+
+<script src="/js/schemes/muse.js"></script>
+
+
+<script src="/js/next-boot.js"></script>
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  
+
+</body>
+</html>
