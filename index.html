@@ -149,6 +149,178 @@
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="http://example.com/2025/04/28/tfjs-study/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="wangzhiwei">
+      <meta itemprop="description" content="javascript nodejs web developer...">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="WBlog">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/2025/04/28/tfjs-study/" class="post-title-link" itemprop="url">tfjs-study</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+              
+
+              <time title="创建时间：2025-04-28 18:01:37 / 修改时间：18:02:07" itemprop="dateCreated datePublished" datetime="2025-04-28T18:01:37+08:00">2025-04-28</time>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <p>linear-study<br>.<br>├── dist<br>├── index.html<br>├── node_modules<br>├── package-lock.json<br>├── package.json<br>└── script.js</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line">index.html</span><br><span class="line"></span><br><span class="line">&lt;!DOCTYPE html&gt;</span><br><span class="line">&lt;html lang=&quot;en&quot;&gt;</span><br><span class="line">&lt;head&gt;</span><br><span class="line">    &lt;meta charset=&quot;UTF-8&quot;&gt;</span><br><span class="line">    &lt;meta name=&quot;viewport&quot; content=&quot;width=device-width, initial-scale=1.0&quot;&gt;</span><br><span class="line">    &lt;title&gt;Document&lt;/title&gt;</span><br><span class="line">&lt;/head&gt;</span><br><span class="line">&lt;body&gt;</span><br><span class="line">    &lt;script src=&quot;script.js&quot;&gt;&lt;/script&gt;</span><br><span class="line">&lt;/body&gt;</span><br><span class="line">&lt;/html&gt;</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br></pre></td><td class="code"><pre><span class="line">import * as tfvis from &#x27;@tensorflow/tfjs-vis&#x27;;</span><br><span class="line"></span><br><span class="line">window.onload = function () &#123;</span><br><span class="line"></span><br><span class="line">    const xs = [1,2,3,4]</span><br><span class="line">    const ys = [1,3,5,7]</span><br><span class="line"></span><br><span class="line">    tfvis.render.scatterplot(</span><br><span class="line">        &#123; name: &#x27;Linear Regression&#x27; &#125;,</span><br><span class="line">        &#123; values: xs.map((x, i) =&gt; (&#123; x, y: ys[i] &#125;)) &#125;,</span><br><span class="line">        // &#123;</span><br><span class="line">        //     xLabel: &#x27;X&#x27;,</span><br><span class="line">        //     yLabel: &#x27;Y&#x27;,</span><br><span class="line">        //     height: 300,</span><br><span class="line">        // &#125;,</span><br><span class="line">        &#123;</span><br><span class="line">            xAxisDomain: [0, 10],</span><br><span class="line">            yAxisDomain: [0, 10]</span><br><span class="line">        &#125;</span><br><span class="line">    );</span><br><span class="line">    </span><br><span class="line"></span><br><span class="line">    // const model = tf.sequential();</span><br><span class="line">    // model.add(tf.layers.dense(&#123; units: 1, inputShape: [1] &#125;));</span><br><span class="line">    // model.compile(&#123; loss: &#x27;meanSquaredError&#x27;, optimizer: &#x27;sgd&#x27; &#125;);</span><br><span class="line">    </span><br><span class="line">    // const xs = tf.tensor2d([0, 1, 2, 3], [4, 1]);</span><br><span class="line">    // const ys = tf.tensor2d([0, 1, 2, 3], [4, 1]);</span><br><span class="line">    </span><br><span class="line">    // const container = &#123;</span><br><span class="line">    //     name: &#x27;Linear Regression&#x27;,</span><br><span class="line">    //     styles: &#123;</span><br><span class="line">    //     height: &#x27;1000px&#x27;,</span><br><span class="line">    //     width: &#x27;1000px&#x27;,</span><br><span class="line">    //     &#125;,</span><br><span class="line">    // &#125;;</span><br><span class="line">    </span><br><span class="line">    // const surface = tfvis.visor().surface(container);</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line">cnpm i parcel-bundler -g</span><br><span class="line"></span><br><span class="line">parcel index2.html</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">cnpm 安装  @tensorflow/tfjs 报错，改为 </span><br><span class="line"></span><br><span class="line">npm install @tensorflow/tfjs 就没问题了</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">https://js.tensorflow.org/api/latest/?hl=zh-cn&amp;_gl=1*nv702p*_ga*MjExOTY1MjIyNi4xNzQ1ODI3MTc0*_ga_W0YLR4190T*MTc0NTgzMTA0MC4yLjEuMTc0NTgzMjU4OC4wLjAuMA..#dot</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">参考：</span><br><span class="line"></span><br><span class="line">https://www.bilibili.com/video/BV1p2BWYVEik?spm_id_from=333.788.player.switch&amp;vd_source=ffda878df0ed45bee1ade91d8f451048&amp;p=10</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="http://example.com/2025/04/25/ollama-serve-%E5%A6%82%E4%BD%95%E8%AE%A9%E8%BF%9B%E7%A8%8B%E4%B8%80%E7%9B%B4%E5%9C%A8/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="wangzhiwei">
+      <meta itemprop="description" content="javascript nodejs web developer...">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="WBlog">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/2025/04/25/ollama-serve-%E5%A6%82%E4%BD%95%E8%AE%A9%E8%BF%9B%E7%A8%8B%E4%B8%80%E7%9B%B4%E5%9C%A8/" class="post-title-link" itemprop="url">ollama serve 如何让进程一直在</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+              
+
+              <time title="创建时间：2025-04-25 14:18:16 / 修改时间：14:18:49" itemprop="dateCreated datePublished" datetime="2025-04-25T14:18:16+08:00">2025-04-25</time>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <p>以下是几种让 <code>ollama serve</code> 进程一直运行的方法：</p>
+<h3 id="使用-screen-工具"><a href="#使用-screen-工具" class="headerlink" title="使用 screen 工具"></a>使用 <code>screen</code> 工具</h3><ol>
+<li>安装 <code>screen</code>（如果尚未安装）：<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">sudo</span> apt install screen</span><br></pre></td></tr></table></figure></li>
+<li>创建一个新的 <code>screen</code> 会话并运行 <code>ollama serve</code>：<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">screen -S ollama_session</span><br><span class="line">ollama serve</span><br></pre></td></tr></table></figure></li>
+<li>按下 <code>Ctrl+A</code> 然后按下 <code>D</code>，将当前会话分离，此时 <code>ollama serve</code> 将在后台继续运行。</li>
+</ol>
+<h3 id="使用-tmux-工具"><a href="#使用-tmux-工具" class="headerlink" title="使用 tmux 工具"></a>使用 <code>tmux</code> 工具</h3><ol>
+<li>安装 <code>tmux</code>（如果尚未安装）：<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">sudo</span> apt install tmux</span><br></pre></td></tr></table></figure></li>
+<li>创建一个新的 <code>tmux</code> 会话并运行 <code>ollama serve</code>：<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">tmux new -s ollama_session</span><br><span class="line">ollama serve</span><br></pre></td></tr></table></figure></li>
+<li>按下 <code>Ctrl+B</code> 然后按下 <code>D</code>，将当前会话分离，<code>ollama serve</code> 会在后台持续运行。</li>
+</ol>
+<h3 id="使用-nohup-命令"><a href="#使用-nohup-命令" class="headerlink" title="使用 nohup 命令"></a>使用 <code>nohup</code> 命令</h3><p>执行以下命令来后台运行 Ollama：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">nohup</span> ollama serve &amp;</span><br></pre></td></tr></table></figure>
+<p>这会生成一个名为 <code>nohup.out</code> 的文件，用于存储输出日志。</p>
+<h3 id="使用-systemd-管理服务（仅限-Linux）"><a href="#使用-systemd-管理服务（仅限-Linux）" class="headerlink" title="使用 systemd 管理服务（仅限 Linux）"></a>使用 <code>systemd</code> 管理服务（仅限 Linux）</h3><ol>
+<li>创建服务文件：<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">sudo</span> nano /etc/systemd/system/ollama.service</span><br></pre></td></tr></table></figure></li>
+<li>在文件中添加以下内容：<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line">[Unit]</span><br><span class="line">Description=Ollama AI Service</span><br><span class="line">After=network.target</span><br><span class="line"></span><br><span class="line">[Service]</span><br><span class="line">Type=simple</span><br><span class="line">User=&lt;your-username&gt;</span><br><span class="line">WorkingDirectory=/path/to/ollama</span><br><span class="line">ExecStart=/usr/bin/ollama serve</span><br><span class="line">Restart=on-failure</span><br><span class="line">Environment=&quot;OLLAMA_HOST=0.0.0.0:11434&quot;</span><br><span class="line"></span><br><span class="line">[Install]</span><br><span class="line">WantedBy=multi-user.target</span><br></pre></td></tr></table></figure></li>
+<li>启用并启动服务：<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">sudo</span> systemctl <span class="built_in">enable</span> ollama.service</span><br><span class="line"><span class="built_in">sudo</span> systemctl start ollama.service</span><br></pre></td></tr></table></figure>
+如果需要停止服务，可以使用以下命令：<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">sudo</span> systemctl stop ollama.service</span><br></pre></td></tr></table></figure>
+查看服务状态：</li>
+</ol>
+<pre><code class="bash">sudo systemctl status ollama.service
+```。
+
+### 关闭终端时自动重启
+
+这种方式需要手动编写字 shell 脚本，并将其添加到系统的启动项中，让系统在启动时自动运行该脚本，从而实现关闭终端时自动重启的效果。不过需要注意的是，这种方法一般用于特定场景，且需要根据系统的不同（如 Windows 和 Linux）采取不同的实现方式。
+
+这些方法可以让 `ollama serve` 在后台持续运行，你可以根据自己的需求和系统环境选择合适的方式。
+
+
+这是一段 `systemd` 服务配置文件的代码，用于管理 Ollama 服务的启动、运行和停止等行为。下面是对代码各部分的详细解释：
+
+### `[Unit]` 部分
+
+  * **Description=Ollama AI Service** ：用于描述该服务的简单信息，这里表示这是一个名为 “Ollama AI Service” 的服务。
+  * **After=network.target** ：定义了服务的启动顺序依赖关系，表示该服务要在 `network.target` 单元之后启动。`network.target` 是一个用于标记网络服务可用的目标单元，这确保了 Ollama 服务在启动时网络已经就绪，以便它能正常地通过网络进行通信。
+
+### `[Service]` 部分
+
+  * **Type=simple** ：指定了服务的类型为简单类型，表示服务进程会在启动后立即开始运行，并且不会 fork 出子进程。这是最常见和简单的服务类型，适用于大多数直接运行的守护进程。
+  * **User=&lt;your-username&gt;** ：定义了运行该服务的系统用户。`&lt;your-username&gt;` 是一个占位符，需要替换为实际的系统用户名。这样可以控制服务运行时的用户权限，以确保服务在合适的权限级别下运行，避免使用 root 用户带来的安全风险。
+  * **WorkingDirectory=/path/to/ollama** ：设置了服务的工作目录，即服务在运行时所在的目录。`/path/to/ollama` 是一个示例路径，需替换为实际存放 Ollama 相关文件和配置的目录路径，这有助于服务在运行过程中正确地访问和操作文件。
+  * **ExecStart=/usr/bin/ollama serve** ：指定了启动服务时要执行的命令。这里表示使用 `/usr/bin/ollama` 可执行文件，并传递 `serve` 参数来启动 Ollama 服务，这是启动 Ollama 的核心命令，用于使 Ollama 以服务的形式开始监听和处理请求。
+  * **Restart=on-failure** ：配置了服务的重启策略。当服务因错误（如非零退出码、被信号终止等）而停止时，`systemd` 会自动尝试重启该服务，这提高了服务的可靠性和可用性，确保服务能够自动从一些常见的故障中恢复。
+  * **Environment=&quot;OLLAMA_HOST=0.0.0.0:11434&quot;** ：设置了一个环境变量 `OLLAMA_HOST`，其值为 `0.0.0.0:11434`。这通常用于指定 Ollama 服务监听的主机地址和端口号，`0.0.0.0` 表示监听所有网络接口，`11434` 是默认的服务端口，这样可以使 Ollama 服务能够接收来自任何网络接口的请求。
+
+### `[Install]` 部分
+
+  * **WantedBy=multi-user.target** ：定义了该服务的安装目标，表示当系统进入多用户模式（`multi-user.target`）时，该服务会被自动启动。`multi-user.target` 是一个常见的系统目标，用于表示多用户环境下的系统状态，这使得 Ollama 服务能够在系统启动后自动运行，为用户提供了一种方便的自动启动机制。
+</code></pre>
+
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
     <link itemprop="mainEntityOfPage" href="http://example.com/2025/04/24/%E6%98%AF%E5%90%A6%E5%8F%AF%E4%BB%A5%E9%80%9A%E8%BF%87-%E5%91%BD%E4%BB%A4%E8%A1%8C%E5%8F%91%E9%80%81-ws-localhost-8080/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -693,142 +865,6 @@
   
   
 
-      
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="http://example.com/2025/04/02/50%E4%BA%BF%E5%85%8D%E8%B4%B9token/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.gif">
-      <meta itemprop="name" content="wangzhiwei">
-      <meta itemprop="description" content="javascript nodejs web developer...">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="WBlog">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/2025/04/02/50%E4%BA%BF%E5%85%8D%E8%B4%B9token/" class="post-title-link" itemprop="url">50亿免费token</a>
-        </h2>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              <span class="post-meta-item-text">发表于</span>
-              
-
-              <time title="创建时间：2025-04-02 15:29:14 / 修改时间：15:30:25" itemprop="dateCreated datePublished" datetime="2025-04-02T15:29:14+08:00">2025-04-02</time>
-            </span>
-
-          
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <p>【福利】腾讯T1 免费Key 共享50亿token<br>模型：hunyuan-t1-20250321<br>Key：sk-hbMzKcHfnDKSU1NnJPDEFG4xOQE1kB2mcQpkJYtPqDTeTRcV<br>URL：<a target="_blank" rel="noopener" href="https://www.dmxapi.cn/v1">https://www.dmxapi.cn/v1</a></p>
-<p>配置到代码或chat客户端就可以使用了。</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">curl -X POST \</span><br><span class="line">  -H &quot;Content-Type: application/json&quot; \</span><br><span class="line">  -H &quot;Accept: application/json&quot; \</span><br><span class="line">  -H &quot;Authorization: Bearer sk-hbMzKcHfnDKSU1NnJPDEFG4xOQE1kB2mcQpkJYtPqDTeTRcV&quot; \</span><br><span class="line">  -H &quot;User-Agent: DMXAPI/1.0.0&quot; \</span><br><span class="line">  -d &#x27;&#123;</span><br><span class="line">    &quot;model&quot;: &quot;hunyuan-t1-20250321&quot;,</span><br><span class="line">    &quot;stream&quot;: true,</span><br><span class="line">    &quot;messages&quot;: [</span><br><span class="line">      &#123;</span><br><span class="line">        &quot;role&quot;: &quot;system&quot;,</span><br><span class="line">        &quot;content&quot;: &quot;You are a helpful assistant.&quot;</span><br><span class="line">      &#125;,</span><br><span class="line">      &#123;</span><br><span class="line">        &quot;role&quot;: &quot;user&quot;,</span><br><span class="line">        &quot;content&quot;: &quot;周树人和鲁迅是兄弟吗？&quot;</span><br><span class="line">      &#125;</span><br><span class="line">    ]</span><br><span class="line">  &#125;&#x27; \</span><br><span class="line">  https://www.dmxapi.cn/v1/chat/completions</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"></span><br></pre></td></tr></table></figure>
-
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
-      
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="http://example.com/2025/04/02/YOLO-V2%E5%8E%9F%E7%90%86/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.gif">
-      <meta itemprop="name" content="wangzhiwei">
-      <meta itemprop="description" content="javascript nodejs web developer...">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="WBlog">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/2025/04/02/YOLO-V2%E5%8E%9F%E7%90%86/" class="post-title-link" itemprop="url">YOLO V2原理</a>
-        </h2>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              <span class="post-meta-item-text">发表于</span>
-              
-
-              <time title="创建时间：2025-04-02 10:28:18 / 修改时间：11:29:02" itemprop="dateCreated datePublished" datetime="2025-04-02T10:28:18+08:00">2025-04-02</time>
-            </span>
-
-          
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <p>Predicts only two boxes per grid cell (same class)<br>• Poor performance with small, clustered objects.<br>• Struggles with multiple categories per grid cell.<br>• Issues with unusual object aspect ratios.<br>• Lower accuracy compared to other methods.</p>
-<p>每个网格单元仅预测两个盒子（同一类）<br>•小的聚集物对象的性能差。<br>•每个网格单元格与多个类别的斗争。<br>•与异常对象宽高比的问题。<br>•与其他方法相比，精度较低。<br>•最多预测49个分类</p>
-<p><img src="/../images/yolov2/yolov2-01.png"></p>
-<p><img src="/../images/yolov2/yolov2-02.png"></p>
-<p>网络结构的改进<br>    突出 Darknet19（骨干网络）的关键特性。<br>    提取细粒度特征，从而实现更好的目标定位和详细的预测。<br>训练策略的改进。<br>    高分辨率分类器<br>    多尺度训练<br>训练阶段：<br>    关注输出张量如何与真实标签关联。<br>测试阶段：<br>    将输出张量转换为最终预测结果。</p>
-<p><img src="/../images/yolov2/yolov2-03.png"></p>
-<p>卷积操作：<br>    3x3 滤波器：提取空间特征，同时保留空间信息。<br>    1x1 滤波器：调整通道维度，减少计算量。<br>优点：<br>    减少参数，提高效率。<br>    保持足够的感受野。<br>批归一化（Batch Normalization）：<br>    有助于加速模型收敛，并防止梯度消失。提高模型稳定性，在 Darknet19 中，批归一化被用于每个卷积层。<br>全局平均池化（Global Average Pooling）:<br>在网络的最后阶段，我们把输出的特征图的每一个通道，构成一个值，下图中输出特征图是1000个通道的，我们把每一个通道的值求平均，得到一个值。就得到了1000维度的向量。<br>将它输出到 softmax层，进行分类，能够大大减少，参数爆炸的问题。<br>两个 3x3 卷积 &#x3D; 一个 5x5 卷积<br>三个 3x3 卷积 &#x3D; 一个 7x7 卷积</p>
-<p><img src="/../images/yolov2/yolov2-04.png"></p>
-<p>批归一化（Batch Normalization）<br>深度学习挑战：<br>    内部协变量偏移（Internal Covariate Shift, ICS）：在训练过程中，层输入的分布会发生变化。<br>后果：<br>    梯度消失或梯度爆炸。<br>    需要仔细调整超参数（例如学习率、初始化）。<br>    限制了饱和非线性激活函数（例如 sigmoid）的使用。<br>思路：<br>    每个小批量（mini-batch）对层输入进行归一化，使其具有零均值和单位方差。</p>
-<p><img src="/../images/yolov2/yolov2-05.png"></p>
-<p>FC （全链接层）<br>对于输入的小数据量x, 有m个样本组成，每个样本有d个特征，可以理解为 d * m 的矩阵<br>每一行代表一个样本，每一列代表一个特征</p>
-<p>为们要对矩阵中的每一个元素进行归一化， </p>
-<p>1、计算每个特征的均值，对于第k个特征，他的计算公式为右侧第一个<br>我们会将第k个特征的m条样本累加求和，再除以m，得到第k个特征的均值。<br>2、计算每个特征的方差，对于第k个特征，他的计算公式为右侧第二个<br>3、对与列上的每一个元素第k个特征的第i个元素，我们就用它原来的值减去第k个特征的均值，再除以标准差 ，来得到更新后的值，，他的计算公式为右侧第二个 E 为小的波动，防止分母为0<br>4、</p>
-<p><img src="/../images/yolov2/yolov2-06.png"></p>
-<p>Conv (卷积网络)</p>
-<p><img src="/../images/yolov2/yolov2-07.png"><br><img src="/../images/yolov2/yolov2-08.png"><br><img src="/../images/yolov2/yolov2-09.png"><br><img src="/../images/yolov2/yolov2-10.png"><br><img src="/../images/yolov2/yolov2-11.png"><br><img src="/../images/yolov2/yolov2-12.png"><br><img src="/../images/yolov2/yolov2-13.png"><br><img src="/../images/yolov2/yolov2-14.png"><br><img src="/../images/yolov2/yolov2-15.png"><br><img src="/../images/yolov2/yolov2-16.png"><br><img src="/../images/yolov2/yolov2-17.png"><br><img src="/../images/yolov2/yolov2-18.png"><br><img src="/../images/yolov2/yolov2-19.png"><br><img src="/../images/yolov2/yolov2-20.png"><br><img src="/../images/yolov2/yolov2-21.png"><br><img src="/../images/yolov2/yolov2-22.png"><br><img src="/../images/yolov2/yolov2-23.png"><br><img src="/../images/yolov2/yolov2-24.png"><br><img src="/../images/yolov2/yolov2-25.png"><br><img src="/../images/yolov2/yolov2-26.png"><br><img src="/../images/yolov2/yolov2-27.png"><br><img src="/../images/yolov2/yolov2-28.png"><br><img src="/../images/yolov2/yolov2-29.png"></p>
-<p>参考：<br><a target="_blank" rel="noopener" href="https://www.bilibili.com/video/BV1dxPCeUEvE/?spm_id_from=333.1387.upload.video_card.click&vd_source=ffda878df0ed45bee1ade91d8f451048">https://www.bilibili.com/video/BV1dxPCeUEvE/?spm_id_from=333.1387.upload.video_card.click&amp;vd_source=ffda878df0ed45bee1ade91d8f451048</a></p>
-
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
 
   
   <nav class="pagination">
@@ -898,7 +934,7 @@
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">78</span>
+          <span class="site-state-item-count">80</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>

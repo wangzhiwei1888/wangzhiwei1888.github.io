@@ -1,0 +1,435 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 7.3.0">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+<link rel="stylesheet" href="/lib/font-awesome/css/font-awesome.min.css">
+
+<script id="hexo-configurations">
+    var NexT = window.NexT || {};
+    var CONFIG = {"hostname":"example.com","root":"/","scheme":"Muse","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":false,"show_result":false,"style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":false,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}}};
+  </script>
+
+  <meta name="description" content="以下是几种让 ollama serve 进程一直运行的方法： 使用 screen 工具 安装 screen（如果尚未安装）：1sudo apt install screen 创建一个新的 screen 会话并运行 ollama serve：12screen -S ollama_sessionollama serve 按下 Ctrl+A 然后按下 D，将当前会话分离，此时 ollama serve">
+<meta property="og:type" content="article">
+<meta property="og:title" content="ollama serve 如何让进程一直在">
+<meta property="og:url" content="http://example.com/2025/04/25/ollama-serve-%E5%A6%82%E4%BD%95%E8%AE%A9%E8%BF%9B%E7%A8%8B%E4%B8%80%E7%9B%B4%E5%9C%A8/index.html">
+<meta property="og:site_name" content="WBlog">
+<meta property="og:description" content="以下是几种让 ollama serve 进程一直运行的方法： 使用 screen 工具 安装 screen（如果尚未安装）：1sudo apt install screen 创建一个新的 screen 会话并运行 ollama serve：12screen -S ollama_sessionollama serve 按下 Ctrl+A 然后按下 D，将当前会话分离，此时 ollama serve">
+<meta property="og:locale" content="zh_CN">
+<meta property="article:published_time" content="2025-04-25T06:18:16.000Z">
+<meta property="article:modified_time" content="2025-04-25T06:18:49.639Z">
+<meta property="article:author" content="wangzhiwei">
+<meta property="article:tag" content="javascript nodejs web developer fe engineer">
+<meta name="twitter:card" content="summary">
+
+<link rel="canonical" href="http://example.com/2025/04/25/ollama-serve-%E5%A6%82%E4%BD%95%E8%AE%A9%E8%BF%9B%E7%A8%8B%E4%B8%80%E7%9B%B4%E5%9C%A8/">
+
+
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome : false,
+    isPost : true,
+    lang   : 'zh-CN'
+  };
+</script>
+
+  <title>ollama serve 如何让进程一直在 | WBlog</title>
+  
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div class="container use-motion">
+    <div class="headband"></div>
+
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏">
+      <span class="toggle-line toggle-line-first"></span>
+      <span class="toggle-line toggle-line-middle"></span>
+      <span class="toggle-line toggle-line-last"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <h1 class="site-title">WBlog</h1>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+      <p class="site-subtitle" itemprop="description">wangzhiwei blog</p>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+    </div>
+  </div>
+</div>
+
+
+
+
+<nav class="site-nav">
+  <ul id="menu" class="menu">
+        <li class="menu-item menu-item-home">
+
+    <a href="/" rel="section"><i class="fa fa-fw fa-home"></i>首页</a>
+
+  </li>
+        <li class="menu-item menu-item-archives">
+
+    <a href="/archives/" rel="section"><i class="fa fa-fw fa-archive"></i>归档</a>
+
+  </li>
+  </ul>
+</nav>
+
+
+
+
+</div>
+    </header>
+
+    
+  <div class="back-to-top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+
+
+    <main class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+
+          <div class="content post posts-expand">
+            
+
+    
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="http://example.com/2025/04/25/ollama-serve-%E5%A6%82%E4%BD%95%E8%AE%A9%E8%BF%9B%E7%A8%8B%E4%B8%80%E7%9B%B4%E5%9C%A8/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="wangzhiwei">
+      <meta itemprop="description" content="javascript nodejs web developer...">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="WBlog">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          ollama serve 如何让进程一直在
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+              
+
+              <time title="创建时间：2025-04-25 14:18:16 / 修改时间：14:18:49" itemprop="dateCreated datePublished" datetime="2025-04-25T14:18:16+08:00">2025-04-25</time>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+        <p>以下是几种让 <code>ollama serve</code> 进程一直运行的方法：</p>
+<h3 id="使用-screen-工具"><a href="#使用-screen-工具" class="headerlink" title="使用 screen 工具"></a>使用 <code>screen</code> 工具</h3><ol>
+<li>安装 <code>screen</code>（如果尚未安装）：<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">sudo</span> apt install screen</span><br></pre></td></tr></table></figure></li>
+<li>创建一个新的 <code>screen</code> 会话并运行 <code>ollama serve</code>：<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">screen -S ollama_session</span><br><span class="line">ollama serve</span><br></pre></td></tr></table></figure></li>
+<li>按下 <code>Ctrl+A</code> 然后按下 <code>D</code>，将当前会话分离，此时 <code>ollama serve</code> 将在后台继续运行。</li>
+</ol>
+<h3 id="使用-tmux-工具"><a href="#使用-tmux-工具" class="headerlink" title="使用 tmux 工具"></a>使用 <code>tmux</code> 工具</h3><ol>
+<li>安装 <code>tmux</code>（如果尚未安装）：<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">sudo</span> apt install tmux</span><br></pre></td></tr></table></figure></li>
+<li>创建一个新的 <code>tmux</code> 会话并运行 <code>ollama serve</code>：<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">tmux new -s ollama_session</span><br><span class="line">ollama serve</span><br></pre></td></tr></table></figure></li>
+<li>按下 <code>Ctrl+B</code> 然后按下 <code>D</code>，将当前会话分离，<code>ollama serve</code> 会在后台持续运行。</li>
+</ol>
+<h3 id="使用-nohup-命令"><a href="#使用-nohup-命令" class="headerlink" title="使用 nohup 命令"></a>使用 <code>nohup</code> 命令</h3><p>执行以下命令来后台运行 Ollama：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">nohup</span> ollama serve &amp;</span><br></pre></td></tr></table></figure>
+<p>这会生成一个名为 <code>nohup.out</code> 的文件，用于存储输出日志。</p>
+<h3 id="使用-systemd-管理服务（仅限-Linux）"><a href="#使用-systemd-管理服务（仅限-Linux）" class="headerlink" title="使用 systemd 管理服务（仅限 Linux）"></a>使用 <code>systemd</code> 管理服务（仅限 Linux）</h3><ol>
+<li>创建服务文件：<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">sudo</span> nano /etc/systemd/system/ollama.service</span><br></pre></td></tr></table></figure></li>
+<li>在文件中添加以下内容：<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line">[Unit]</span><br><span class="line">Description=Ollama AI Service</span><br><span class="line">After=network.target</span><br><span class="line"></span><br><span class="line">[Service]</span><br><span class="line">Type=simple</span><br><span class="line">User=&lt;your-username&gt;</span><br><span class="line">WorkingDirectory=/path/to/ollama</span><br><span class="line">ExecStart=/usr/bin/ollama serve</span><br><span class="line">Restart=on-failure</span><br><span class="line">Environment=&quot;OLLAMA_HOST=0.0.0.0:11434&quot;</span><br><span class="line"></span><br><span class="line">[Install]</span><br><span class="line">WantedBy=multi-user.target</span><br></pre></td></tr></table></figure></li>
+<li>启用并启动服务：<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">sudo</span> systemctl <span class="built_in">enable</span> ollama.service</span><br><span class="line"><span class="built_in">sudo</span> systemctl start ollama.service</span><br></pre></td></tr></table></figure>
+如果需要停止服务，可以使用以下命令：<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">sudo</span> systemctl stop ollama.service</span><br></pre></td></tr></table></figure>
+查看服务状态：</li>
+</ol>
+<pre><code class="bash">sudo systemctl status ollama.service
+```。
+
+### 关闭终端时自动重启
+
+这种方式需要手动编写字 shell 脚本，并将其添加到系统的启动项中，让系统在启动时自动运行该脚本，从而实现关闭终端时自动重启的效果。不过需要注意的是，这种方法一般用于特定场景，且需要根据系统的不同（如 Windows 和 Linux）采取不同的实现方式。
+
+这些方法可以让 `ollama serve` 在后台持续运行，你可以根据自己的需求和系统环境选择合适的方式。
+
+
+这是一段 `systemd` 服务配置文件的代码，用于管理 Ollama 服务的启动、运行和停止等行为。下面是对代码各部分的详细解释：
+
+### `[Unit]` 部分
+
+  * **Description=Ollama AI Service** ：用于描述该服务的简单信息，这里表示这是一个名为 “Ollama AI Service” 的服务。
+  * **After=network.target** ：定义了服务的启动顺序依赖关系，表示该服务要在 `network.target` 单元之后启动。`network.target` 是一个用于标记网络服务可用的目标单元，这确保了 Ollama 服务在启动时网络已经就绪，以便它能正常地通过网络进行通信。
+
+### `[Service]` 部分
+
+  * **Type=simple** ：指定了服务的类型为简单类型，表示服务进程会在启动后立即开始运行，并且不会 fork 出子进程。这是最常见和简单的服务类型，适用于大多数直接运行的守护进程。
+  * **User=&lt;your-username&gt;** ：定义了运行该服务的系统用户。`&lt;your-username&gt;` 是一个占位符，需要替换为实际的系统用户名。这样可以控制服务运行时的用户权限，以确保服务在合适的权限级别下运行，避免使用 root 用户带来的安全风险。
+  * **WorkingDirectory=/path/to/ollama** ：设置了服务的工作目录，即服务在运行时所在的目录。`/path/to/ollama` 是一个示例路径，需替换为实际存放 Ollama 相关文件和配置的目录路径，这有助于服务在运行过程中正确地访问和操作文件。
+  * **ExecStart=/usr/bin/ollama serve** ：指定了启动服务时要执行的命令。这里表示使用 `/usr/bin/ollama` 可执行文件，并传递 `serve` 参数来启动 Ollama 服务，这是启动 Ollama 的核心命令，用于使 Ollama 以服务的形式开始监听和处理请求。
+  * **Restart=on-failure** ：配置了服务的重启策略。当服务因错误（如非零退出码、被信号终止等）而停止时，`systemd` 会自动尝试重启该服务，这提高了服务的可靠性和可用性，确保服务能够自动从一些常见的故障中恢复。
+  * **Environment=&quot;OLLAMA_HOST=0.0.0.0:11434&quot;** ：设置了一个环境变量 `OLLAMA_HOST`，其值为 `0.0.0.0:11434`。这通常用于指定 Ollama 服务监听的主机地址和端口号，`0.0.0.0` 表示监听所有网络接口，`11434` 是默认的服务端口，这样可以使 Ollama 服务能够接收来自任何网络接口的请求。
+
+### `[Install]` 部分
+
+  * **WantedBy=multi-user.target** ：定义了该服务的安装目标，表示当系统进入多用户模式（`multi-user.target`）时，该服务会被自动启动。`multi-user.target` 是一个常见的系统目标，用于表示多用户环境下的系统状态，这使得 Ollama 服务能够在系统启动后自动运行，为用户提供了一种方便的自动启动机制。
+</code></pre>
+
+    </div>
+
+    
+    
+    
+
+      <footer class="post-footer">
+
+        
+
+
+        
+    <div class="post-nav">
+      <div class="post-nav-item">
+    <a href="/2025/04/24/%E6%98%AF%E5%90%A6%E5%8F%AF%E4%BB%A5%E9%80%9A%E8%BF%87-%E5%91%BD%E4%BB%A4%E8%A1%8C%E5%8F%91%E9%80%81-ws-localhost-8080/" rel="prev" title="是否可以通过 命令行发送 ws://localhost:8080">
+      <i class="fa fa-chevron-left"></i> 是否可以通过 命令行发送 ws://localhost:8080
+    </a></div>
+      <div class="post-nav-item">
+    <a href="/2025/04/28/tfjs-study/" rel="next" title="tfjs-study">
+      tfjs-study <i class="fa fa-chevron-right"></i>
+    </a></div>
+    </div>
+      </footer>
+    
+  </article>
+  
+  
+  
+
+
+
+          </div>
+          
+
+<script>
+  window.addEventListener('tabs:register', () => {
+    let { activeClass } = CONFIG.comments;
+    if (CONFIG.comments.storage) {
+      activeClass = localStorage.getItem('comments_active') || activeClass;
+    }
+    if (activeClass) {
+      let activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      if (activeTab) {
+        activeTab.click();
+      }
+    }
+  });
+  if (CONFIG.comments.storage) {
+    window.addEventListener('tabs:click', event => {
+      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
+      let commentClass = event.target.classList[1];
+      localStorage.setItem('comments_active', commentClass);
+    });
+  }
+</script>
+
+        </div>
+          
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line toggle-line-first"></span>
+    <span class="toggle-line toggle-line-middle"></span>
+    <span class="toggle-line toggle-line-last"></span>
+  </div>
+
+  <aside class="sidebar">
+    <div class="sidebar-inner">
+
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E4%BD%BF%E7%94%A8-screen-%E5%B7%A5%E5%85%B7"><span class="nav-number">1.</span> <span class="nav-text">使用 screen 工具</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E4%BD%BF%E7%94%A8-tmux-%E5%B7%A5%E5%85%B7"><span class="nav-number">2.</span> <span class="nav-text">使用 tmux 工具</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E4%BD%BF%E7%94%A8-nohup-%E5%91%BD%E4%BB%A4"><span class="nav-number">3.</span> <span class="nav-text">使用 nohup 命令</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E4%BD%BF%E7%94%A8-systemd-%E7%AE%A1%E7%90%86%E6%9C%8D%E5%8A%A1%EF%BC%88%E4%BB%85%E9%99%90-Linux%EF%BC%89"><span class="nav-number">4.</span> <span class="nav-text">使用 systemd 管理服务（仅限 Linux）</span></a></li></ol></div>
+      </div>
+      <!--/noindex-->
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+  <p class="site-author-name" itemprop="name">wangzhiwei</p>
+  <div class="site-description" itemprop="description">javascript nodejs web developer...</div>
+</div>
+<div class="site-state-wrap motion-element">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">80</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+        <span class="site-state-item-count">56</span>
+        <span class="site-state-item-name">分类</span>
+      </div>
+      <div class="site-state-item site-state-tags">
+        <span class="site-state-item-count">62</span>
+        <span class="site-state-item-name">标签</span>
+      </div>
+  </nav>
+</div>
+
+
+
+      </div>
+
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+    </main>
+
+    <footer class="footer">
+      <div class="footer-inner">
+        
+
+        
+
+<div class="copyright">
+  
+  &copy; 
+  <span itemprop="copyrightYear">2025</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">wangzhiwei</span>
+</div>
+  <div class="powered-by">由 <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> & <a href="https://muse.theme-next.org/" class="theme-link" rel="noopener" target="_blank">NexT.Muse</a> 强力驱动
+  </div>
+
+        
+
+
+
+
+
+
+
+
+      </div>
+    </footer>
+  </div>
+
+  
+  <script src="/lib/anime.min.js"></script>
+  <script src="/lib/velocity/velocity.min.js"></script>
+  <script src="/lib/velocity/velocity.ui.min.js"></script>
+
+<script src="/js/utils.js"></script>
+
+<script src="/js/motion.js"></script>
+
+
+<script src="/js/schemes/muse.js"></script>
+
+
+<script src="/js/next-boot.js"></script>
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  
+
+</body>
+</html>
