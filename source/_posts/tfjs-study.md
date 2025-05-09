@@ -306,7 +306,6 @@ window.onload = function () {
 ![](../images/tfjs/16.png)
 
 
-```
 cnpm i parcel-bundler -g
 
 parcel index2.html
@@ -315,6 +314,256 @@ parcel index2.html
 cnpm 安装  @tensorflow/tfjs 报错，改为 
 
 npm install @tensorflow/tfjs 就没问题了
+
+
+
+
+线性回归，训练模型并可视化训练过程
+
+```
+
+
+
+import * as tf from '@tensorflow/tfjs';
+import * as tfvis from '@tensorflow/tfjs-vis';
+
+window.onload = async () => {
+    const xs = [1, 2, 3, 4];
+    const ys = [1, 3, 5, 7];
+
+    tfvis.render.scatterplot(
+        { name: '线性回归训练集' },
+        { values: xs.map((x, i) => ({ x, y: ys[i] })) },
+        { xAxisDomain: [0, 5], yAxisDomain: [0, 8] }
+    );
+
+    const model = tf.sequential();
+    model.add(tf.layers.dense({ units: 1, inputShape: [1] }));
+    // sgd 是随机梯度下降 meanSquaredError 是均方误差
+    model.compile({ loss: tf.losses.meanSquaredError, optimizer: tf.train.sgd(0.1) }); 
+
+    const inputs = tf.tensor(xs);
+    const labels = tf.tensor(ys);
+    await model.fit(inputs, labels, {
+        batchSize: 4,
+        epochs: 200,
+        callbacks: tfvis.show.fitCallbacks(
+            { name: '训练过程' },
+            ['loss']
+        )
+    });
+
+    const output = model.predict(tf.tensor([5]));
+    alert(`如果 x 为 5，那么预测 y 为 ${output.dataSync()[0]}`);
+};
+
+```
+
+![](../images/tfjs/17.png)
+
+
+## 什么是归一化
+
+把大数量级特征转化到较小的数量级下，通常是 0-1 之间，或者 -1-1 之间。
+
+
+绝大多数 TensorFlow.js 模型都不是给特别大的数设计的
+
+将不同数量级的特征归一化到同一数量级，防止某个特征影响过大
+
+例子：身高体重预测、房价预测
+
+准备身高体重训练数据并归一化
+
+训练模型并预测，将结果反归一化为正常数据
+
+
+```
+
+import * as tf from '@tensorflow/tfjs';
+import * as tfvis from '@tensorflow/tfjs-vis';
+
+window.onload = async () => {
+    const heights = [150, 160, 170];
+    const weights = [40, 50, 60];
+
+    tfvis.render.scatterplot(
+        { name: '身高体重训练数据' },
+        { values: heights.map((x, i) => ({ x, y: weights[i] })) },
+        {
+            xAxisDomain: [140, 180],
+            yAxisDomain: [30, 70]
+        }
+    );
+
+    const inputs = tf.tensor(heights).sub(150).div(20);
+    const labels = tf.tensor(weights).sub(40).div(20);
+
+    const model = tf.sequential();
+    model.add(tf.layers.dense({ units: 1, inputShape: [1] }));
+    model.compile({ loss: tf.losses.meanSquaredError, optimizer: tf.train.sgd(0.1) });
+
+    await model.fit(inputs, labels, {
+        batchSize: 3,
+        epochs: 200,
+        callbacks: tfvis.show.fitCallbacks(
+            { name: '训练过程' },
+            ['loss']
+        )
+    });
+
+    const output = model.predict(tf.tensor([180]).sub(150).div(20));
+    alert(`如果身高为 180cm，那么预测体重为 ${output.mul(20).add(40).dataSync()[0]}kg`);
+};
+
+```
+
+![](../images/tfjs/18.png)
+
+
+## 逻辑回归
+
+![](../images/tfjs/19.png)
+
+输出概率 （0-1）之间。
+
+采用激活函数处理
+
+加载二分类数据集
+
+定义模型结构：带有激活函数的单个神经元
+
+训练模型并预测
+
+
+操作步骤：
+使用预先准备好的脚本生成二分类数据集
+可视化二分类数据集
+
+
+data.js
+
+```
+export function getData(numSamples) {
+    let points = [];
+  
+    function genGauss(cx, cy, label) {
+      for (let i = 0; i < numSamples / 2; i++) {
+        let x = normalRandom(cx);
+        let y = normalRandom(cy);
+        points.push({ x, y, label });
+      }
+    }
+  
+    genGauss(2, 2, 1);
+    genGauss(-2, -2, 0);
+    return points;
+  }
+  
+  /**
+   * Samples from a normal distribution. Uses the seedrandom library as the
+   * random generator.
+   *
+   * @param mean The mean. Default is 0.
+   * @param variance The variance. Default is 1.
+   */
+  function normalRandom(mean = 0, variance = 1) {
+    let v1, v2, s;
+    do {
+      v1 = 2 * Math.random() - 1;
+      v2 = 2 * Math.random() - 1;
+      s = v1 * v1 + v2 * v2;
+    } while (s > 1);
+  
+    let result = Math.sqrt(-2 * Math.log(s) / s) * v1;
+    return mean + Math.sqrt(variance) * result;
+  }
+
+```
+
+script.js
+
+```
+import * as tf from '@tensorflow/tfjs';
+import * as tfvis from '@tensorflow/tfjs-vis';
+import { getData } from './data.js';
+
+window.onload = async () => {
+    const data = getData(400);
+
+    tfvis.render.scatterplot(
+        { name: '逻辑回归训练数据' },
+        {
+            values: [
+                data.filter(p => p.label === 1),
+                data.filter(p => p.label === 0),
+            ]
+        }
+    );
+
+    const model = tf.sequential();
+    model.add(tf.layers.dense({
+        units: 1,
+        inputShape: [2],
+        activation: 'sigmoid'
+    }));
+    model.compile({
+        loss: tf.losses.logLoss,
+        optimizer: tf.train.adam(0.1)
+    });
+
+    const inputs = tf.tensor(data.map(p => [p.x, p.y]));
+    const labels = tf.tensor(data.map(p => p.label));
+
+    await model.fit(inputs, labels, {
+        batchSize: 40,
+        epochs: 20,
+        callbacks: tfvis.show.fitCallbacks(
+            { name: '训练效果' },
+            ['loss']
+        )
+    });
+
+    window.predict = (form) => {
+        const pred = model.predict(tf.tensor([[form.x.value * 1, form.y.value * 1]]));
+        alert(`预测结果：${pred.dataSync()[0]}`);
+    };
+};
+
+```
+
+html
+
+```
+<script src="script.js"></script>
+<form action="" onsubmit="predict(this);return false;">
+    x: <input type="text" name="x">
+    y: <input type="text" name="y">
+    <button type="submit">预测</button>
+</form>
+
+```
+
+activation: 'sigmoid'  激活函数 的 函数曲线
+
+![](../images/tfjs/20.png)
+
+不管输入有多小，输出都接近 0 不管输入有多大，输出都接近 1
+
+
+loss: tf.losses.logLoss, 对数损失函数
+
+![](../images/tfjs/21.png)
+
+![](../images/tfjs/22.png)
+
+![](../images/tfjs/23.png)
+
+0的时候无限大，1的时候无限接近0
+
+![](../images/tfjs/24.png)
+
+![](../images/tfjs/25.png)
 
 
 https://js.tensorflow.org/api/latest/?hl=zh-cn&_gl=1*nv702p*_ga*MjExOTY1MjIyNi4xNzQ1ODI3MTc0*_ga_W0YLR4190T*MTc0NTgzMTA0MC4yLjEuMTc0NTgzMjU4OC4wLjAuMA..#dot
