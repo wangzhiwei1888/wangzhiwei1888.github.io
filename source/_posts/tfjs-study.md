@@ -1029,7 +1029,7 @@ index.html
 
 应对过拟合的方法：
 1. 早停法
-2. 权重衰减法
+2. 权重衰减法 kernelRegularizer: tf.regularizers.l2({ l2: 1 })
 3. 丢弃法 model.add(tf.layers.dropout({ rate: 0.9 })); 是在神经网络模型中添加一个 dropout 层，用于防止过拟合。
 等。。。
 
