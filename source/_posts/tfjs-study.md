@@ -1203,10 +1203,10 @@ index.html
 
 
 
+设置权重衰减：kernelRegularizer: tf.regularizers.l2({ l2: 1 }) 结果如下图
 
 
-
-
+![](../images/tfjs/44.png)
 
 
 
