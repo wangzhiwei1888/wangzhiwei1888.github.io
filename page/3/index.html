@@ -149,6 +149,423 @@
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="http://example.com/2025/03/31/YOLOV8%E6%A8%A1%E5%9E%8B%E9%A2%84%E6%B5%8B/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="wangzhiwei">
+      <meta itemprop="description" content="javascript nodejs web developer...">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="WBlog">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/2025/03/31/YOLOV8%E6%A8%A1%E5%9E%8B%E9%A2%84%E6%B5%8B/" class="post-title-link" itemprop="url">YOLOV8模型预测</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+              
+
+              <time title="创建时间：2025-03-31 13:48:34 / 修改时间：14:37:22" itemprop="dateCreated datePublished" datetime="2025-03-31T13:48:34+08:00">2025-03-31</time>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <h1 id="YOLOV8模型预测"><a href="#YOLOV8模型预测" class="headerlink" title="YOLOV8模型预测"></a>YOLOV8模型预测</h1><p>模型预测基本使用</p>
+<p>激活虚拟环境<br>conda activate yolov8</p>
+<p>命令行：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">yolo predict model=yolo11n.pt source=&#x27;./bus.jpg&#x27;</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<p>test.py</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line">from ultralytics import YOLO</span><br><span class="line">model = YOLO(&#x27;yolo11n.pt&#x27;, task=&#x27;detect&#x27;)</span><br><span class="line"></span><br><span class="line"># 对图片检测</span><br><span class="line"># results = model(source=&#x27;./bus.jpg&#x27;)</span><br><span class="line"></span><br><span class="line"># 对视频检测</span><br><span class="line"># results = model(source=&#x27;./video.mp4&#x27;)</span><br><span class="line"></span><br><span class="line"># 对屏幕检测</span><br><span class="line">results = model(source=&#x27;screen&#x27;)</span><br><span class="line"></span><br><span class="line"># 对摄像头检测</span><br><span class="line">#results = model(source=0)</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">results = model(source=&#x27;./bus.jpg&#x27;, save=True, conf=0.5)</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<p>python test.py</p>
+<p>安装 jupyterlab</p>
+<p>pip install jupyterlab</p>
+<p><img src="/../images/yolo11_01.png"></p>
+<p><img src="/../images/yolo11_02.png"></p>
+<p><img src="/../images/yolo11_03.png"></p>
+<p><img src="/../images/yolo11_04_01.png"></p>
+<p><img src="/../images/yolo11_04.png"></p>
+<p><img src="/../images/yolo11_05.png"></p>
+<p><img src="/../images/yolo11_06.png"></p>
+<p><img src="/../images/yolo11_07_1.png"><br><img src="/../images/yolo11_07_2.png"><br><img src="/../images/yolo11_07_3.png"><br><img src="/../images/yolo11_07_4.png"></p>
+<p>参考：</p>
+<p>参数介绍<br><a target="_blank" rel="noopener" href="https://docs.ultralytics.com/modes/predict/#inference-arguments">https://docs.ultralytics.com/modes/predict/#inference-arguments</a></p>
+<p><a target="_blank" rel="noopener" href="https://www.bilibili.com/video/BV1CfQqYUEL5?spm_id_from=333.788.videopod.episodes&vd_source=ffda878df0ed45bee1ade91d8f451048&p=3">https://www.bilibili.com/video/BV1CfQqYUEL5?spm_id_from=333.788.videopod.episodes&amp;vd_source=ffda878df0ed45bee1ade91d8f451048&amp;p=3</a></p>
+
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="http://example.com/2025/03/28/paddlepaddle/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="wangzhiwei">
+      <meta itemprop="description" content="javascript nodejs web developer...">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="WBlog">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/2025/03/28/paddlepaddle/" class="post-title-link" itemprop="url">paddlepaddle</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+              
+
+              <time title="创建时间：2025-03-28 17:10:35 / 修改时间：17:41:36" itemprop="dateCreated datePublished" datetime="2025-03-28T17:10:35+08:00">2025-03-28</time>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <p><a target="_blank" rel="noopener" href="https://www.paddlepaddle.org.cn/install/quick?docurl=undefined">https://www.paddlepaddle.org.cn/install/quick?docurl=undefined</a></p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br></pre></td><td class="code"><pre><span class="line">安装</span><br><span class="line"></span><br><span class="line">conda create -n paddle3 python=3.8</span><br><span class="line"></span><br><span class="line">conda activate paddle3</span><br><span class="line"></span><br><span class="line">conda install paddlepaddle==3.0.0 -c paddle</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">验证安装</span><br><span class="line"></span><br><span class="line">python</span><br><span class="line"></span><br><span class="line">import paddle</span><br><span class="line">paddle.utils.run_check()</span><br><span class="line"></span><br><span class="line">打印</span><br><span class="line">/opt/anaconda3/envs/paddle3/lib/python3.8/site-packages/paddle/utils/cpp_extension/extension_utils.py:711: UserWarning: No ccache found. Please be aware that recompiling all source files may be required. You can download and install ccache from: https://github.com/ccache/ccache/blob/master/doc/INSTALL.md</span><br><span class="line">  warnings.warn(warning_message)</span><br><span class="line">&gt;&gt;&gt; paddle.utils.run_check()</span><br><span class="line">Running verify PaddlePaddle program ...</span><br><span class="line">I0328 17:09:40.513358 4041525312 pir_interpreter.cc:1541] New Executor is Running ...</span><br><span class="line">I0328 17:09:40.513667 4041525312 pir_interpreter.cc:1564] pir interpreter is running by multi-thread mode ...</span><br><span class="line">PaddlePaddle works well on 1 CPU.</span><br><span class="line">PaddlePaddle is installed successfully! Let&#x27;s start deep learning with PaddlePaddle now.</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+
+<p>brew install ccache</p>
+<p>线性回归</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br></pre></td><td class="code"><pre><span class="line">import paddle</span><br><span class="line"></span><br><span class="line"># 定义一个计算费用的函数，根据行驶距离计算总费用</span><br><span class="line">def calculate_fee(distance_travelled):</span><br><span class="line">    &quot;&quot;&quot;</span><br><span class="line">    根据行驶距离计算总费用。</span><br><span class="line">    </span><br><span class="line">    参数:</span><br><span class="line">    distance_travelled -- 行驶距离</span><br><span class="line">    </span><br><span class="line">    返回:</span><br><span class="line">    总费用</span><br><span class="line">    &quot;&quot;&quot;</span><br><span class="line">    return 10 + distance_travelled * 2</span><br><span class="line"></span><br><span class="line"># 对于一组行驶距离，计算并打印相应的费用</span><br><span class="line">for x in [1.0, 3.0, 5.0, 10.0]:</span><br><span class="line">    print(calculate_fee(x))</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"># 线性回归demo</span><br><span class="line"></span><br><span class="line"># 将行驶距离和对应的费用转换为PaddlePaddle张量</span><br><span class="line">x_data = paddle.to_tensor([[1.0], [3.0], [5.0], [10.0]])</span><br><span class="line">y_data = paddle.to_tensor([[12.0], [16.0], [20.0], [30.0]])</span><br><span class="line"></span><br><span class="line"># 创建一个线性模型，用于拟合行驶距离和费用之间的关系</span><br><span class="line">linear = paddle.nn.Linear(in_features=1, out_features=1)</span><br><span class="line"></span><br><span class="line"># 获取线性模型的初始权重和偏置</span><br><span class="line">w_before_opt = linear.weight.numpy().item()</span><br><span class="line">b_before_opt = linear.bias.numpy().item()</span><br><span class="line">print(&quot;Initial w: %.2f, b: %.2f&quot; % (w_before_opt, b_before_opt))</span><br><span class="line"></span><br><span class="line"># 定义均方误差损失函数</span><br><span class="line">mes_loss = paddle.nn.MSELoss()</span><br><span class="line"></span><br><span class="line"># 创建随机梯度下降优化器</span><br><span class="line">sgd_optimizer = paddle.optimizer.SGD(learning_rate=0.001, parameters=linear.parameters())</span><br><span class="line"></span><br><span class="line"># 设置总训练轮数 可分别tiao换为10000, 20000, 50000</span><br><span class="line">total_epoch = 20000 </span><br><span class="line"></span><br><span class="line"># 开始训练过程</span><br><span class="line">for i in range(total_epoch):</span><br><span class="line">    # 使用线性模型进行预测</span><br><span class="line">    y_predict = linear(x_data)</span><br><span class="line">    # 计算预测值和真实值之间的损失</span><br><span class="line">    loss = mes_loss(y_predict, y_data)</span><br><span class="line">    # 反向传播计算梯度</span><br><span class="line">    loss.backward()</span><br><span class="line">    # 更新模型参数</span><br><span class="line">    sgd_optimizer.step()</span><br><span class="line">    # 清除梯度</span><br><span class="line">    sgd_optimizer.clear_gradients()</span><br><span class="line">    # 每1000轮打印一次训练信息</span><br><span class="line">    if i % 1000 == 0:</span><br><span class="line">        print(i, loss.numpy())</span><br><span class="line"></span><br><span class="line">print(&quot;Training finished, loss= &#123;&#125;&quot;.format(loss.numpy()))</span><br><span class="line"></span><br><span class="line"># 获取训练后的权重和偏置</span><br><span class="line">w_after_opt = linear.weight.numpy().item()</span><br><span class="line">b_after_opt = linear.bias.numpy().item()</span><br><span class="line">print(&quot;Initial w: %.2f, b: %.2f&quot; % (w_after_opt, b_after_opt))</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="http://example.com/2025/03/27/Anaconda/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="wangzhiwei">
+      <meta itemprop="description" content="javascript nodejs web developer...">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="WBlog">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/2025/03/27/Anaconda/" class="post-title-link" itemprop="url">Anaconda</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+              
+
+              <time title="创建时间：2025-03-27 08:27:23 / 修改时间：10:17:03" itemprop="dateCreated datePublished" datetime="2025-03-27T08:27:23+08:00">2025-03-27</time>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <h2 id="Anaconda"><a href="#Anaconda" class="headerlink" title="Anaconda"></a>Anaconda</h2><p>Anaconda 是一个广泛使用的软件平台，主要用于科学计算、数据分析和机器学习等领域。以下是 Anaconda 的详细介绍：</p>
+<h3 id="基本概述"><a href="#基本概述" class="headerlink" title="基本概述"></a>基本概述</h3><ul>
+<li><strong>定义</strong>：Anaconda 是一个包含大量科学计算、数据分析和机器学习相关 Python 包的发行版，它为用户提供了便捷的包管理和环境管理功能，使得在不同项目间切换和管理依赖项变得更加容易。</li>
+<li><strong>发展</strong>：Anaconda 由 Continuum Analytics 公司开发，首次发布于 2012 年，经过不断发展和完善，已成为数据科学领域不可或缺的工具之一。</li>
+</ul>
+<h3 id="主要功能"><a href="#主要功能" class="headerlink" title="主要功能"></a>主要功能</h3><ul>
+<li><strong>包管理</strong>：Anaconda 自带 conda 包管理器，用户可以通过简单的命令安装、更新和卸载各种 Python 包，无需手动下载和配置，大大节省了时间和精力。</li>
+<li><strong>环境管理</strong>：conda 允许用户创建多个独立的环境，每个环境可以安装不同版本的 Python 和包，有效解决了不同项目间包版本冲突的问题，确保项目的稳定性和可复现性。</li>
+<li><strong>跨平台支持</strong>：Anaconda 支持 Windows、macOS 和 Linux 等多种操作系统，用户可以在不同平台上使用相同的工具和流程进行开发和部署。</li>
+</ul>
+<h3 id="应用场景"><a href="#应用场景" class="headerlink" title="应用场景"></a>应用场景</h3><ul>
+<li><strong>数据科学与分析</strong>：在数据处理、清洗、分析和可视化等环节，Anaconda 提供了丰富的工具和库，如 pandas、NumPy、Matplotlib 等，帮助数据科学家高效地完成数据相关任务。</li>
+<li><strong>机器学习与人工智能</strong>：Anaconda 整合了多个机器学习框架和库，如 scikit-learn、TensorFlow、PyTorch 等，为模型的训练和部署提供了强大的支持，适用于从简单的线性回归到复杂的深度学习模型的开发。</li>
+<li><strong>科研与教育</strong>：在学术研究和教学中，Anaconda 为师生提供了统一的开发环境，便于进行算法实验、数据分析等教学和科研活动，促进了知识的传播和创新。</li>
+</ul>
+<h3 id="mac-环境下-Anaconda-安装"><a href="#mac-环境下-Anaconda-安装" class="headerlink" title="mac 环境下 Anaconda 安装"></a>mac 环境下 Anaconda 安装</h3><p><a target="_blank" rel="noopener" href="https://www.anaconda.com/download">https://www.anaconda.com/download</a></p>
+<p>安装后可以通过命令check anaconda</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br></pre></td><td class="code"><pre><span class="line">查看虚拟环境</span><br><span class="line">conda env list</span><br><span class="line"></span><br><span class="line">创建虚拟环境</span><br><span class="line">conda create -n pytorch python=3.8</span><br><span class="line"></span><br><span class="line">激活虚拟环境</span><br><span class="line">conda activate pytorch</span><br><span class="line"></span><br><span class="line">To deactivate an active environment, use</span><br><span class="line">conda deactivate</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">cd ~</span><br><span class="line">mkdir .pip</span><br><span class="line">cd .pip</span><br><span class="line">vim pip.conf</span><br><span class="line"></span><br><span class="line">[global]</span><br><span class="line">index-url = http://mirrors.aliyun.com/pypi/simple/</span><br><span class="line"></span><br><span class="line">[install]</span><br><span class="line">trusted-host = mirrors.aliyun.com</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"></span><br><span class="line"></span><br><span class="line">https://pytorch.org/get-started/previous-versions/</span><br><span class="line"></span><br><span class="line">激活虚拟环境</span><br><span class="line">conda activate pytorch</span><br><span class="line"></span><br><span class="line">https://pytorch.org/get-started/previous-versions/</span><br><span class="line">安装 pytorch</span><br><span class="line">pip install torch==2.1.2 torchvision==0.16.2 torchaudio==2.1.2</span><br><span class="line"></span><br><span class="line">验证安装</span><br><span class="line"></span><br><span class="line">python</span><br><span class="line">&gt;&gt;&gt; import torch</span><br><span class="line">&gt;&gt;&gt; print(torch.__version__)</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+<p>vscode 配置</p>
+<p><img src="/../images/anaconda_01.png"></p>
+<p>command + shift + p<br><img src="/../images/anaconda_02.png"></p>
+<p><img src="/../images/anaconda_03.png"></p>
+<p>好玩的网站：</p>
+<p><a target="_blank" rel="noopener" href="https://www.hama.app/">https://www.hama.app/</a></p>
+<p><img src="/../images/test.webp"></p>
+<p>yolo<br><a target="_blank" rel="noopener" href="https://hub.ultralytics.com/home">https://hub.ultralytics.com/home</a></p>
+<p><a target="_blank" rel="noopener" href="https://docs.ultralytics.com/zh">https://docs.ultralytics.com/zh</a></p>
+<p>了解吴恩达机器学习算法 视频</p>
+<p><a target="_blank" rel="noopener" href="https://www.bilibili.com/video/BV14v4y1U7ye?vd_source=ffda878df0ed45bee1ade91d8f451048&spm_id_from=333.788.videopod.episodes">https://www.bilibili.com/video/BV14v4y1U7ye?vd_source=ffda878df0ed45bee1ade91d8f451048&amp;spm_id_from=333.788.videopod.episodes</a></p>
+<p>深度学习入门 书</p>
+<p><img src="/../images/anaconda_04.png"></p>
+<h2 id="源码安装-yolo"><a href="#源码安装-yolo" class="headerlink" title="源码安装 yolo"></a>源码安装 yolo</h2><p>clone 项目<br><a href="mailto:&#x67;&#x69;&#x74;&#x40;&#x67;&#x69;&#116;&#104;&#117;&#98;&#46;&#99;&#111;&#x6d;">&#x67;&#x69;&#x74;&#x40;&#x67;&#x69;&#116;&#104;&#117;&#98;&#46;&#99;&#111;&#x6d;</a>:ultralytics&#x2F;ultralytics.git</p>
+<p>进入项目目录执行<br>pip install -e .</p>
+<p>进行预测<br>yolo predict model&#x3D;yolo11n.pt source&#x3D;’<a target="_blank" rel="noopener" href="https://ultralytics.com/images/bus.jpg">https://ultralytics.com/images/bus.jpg</a>‘</p>
+<p>输入 pip list 可以看到 </p>
+<p>ultralytics        8.3.96      &#x2F;Users&#x2F;wangzhiwei&#x2F;study&#x2F;ai&#x2F;anaconda-study&#x2F;ultralytics</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">修改源码</span><br><span class="line"></span><br><span class="line">ultralytics/engine/model.py</span><br><span class="line"></span><br><span class="line">def predict(</span><br><span class="line">    ...</span><br><span class="line">    print(&quot;代码注入&quot;)</span><br><span class="line">    ...</span><br><span class="line">)</span><br><span class="line"></span><br><span class="line">再次执行</span><br><span class="line">yolo predict model=yolo11n.pt source=&#x27;https://ultralytics.com/images/bus.jpg&#x27;</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<p><img src="/../images/yolo_01.png"></p>
+<p><img src="/../images/yolo_02.png"></p>
+<p><img src="/../images/yolo_03.png"></p>
+<p>参考：</p>
+<p><a target="_blank" rel="noopener" href="https://space.bilibili.com/141214205">https://space.bilibili.com/141214205</a><br><a target="_blank" rel="noopener" href="https://www.bilibili.com/video/BV1CfQqYUEL5?spm_id_from=333.788.videopod.episodes&vd_source=ffda878df0ed45bee1ade91d8f451048">https://www.bilibili.com/video/BV1CfQqYUEL5?spm_id_from=333.788.videopod.episodes&amp;vd_source=ffda878df0ed45bee1ade91d8f451048</a></p>
+
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="http://example.com/2025/03/21/react-useRef/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="wangzhiwei">
+      <meta itemprop="description" content="javascript nodejs web developer...">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="WBlog">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/2025/03/21/react-useRef/" class="post-title-link" itemprop="url">react useRef</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+              
+
+              <time title="创建时间：2025-03-21 17:26:23 / 修改时间：17:27:38" itemprop="dateCreated datePublished" datetime="2025-03-21T17:26:23+08:00">2025-03-21</time>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <p><code>useRef</code> 是 React 中的一个 Hook，用于在函数组件中创建一个引用（ref），该引用可以在组件渲染之间保持不变。<code>useRef</code> 返回一个可变的 ref 对象，其 <code>.current</code> 属性被初始化为传入的参数（<code>initialValue</code>）。这个 ref 可以用于访问 DOM 元素，也可以用于保存任何持久化的信息。</p>
+<p>以下是 <code>useRef</code> 的一些常见使用场景和示例：</p>
+<h3 id="1-访问-DOM-元素"><a href="#1-访问-DOM-元素" class="headerlink" title="1. 访问 DOM 元素"></a>1. 访问 DOM 元素</h3><p><code>useRef</code> 可以用来直接操作 DOM 元素，类似于类组件中的 <code>ref</code>。</p>
+<figure class="highlight jsx"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> <span class="title class_">React</span>, &#123; useRef &#125; <span class="keyword">from</span> <span class="string">&#x27;react&#x27;</span>;</span><br><span class="line"></span><br><span class="line"><span class="keyword">function</span> <span class="title function_">InputFocus</span>(<span class="params"></span>) &#123;</span><br><span class="line">  <span class="keyword">const</span> inputRef = <span class="title function_">useRef</span>(<span class="literal">null</span>);</span><br><span class="line"></span><br><span class="line">  <span class="keyword">const</span> <span class="title function_">focusInput</span> = (<span class="params"></span>) =&gt; &#123;</span><br><span class="line">    inputRef.<span class="property">current</span>.<span class="title function_">focus</span>();</span><br><span class="line">  &#125;;</span><br><span class="line"></span><br><span class="line">  <span class="keyword">return</span> (</span><br><span class="line">    <span class="language-xml"><span class="tag">&lt;<span class="name">div</span>&gt;</span></span></span><br><span class="line"><span class="language-xml">      <span class="tag">&lt;<span class="name">input</span> <span class="attr">ref</span>=<span class="string">&#123;inputRef&#125;</span> <span class="attr">type</span>=<span class="string">&quot;text&quot;</span> /&gt;</span></span></span><br><span class="line"><span class="language-xml">      <span class="tag">&lt;<span class="name">button</span> <span class="attr">onClick</span>=<span class="string">&#123;focusInput&#125;</span>&gt;</span>聚焦输入框<span class="tag">&lt;/<span class="name">button</span>&gt;</span></span></span><br><span class="line"><span class="language-xml">    <span class="tag">&lt;/<span class="name">div</span>&gt;</span></span></span><br><span class="line">  );</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">export</span> <span class="keyword">default</span> <span class="title class_">InputFocus</span>;</span><br></pre></td></tr></table></figure>
+
+<h3 id="2-保存变量"><a href="#2-保存变量" class="headerlink" title="2. 保存变量"></a>2. 保存变量</h3><p><code>useRef</code> 可以用来保存一个变量，并且在组件重新渲染时不会重置该变量的值。</p>
+<figure class="highlight jsx"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> <span class="title class_">React</span>, &#123; useRef, useEffect &#125; <span class="keyword">from</span> <span class="string">&#x27;react&#x27;</span>;</span><br><span class="line"></span><br><span class="line"><span class="keyword">function</span> <span class="title function_">Counter</span>(<span class="params"></span>) &#123;</span><br><span class="line">  <span class="keyword">const</span> countRef = <span class="title function_">useRef</span>(<span class="number">0</span>);</span><br><span class="line"></span><br><span class="line">  <span class="title function_">useEffect</span>(<span class="function">() =&gt;</span> &#123;</span><br><span class="line">    countRef.<span class="property">current</span> = <span class="number">0</span>;</span><br><span class="line">  &#125;, []);</span><br><span class="line"></span><br><span class="line">  <span class="keyword">const</span> <span class="title function_">increment</span> = (<span class="params"></span>) =&gt; &#123;</span><br><span class="line">    countRef.<span class="property">current</span> += <span class="number">1</span>;</span><br><span class="line">    <span class="variable language_">console</span>.<span class="title function_">log</span>(<span class="string">&#x27;计数:&#x27;</span>, countRef.<span class="property">current</span>);</span><br><span class="line">  &#125;;</span><br><span class="line"></span><br><span class="line">  <span class="keyword">return</span> (</span><br><span class="line">    <span class="language-xml"><span class="tag">&lt;<span class="name">div</span>&gt;</span></span></span><br><span class="line"><span class="language-xml">      <span class="tag">&lt;<span class="name">button</span> <span class="attr">onClick</span>=<span class="string">&#123;increment&#125;</span>&gt;</span>点击计数<span class="tag">&lt;/<span class="name">button</span>&gt;</span></span></span><br><span class="line"><span class="language-xml">    <span class="tag">&lt;/<span class="name">div</span>&gt;</span></span></span><br><span class="line">  );</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">export</span> <span class="keyword">default</span> <span class="title class_">Counter</span>;</span><br></pre></td></tr></table></figure>
+
+<h3 id="3-管理计时器或其他副作用"><a href="#3-管理计时器或其他副作用" class="headerlink" title="3. 管理计时器或其他副作用"></a>3. 管理计时器或其他副作用</h3><p><code>useRef</code> 可以用来管理计时器或其他需要在组件卸载时清理的副作用。</p>
+<figure class="highlight jsx"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> <span class="title class_">React</span>, &#123; useRef, useEffect &#125; <span class="keyword">from</span> <span class="string">&#x27;react&#x27;</span>;</span><br><span class="line"></span><br><span class="line"><span class="keyword">function</span> <span class="title function_">Timer</span>(<span class="params"></span>) &#123;</span><br><span class="line">  <span class="keyword">const</span> timerRef = <span class="title function_">useRef</span>(<span class="literal">null</span>);</span><br><span class="line"></span><br><span class="line">  <span class="title function_">useEffect</span>(<span class="function">() =&gt;</span> &#123;</span><br><span class="line">    timerRef.<span class="property">current</span> = <span class="built_in">setInterval</span>(<span class="function">() =&gt;</span> &#123;</span><br><span class="line">      <span class="variable language_">console</span>.<span class="title function_">log</span>(<span class="string">&#x27;定时器运行中...&#x27;</span>);</span><br><span class="line">    &#125;, <span class="number">1000</span>);</span><br><span class="line"></span><br><span class="line">    <span class="keyword">return</span> <span class="function">() =&gt;</span> &#123;</span><br><span class="line">      <span class="built_in">clearInterval</span>(timerRef.<span class="property">current</span>);</span><br><span class="line">    &#125;;</span><br><span class="line">  &#125;, []);</span><br><span class="line"></span><br><span class="line">  <span class="keyword">return</span> <span class="language-xml"><span class="tag">&lt;<span class="name">div</span>&gt;</span>定时器正在运行<span class="tag">&lt;/<span class="name">div</span>&gt;</span></span>;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">export</span> <span class="keyword">default</span> <span class="title class_">Timer</span>;</span><br></pre></td></tr></table></figure>
+
+<h3 id="4-父子组件通信"><a href="#4-父子组件通信" class="headerlink" title="4. 父子组件通信"></a>4. 父子组件通信</h3><p><code>useRef</code> 可以用来在父子组件之间传递引用，实现直接操作子组件的 DOM 或方法。</p>
+<figure class="highlight jsx"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> <span class="title class_">React</span>, &#123; useRef &#125; <span class="keyword">from</span> <span class="string">&#x27;react&#x27;</span>;</span><br><span class="line"></span><br><span class="line"><span class="comment">// 子组件</span></span><br><span class="line"><span class="keyword">function</span> <span class="title function_">ChildComponent</span>(<span class="params">&#123; setRef &#125;</span>) &#123;</span><br><span class="line">  <span class="keyword">return</span> <span class="language-xml"><span class="tag">&lt;<span class="name">div</span> <span class="attr">ref</span>=<span class="string">&#123;setRef&#125;</span>&gt;</span>子组件<span class="tag">&lt;/<span class="name">div</span>&gt;</span></span>;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">// 父组件</span></span><br><span class="line"><span class="keyword">function</span> <span class="title function_">ParentComponent</span>(<span class="params"></span>) &#123;</span><br><span class="line">  <span class="keyword">const</span> childRef = <span class="title function_">useRef</span>(<span class="literal">null</span>);</span><br><span class="line"></span><br><span class="line">  <span class="keyword">const</span> <span class="title function_">handleClick</span> = (<span class="params"></span>) =&gt; &#123;</span><br><span class="line">    <span class="variable language_">console</span>.<span class="title function_">log</span>(<span class="string">&#x27;子组件的 DOM:&#x27;</span>, childRef.<span class="property">current</span>);</span><br><span class="line">  &#125;;</span><br><span class="line"></span><br><span class="line">  <span class="keyword">return</span> (</span><br><span class="line">    <span class="language-xml"><span class="tag">&lt;<span class="name">div</span>&gt;</span></span></span><br><span class="line"><span class="language-xml">      <span class="tag">&lt;<span class="name">ChildComponent</span> <span class="attr">setRef</span>=<span class="string">&#123;childRef&#125;</span> /&gt;</span></span></span><br><span class="line"><span class="language-xml">      <span class="tag">&lt;<span class="name">button</span> <span class="attr">onClick</span>=<span class="string">&#123;handleClick&#125;</span>&gt;</span>获取子组件 DOM<span class="tag">&lt;/<span class="name">button</span>&gt;</span></span></span><br><span class="line"><span class="language-xml">    <span class="tag">&lt;/<span class="name">div</span>&gt;</span></span></span><br><span class="line">  );</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">export</span> <span class="keyword">default</span> <span class="title class_">ParentComponent</span>;</span><br></pre></td></tr></table></figure>
+
+<h3 id="5-保存上一个状态"><a href="#5-保存上一个状态" class="headerlink" title="5. 保存上一个状态"></a>5. 保存上一个状态</h3><p><code>useRef</code> 可以用来保存组件的上一个状态，类似于 <code>useState</code> 的前一个值。</p>
+<figure class="highlight jsx"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> <span class="title class_">React</span>, &#123; useState, useRef, useEffect &#125; <span class="keyword">from</span> <span class="string">&#x27;react&#x27;</span>;</span><br><span class="line"></span><br><span class="line"><span class="keyword">function</span> <span class="title function_">PreviousState</span>(<span class="params"></span>) &#123;</span><br><span class="line">  <span class="keyword">const</span> [count, setCount] = <span class="title function_">useState</span>(<span class="number">0</span>);</span><br><span class="line">  <span class="keyword">const</span> prevCountRef = <span class="title function_">useRef</span>();</span><br><span class="line"></span><br><span class="line">  <span class="title function_">useEffect</span>(<span class="function">() =&gt;</span> &#123;</span><br><span class="line">    prevCountRef.<span class="property">current</span> = count;</span><br><span class="line">  &#125;, [count]);</span><br><span class="line"></span><br><span class="line">  <span class="keyword">return</span> (</span><br><span class="line">    <span class="language-xml"><span class="tag">&lt;<span class="name">div</span>&gt;</span></span></span><br><span class="line"><span class="language-xml">      <span class="tag">&lt;<span class="name">p</span>&gt;</span>当前计数: &#123;count&#125;<span class="tag">&lt;/<span class="name">p</span>&gt;</span></span></span><br><span class="line"><span class="language-xml">      <span class="tag">&lt;<span class="name">p</span>&gt;</span>上一个计数: &#123;prevCountRef.current&#125;<span class="tag">&lt;/<span class="name">p</span>&gt;</span></span></span><br><span class="line"><span class="language-xml">      <span class="tag">&lt;<span class="name">button</span> <span class="attr">onClick</span>=<span class="string">&#123;()</span> =&gt;</span> setCount(count + 1)&#125;&gt;增加计数<span class="tag">&lt;/<span class="name">button</span>&gt;</span></span></span><br><span class="line"><span class="language-xml">    <span class="tag">&lt;/<span class="name">div</span>&gt;</span></span></span><br><span class="line">  );</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">export</span> <span class="keyword">default</span> <span class="title class_">PreviousState</span>;</span><br></pre></td></tr></table></figure>
+
+<h3 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h3><p><code>useRef</code> 是一个非常灵活的 Hook，可以用于多种场景，包括操作 DOM、保存变量、管理计时器、父子组件通信以及保存上一个状态等。它的主要特点是：</p>
+<ul>
+<li><code>.current</code> 属性在组件渲染之间保持不变。</li>
+<li>不会触发组件的重新渲染。</li>
+<li>可以直接修改 <code>.current</code> 属性的值。</li>
+</ul>
+<p>通过以上示例，你可以更好地理解和使用 <code>useRef</code> 来解决实际开发中的问题。</p>
+<p>在 React 中，<code>useRef</code> 可以用来调用子组件的方法。为了实现这一点，你需要在子组件中使用 <code>forwardRef</code> 和 <code>useImperativeHandle</code> 来暴露方法给父组件。以下是一个示例：</p>
+<h3 id="示例：使用-useRef-调用子组件的方法"><a href="#示例：使用-useRef-调用子组件的方法" class="headerlink" title="示例：使用 useRef 调用子组件的方法"></a>示例：使用 <code>useRef</code> 调用子组件的方法</h3><h4 id="子组件"><a href="#子组件" class="headerlink" title="子组件"></a>子组件</h4><figure class="highlight jsx"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> <span class="title class_">React</span>, &#123; forwardRef, useImperativeHandle &#125; <span class="keyword">from</span> <span class="string">&#x27;react&#x27;</span>;</span><br><span class="line"></span><br><span class="line"><span class="comment">// 子组件</span></span><br><span class="line"><span class="keyword">const</span> <span class="title class_">ChildComponent</span> = <span class="title function_">forwardRef</span>(<span class="function">(<span class="params">props, ref</span>) =&gt;</span> &#123;</span><br><span class="line">  <span class="comment">// 定义要暴露给父组件的方法</span></span><br><span class="line">  <span class="keyword">const</span> <span class="title function_">greet</span> = (<span class="params"></span>) =&gt; &#123;</span><br><span class="line">    <span class="variable language_">console</span>.<span class="title function_">log</span>(<span class="string">&#x27;子组件说：你好！&#x27;</span>);</span><br><span class="line">  &#125;;</span><br><span class="line"></span><br><span class="line">  <span class="keyword">const</span> <span class="title function_">get_data</span> = (<span class="params"></span>) =&gt; &#123;</span><br><span class="line">    <span class="variable language_">console</span>.<span class="title function_">log</span>(<span class="string">&#x27;子组件的数据&#x27;</span>);</span><br><span class="line">  &#125;;</span><br><span class="line"></span><br><span class="line">  <span class="comment">// 使用 useImperativeHandle 暴露方法</span></span><br><span class="line">  <span class="title function_">useImperativeHandle</span>(ref, <span class="function">() =&gt;</span> (&#123;</span><br><span class="line">    greet,</span><br><span class="line">    get_data</span><br><span class="line">  &#125;));</span><br><span class="line"></span><br><span class="line">  <span class="keyword">return</span> <span class="language-xml"><span class="tag">&lt;<span class="name">div</span>&gt;</span>子组件<span class="tag">&lt;/<span class="name">div</span>&gt;</span></span>;</span><br><span class="line">&#125;);</span><br><span class="line"></span><br><span class="line"><span class="keyword">export</span> <span class="keyword">default</span> <span class="title class_">ChildComponent</span>;</span><br></pre></td></tr></table></figure>
+
+<h4 id="父组件"><a href="#父组件" class="headerlink" title="父组件"></a>父组件</h4><figure class="highlight jsx"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> <span class="title class_">React</span>, &#123; useRef &#125; <span class="keyword">from</span> <span class="string">&#x27;react&#x27;</span>;</span><br><span class="line"><span class="keyword">import</span> <span class="title class_">ChildComponent</span> <span class="keyword">from</span> <span class="string">&#x27;./ChildComponent&#x27;</span>;</span><br><span class="line"></span><br><span class="line"><span class="comment">// 父组件</span></span><br><span class="line"><span class="keyword">function</span> <span class="title function_">ParentComponent</span>(<span class="params"></span>) &#123;</span><br><span class="line">  <span class="keyword">const</span> childRef = <span class="title function_">useRef</span>(<span class="literal">null</span>);</span><br><span class="line"></span><br><span class="line">  <span class="keyword">const</span> <span class="title function_">handleGreet</span> = (<span class="params"></span>) =&gt; &#123;</span><br><span class="line">    childRef.<span class="property">current</span>.<span class="title function_">greet</span>();</span><br><span class="line">  &#125;;</span><br><span class="line"></span><br><span class="line">  <span class="keyword">const</span> <span class="title function_">handleGetdata</span> = (<span class="params"></span>) =&gt; &#123;</span><br><span class="line">    childRef.<span class="property">current</span>.<span class="title function_">get_data</span>();</span><br><span class="line">  &#125;;</span><br><span class="line"></span><br><span class="line">  <span class="keyword">return</span> (</span><br><span class="line">    <span class="language-xml"><span class="tag">&lt;<span class="name">div</span>&gt;</span></span></span><br><span class="line"><span class="language-xml">      <span class="tag">&lt;<span class="name">ChildComponent</span> <span class="attr">ref</span>=<span class="string">&#123;childRef&#125;</span> /&gt;</span></span></span><br><span class="line"><span class="language-xml">      <span class="tag">&lt;<span class="name">button</span> <span class="attr">onClick</span>=<span class="string">&#123;handleGreet&#125;</span>&gt;</span>调用子组件的 greet 方法<span class="tag">&lt;/<span class="name">button</span>&gt;</span></span></span><br><span class="line"><span class="language-xml">      <span class="tag">&lt;<span class="name">button</span> <span class="attr">onClick</span>=<span class="string">&#123;handleGetdata&#125;</span>&gt;</span>调用子组件的 get_data 方法<span class="tag">&lt;/<span class="name">button</span>&gt;</span></span></span><br><span class="line"><span class="language-xml">    <span class="tag">&lt;/<span class="name">div</span>&gt;</span></span></span><br><span class="line">  );</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">export</span> <span class="keyword">default</span> <span class="title class_">ParentComponent</span>;</span><br></pre></td></tr></table></figure>
+
+<h3 id="代码说明"><a href="#代码说明" class="headerlink" title="代码说明"></a>代码说明</h3><ol>
+<li><p><strong>子组件</strong>：</p>
+<ul>
+<li>使用 <code>forwardRef</code> 来转发 <code>ref</code>。</li>
+<li>使用 <code>useImperativeHandle</code> 来暴露特定的方法给父组件。在这个例子中，我们暴露了 <code>greet</code> 和 <code>get_data</code> 方法。</li>
+</ul>
+</li>
+<li><p><strong>父组件</strong>：</p>
+<ul>
+<li>使用 <code>useRef</code> 创建一个引用 <code>childRef</code>。</li>
+<li>将 <code>childRef</code> 传递给子组件的 <code>ref</code> 属性。</li>
+<li>通过 <code>childRef.current</code> 调用子组件中暴露的方法。</li>
+</ul>
+</li>
+</ol>
+<h3 id="注意事项"><a href="#注意事项" class="headerlink" title="注意事项"></a>注意事项</h3><ul>
+<li>**<code>forwardRef</code> 和 <code>useImperativeHandle</code>**：这两个 API 是关键，<code>forwardRef</code> 用于将 <code>ref</code> 转发到子组件，而 <code>useImperativeHandle</code> 用于定义哪些方法或值可以被父组件访问。</li>
+<li><strong>性能</strong>：直接操作子组件的方法可能会破坏组件的封装性，应谨慎使用。尽量通过 props 和状态管理来实现组件间的交互。</li>
+<li><strong>类型检查</strong>：如果使用 TypeScript，可以为 <code>ref</code> 定义类型，以确保类型安全。</li>
+</ul>
+<p>通过这种方式，你可以在父组件中使用 <code>useRef</code> 调用子组件的方法，实现更灵活的组件交互。</p>
+
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="http://example.com/2025/03/17/sqlite3/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="wangzhiwei">
+      <meta itemprop="description" content="javascript nodejs web developer...">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="WBlog">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/2025/03/17/sqlite3/" class="post-title-link" itemprop="url">sqlite3</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2025-03-17 16:58:06" itemprop="dateCreated datePublished" datetime="2025-03-17T16:58:06+08:00">2025-03-17</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-calendar-check-o"></i>
+                </span>
+                <span class="post-meta-item-text">更新于</span>
+                <time title="修改时间：2025-03-18 13:11:29" itemprop="dateModified" datetime="2025-03-18T13:11:29+08:00">2025-03-18</time>
+              </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <h2 id="sqlite3-基本操作command"><a href="#sqlite3-基本操作command" class="headerlink" title="sqlite3 基本操作command"></a>sqlite3 基本操作command</h2><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">查看所有表</span><br><span class="line">.tables</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">查看表结构</span><br><span class="line">.schema users</span><br><span class="line">pragma table_info(api_request_quota_group);</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">查看表数据</span><br><span class="line">select * from api_user;</span><br><span class="line"></span><br><span class="line">创建数据库</span><br><span class="line">sudo sqlite3 test.db</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">创建表</span><br><span class="line">CREATE TABLE users (</span><br><span class="line">    id INTEGER PRIMARY KEY AUTOINCREMENT,</span><br><span class="line">    name TEXT NOT NULL,</span><br><span class="line">    age INTEGER,</span><br><span class="line">    email TEXT UNIQUE</span><br><span class="line">);</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">插入数据</span><br><span class="line">INSERT INTO users (name, age, email) VALUES (&#x27;Alice&#x27;, 25, &#x27;alice@example.com&#x27;);</span><br><span class="line"></span><br><span class="line">查询数据</span><br><span class="line">SELECT * FROM users;</span><br><span class="line"></span><br><span class="line">更新数据</span><br><span class="line">UPDATE users SET age = 26 WHERE name = &#x27;Alice&#x27;;</span><br><span class="line"></span><br><span class="line">删除数据</span><br><span class="line">DELETE FROM users WHERE name = &#x27;Alice&#x27;;</span><br><span class="line">删除表</span><br><span class="line">DROP TABLE users;</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
     <link itemprop="mainEntityOfPage" href="http://example.com/2025/03/13/Could-not-find-a-declaration-file-for-module/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -1616,616 +2033,10 @@
   
   
 
-      
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="http://example.com/2025/02/14/%E6%B5%8F%E8%A7%88%E5%99%A8%E5%A6%82%E4%BD%95%E5%BC%80%E5%90%AFGPU%E5%8A%A0%E9%80%9F%EF%BC%8C%E9%80%9A%E8%BF%87%E4%BB%A3%E7%A0%81%E6%BC%94%E7%A4%BA/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.gif">
-      <meta itemprop="name" content="wangzhiwei">
-      <meta itemprop="description" content="javascript nodejs web developer...">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="WBlog">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/2025/02/14/%E6%B5%8F%E8%A7%88%E5%99%A8%E5%A6%82%E4%BD%95%E5%BC%80%E5%90%AFGPU%E5%8A%A0%E9%80%9F%EF%BC%8C%E9%80%9A%E8%BF%87%E4%BB%A3%E7%A0%81%E6%BC%94%E7%A4%BA/" class="post-title-link" itemprop="url">浏览器如何开启GPU加速，通过代码演示</a>
-        </h2>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              <span class="post-meta-item-text">发表于</span>
-
-              <time title="创建时间：2025-02-14 17:07:23" itemprop="dateCreated datePublished" datetime="2025-02-14T17:07:23+08:00">2025-02-14</time>
-            </span>
-              <span class="post-meta-item">
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-calendar-check-o"></i>
-                </span>
-                <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2025-03-18 11:10:52" itemprop="dateModified" datetime="2025-03-18T11:10:52+08:00">2025-03-18</time>
-              </span>
-
-          
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br></pre></td><td class="code"><pre><span class="line">&lt;!DOCTYPE html&gt;</span><br><span class="line">&lt;html lang=&quot;en&quot;&gt;</span><br><span class="line">&lt;head&gt;</span><br><span class="line">    &lt;meta charset=&quot;UTF-8&quot;&gt;</span><br><span class="line">    &lt;meta name=&quot;viewport&quot; content=&quot;width=device-width, initial-scale=1.0&quot;&gt;</span><br><span class="line">    &lt;title&gt;Document&lt;/title&gt;</span><br><span class="line">&lt;/head&gt;</span><br><span class="line">&lt;body&gt;</span><br><span class="line">    &lt;style&gt;</span><br><span class="line">    </span><br><span class="line">    .div &#123;</span><br><span class="line">        width: 100px;</span><br><span class="line">        height: 100px;</span><br><span class="line">        background: pink;</span><br><span class="line">        margin: 0 auto;</span><br><span class="line">        animation: fadenum ease-in 1s;</span><br><span class="line">        animation-fill-mode: forwards;</span><br><span class="line">        position: absolute;</span><br><span class="line">        will-change: left; // 开启GPU加速</span><br><span class="line">        left: 20px;</span><br><span class="line">        top: 220px;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    @keyframes fadenum &#123;</span><br><span class="line">        0% &#123;</span><br><span class="line">            /* left: 0px; */</span><br><span class="line">            transform: translateX(0); // 浏览器开启GPU加速</span><br><span class="line">        &#125;</span><br><span class="line">        100% &#123;</span><br><span class="line">            /* left: 140px; */</span><br><span class="line">            transform: translateX(140px);</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    &lt;/style&gt;</span><br><span class="line">    </span><br><span class="line"></span><br><span class="line">    &lt;div class=&quot;div&quot;&gt;&lt;/div&gt;</span><br><span class="line">&lt;/body&gt;</span><br><span class="line">&lt;/html&gt;</span><br><span class="line"></span><br></pre></td></tr></table></figure>
-
-<p>未开启GPU加速时，渲染层和div在一层</p>
-<p><img src="/../images/gpu_00.png"></p>
-<p><img src="/../images/gpu_01.png"></p>
-<p>开启GPU加速后，可以看到分层渲染</p>
-<p><img src="/../images/gpu_02.png"></p>
-<p>参考：<a target="_blank" rel="noopener" href="https://www.douyin.com/video/7298924329268546866">https://www.douyin.com/video/7298924329268546866</a></p>
-
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
-      
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="http://example.com/2025/01/17/gitlab/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.gif">
-      <meta itemprop="name" content="wangzhiwei">
-      <meta itemprop="description" content="javascript nodejs web developer...">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="WBlog">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/2025/01/17/gitlab/" class="post-title-link" itemprop="url">gitlab</a>
-        </h2>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              <span class="post-meta-item-text">发表于</span>
-
-              <time title="创建时间：2025-01-17 13:37:59" itemprop="dateCreated datePublished" datetime="2025-01-17T13:37:59+08:00">2025-01-17</time>
-            </span>
-              <span class="post-meta-item">
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-calendar-check-o"></i>
-                </span>
-                <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2025-03-18 11:10:52" itemprop="dateModified" datetime="2025-03-18T11:10:52+08:00">2025-03-18</time>
-              </span>
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              <span class="post-meta-item-text">分类于</span>
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/gitlab/" itemprop="url" rel="index"><span itemprop="name">gitlab</span></a>
-                </span>
-            </span>
-
-          
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <h3 id="第一步-gitlab-新增任务（关联项目）"><a href="#第一步-gitlab-新增任务（关联项目）" class="headerlink" title="第一步 gitlab 新增任务（关联项目）"></a>第一步 gitlab 新增任务（关联项目）</h3><p>gitlab-runner register –tls-ca-file &#x2F;etc&#x2F;gitlab-runner&#x2F;ca.crt</p>
-<p>该命令会在&#x2F;etc&#x2F;gitlab-runner&#x2F;config.toml 文件中新增一条[[runners]]记录</p>
-<p>设置tag 用于 .gitlab-ci.yml 使用</p>
-<p><img src="/../images/gitlab_01.png"></p>
-<h3 id="第二步-编辑-config-toml"><a href="#第二步-编辑-config-toml" class="headerlink" title="第二步 编辑 config.toml"></a>第二步 编辑 config.toml</h3><p>sudo vi &#x2F;etc&#x2F;gitlab-runner&#x2F;config.toml</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">[[runners]]</span><br><span class="line">  name = &quot;项目名称&quot;</span><br><span class="line">  url = &quot;https://gitlab地址/&quot;</span><br><span class="line">  id = 59</span><br><span class="line">  token = &quot;xxxx&quot;</span><br><span class="line">  token_obtained_at = 2025-01-17T03:28:30Z</span><br><span class="line">  token_expires_at = 0001-01-01T00:00:00Z</span><br><span class="line">  tls-ca-file = &quot;/etc/gitlab-runner/ca.crt&quot;</span><br><span class="line">  executor = &quot;docker&quot;</span><br><span class="line">  [runners.custom_build_dir]</span><br><span class="line">  [runners.cache]</span><br><span class="line">    MaxUploadedArchiveSize = 0</span><br><span class="line">    [runners.cache.s3]</span><br><span class="line">    [runners.cache.gcs]</span><br><span class="line">    [runners.cache.azure]</span><br><span class="line">  [runners.docker]</span><br><span class="line">    tls_verify = false</span><br><span class="line">    image = &quot;centos:7&quot;</span><br><span class="line">    privileged = true</span><br><span class="line">    disable_entrypoint_overwrite = false</span><br><span class="line">    oom_kill_disable = false</span><br><span class="line">    disable_cache = false</span><br><span class="line">    volumes = [&quot;/cache&quot;]</span><br><span class="line">    pull_policy = [&quot;if-not-present&quot;]</span><br><span class="line">    shm_size = 0</span><br><span class="line">    network_mtu = 0</span><br><span class="line"></span><br><span class="line"></span><br></pre></td></tr></table></figure>
-
-
-
-<h3 id="第二步项目新增-文件"><a href="#第二步项目新增-文件" class="headerlink" title="第二步项目新增 文件"></a>第二步项目新增 文件</h3><p>.gitlab-ci.yml</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">stages:</span><br><span class="line">  - build_vue</span><br><span class="line"></span><br><span class="line">build_vue:</span><br><span class="line">  tags:</span><br><span class="line">    - h之前注册时候用的tag</span><br><span class="line">  stage: build_vue</span><br><span class="line">  image: 用于打包的镜像</span><br><span class="line">  script:</span><br><span class="line">    - ./build/build_vue.sh</span><br><span class="line">  artifacts:</span><br><span class="line">    paths: # 需要打包的文件</span><br><span class="line">      - ./dist/*</span><br><span class="line">    expire_in: 1 week # 打包文件存储有效期</span><br><span class="line">  rules:</span><br><span class="line">    - if: $BUILD_OS == &quot;kylin&quot;</span><br><span class="line">      when: always</span><br><span class="line">    - if: $BUILD_OS == &quot;centos&quot;</span><br><span class="line">      when: always</span><br><span class="line">    - if: $BUILD_OS == &quot;all&quot; &amp;&amp; $CI_COMMIT_REF_NAME == &quot;分支名称&quot;</span><br><span class="line">      when: always</span><br><span class="line">    - if: $CI_PIPELINE_SOURCE == &quot;merge_request_event&quot; # 确保job在合并请求时自动运行</span><br><span class="line">      when: always</span><br><span class="line">    - if: $CI_PIPELINE_SOURCE == &quot;web&quot; # 确保job在手动触发的时候自动调用两个job</span><br><span class="line">      when: always</span><br><span class="line">    - if: $CI_PIPELINE_SOURCE == &quot;schedule&quot; # schedule来源可以运行job </span><br><span class="line">      when: always</span><br><span class="line"></span><br><span class="line"></span><br></pre></td></tr></table></figure>
-
-<p>build_vue.sh<br>chmod +x build_vue.sh</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">#!/bin/bash</span><br><span class="line">set -e</span><br><span class="line">set -x</span><br><span class="line">echo &quot;开始编译&quot;</span><br><span class="line">cnpm install</span><br><span class="line">cnpm run build</span><br><span class="line"></span><br></pre></td></tr></table></figure>
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
-      
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="http://example.com/2025/01/16/telegraf/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.gif">
-      <meta itemprop="name" content="wangzhiwei">
-      <meta itemprop="description" content="javascript nodejs web developer...">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="WBlog">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/2025/01/16/telegraf/" class="post-title-link" itemprop="url">telegraf</a>
-        </h2>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              <span class="post-meta-item-text">发表于</span>
-
-              <time title="创建时间：2025-01-16 08:52:30" itemprop="dateCreated datePublished" datetime="2025-01-16T08:52:30+08:00">2025-01-16</time>
-            </span>
-              <span class="post-meta-item">
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-calendar-check-o"></i>
-                </span>
-                <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2025-03-18 11:10:52" itemprop="dateModified" datetime="2025-03-18T11:10:52+08:00">2025-03-18</time>
-              </span>
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              <span class="post-meta-item-text">分类于</span>
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/%E6%95%B0%E6%8D%AE%E9%87%87%E9%9B%86/" itemprop="url" rel="index"><span itemprop="name">数据采集</span></a>
-                </span>
-                  ，
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/%E6%95%B0%E6%8D%AE%E9%87%87%E9%9B%86/%E6%97%B6%E5%BA%8F%E6%95%B0%E6%8D%AE%E5%BA%93/" itemprop="url" rel="index"><span itemprop="name">时序数据库</span></a>
-                </span>
-            </span>
-
-          
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <h3 id="Telegraf-介绍"><a href="#Telegraf-介绍" class="headerlink" title="Telegraf 介绍"></a>Telegraf 介绍</h3><p>每隔一个频次，将数据写入到时序数据库中</p>
-<p>看文档一定要和版本匹配</p>
-<ol>
-<li><p>概述<br>Telegraf 是由 InfluxData 开发的开源插件化代理工具，主要用于收集、处理和写入监控数据。它能够从各种系统、服务和应用程序中提取指标，并将这些数据发送到不同的后端存储或处理系统。</p>
-</li>
-<li><p>主要特点</p>
-</li>
-</ol>
-<ul>
-<li><strong>插件化架构</strong>：支持多种输入（如 CPU、内存、网络接口等）和输出（如 InfluxDB、Prometheus、Kafka 等）插件。</li>
-<li><strong>轻量级</strong>：资源消耗低，适合部署在服务器、容器或边缘设备上。</li>
-<li><strong>灵活性</strong>：可以通过配置文件轻松启用或禁用插件，调整采集频率和数据处理逻辑。</li>
-<li><strong>社区支持</strong>：拥有活跃的开发者社区，提供了丰富的插件和文档支持。</li>
-</ul>
-<ol start="3">
-<li>应用场景</li>
-</ol>
-<ul>
-<li><strong>系统监控</strong>：收集主机的性能指标，如 CPU 使用率、内存占用、磁盘 I&#x2F;O 和网络流量等。</li>
-<li><strong>应用监控</strong>：监控应用程序的日志、响应时间、错误率等关键性能指标。</li>
-<li><strong>日志聚合</strong>：读取应用程序日志并将其转发到集中式日志管理系统。</li>
-<li><strong>与 InfluxDB 集成</strong>：作为 InfluxDB 的官方数据采集器，Telegraf 可以无缝地将数据写入 InfluxDB，用于时间序列数据分析。</li>
-</ul>
-<ol start="4">
-<li>安装与配置</li>
-</ol>
-<ul>
-<li><strong>安装</strong>：支持多种操作系统平台，可通过包管理器（如 apt、yum）或二进制文件进行安装。</li>
-<li><strong>配置</strong>：通过 YAML 或 TOML 格式的配置文件进行配置，用户可以定义需要采集的数据源和目标存储位置。</li>
-</ul>
-<p>如果您有更具体的需求或问题，请提供更多信息，以便我为您提供更详细的帮助。</p>
-<p>.&#x2F;telegraf config &gt; tmp.conf</p>
-<p>直接生成配置文件<br>.&#x2F;telegraf –input-filter cpu:mem –processor-filter converter –aggregator-filter : –output-filter file config</p>
-<p>.&#x2F;telegraf –input-filter cpu:disk:mem –test</p>
-<p><img src="/../images/tel_01.png"></p>
-<p><img src="/../images/tel_02.png"></p>
-<p><img src="/../images/tel_03.png"></p>
-<p><img src="/../images/tel_04.png"></p>
-<p><img src="/../images/tel_05.png"></p>
-<p><img src="/../images/tel_06.png"></p>
-<p><img src="/../images/tel_07.png"></p>
-<p><img src="/../images/tel_08.png"></p>
-<p><img src="/../images/tel_09.png"></p>
-<p><img src="/../images/tel_10.png"></p>
-<p><img src="/../images/tel_11.png"></p>
-<p><img src="/../images/tel_12.png"></p>
-<p><img src="/../images/tel_13.png"></p>
-<h3 id="Telegraf-配置文件解析"><a href="#Telegraf-配置文件解析" class="headerlink" title="Telegraf 配置文件解析"></a>Telegraf 配置文件解析</h3><p>您提供的 Telegraf 配置文件包含了多个部分，每个部分定义了不同的功能和行为。以下是详细的解析：</p>
-<ol>
-<li><code>[agent]</code> 部分<figure class="highlight toml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="section">[agent]</span></span><br><span class="line">  <span class="attr">interval</span> = <span class="string">&quot;15s&quot;</span></span><br><span class="line">  <span class="attr">flush_interval</span> = <span class="string">&quot;15s&quot;</span></span><br><span class="line">  <span class="attr">skip_processors_after_aggregators</span> = <span class="literal">true</span></span><br></pre></td></tr></table></figure></li>
-</ol>
-<ul>
-<li><strong>interval</strong>: 指定 Telegraf 采集数据的间隔时间，这里是 15 秒。</li>
-<li><strong>flush_interval</strong>: 指定 Telegraf 将数据写入输出插件的间隔时间，这里是 15 秒。</li>
-<li><strong>skip_processors_after_aggregators</strong>: 如果设置为 <code>true</code>，Telegraf 将在聚合器（aggregators）之后跳过处理器（processors）。</li>
-</ul>
-<ol start="2">
-<li><code>[[inputs.http_listener_v2]]</code> 部分<figure class="highlight toml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="section">[[inputs.http_listener_v2]]</span></span><br><span class="line">  <span class="attr">service_address</span> = <span class="string">&quot;:1234&quot;</span></span><br><span class="line">  <span class="attr">paths</span> = [<span class="string">&quot;/receive&quot;</span>]</span><br><span class="line">  <span class="attr">data_format</span> = <span class="string">&quot;prometheusremotewrite&quot;</span></span><br></pre></td></tr></table></figure></li>
-</ol>
-<ul>
-<li><strong>service_address</strong>: 指定 HTTP 服务监听的地址和端口，这里是 <code>:1234</code>。</li>
-<li><strong>paths</strong>: 指定接收数据的路径，这里是 <code>/receive</code>。</li>
-<li><strong>data_format</strong>: 指定数据格式，这里是 <code>prometheusremotewrite</code>，表示接收 Prometheus 远程写入的数据格式。</li>
-</ul>
-<ol start="3">
-<li><code>[[inputs.redis]]</code> 部分<figure class="highlight toml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="section">[[inputs.redis]]</span></span><br><span class="line">  <span class="attr">servers</span> = [<span class="string">&quot;tcp://127.0.0.1:6379&quot;</span>]</span><br><span class="line">  <span class="attr">password</span> = <span class="string">&quot;xxxxx&quot;</span></span><br><span class="line">  <span class="attr">fieldpass</span> = [<span class="string">&quot;clients&quot;</span>, <span class="string">&quot;used_memory&quot;</span>, <span class="string">&quot;keyspace_hitrate&quot;</span>]</span><br></pre></td></tr></table></figure></li>
-</ol>
-<ul>
-<li><strong>servers</strong>: 指定 Redis 服务器的地址和端口，这里是 <code>tcp://127.0.0.1:6379</code>。</li>
-<li><strong>password</strong>: 指定连接 Redis 服务器的密码，这里是 <code>WUzPxGn8</code>。</li>
-<li><strong>fieldpass</strong>: 指定要收集的字段，这里是 <code>clients</code>, <code>used_memory</code>, <code>keyspace_hitrate</code>。</li>
-</ul>
-<ol start="4">
-<li><code>[[inputs.net_response]]</code> 部分<figure class="highlight toml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="section">[[inputs.net_response]]</span></span><br><span class="line">  <span class="attr">protocol</span> = <span class="string">&quot;tcp&quot;</span></span><br><span class="line">  <span class="attr">address</span> = <span class="string">&quot;127.0.0.1:6379&quot;</span>  </span><br><span class="line">  <span class="attr">timeout</span> = <span class="string">&quot;5s&quot;</span></span><br><span class="line">  <span class="attr">read_timeout</span> = <span class="string">&quot;2s&quot;</span></span><br><span class="line">  <span class="section">[inputs.net_response.tags]</span></span><br><span class="line">    <span class="attr">job</span> = <span class="string">&quot;redis&quot;</span></span><br><span class="line">    <span class="attr">instanceId</span> = <span class="string">&quot;127.0.0.1:6379&quot;</span></span><br></pre></td></tr></table></figure></li>
-</ol>
-<ul>
-<li><strong>protocol</strong>: 指定网络协议，这里是 <code>tcp</code>。</li>
-<li><strong>address</strong>: 指定要测试的地址和端口，这里是 <code>127.0.0.1:6379</code>。</li>
-<li><strong>timeout</strong>: 指定连接超时时间，这里是 5 秒。</li>
-<li><strong>read_timeout</strong>: 指定读取超时时间，这里是 2 秒。</li>
-<li><strong>tags</strong>: 指定默认标签，<code>job</code> 设置为 <code>redis</code>，<code>instanceId</code> 设置为 <code>127.0.0.1:6379</code>。</li>
-</ul>
-<ol start="5">
-<li><code>[[processors.starlark]]</code> 部分<figure class="highlight toml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br></pre></td><td class="code"><pre><span class="line"><span class="section">[[processors.starlark]]</span></span><br><span class="line">  <span class="attr">source</span> = <span class="string">&#x27;&#x27;&#x27;</span></span><br><span class="line"><span class="string">def apply(metric):</span></span><br><span class="line"><span class="string">    if metric.name == &quot;redis&quot;:</span></span><br><span class="line"><span class="string">        metric.tags[&quot;job&quot;] = &quot;redis&quot;</span></span><br><span class="line"><span class="string">        server = metric.tags.get(&#x27;server&#x27;, &#x27;&#x27;)</span></span><br><span class="line"><span class="string">        port = metric.tags.get(&#x27;port&#x27;, &#x27;&#x27;)</span></span><br><span class="line"><span class="string">        if server and port:</span></span><br><span class="line"><span class="string">            instanceId = &quot;%s:%s&quot; % (server, port)</span></span><br><span class="line"><span class="string">            metric.tags[&quot;instanceId&quot;] = instanceId</span></span><br><span class="line"><span class="string">            metric.fields[&quot;role&quot;] = metric.tags[&quot;replication_role&quot;]</span></span><br><span class="line"><span class="string">        else:</span></span><br><span class="line"><span class="string">           return None</span></span><br><span class="line"><span class="string"></span></span><br><span class="line"><span class="string">    if metric.name == &quot;net_response&quot;:</span></span><br><span class="line"><span class="string">        up_value = 1 if metric.fields.get(&quot;result_type&quot;) == &quot;success&quot; else 0</span></span><br><span class="line"><span class="string">        for field in list(metric.fields.keys()):</span></span><br><span class="line"><span class="string">            metric.fields.pop(field)</span></span><br><span class="line"><span class="string">        metric.fields[&quot;up&quot;] = up_value</span></span><br><span class="line"><span class="string"></span></span><br><span class="line"><span class="string">    # Add instanceId tag if it doesn&#x27;t exist</span></span><br><span class="line"><span class="string">    if &quot;instanceId&quot; not in metric.tags:</span></span><br><span class="line"><span class="string">        metric.tags[&quot;instanceId&quot;] = metric.tags.get(&quot;instance&quot;, &quot;&quot;)</span></span><br><span class="line"><span class="string"></span></span><br><span class="line"><span class="string">    return metric</span></span><br><span class="line"><span class="string">  &#x27;&#x27;&#x27;</span></span><br></pre></td></tr></table></figure></li>
-</ol>
-<ul>
-<li><strong>source</strong>: 定义一个 Starlark 脚本，用于处理和修改指标数据。<ul>
-<li><strong>处理 <code>redis</code> 指标</strong>：<ul>
-<li>设置 <code>job</code> 标签为 <code>redis</code>。</li>
-<li>从 <code>server</code> 和 <code>port</code> 标签构建 <code>instanceId</code> 标签。</li>
-<li>将 <code>replication_role</code> 标签的值添加到 <code>role</code> 字段。</li>
-</ul>
-</li>
-<li><strong>处理 <code>net_response</code> 指标</strong>：<ul>
-<li>根据 <code>result_type</code> 字段设置 <code>up</code> 字段的值（1 表示成功，0 表示失败）。</li>
-<li>移除所有其他字段，只保留 <code>up</code> 字段。</li>
-</ul>
-</li>
-<li><strong>添加 <code>instanceId</code> 标签</strong>：<ul>
-<li>如果 <code>instanceId</code> 标签不存在，则从 <code>instance</code> 标签获取值。</li>
-</ul>
-</li>
-</ul>
-</li>
-</ul>
-<ol start="6">
-<li><code>[[outputs.mqtt]]</code> 部分<figure class="highlight toml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="section">[[outputs.mqtt]]</span></span><br><span class="line">  <span class="attr">servers</span> = [<span class="string">&quot;mqtt://127.0.0.1:1883&quot;</span>]</span><br><span class="line">  <span class="attr">protocol</span> = <span class="string">&quot;5&quot;</span></span><br><span class="line">  <span class="attr">topic</span> = <span class="string">&#x27;/metrics/&#123;&#123;.Tag &quot;job&quot;&#125;&#125;/&#123;&#123;.Tag &quot;instanceId&quot;&#125;&#125;&#x27;</span></span><br><span class="line">  <span class="attr">retain</span> = <span class="literal">true</span></span><br><span class="line">  <span class="attr">layout</span> = <span class="string">&quot;field&quot;</span></span><br></pre></td></tr></table></figure></li>
-</ol>
-<ul>
-<li><strong>servers</strong>: 指定 MQTT 服务器的地址和端口，这里是 <code>mqtt://127.0.0.1:1883</code>。</li>
-<li><strong>protocol</strong>: 指定 MQTT 协议版本，这里是 <code>5</code>。</li>
-<li><strong>topic</strong>: 指定发布消息的主题，使用模板语法 <code>&#123;&#123;.Tag "job"&#125;&#125;</code> 和 <code>&#123;&#123;.Tag "instanceId"&#125;&#125;</code> 动态生成主题。</li>
-<li><strong>retain</strong>: 如果设置为 <code>true</code>，MQTT 服务器将保留最后一条消息。</li>
-<li><strong>layout</strong>: 指定消息的布局，这里是 <code>field</code>，表示将字段作为消息内容。</li>
-</ul>
-<p>总结<br>该 Telegraf 配置文件定义了以下功能：</p>
-<ul>
-<li>从 HTTP 端点接收 Prometheus 远程写入的数据。</li>
-<li>从 Redis 服务器收集特定的性能指标。</li>
-<li>测试 Redis 服务器的网络响应时间。</li>
-<li>使用 Starlark 脚本处理和修改收集到的指标数据。</li>
-<li>将处理后的指标数据通过 MQTT 发布到指定的主题。</li>
-</ul>
-<p>如果您有更具体的问题或需要进一步的配置调整，请提供更多细节。</p>
-<p>参考：<br><a target="_blank" rel="noopener" href="https://www.bilibili.com/video/BV1Na411G7M6?spm_id_from=333.788.player.switch&vd_source=ffda878df0ed45bee1ade91d8f451048&p=4">https://www.bilibili.com/video/BV1Na411G7M6?spm_id_from=333.788.player.switch&amp;vd_source=ffda878df0ed45bee1ade91d8f451048&amp;p=4</a></p>
-<p><a target="_blank" rel="noopener" href="https://docs.influxdata.com/telegraf/v1/get-started/">https://docs.influxdata.com/telegraf/v1/get-started/</a></p>
-
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
-      
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="http://example.com/2025/01/06/ai%E5%B7%A5%E5%85%B7cozi%E4%BA%86%E8%A7%A3/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.gif">
-      <meta itemprop="name" content="wangzhiwei">
-      <meta itemprop="description" content="javascript nodejs web developer...">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="WBlog">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/2025/01/06/ai%E5%B7%A5%E5%85%B7cozi%E4%BA%86%E8%A7%A3/" class="post-title-link" itemprop="url">ai工具cozi了解</a>
-        </h2>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              <span class="post-meta-item-text">发表于</span>
-
-              <time title="创建时间：2025-01-06 13:08:00" itemprop="dateCreated datePublished" datetime="2025-01-06T13:08:00+08:00">2025-01-06</time>
-            </span>
-              <span class="post-meta-item">
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-calendar-check-o"></i>
-                </span>
-                <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2025-03-18 11:10:52" itemprop="dateModified" datetime="2025-03-18T11:10:52+08:00">2025-03-18</time>
-              </span>
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              <span class="post-meta-item-text">分类于</span>
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/ai/" itemprop="url" rel="index"><span itemprop="name">ai</span></a>
-                </span>
-            </span>
-
-          
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <p><img src="/../images/cozi_01.png"></p>
-<p><img src="/../images/cozi_02.png"></p>
-<p><img src="/../images/cozi_03.png"></p>
-<p><a target="_blank" rel="noopener" href="https://www.coze.cn/">https://www.coze.cn/</a></p>
-
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
-      
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="http://example.com/2025/01/03/ldap%E6%B5%8B%E8%AF%95/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.gif">
-      <meta itemprop="name" content="wangzhiwei">
-      <meta itemprop="description" content="javascript nodejs web developer...">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="WBlog">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/2025/01/03/ldap%E6%B5%8B%E8%AF%95/" class="post-title-link" itemprop="url">ldap测试</a>
-        </h2>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              <span class="post-meta-item-text">发表于</span>
-
-              <time title="创建时间：2025-01-03 12:57:50" itemprop="dateCreated datePublished" datetime="2025-01-03T12:57:50+08:00">2025-01-03</time>
-            </span>
-              <span class="post-meta-item">
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-calendar-check-o"></i>
-                </span>
-                <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2025-03-18 11:10:52" itemprop="dateModified" datetime="2025-03-18T11:10:52+08:00">2025-03-18</time>
-              </span>
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              <span class="post-meta-item-text">分类于</span>
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/ldap/" itemprop="url" rel="index"><span itemprop="name">ldap</span></a>
-                </span>
-            </span>
-
-          
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <p>ubuntu</p>
-<p>sudo apt-get install ldap-utils</p>
-<p>添加<br>ldapadd -x -H ldap:&#x2F;&#x2F;localhost:1389 -D “cn&#x3D;admin,dc&#x3D;example,dc&#x3D;org” -w adminpassword_dJWxfm -f user.ldif</p>
-<p>查询 单个</p>
-<p>假设你有一个用户 alice，你可以使用以下命令来验证：<br>ldapsearch -x -H ldap:&#x2F;&#x2F;localhost:1389 -D “cn&#x3D;admin,dc&#x3D;example,dc&#x3D;org” -w adminpassword_dJWxfm -b “ou&#x3D;users,dc&#x3D;example,dc&#x3D;org” “(uid&#x3D;alice)”</p>
-<p>ldapsearch -x -H ldap:&#x2F;&#x2F;localhost:1389 -D “cn&#x3D;admin,dc&#x3D;example,dc&#x3D;org” -w adminpassword_dJWxfm -b “ou&#x3D;users,dc&#x3D;example,dc&#x3D;org” “(uid&#x3D;alice1)”</p>
-<p>查询所有<br>ldapsearch -x -H ldap:&#x2F;&#x2F;localhost:1389 -D “cn&#x3D;admin,dc&#x3D;example,dc&#x3D;org” -w adminpassword_dJWxfm -b “dc&#x3D;example,dc&#x3D;org”</p>
-<p>user.ldif</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">dn: uid=alice1,ou=users,dc=example,dc=org</span><br><span class="line">objectClass: inetOrgPerson</span><br><span class="line">objectClass: top</span><br><span class="line">uid: alice1</span><br><span class="line">cn: Alice Smith</span><br><span class="line">sn: Smith</span><br><span class="line">mail: alice1@example.com</span><br><span class="line">userPassword: alicepassword</span><br><span class="line"></span><br></pre></td></tr></table></figure>
-
-<p>curl -X POST <a target="_blank" rel="noopener" href="http://localhost:3000/login">http://localhost:3000/login</a> -H “Content-Type: application&#x2F;json” -d ‘{“username”: “alice”, “password”: “alicepassword”}’</p>
-<p><img src="/../images/ldap_01.png"></p>
-<p><img src="/../images/ldap_02.png"></p>
-<h1 id="目录"><a href="#目录" class="headerlink" title="目录"></a>目录</h1><ol>
-<li>2 min 搭建 openldap 环境</li>
-<li>ldap 基础知识</li>
-<li>数据的增删减改</li>
-<li>openldap 用户登录</li>
-<li>phpLdapAdmin 的安装与使用</li>
-<li>JNDI</li>
-<li>在 centos 上搭建 openldap 环境</li>
-</ol>
-<ul>
-<li><p>links</p>
-<p>  <a target="_blank" rel="noopener" href="https://github.com/eftales/ldap-videoTutorial">https://github.com/eftales/ldap-videoTutorial</a></p>
-</li>
-</ul>
-<h1 id="第一节-2-min-搭建-openldap-环境"><a href="#第一节-2-min-搭建-openldap-环境" class="headerlink" title="第一节 2 min 搭建 openldap 环境"></a>第一节 2 min 搭建 openldap 环境</h1><h2 id="你需要"><a href="#你需要" class="headerlink" title="你需要"></a>你需要</h2><ol>
-<li>ubuntu 16.04</li>
-<li>docker</li>
-<li>linux</li>
-</ol>
-<h2 id="docker-安装脚本"><a href="#docker-安装脚本" class="headerlink" title="docker 安装脚本"></a>docker 安装脚本</h2><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 安装 docker 和 docker-compose</span></span><br><span class="line"><span class="built_in">sudo</span> apt-get remove docker docker-engine docker.io containerd runc</span><br><span class="line"><span class="built_in">sudo</span> apt-get update</span><br><span class="line"><span class="built_in">sudo</span> apt-get install  -y \</span><br><span class="line">    apt-transport-https \</span><br><span class="line">    ca-certificates \</span><br><span class="line">    curl \</span><br><span class="line">    gnupg-agent \</span><br><span class="line">    software-properties-common</span><br><span class="line">curl -fsSL https://download.docker.com/linux/ubuntu/gpg | <span class="built_in">sudo</span> apt-key add -</span><br><span class="line"><span class="built_in">sudo</span> add-apt-repository \</span><br><span class="line"><span class="string">&quot;deb [arch=amd64] https://download.docker.com/linux/ubuntu \</span></span><br><span class="line"><span class="string"><span class="subst">$(lsb_release -cs)</span> \</span></span><br><span class="line"><span class="string">stable&quot;</span></span><br><span class="line"><span class="built_in">sudo</span> apt-get update</span><br><span class="line"><span class="built_in">sudo</span> apt-get install docker-ce docker-ce-cli containerd.io -y</span><br><span class="line"></span><br><span class="line"><span class="built_in">sudo</span> curl -L <span class="string">&quot;https://github.com/docker/compose/releases/download/1.25.3/docker-compose-<span class="subst">$(uname -s)</span>-<span class="subst">$(uname -m)</span>&quot;</span> -o /usr/local/bin/docker-compose</span><br><span class="line"><span class="built_in">sleep</span> 1</span><br><span class="line"><span class="built_in">sudo</span> <span class="built_in">chmod</span> +x /usr/local/bin/docker-compose</span><br><span class="line"></span><br><span class="line"><span class="built_in">sudo</span> systemctl start docker</span><br><span class="line"><span class="built_in">sudo</span> systemctl <span class="built_in">enable</span> docker</span><br><span class="line"><span class="built_in">sudo</span> groupadd docker <span class="comment">#添加docker用户组</span></span><br><span class="line"><span class="built_in">sudo</span> usermod -a -G docker <span class="variable">$USER</span></span><br><span class="line"></span><br><span class="line"><span class="built_in">sudo</span> <span class="built_in">mkdir</span> -p /etc/docker</span><br><span class="line"><span class="built_in">echo</span> <span class="string">&quot;&#123;&quot;</span> &gt; daemon.json</span><br><span class="line"><span class="built_in">echo</span> <span class="string">&quot;\&quot;registry-mirrors\&quot;: [\&quot;https://ofyci9nf.mirror.aliyuncs.com\&quot;]&quot;</span> &gt;&gt; daemon.json</span><br><span class="line"><span class="built_in">echo</span> <span class="string">&quot;&#125;&quot;</span> &gt;&gt; daemon.json</span><br><span class="line"><span class="built_in">echo</span> <span class="string">&quot;&quot;</span> &gt;&gt; daemon.json</span><br><span class="line"></span><br><span class="line"><span class="built_in">sudo</span> <span class="built_in">mv</span> daemon.json  /etc/docker/daemon.json</span><br><span class="line"></span><br><span class="line"><span class="built_in">sudo</span> systemctl daemon-reload</span><br><span class="line"><span class="built_in">sudo</span> systemctl restart docker</span><br><span class="line"></span><br><span class="line"><span class="built_in">sleep</span> 5</span><br><span class="line"></span><br><span class="line"><span class="built_in">sudo</span> gpasswd -a <span class="variable">$USER</span> docker <span class="comment">#将当前用户添加至docker用户组</span></span><br><span class="line"><span class="built_in">sudo</span> newgrp docker <span class="comment">#更新docker用户组</span></span><br></pre></td></tr></table></figure>
-
-<h2 id="下载-ldap-镜像"><a href="#下载-ldap-镜像" class="headerlink" title="下载 ldap 镜像"></a>下载 ldap 镜像</h2><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">docker pull osixia/openldap:1.2.2</span><br><span class="line">docker pull osixia/phpldapadmin:0.7.2</span><br></pre></td></tr></table></figure>
-
-<h2 id="把-ldap-镜像跑起来吧"><a href="#把-ldap-镜像跑起来吧" class="headerlink" title="把 ldap 镜像跑起来吧~"></a>把 ldap 镜像跑起来吧~</h2><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">docker run --name my-openldap-container --detach osixia/openldap:1.2.2</span><br><span class="line">docker <span class="built_in">exec</span> -it my-openldap-container bash</span><br><span class="line">slaptest</span><br><span class="line">ldapsearch -x -H ldap://localhost -b dc=example,dc=org -D <span class="string">&quot;cn=admin,dc=example,dc=org&quot;</span> -w admin</span><br></pre></td></tr></table></figure>
-
-<h1 id="第二节-openldap-基础知识"><a href="#第二节-openldap-基础知识" class="headerlink" title="第二节 openldap 基础知识"></a>第二节 openldap 基础知识</h1><p><img src="/../images/ldap_03.png"></p>
-<p><img src="/../images/ldap_04.png"></p>
-<p><img src="/../images/ldap_05.png"></p>
-<h1 id="第三节-数据的增删减改"><a href="#第三节-数据的增删减改" class="headerlink" title="第三节 数据的增删减改"></a>第三节 数据的增删减改</h1><figure class="highlight text"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">ldapmodify [ldap 服务器地址] [你的用户名] [你的密码] [ldif 文件的地址]</span><br></pre></td></tr></table></figure>
-
-<p><img src="/../images/ldap_06.png"></p>
-<p>file name:barbara.ldif</p>
-<figure class="highlight ldif"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="attribute">dn</span>: cn=barbara,dc=example,dc=org</span><br><span class="line"><span class="attribute">objectClass</span>: inetOrgPerson</span><br><span class="line"><span class="attribute">cn</span>: barbara</span><br><span class="line"><span class="attribute">sn</span>: Jensen</span><br><span class="line"><span class="attribute">title</span>: the world&#x27;s most famous mythical manager</span><br><span class="line"><span class="attribute">mail</span>: bjensen@example.com</span><br><span class="line"><span class="attribute">uid</span>: bjensen</span><br></pre></td></tr></table></figure>
-
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">ldapadd -x -H ldap://127.0.0.2:389 -D <span class="string">&quot;cn=admin,dc=example,dc=org&quot;</span> -w admin -f barbara.ldif</span><br></pre></td></tr></table></figure>
-
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">ldapsearch -x -H ldap://127.0.0.2:389  -b dc=example,dc=org -D <span class="string">&quot;cn=admin,dc=example,dc=org&quot;</span> -w admin </span><br></pre></td></tr></table></figure>
-
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">ldapsearch -x -H ldap://127.0.0.2:389  -b dc=example,dc=org -D <span class="string">&quot;cn=admin,dc=example,dc=org&quot;</span> -w admin <span class="string">&quot;cn=*&quot;</span></span><br></pre></td></tr></table></figure>
-
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">ldapdelete -x -H ldap://127.0.0.2:389  -D <span class="string">&quot;cn=admin,dc=example,dc=org&quot;</span> -w admin  <span class="string">&quot;cn=barbara,dc=example,dc=org&quot;</span></span><br></pre></td></tr></table></figure>
-
-<figure class="highlight ldif"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="attribute">dn</span>: cn=barbara,dc=example,dc=org</span><br><span class="line"><span class="attribute">changetype</span>: add</span><br><span class="line"><span class="attribute">objectClass</span>: inetOrgPerson</span><br><span class="line"><span class="attribute">cn</span>: barbara</span><br><span class="line"><span class="attribute">sn</span>: Jensen</span><br><span class="line"><span class="attribute">title</span>: the world&#x27;s most famous mythical manager</span><br><span class="line"><span class="attribute">mail</span>: bjensen@example.com</span><br><span class="line"><span class="attribute">uid</span>: bjensen</span><br></pre></td></tr></table></figure>
-
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">ldapmodify -x -H ldap://127.0.0.2:389 -D <span class="string">&quot;cn=admin,dc=example,dc=org&quot;</span> -w admin -f barbara.ldif</span><br></pre></td></tr></table></figure>
-
-<p>file name: addorg.ldif</p>
-<figure class="highlight ldif"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="attribute">dn</span>: ou=People,dc=example,dc=org</span><br><span class="line"><span class="attribute">changetype</span>: add</span><br><span class="line"><span class="attribute">objectclass</span>: top</span><br><span class="line"><span class="attribute">objectclass</span>: organizationalUnit</span><br><span class="line"><span class="attribute">ou</span>: People</span><br><span class="line"></span><br><span class="line"><span class="attribute">dn</span>: ou=Servers,dc=example,dc=org</span><br><span class="line"><span class="attribute">changetype</span>: add</span><br><span class="line"><span class="attribute">objectclass</span>: top</span><br><span class="line"><span class="attribute">objectclass</span>: organizationalUnit</span><br><span class="line"><span class="attribute">ou</span>: Servers</span><br></pre></td></tr></table></figure>
-
-<p>file name: modify1.ldif</p>
-<figure class="highlight ldif"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="attribute">dn</span>: cn=barbara,dc=example,dc=org</span><br><span class="line"><span class="attribute">changetype</span>: modify</span><br><span class="line"><span class="attribute">replace</span>: title</span><br><span class="line"><span class="attribute">title</span>: one of the world&#x27;s most famous mythical manager</span><br></pre></td></tr></table></figure>
-
-<p>file name: modify2.ldif</p>
-<figure class="highlight ldif"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="attribute">dn</span>: cn=barbara,dc=example,dc=org</span><br><span class="line"><span class="attribute">changetype</span>: modify</span><br><span class="line"><span class="attribute">add</span>: description</span><br><span class="line"><span class="attribute">description</span>: barbara description</span><br></pre></td></tr></table></figure>
-
-<p>file name: modify3.ldif</p>
-<figure class="highlight ldif"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="attribute">dn</span>: cn=barbara,dc=example,dc=org</span><br><span class="line"><span class="attribute">changetype</span>: modrdn</span><br><span class="line"><span class="attribute">newrdn</span>: cn=babara</span><br><span class="line"><span class="attribute">deleteoldrdn</span>: 0</span><br><span class="line"><span class="attribute">newsuperior</span>: ou=People,dc=example,dc=org</span><br></pre></td></tr></table></figure>
-
-<h1 id="第四节-ldap-用户"><a href="#第四节-ldap-用户" class="headerlink" title="第四节 ldap 用户"></a>第四节 ldap 用户</h1><p>ldappasswd 用于重置其他用户的密码</p>
-<p>ldapmodify 用于更改自己的密码</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">ldappasswd -x -H ldap://127.0.0.2:389 -D <span class="string">&quot;cn=admin,dc=example,dc=org&quot;</span> -w admin  <span class="string">&quot;cn=barbara,dc=example,dc=org&quot;</span></span><br></pre></td></tr></table></figure>
-
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">ldappasswd -x -H ldap://127.0.0.2:389 -D <span class="string">&quot;cn=barbara,dc=example,dc=org&quot;</span> -w xxxx -s mima</span><br></pre></td></tr></table></figure>
-
-<p>file name: passwd.ldif</p>
-<figure class="highlight ldif"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="attribute">dn</span>: cn=barbara,dc=example,dc=org</span><br><span class="line"><span class="attribute">changetype</span>: modify</span><br><span class="line"><span class="attribute">replace</span>: userPassword</span><br><span class="line"><span class="attribute">userPassword</span>: xinmima</span><br></pre></td></tr></table></figure>
-
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">ldapmodify -x -H ldap://127.0.0.2:389 -D <span class="string">&quot;cn=barbara,dc=example,dc=org&quot;</span> -w mima -f passwd.ldif </span><br></pre></td></tr></table></figure>
-
-
-<h1 id="第五节-phpLdapAdmin-的安装与使用"><a href="#第五节-phpLdapAdmin-的安装与使用" class="headerlink" title="第五节 phpLdapAdmin 的安装与使用"></a>第五节 phpLdapAdmin 的安装与使用</h1><figure class="highlight docker"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">osixia/openldap:<span class="number">1.2</span>.<span class="number">2</span></span><br><span class="line">osixia/phpldapadmin:<span class="number">0.7</span>.<span class="number">2</span></span><br></pre></td></tr></table></figure>
-
-
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line">version: &#x27;2&#x27;</span><br><span class="line"></span><br><span class="line">services:</span><br><span class="line">  openldap:</span><br><span class="line">    container_name: openldap</span><br><span class="line">    image: osixia/openldap:1.2.2</span><br><span class="line">    ports:</span><br><span class="line">      - &quot;389:389&quot;</span><br><span class="line">      - &quot;636:636&quot;</span><br><span class="line">    command: [--copy-service,  --loglevel, debug]</span><br><span class="line">  phpldapadmin:</span><br><span class="line">    container_name: phpldapadmin</span><br><span class="line">    image: osixia/phpldapadmin:0.7.2</span><br><span class="line">    ports:</span><br><span class="line">      - &quot;80:80&quot;</span><br><span class="line">    environment:</span><br><span class="line">      - PHPLDAPADMIN_HTTPS=&quot;false&quot;</span><br><span class="line">      - PHPLDAPADMIN_LDAP_HOSTS=openldap</span><br><span class="line">    links:</span><br><span class="line">      - openldap</span><br><span class="line">    depends_on:</span><br><span class="line">      - openldap</span><br></pre></td></tr></table></figure>
-
-
-<h1 id="第六节-JNDI"><a href="#第六节-JNDI" class="headerlink" title="第六节 JNDI"></a>第六节 JNDI</h1><p>可以参考：<a target="_blank" rel="noopener" href="https://blog.csdn.net/awj321000/article/details/78812358">https://blog.csdn.net/awj321000/article/details/78812358</a></p>
-<p>这个不是 JNDI，用了第三方的库，个人感觉 JNDI 不好用。</p>
-<p>如果读者更熟悉 Python 的话，可以参考这些：</p>
-<p><a target="_blank" rel="noopener" href="https://zhuanlan.zhihu.com/p/52532191,https://zhuanlan.zhihu.com/p/52532409,https://zhuanlan.zhihu.com/p/52532820,https://zhuanlan.zhihu.com/p/52532895,https://zhuanlan.zhihu.com/p/52533010">https://zhuanlan.zhihu.com/p/52532191,https://zhuanlan.zhihu.com/p/52532409,https://zhuanlan.zhihu.com/p/52532820,https://zhuanlan.zhihu.com/p/52532895,https://zhuanlan.zhihu.com/p/52533010</a></p>
-<p><a target="_blank" rel="noopener" href="https://github.com/wangzhiwei1888/ldap-videoTutorial">https://github.com/wangzhiwei1888/ldap-videoTutorial</a></p>
-<p><a target="_blank" rel="noopener" href="https://www.bilibili.com/video/BV1Pa4y1e7Ez/?spm_id_from=333.337.search-card.all.click&vd_source=ffda878df0ed45bee1ade91d8f451048">https://www.bilibili.com/video/BV1Pa4y1e7Ez/?spm_id_from=333.337.search-card.all.click&amp;vd_source=ffda878df0ed45bee1ade91d8f451048</a></p>
-
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
 
   
   <nav class="pagination">
-    <a class="extend prev" rel="prev" href="/page/2/"><i class="fa fa-angle-left" aria-label="上一页"></i></a><a class="page-number" href="/">1</a><a class="page-number" href="/page/2/">2</a><span class="page-number current">3</span><a class="page-number" href="/page/4/">4</a><span class="space">&hellip;</span><a class="page-number" href="/page/8/">8</a><a class="extend next" rel="next" href="/page/4/"><i class="fa fa-angle-right" aria-label="下一页"></i></a>
+    <a class="extend prev" rel="prev" href="/page/2/"><i class="fa fa-angle-left" aria-label="上一页"></i></a><a class="page-number" href="/">1</a><a class="page-number" href="/page/2/">2</a><span class="page-number current">3</span><a class="page-number" href="/page/4/">4</a><span class="space">&hellip;</span><a class="page-number" href="/page/9/">9</a><a class="extend next" rel="next" href="/page/4/"><i class="fa fa-angle-right" aria-label="下一页"></i></a>
   </nav>
 
 
@@ -2291,7 +2102,7 @@
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">80</span>
+          <span class="site-state-item-count">85</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>

@@ -149,6 +149,700 @@
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="http://example.com/2024/12/18/%E5%86%85%E5%AD%98%E6%B3%84%E6%BC%8F%E6%8E%92%E6%9F%A5/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="wangzhiwei">
+      <meta itemprop="description" content="javascript nodejs web developer...">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="WBlog">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/2024/12/18/%E5%86%85%E5%AD%98%E6%B3%84%E6%BC%8F%E6%8E%92%E6%9F%A5/" class="post-title-link" itemprop="url">内存泄漏排查</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2024-12-18 08:49:05" itemprop="dateCreated datePublished" datetime="2024-12-18T08:49:05+08:00">2024-12-18</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-calendar-check-o"></i>
+                </span>
+                <span class="post-meta-item-text">更新于</span>
+                <time title="修改时间：2025-03-18 11:10:52" itemprop="dateModified" datetime="2025-03-18T11:10:52+08:00">2025-03-18</time>
+              </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/%E5%86%85%E5%AD%98/" itemprop="url" rel="index"><span itemprop="name">内存</span></a>
+                </span>
+                  ，
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/%E5%86%85%E5%AD%98/%E5%86%85%E5%AD%98%E6%B3%84%E6%BC%8F/" itemprop="url" rel="index"><span itemprop="name">内存泄漏</span></a>
+                </span>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <h1 id="demo"><a href="#demo" class="headerlink" title="demo"></a>demo</h1><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br></pre></td><td class="code"><pre><span class="line">mem.js</span><br><span class="line"></span><br><span class="line">const http = require(&#x27;http&#x27;);</span><br><span class="line"></span><br><span class="line">const heapdump = require(&#x27;heapdump&#x27;);</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">leakArray = [];</span><br><span class="line"></span><br><span class="line">// const leakArray = [];</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">const showMem = function()&#123;</span><br><span class="line"></span><br><span class="line">    var mem = process.memoryUsage();</span><br><span class="line">    </span><br><span class="line">    const format = function(bytes)&#123;</span><br><span class="line">        return (bytes / 1024 / 1024).toFixed(2) + &#x27; MB&#x27;;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    console.log(`Memory Usage: $&#123;format(mem.rss - mem.heapUsed)&#125; 堆外, $&#123;format(mem.heapTotal)&#125; heapTotal, $&#123;format(mem.heapUsed)&#125; heapUsed.`);</span><br><span class="line">    // console.log(mem);</span><br><span class="line"></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">var leak = function()&#123;</span><br><span class="line"></span><br><span class="line">    leakArray.push(new Array(20*1024*1024));</span><br><span class="line"></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">http.createServer(function (req, res) &#123;</span><br><span class="line"></span><br><span class="line">    leak();</span><br><span class="line"></span><br><span class="line">    res.writeHead(200, &#123;&#x27;Content-Type&#x27;: &#x27;text/plain&#x27;&#125;);</span><br><span class="line">    res.end(&#x27;Hello World\n&#x27;);</span><br><span class="line"></span><br><span class="line">    showMem();</span><br><span class="line"></span><br><span class="line">&#125;).listen(8001, ()=&gt;&#123;</span><br><span class="line">    console.log(&#x27;Server running at http://127.0.0.1:8001/ pid:&#x27; + process.pid);</span><br><span class="line">&#125;);</span><br><span class="line"></span><br><span class="line">// kill -USR2 pid</span><br><span class="line"></span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+
+<h1 id="工具-heapdump"><a href="#工具-heapdump" class="headerlink" title="工具 heapdump"></a>工具 heapdump</h1><h2 id="触发生成内存快照"><a href="#触发生成内存快照" class="headerlink" title="触发生成内存快照"></a>触发生成内存快照</h2><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">kill -USR2 pid</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<h2 id="分析快照"><a href="#分析快照" class="headerlink" title="分析快照"></a>分析快照</h2><p><img src="/../images/mem_01.png"></p>
+<p><img src="/../images/mem_02.png"></p>
+<h2 id="内存泄漏"><a href="#内存泄漏" class="headerlink" title="内存泄漏"></a>内存泄漏</h2><p>Node 对内存泄漏十分敏感，在巨大的流量面前，哪怕有一个字节的内存泄漏，也会积少成多。</p>
+<p>原因：<br>缓存：过度使用缓存或缓存管理不当，导致不再使用的数据仍然占用内存。<br>队列消费不及时：消息队列中的任务堆积，未能及时处理，导致内存占用持续增加<br>作用域未释放：变量的作用域没有正确释放，尤其是在使用闭包时，可能导致对象无法被垃圾回收机制回收。</p>
+<p>参考：</p>
+<p>V8引擎[垃圾回收]与[内存泄露]<br><a target="_blank" rel="noopener" href="https://juejin.cn/post/6920218829524041741">https://juejin.cn/post/6920218829524041741</a></p>
+<p>Electron V8排查问题之发现的内存泄漏问题如何解决<br><a target="_blank" rel="noopener" href="https://developer.aliyun.com/article/1586548">https://developer.aliyun.com/article/1586548</a></p>
+<p>如何排查 Electron V8 引发的内存 OOM 问题（下）<br><a target="_blank" rel="noopener" href="https://developer.aliyun.com/article/1263248">https://developer.aliyun.com/article/1263248</a></p>
+<p>垃圾回收<br><a target="_blank" rel="noopener" href="https://zh.javascript.info/garbage-collection">https://zh.javascript.info/garbage-collection</a></p>
+
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="http://example.com/2024/12/17/webrtc/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="wangzhiwei">
+      <meta itemprop="description" content="javascript nodejs web developer...">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="WBlog">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/2024/12/17/webrtc/" class="post-title-link" itemprop="url">webrtc</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2024-12-17 09:26:53" itemprop="dateCreated datePublished" datetime="2024-12-17T09:26:53+08:00">2024-12-17</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-calendar-check-o"></i>
+                </span>
+                <span class="post-meta-item-text">更新于</span>
+                <time title="修改时间：2025-03-18 11:10:52" itemprop="dateModified" datetime="2025-03-18T11:10:52+08:00">2025-03-18</time>
+              </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/webrtc/" itemprop="url" rel="index"><span itemprop="name">webrtc</span></a>
+                </span>
+                  ，
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/webrtc/%E9%9F%B3%E8%A7%86%E9%A2%91/" itemprop="url" rel="index"><span itemprop="name">音视频</span></a>
+                </span>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <h1 id="WebRTC-介绍"><a href="#WebRTC-介绍" class="headerlink" title="WebRTC 介绍"></a>WebRTC 介绍</h1><h2 id="1-定义"><a href="#1-定义" class="headerlink" title="1. 定义"></a>1. 定义</h2><p>WebRTC（Web Real-Time Communication）是一种允许网页浏览器进行实时通信（RTC）的技术。它使得浏览器之间可以直接进行音频、视频和其他数据的传输，而无需通过中间服务器。</p>
+<h2 id="2-主要特点"><a href="#2-主要特点" class="headerlink" title="2. 主要特点"></a>2. 主要特点</h2><ul>
+<li><strong>实时通信</strong>：WebRTC 支持低延迟的实时音视频通信。</li>
+<li><strong>点对点通信</strong>：WebRTC 通过点对点（P2P）连接实现直接通信，减少了中间服务器的负担。</li>
+<li><strong>开源标准</strong>：WebRTC 是一个开放标准，由 W3C 和 IETF 维护。</li>
+<li><strong>跨平台</strong>：WebRTC 支持多种浏览器和操作系统，包括 Chrome、Firefox、Safari、Edge 等。</li>
+</ul>
+<h2 id="3-核心组件"><a href="#3-核心组件" class="headerlink" title="3. 核心组件"></a>3. 核心组件</h2><ul>
+<li><strong>RTCPeerConnection</strong>：<ul>
+<li>用于建立和管理点对点连接。</li>
+<li>处理音视频流的传输。</li>
+</ul>
+</li>
+<li><strong>RTCDataChannel</strong>：<ul>
+<li>用于在点对点连接中传输任意数据。</li>
+<li>支持文本和二进制数据。</li>
+</ul>
+</li>
+<li><strong>MediaStream</strong>：<ul>
+<li>代表媒体流，如麦克风输入或摄像头视频。</li>
+<li>可以通过 <code>getUserMedia</code> API 获取。</li>
+</ul>
+</li>
+</ul>
+<h2 id="4-工作流程"><a href="#4-工作流程" class="headerlink" title="4. 工作流程"></a>4. 工作流程</h2><ol>
+<li><p><strong>获取媒体流</strong>：</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">navigator.<span class="property">mediaDevices</span>.<span class="title function_">getUserMedia</span>(&#123; <span class="attr">audio</span>: <span class="literal">true</span>, <span class="attr">video</span>: <span class="literal">true</span> &#125;)</span><br><span class="line">  .<span class="title function_">then</span>(<span class="function"><span class="params">stream</span> =&gt;</span> &#123;</span><br><span class="line">    localVideo.<span class="property">srcObject</span> = stream;</span><br><span class="line">    localStream = stream;</span><br><span class="line">  &#125;)</span><br><span class="line">  .<span class="title function_">catch</span>(<span class="function"><span class="params">error</span> =&gt;</span> <span class="variable language_">console</span>.<span class="title function_">error</span>(<span class="string">&#x27;Error accessing media devices.&#x27;</span>, error));</span><br></pre></td></tr></table></figure>
+</li>
+<li><p><strong>创建 RTCPeerConnection</strong>：</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> pc = <span class="keyword">new</span> <span class="title class_">RTCPeerConnection</span>();</span><br></pre></td></tr></table></figure>
+</li>
+<li><p><strong>添加本地媒体流</strong>：</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">pc.<span class="title function_">addStream</span>(localStream);</span><br></pre></td></tr></table></figure>
+</li>
+<li><p><strong>设置 ICE 服务器</strong>：</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">pc.<span class="title function_">setConfiguration</span>(&#123;</span><br><span class="line">  <span class="attr">iceServers</span>: [</span><br><span class="line">    &#123; <span class="attr">urls</span>: <span class="string">&#x27;stun:stun.l.google.com:19302&#x27;</span> &#125;</span><br><span class="line">  ]</span><br><span class="line">&#125;);</span><br></pre></td></tr></table></figure>
+</li>
+<li><p><strong>创建 Offer</strong>：</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">pc.<span class="title function_">createOffer</span>().<span class="title function_">then</span>(<span class="function"><span class="params">offer</span> =&gt;</span> &#123;</span><br><span class="line">  <span class="keyword">return</span> pc.<span class="title function_">setLocalDescription</span>(offer);</span><br><span class="line">&#125;).<span class="title function_">then</span>(<span class="function">() =&gt;</span> &#123;</span><br><span class="line">  <span class="comment">// 发送 offer 到远端</span></span><br><span class="line">  <span class="title function_">sendToServer</span>(pc.<span class="property">localDescription</span>);</span><br><span class="line">&#125;);</span><br></pre></td></tr></table></figure>
+</li>
+<li><p><strong>接收远端 Answer</strong>：</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">pc.<span class="title function_">setRemoteDescription</span>(<span class="keyword">new</span> <span class="title class_">RTCSessionDescription</span>(remoteDescription));</span><br></pre></td></tr></table></figure>
+</li>
+<li><p><strong>处理 ICE 候选</strong>：</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">pc.<span class="property">onicecandidate</span> = <span class="function"><span class="params">event</span> =&gt;</span> &#123;</span><br><span class="line">  <span class="keyword">if</span> (event.<span class="property">candidate</span>) &#123;</span><br><span class="line">    <span class="title function_">sendToServer</span>(event.<span class="property">candidate</span>);</span><br><span class="line">  &#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+</li>
+<li><p><strong>接收远端 ICE 候选</strong>：</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">pc.<span class="title function_">addIceCandidate</span>(<span class="keyword">new</span> <span class="title class_">RTCIceCandidate</span>(remoteCandidate));</span><br></pre></td></tr></table></figure>
+</li>
+<li><p><strong>接收远端媒体流</strong>：</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">pc.<span class="property">ontrack</span> = <span class="function"><span class="params">event</span> =&gt;</span> &#123;</span><br><span class="line">  remoteVideo.<span class="property">srcObject</span> = event.<span class="property">streams</span>[<span class="number">0</span>];</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure></li>
+</ol>
+<h2 id="5-优势"><a href="#5-优势" class="headerlink" title="5. 优势"></a>5. 优势</h2><ul>
+<li><strong>低延迟</strong>：WebRTC 通过优化的传输协议（如 UDP）实现低延迟通信。</li>
+<li><strong>安全性</strong>：所有数据传输都经过加密，确保通信安全。</li>
+<li><strong>灵活性</strong>：支持多种媒体类型和数据传输方式。</li>
+</ul>
+<h2 id="6-应用场景"><a href="#6-应用场景" class="headerlink" title="6. 应用场景"></a>6. 应用场景</h2><ul>
+<li><strong>视频会议</strong>：如 Zoom、Google Meet 等。</li>
+<li><strong>在线教育</strong>：实时互动课堂。</li>
+<li><strong>远程医疗</strong>：医生与患者之间的视频咨询。</li>
+<li><strong>游戏</strong>：多人在线游戏中的实时通信。</li>
+<li><strong>直播</strong>：实时直播和互动。</li>
+</ul>
+<h2 id="7-挑战"><a href="#7-挑战" class="headerlink" title="7. 挑战"></a>7. 挑战</h2><ul>
+<li><strong>网络环境</strong>：复杂的网络环境可能导致连接不稳定。</li>
+<li><strong>兼容性</strong>：不同浏览器和设备的兼容性问题。</li>
+<li><strong>信令</strong>：需要一个可靠的信令机制来交换连接信息。</li>
+</ul>
+<h3 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h3><p>WebRTC 是一种强大的实时通信技术，适用于多种应用场景。通过其核心组件和工作流程，开发者可以构建高效、安全的实时通信应用。尽管存在一些挑战，但随着技术的发展，这些问题正在逐步得到解决。</p>
+
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="http://example.com/2024/12/16/uniapp-%E4%BA%86%E8%A7%A3/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="wangzhiwei">
+      <meta itemprop="description" content="javascript nodejs web developer...">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="WBlog">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/2024/12/16/uniapp-%E4%BA%86%E8%A7%A3/" class="post-title-link" itemprop="url">uniapp 了解</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2024-12-16 11:48:23" itemprop="dateCreated datePublished" datetime="2024-12-16T11:48:23+08:00">2024-12-16</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-calendar-check-o"></i>
+                </span>
+                <span class="post-meta-item-text">更新于</span>
+                <time title="修改时间：2025-03-18 11:10:52" itemprop="dateModified" datetime="2025-03-18T11:10:52+08:00">2025-03-18</time>
+              </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <h1 id="uniapp"><a href="#uniapp" class="headerlink" title="uniapp"></a>uniapp</h1><p>一套代码编到十几个平台</p>
+<p>Android、iOS(uni-app x),鸿蒙版,微信小程序版,Web版,Android版(uni-app),iOS版(uni-app),支付宝小程序版,百度小程序版,抖音小程序版,QQ小程序版,360小程序,快手小程序版,飞书小程序版,钉钉小程序版,京东小程序版,小红书小程序版,快应用</p>
+<h2 id="hbuilderX中使用unicloud云开发平台"><a href="#hbuilderX中使用unicloud云开发平台" class="headerlink" title="hbuilderX中使用unicloud云开发平台"></a>hbuilderX中使用unicloud云开发平台</h2><h3 id="文档"><a href="#文档" class="headerlink" title="文档"></a>文档</h3><ul>
+<li>参考文档：<a target="_blank" rel="noopener" href="https://uniapp.dcloud.io/uniCloud/README">https://uniapp.dcloud.io/uniCloud/README</a></li>
+<li>web控制台文档：<a target="_blank" rel="noopener" href="https://dev.dcloud.net.cn/pages/common/login">https://dev.dcloud.net.cn/pages/common/login</a></li>
+</ul>
+<h3 id="传统业务开发流程"><a href="#传统业务开发流程" class="headerlink" title="传统业务开发流程"></a>传统业务开发流程</h3><blockquote>
+<p>​	前端 &#x3D;&gt; 后端 &#x3D;&gt; 运维 &#x3D;&gt; 发布上线</p>
+</blockquote>
+<p><strong>使用unicloud云开发平台</strong></p>
+<blockquote>
+<p>前端 &#x3D;&gt; 运维 &#x3D;&gt; 发布上线</p>
+</blockquote>
+<h3 id="什么是unicloud"><a href="#什么是unicloud" class="headerlink" title="什么是unicloud"></a>什么是unicloud</h3><blockquote>
+<p><code>uniCloud</code> 是 DCloud 联合阿里云、腾讯云，为开发者提供的基于 serverless 模式和 js 编程的实现后端服务的云开发平台。不需要服务器的购买配置即可快速创建一个完整的后端服务。</p>
+</blockquote>
+<h3 id="unicloud优点"><a href="#unicloud优点" class="headerlink" title="unicloud优点"></a>unicloud优点</h3><ul>
+<li>用JavaScript开发前后台整体业务</li>
+<li>非h5项目免域名使用服务器</li>
+<li>敏捷性业务处理，不需要前后端分离开发</li>
+</ul>
+<h2 id="开发流程"><a href="#开发流程" class="headerlink" title="开发流程"></a>开发流程</h2><p><img src="/../images/uniapp_01.png"></p>
+<h3 id="uncloud构成"><a href="#uncloud构成" class="headerlink" title="uncloud构成"></a>uncloud构成</h3><p><img src="/../images/uniapp_02.png"></p>
+<h4 id="云数据库"><a href="#云数据库" class="headerlink" title="云数据库"></a>云数据库</h4><p><img src="/../images/uniapp_03.png"></p>
+<h4 id="云存储及CDN"><a href="#云存储及CDN" class="headerlink" title="云存储及CDN"></a>云存储及CDN</h4><blockquote>
+<p>可进行文件的相关存储操作</p>
+</blockquote>
+<p>参考文档：<a target="_blank" rel="noopener" href="https://uniapp.dcloud.io/uniCloud/storage">https://uniapp.dcloud.io/uniCloud/storage</a></p>
+<hr>
+<h4 id="创建云函数工程"><a href="#创建云函数工程" class="headerlink" title="创建云函数工程"></a>创建云函数工程</h4><ol>
+<li><strong>指定unicloud工程创建</strong></li>
+</ol>
+<p><img src="/../images/uniapp_04.png"></p>
+<ol start="2">
+<li><strong>保证uni-app应用标识appID填写</strong>（保证用户为登录状态）</li>
+</ol>
+<p><img src="/../images/uniapp_05.png"></p>
+<ol start="3">
+<li><p><strong>进行云服务空间创建</strong></p>
+<p><img src="/../images/uniapp_06.png"></p>
+<blockquote>
+<p>如果未进行实名认证，会跳转至实名认证页面进行实名认证，等待实名认证审核之后可以开通服务空间。若腾讯云实名认证提示身份证下已创建过多账户，则需要在腾讯云官网注销不用的账户</p>
+</blockquote>
+</li>
+<li><p>进行云函数创建</p>
+<p><img src="/../images/uniapp_07.png"></p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&#x27;use strict&#x27;</span>;</span><br><span class="line"><span class="comment">// 一个通过nodeJS运行的函数在服务器端使用</span></span><br><span class="line"><span class="built_in">exports</span>.<span class="property">main</span> = <span class="title function_">async</span> (event, context) =&gt; &#123;</span><br><span class="line">	<span class="comment">//event为客户端上传的参数</span></span><br><span class="line">	<span class="comment">//context 包含了调用信息及运行状态,获取每次调用的上下文</span></span><br><span class="line">	<span class="variable language_">console</span>.<span class="title function_">log</span>(<span class="string">&#x27;event : &#x27;</span>, event)</span><br><span class="line">	</span><br><span class="line">	<span class="comment">//返回数据给客户端</span></span><br><span class="line">	<span class="keyword">return</span> &#123;</span><br><span class="line">		<span class="string">&quot;code&quot;</span>:<span class="number">0</span>,</span><br><span class="line">		<span class="string">&quot;msg&quot;</span>:<span class="string">&quot;云函数调用成功&quot;</span></span><br><span class="line">	&#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+
+
+</li>
+<li><p><strong>云WEB控制台查看</strong></p>
+<p><img src="/../images/uniapp_08.png"></p>
+</li>
+<li><p><strong>云数据库操作</strong></p>
+<blockquote>
+<p>在云数据库中进行数据操作，全部使用双引号进行值的定义</p>
+</blockquote>
+</li>
+<li><p>云存储</p>
+<blockquote>
+<p>在云存储中进行文件的上传</p>
+<p>api使用：</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">uniCloud.<span class="title function_">uploadFile</span>(&#123;&#125;)</span><br></pre></td></tr></table></figure>
+</blockquote>
+</li>
+<li><p>跨域处理</p>
+<p>参考文档<a target="_blank" rel="noopener" href="https://uniapp.dcloud.io/uniCloud/quickstart?id=useinh5">https://uniapp.dcloud.io/uniCloud/quickstart?id=useinh5</a></p>
+</li>
+</ol>
+<h2 id="unicloud-api操作"><a href="#unicloud-api操作" class="headerlink" title="unicloud api操作"></a>unicloud api操作</h2><h3 id="云函数调用"><a href="#云函数调用" class="headerlink" title="云函数调用"></a>云函数调用</h3><p><strong>参考文档</strong>：<a target="_blank" rel="noopener" href="https://uniapp.dcloud.net.cn/uniCloud/cf-functions?id=clientcallfunction">https://uniapp.dcloud.net.cn/uniCloud/cf-functions?id=clientcallfunction</a></p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// promise方式</span></span><br><span class="line">uniCloud.<span class="title function_">callFunction</span>(&#123;</span><br><span class="line">    <span class="attr">name</span>: <span class="string">&#x27;test&#x27;</span>, <span class="comment">// 云函数名称</span></span><br><span class="line">    <span class="attr">data</span>: &#123; <span class="attr">a</span>: <span class="number">1</span> &#125;   <span class="comment">// 请求参数</span></span><br><span class="line">  &#125;)</span><br><span class="line">  .<span class="title function_">then</span>(<span class="function"><span class="params">res</span> =&gt;</span> &#123;&#125;);</span><br><span class="line"></span><br><span class="line"><span class="comment">// callback方式</span></span><br><span class="line">uniCloud.<span class="title function_">callFunction</span>(&#123;</span><br><span class="line">    <span class="attr">name</span>: <span class="string">&#x27;test&#x27;</span>,</span><br><span class="line">    <span class="attr">data</span>: &#123; <span class="attr">a</span>: <span class="number">1</span> &#125;,</span><br><span class="line">    <span class="title function_">success</span>(<span class="params"></span>)&#123;&#125;,  <span class="comment">// 成功</span></span><br><span class="line">    <span class="title function_">fail</span>(<span class="params"></span>)&#123;&#125;,   <span class="comment">// 失败</span></span><br><span class="line">    <span class="title function_">complete</span>(<span class="params"></span>)&#123;&#125;   <span class="comment">// 完成（不管成功与失败）</span></span><br><span class="line">&#125;);</span><br></pre></td></tr></table></figure>
+
+<h3 id="云函数实现云数据库基本增删改查"><a href="#云函数实现云数据库基本增删改查" class="headerlink" title="云函数实现云数据库基本增删改查"></a>云函数实现云数据库基本增删改查</h3><h4 id="1-获取数据库引用"><a href="#1-获取数据库引用" class="headerlink" title="1. 获取数据库引用"></a>1. 获取数据库引用</h4><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> db = uniCloud.<span class="title function_">database</span>()</span><br></pre></td></tr></table></figure>
+
+<ol start="2">
+<li><p>获取数据库集合引用</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">const collection = db.collection(&#x27;unicloud-test-714&#x27;) // uncloud-test-714 为数据表名称</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>新增记录</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> res = collection.<span class="title function_">add</span>(&#123;<span class="attr">user</span>:<span class="string">&#x27;alan&#x27;</span>&#125;)</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&#x27;use strict&#x27;</span>;</span><br><span class="line"><span class="keyword">const</span> db = uniCloud.<span class="title function_">database</span>() <span class="comment">// 获取数据库引用</span></span><br><span class="line"></span><br><span class="line"><span class="built_in">exports</span>.<span class="property">main</span> = <span class="title function_">async</span> (event, context) =&gt; &#123;</span><br><span class="line">	<span class="comment">// 获取集合引用</span></span><br><span class="line">	<span class="keyword">const</span> collection = db.<span class="title function_">collection</span>(<span class="string">&#x27;unicloud-test-714&#x27;</span>)</span><br><span class="line">	<span class="comment">// 新增数据</span></span><br><span class="line">	<span class="keyword">const</span> res = <span class="keyword">await</span> collection.<span class="title function_">add</span>(&#123;<span class="attr">user</span>:<span class="string">&#x27;alan&#x27;</span>&#125;)</span><br><span class="line">	<span class="variable language_">console</span>.<span class="title function_">log</span>(res)</span><br><span class="line">	<span class="keyword">return</span> &#123;</span><br><span class="line">		<span class="string">&quot;code&quot;</span>:<span class="number">0</span>,</span><br><span class="line">		<span class="string">&quot;msg&quot;</span>:<span class="string">&quot;云函数调用成功&quot;</span></span><br><span class="line">	&#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>删除记录</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> res = <span class="keyword">await</span> collection.<span class="title function_">doc</span>(<span class="string">&#x27;60ee51103b7d3500014124c1&#x27;</span>).<span class="title function_">remove</span>()</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>数据更新</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> res = <span class="keyword">await</span> collection.<span class="title function_">doc</span>(<span class="string">&#x27;60ee52a1827eca0001e56bc4&#x27;</span>).<span class="title function_">update</span>(&#123;</span><br><span class="line">		<span class="attr">name</span>:<span class="string">&quot;joob&quot;</span></span><br><span class="line">	&#125;)</span><br><span class="line"></span><br><span class="line"><span class="keyword">const</span> res = <span class="keyword">await</span> collection.<span class="title function_">doc</span>(<span class="string">&#x27;60ee52a1827eca0001e56bc4&#x27;</span>).<span class="title function_">set</span>(&#123;   <span class="comment">// 如果说获取不到内容，从新进行插入记录的操作</span></span><br><span class="line">		<span class="attr">name</span>:<span class="string">&quot;joob&quot;</span>,</span><br><span class="line">  	<span class="attr">type</span>:<span class="string">&quot;javascript&quot;</span></span><br><span class="line">	&#125;)</span><br></pre></td></tr></table></figure>
+
+<blockquote>
+<p>update与set的区别：</p>
+<p>当没有找到指定记录时，使用update无法进行更新操作，set在没有查找到指定记录的时候，可以进行新增内容的操作（不存在进行创建添加操作）</p>
+</blockquote>
+</li>
+<li><p>数据查找</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 查询全部</span></span><br><span class="line">	<span class="keyword">const</span> res = <span class="keyword">await</span> collection.<span class="title function_">get</span>()</span><br><span class="line"><span class="comment">// 指定条件进行查询-id查询</span></span><br><span class="line">  <span class="keyword">const</span> res = <span class="keyword">await</span> collection.<span class="title function_">doc</span>(<span class="string">&#x27;id&#x27;</span>).<span class="title function_">get</span>()  <span class="comment">// id为需要查询的指定id</span></span><br><span class="line"><span class="comment">// 指定条件查询-其他条件进行查询</span></span><br><span class="line">  <span class="keyword">const</span> res = <span class="keyword">await</span> collection.<span class="title function_">where</span>(&#123;<span class="attr">name</span>:<span class="string">&quot;alan&quot;</span>&#125;).<span class="title function_">get</span>()</span><br></pre></td></tr></table></figure>
+
+
+
+<h4 id="云存储操作"><a href="#云存储操作" class="headerlink" title="云存储操作"></a>云存储操作</h4><ol>
+<li><p>使用uni.chooseImage方法进行图片选择获取</p>
+<p>参考地址：<a target="_blank" rel="noopener" href="https://uniapp.dcloud.io/api/media/image?id=chooseimage">https://uniapp.dcloud.io/api/media/image?id=chooseimage</a></p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">uni.<span class="title function_">chooseImage</span>(&#123;</span><br><span class="line">				<span class="attr">count</span>: <span class="number">1</span>,</span><br><span class="line">				<span class="title function_">success</span>(<span class="params">res</span>) &#123;</span><br><span class="line">					<span class="variable language_">console</span>.<span class="title function_">log</span>(<span class="title class_">JSON</span>.<span class="title function_">stringify</span>(res.<span class="property">tempFilePaths</span>))</span><br><span class="line">				&#125;</span><br><span class="line">			&#125;)</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>使用uniCloud.uploadFile进行文件上传</p>
+<p>参考文档：<a target="_blank" rel="noopener" href="https://uniapp.dcloud.io/uniCloud/storage?id=clouduploadfile">https://uniapp.dcloud.io/uniCloud/storage?id=clouduploadfile</a></p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line">uni.<span class="title function_">chooseImage</span>(&#123;</span><br><span class="line">					<span class="attr">count</span>: <span class="number">1</span>,</span><br><span class="line">					<span class="keyword">async</span> <span class="title function_">success</span>(<span class="params">res</span>) &#123;</span><br><span class="line">						<span class="keyword">let</span> result = <span class="keyword">await</span> uniCloud.<span class="title function_">uploadFile</span>(&#123;</span><br><span class="line">							<span class="attr">filePath</span>:res.<span class="property">tempFilePaths</span>[<span class="number">0</span>],</span><br><span class="line">							<span class="attr">cloudPath</span>:<span class="string">&#x27;a.jpg&#x27;</span>,</span><br><span class="line">							<span class="title function_">success</span>(<span class="params">res</span>) &#123;</span><br><span class="line">								<span class="variable language_">console</span>.<span class="title function_">log</span>(res)</span><br><span class="line">							&#125;,</span><br><span class="line">							<span class="title function_">fail</span>(<span class="params">err</span>) &#123;</span><br><span class="line">								<span class="variable language_">console</span>.<span class="title function_">log</span>(err)</span><br><span class="line">							&#125;</span><br><span class="line">						&#125;);</span><br><span class="line">					&#125;</span><br><span class="line">				&#125;)</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>使用uniCloud.deleteFile进行图片删除</p>
+<p>参考文档：<a target="_blank" rel="noopener" href="https://uniapp.dcloud.io/uniCloud/storage?id=clouddeletefile">https://uniapp.dcloud.io/uniCloud/storage?id=clouddeletefile</a></p>
+<p><strong>阿里云函数删除不能在客户端进行删除操作，下列代码在云函数中进行使用</strong></p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">let</span> result = <span class="keyword">await</span> uniCloud.<span class="title function_">deleteFile</span>(&#123;</span><br><span class="line">	   <span class="attr">fileList</span>:[<span class="string">&#x27;https://vkceyugu.cdn.bspapp.com/VKCEYUGU-6ce25980-c28e-4e78-bdef-a96eb40ad98b/06a1cb3a-84b7-47a0-b554-8aff299cb255.jpg&#x27;</span>],</span><br><span class="line">	&#125;);</span><br><span class="line">	<span class="variable language_">console</span>.<span class="title function_">log</span>(result)</span><br></pre></td></tr></table></figure></li>
+</ol>
+</li>
+</ol>
+<h2 id="UniApp-云函数使用场景"><a href="#UniApp-云函数使用场景" class="headerlink" title="UniApp 云函数使用场景"></a>UniApp 云函数使用场景</h2><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">1. **数据存储与查询**</span><br><span class="line">   - 使用云函数连接数据库，实现数据的增删改查操作。</span><br><span class="line">   - 示例：用户注册、登录、个人信息保存等。</span><br><span class="line"></span><br><span class="line">2. **文件上传与下载**</span><br><span class="line">   - 通过云函数处理文件的上传和下载，确保文件的安全性和高效传输。</span><br><span class="line">   - 示例：用户头像上传、文档下载等。</span><br><span class="line"></span><br><span class="line">3. **支付功能**</span><br><span class="line">   - 调用第三方支付接口，完成支付流程。</span><br><span class="line">   - 示例：微信支付、支付宝支付等。</span><br><span class="line"></span><br><span class="line">4. **消息推送**</span><br><span class="line">   - 使用云函数发送通知或消息，提高用户体验。</span><br><span class="line">   - 示例：订单状态更新通知、活动提醒等。</span><br><span class="line"></span><br><span class="line">5. **权限验证**</span><br><span class="line">   - 在云函数中进行权限校验，确保敏感操作的安全性。</span><br><span class="line">   - 示例：管理员权限校验、用户角色验证等。</span><br><span class="line"></span><br><span class="line">6. **定时任务**</span><br><span class="line">   - 设置定时任务，定期执行某些操作。</span><br><span class="line">   - 示例：数据备份、日志清理等。</span><br><span class="line"></span><br><span class="line">7. **第三方服务调用**</span><br><span class="line">   - 通过云函数调用第三方 API，扩展应用功能。</span><br><span class="line">   - 示例：天气查询、地图定位等。</span><br><span class="line"></span><br><span class="line">8. **数据同步**</span><br><span class="line">   - 实现多端数据同步，确保数据一致性。</span><br><span class="line">   - 示例：跨平台数据同步、多设备数据同步等。</span><br><span class="line"></span><br><span class="line">9. **日志记录**</span><br><span class="line">   - 记录应用运行日志，便于问题排查和性能优化。</span><br><span class="line">   - 示例：用户行为日志、错误日志等。</span><br><span class="line"></span><br><span class="line">10. **自定义业务逻辑**</span><br><span class="line">    - 根据具体业务需求，编写自定义的云函数逻辑。</span><br><span class="line">    - 示例：复杂的计算任务、数据处理等。</span><br><span class="line"></span><br><span class="line">通过这些场景，UniApp 云函数可以帮助开发者更高效地实现后端逻辑，提升应用的整体性能和用户体验。</span><br><span class="line"></span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+
+<h2 id="发布-wap"><a href="#发布-wap" class="headerlink" title="发布 wap"></a>发布 wap</h2><h2 id="发布小程序"><a href="#发布小程序" class="headerlink" title="发布小程序"></a>发布小程序</h2><p>通过uniapp官方开发工具开发，发布上线，通过小程序开发工具发布上线</p>
+<h2 id="发布安卓"><a href="#发布安卓" class="headerlink" title="发布安卓"></a>发布安卓</h2><h2 id="UniApp-与-React-Native-的主要区别"><a href="#UniApp-与-React-Native-的主要区别" class="headerlink" title="UniApp 与 React Native 的主要区别"></a>UniApp 与 React Native 的主要区别</h2><p>UniApp:<br>如果你已经熟悉 Vue.js，学习 UniApp 会比较容易。<br>文档和示例相对简单，上手较快。</p>
+<p>React Native:<br>如果你已经熟悉 React.js，学习 React Native 会比较容易。<br>需要了解一些原生开发的概念，学习曲线稍陡。</p>
+<p>UniApp 适合快速开发轻量级的跨平台应用，特别是需要同时支持多个平台的项目。</p>
+<p>React Native 适合开发高性能、复杂交互的移动应用，特别是对性能有较高要求的项目。</p>
+
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="http://example.com/2024/12/14/oAuth2/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="wangzhiwei">
+      <meta itemprop="description" content="javascript nodejs web developer...">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="WBlog">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/2024/12/14/oAuth2/" class="post-title-link" itemprop="url">oAuth2</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2024-12-14 10:42:30" itemprop="dateCreated datePublished" datetime="2024-12-14T10:42:30+08:00">2024-12-14</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-calendar-check-o"></i>
+                </span>
+                <span class="post-meta-item-text">更新于</span>
+                <time title="修改时间：2025-03-18 11:10:52" itemprop="dateModified" datetime="2025-03-18T11:10:52+08:00">2025-03-18</time>
+              </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/nodejs/" itemprop="url" rel="index"><span itemprop="name">nodejs</span></a>
+                </span>
+                  ，
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/nodejs/oauth2/" itemprop="url" rel="index"><span itemprop="name">oauth2</span></a>
+                </span>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <h1 id="认识-OAuth2-0"><a href="#认识-OAuth2-0" class="headerlink" title="认识 OAuth2.0"></a>认识 OAuth2.0</h1><h2 id="什么是-OAuth？"><a href="#什么是-OAuth？" class="headerlink" title="什么是 OAuth？"></a>什么是 OAuth？</h2><blockquote>
+<p><a target="_blank" rel="noopener" href="http://en.wikipedia.org/wiki/OAuth">OAuth</a>是一个关于授权（authorization）的开放网络标准协议，简单理解就是一种授权机制。</p>
+</blockquote>
+<blockquote>
+<p>它是在客户端和资源所有者之间的授权层，用来分离两种不同的角色。在资源所有者同意并向客户端颁发令牌后，客户端携带令牌可以访问资源所有者的资源。</p>
+<p>OAuth2.0 是 OAuth 协议的一个版本，<strong>2.0 版本不兼容 1.0 版本，相当于 1.0 版本已经废弃</strong></p>
+</blockquote>
+<h4 id="令牌的特点"><a href="#令牌的特点" class="headerlink" title="令牌的特点"></a>令牌的特点</h4><p>（1）短期的，到期会自动失效，用户自己无法修改。</p>
+<p>（2）可以被数据所有者撤销，会立即失效。</p>
+<p>（3）有权限范围（scope），对于网络服务来说，只读令牌就比读写令牌更安全。</p>
+<blockquote>
+<p>令牌既可以让第三方应用获得权限，同时又随时可控，不会危及系统安全。这也是 OAuth 2.0 的优点。</p>
+<p><strong>注意</strong>，只要知道了令牌，就能进入系统。系统一般不会再次确认身份，所以<strong>令牌必须保密，泄漏令牌与泄漏密码的后果是一样的。</strong> 这也是为什么令牌的有效期，一般都设置得很短的原因。</p>
+</blockquote>
+<h2 id="获取令牌四种实现方式"><a href="#获取令牌四种实现方式" class="headerlink" title="获取令牌四种实现方式"></a>获取令牌四种实现方式</h2><ul>
+<li>授权码（authorization-code）</li>
+<li>隐藏式（implicit）</li>
+<li>密码式（password）：</li>
+<li>客户端凭证（client credentials）</li>
+</ul>
+<blockquote>
+<p>不管哪一种授权方式，第三方应用申请令牌之前，<strong>都必须先到系统备案</strong>，说明自己的身份，然后会拿到两个身份识别码：<strong>客户端 ID（client ID）和客户端密钥（client secret）</strong>。这是为了防止令牌被滥用，没有备案过的第三方应用，是不会拿到令牌的；</p>
+</blockquote>
+<h2 id="授权码"><a href="#授权码" class="headerlink" title="授权码"></a>授权码</h2><p><strong>授权码（authorization code）方式，指的是第三方应用先申请一个授权码，然后再用该码获取令牌（适合前后端分离，最常用的方式）。</strong></p>
+<blockquote>
+<p>这种方式是最常用的流程，安全性也最高，它适用于有后端的 Web 应用。授权码通过前端传送，令牌则是储存在后端，而且所有与资源服务器的通信都在后端完成。这样的前后端分离，可以避免令牌泄漏。</p>
+</blockquote>
+<h3 id="实现流程"><a href="#实现流程" class="headerlink" title="实现流程"></a>实现流程</h3><ol>
+<li><p><strong>A 网站提供一个链接，用户点击后就会跳转到 B 网站，授权用户数据给 A 网站使用。</strong></p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="attr">https</span>:<span class="comment">//b.com/oauth/authorize?</span></span><br><span class="line">  response_type=code&amp;</span><br><span class="line">  client_id=<span class="variable constant_">CLIENT_ID</span>&amp;</span><br><span class="line">  redirect_uri=<span class="variable constant_">CALLBACK_URL</span>&amp;</span><br><span class="line">  scope=read</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>response<em>type&#x3D;code _code 参数表示要求返回授权码</em></li>
+<li>client*id&#x3D;CLIENT_ID *参数让 B 知道是谁在请求数据_</li>
+<li>redirect*uri &#x3D; CALLBACK_URL *当 B 网站处理完成链接请求后的跳转地址_</li>
+<li>scope&#x3D;read <em>表示要授权的范围，read 代表对授权资源进行只读操作</em></li>
+</ul>
+</li>
+<li><p><strong>跳转成功，B 网站会要求用户登录，然后询问是否同意给予 A 网站授权。用户表示同意，这时 B 网站就会跳回<code>redirect_uri</code>参数指定的网址。跳转时，会传回一个授权码</strong></p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="attr">https</span>:<span class="comment">//a.com/callback?code=AUTHORIZATION_CODE     // code 代表授权码</span></span><br></pre></td></tr></table></figure>
+</li>
+<li><p><strong>A 网站拿到授权码以后，就可以在后端，向 B 网站请求令牌。</strong></p>
+</li>
+</ol>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">https://b.com/oauth/token? client_id=CLIENT_ID&amp; client_secret=CLIENT_SECRET&amp;</span><br><span class="line">grant_type=authorization_code&amp; code=AUTHORIZATION_CODE&amp;</span><br><span class="line">redirect_uri=CALLBACK_URL</span><br></pre></td></tr></table></figure>
+
+<p>​ client*id *确认 A 的身份_</p>
+<p>​ client*secret *确认 A 的身份_</p>
+<p>​ grant*type *表示使用授权的方式获取授权码_</p>
+<p>​ code <em>第二步中获取到的 code 值</em></p>
+<p>​ redirect*uri *令牌颁发后的回调地址_</p>
+<ol start="4">
+<li><strong>B 网站收到请求以后，就会颁发令牌。具体做法是向<code>redirect_uri</code>指定的网址，发送一段 JSON 数据。</strong></li>
+</ol>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">&#123;</span><br><span class="line">  <span class="string">&quot;access_token&quot;</span>:<span class="string">&quot;ACCESS_TOKEN&quot;</span>,</span><br><span class="line">  <span class="string">&quot;token_type&quot;</span>:<span class="string">&quot;bearer&quot;</span>,</span><br><span class="line">  <span class="string">&quot;expires_in&quot;</span>:<span class="number">2592000</span>,</span><br><span class="line">  <span class="string">&quot;refresh_token&quot;</span>:<span class="string">&quot;REFRESH_TOKEN&quot;</span>,</span><br><span class="line">  <span class="string">&quot;scope&quot;</span>:<span class="string">&quot;read&quot;</span>,</span><br><span class="line">  <span class="string">&quot;uid&quot;</span>:<span class="number">100101</span>,</span><br><span class="line">  <span class="string">&quot;info&quot;</span>:&#123;...&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<hr>
+<h2 id="隐藏式"><a href="#隐藏式" class="headerlink" title="隐藏式"></a>隐藏式</h2><blockquote>
+<p>适用于纯前端的 WEB 应用，必须将令牌储存在前端。允许直接向前端颁发令牌。这种方式没有授权码这个中间步骤，所以称为（授权码）”隐藏式”（implicit）。<strong>由于前端直接获取 token，安全性较低，一般适用于比较信任的网站，并且令牌的有效期，也相对较短，一般是界面关闭及失效</strong></p>
+</blockquote>
+<h3 id="实现流程-1"><a href="#实现流程-1" class="headerlink" title="实现流程"></a>实现流程</h3><ol>
+<li><p><strong>A 网站提供一个链接，要求用户跳转到 B 网站，授权用户数据给 A 网站使用</strong></p>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">https://b.com/oauth/authorize? response_type=token&amp; client_id=CLIENT_ID&amp;</span><br><span class="line">redirect_uri=CALLBACK_URL&amp; scope=read</span><br></pre></td></tr></table></figure>
+
+<blockquote>
+<p>response_type&#x3D;token 表示直接返回令牌</p>
+</blockquote>
+</li>
+<li><p><strong>用户跳转到 B 网站，登录后同意给予 A 网站授权。B 网站就会跳回<code>redirect_uri</code>参数指定的跳转网址，并且把令牌作为 URL 参数，传给 A 网站。</strong></p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="attr">https</span>:<span class="comment">//a.com/callback#token=ACCESS_TOKEN</span></span><br></pre></td></tr></table></figure>
+
+<blockquote>
+<p>token 参数为令牌，<strong>令牌的位置是 URL 锚点（fragment），而不是查询字符串（querystring），这是因为 OAuth 2.0 允许跳转网址是 HTTP 协议，因此存在”中间人攻击”的风险，而浏览器跳转时，锚点不会发到服务器，就减少了泄漏令牌的风险。</strong></p>
+</blockquote>
+</li>
+</ol>
+<hr>
+<h2 id="密码式"><a href="#密码式" class="headerlink" title="密码式"></a>密码式</h2><blockquote>
+<p>如果你高度信任某个应用，RFC 6749 也允许用户把用户名和密码，直接告诉该应用。该应用就使用你的密码，申请令牌，这种方式称为”密码式”（password）。</p>
+</blockquote>
+<h3 id="实现流程-2"><a href="#实现流程-2" class="headerlink" title="实现流程"></a>实现流程</h3><ol>
+<li><p>第一步，A 网站要求用户提供 B 网站的用户名和密码。拿到以后，A 就直接向 B 请求令牌。</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="attr">https</span>:<span class="comment">//oauth.b.com/token?</span></span><br><span class="line">  grant_type=password&amp;</span><br><span class="line">  username=<span class="variable constant_">USERNAME</span>&amp;</span><br><span class="line">  password=<span class="variable constant_">PASSWORD</span>&amp;</span><br><span class="line">  client_id=<span class="variable constant_">CLIENT_ID</span></span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>grant*type &#x3D; password *授权方式为密码的形式进行授权_</li>
+<li>username &amp;&amp; userpassword <em>B 网站的登录用户名及密码</em></li>
+<li>client*id *用户申请令牌的身份标识_</li>
+</ul>
+</li>
+<li><p>B 网站验证身份通过后，直接给出令牌。注意，这时不需要跳转，而是把令牌放在 JSON 数据里面，作为 HTTP 回应，A 因此拿到令牌。</p>
+<blockquote>
+<p>这种方式需要用户给出自己的用户名&#x2F;密码，显然风险很大，因此只适用于其他授权方式都无法采用的情况，而且必须是用户高度信任的应</p>
+</blockquote>
+</li>
+</ol>
+<hr>
+<h2 id="凭证式"><a href="#凭证式" class="headerlink" title="凭证式"></a>凭证式</h2><blockquote>
+<p>凭证式和密码式很相似，主要适用于那些没有前端的命令行应用，可以用最简单的方式获取令牌，在请求响应的 <code>JSON</code> 结果中返回 <code>token</code>。</p>
+</blockquote>
+<h3 id="实现流程-3"><a href="#实现流程-3" class="headerlink" title="实现流程"></a>实现流程</h3><ol>
+<li><strong>第一步，A 应用在命令行向 B 发出请求。</strong></li>
+</ol>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">https://oauth.b.com/token? grant_type=client_credentials&amp; client_id=CLIENT_ID&amp;</span><br><span class="line">client_secret=CLIENT_SECRET</span><br></pre></td></tr></table></figure>
+
+<p>​ <code>grant_type</code> 为 <code>client_credentials</code> 表示凭证式授权，<code>client_id</code> 和 <code>client_secret</code> 用来识别身份。</p>
+<ol start="2">
+<li>B 网站验证通过以后，直接返回令牌。</li>
+</ol>
+<h2 id="令牌的使用-更新"><a href="#令牌的使用-更新" class="headerlink" title="令牌的使用&#x2F;更新"></a>令牌的使用&#x2F;更新</h2><h3 id="使用"><a href="#使用" class="headerlink" title="使用"></a>使用</h3><blockquote>
+<p>A 网站拿到令牌以后，就可以向 B 网站的 API 请求数据了。使用方法为在请求头中将 <code>token</code> 放在 <code>http</code> 请求头部的一个<code>Authorization</code>字段里。</p>
+</blockquote>
+<h3 id="更新"><a href="#更新" class="headerlink" title="更新"></a>更新</h3><blockquote>
+<p><code>token</code>是有时效性的，一旦过期就需要重新获取，令牌的有效期到了，如果让用户重新走一遍上面的流程，再申请一个新的令牌，很可能体验不好，而且也没有必要。OAuth 2.0 允许用户自动更新令牌</p>
+</blockquote>
+<h3 id="实现方法"><a href="#实现方法" class="headerlink" title="实现方法"></a>实现方法</h3><blockquote>
+<p>具体方法是，B 网站颁发令牌的时候，一次性颁发两个令牌，一个用于获取数据，另一个用于获取新的令牌（refresh token 字段）。令牌到期前，用户使用 refresh token 发一个请求，去更新令牌。</p>
+</blockquote>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="attr">https</span>:<span class="comment">//b.com/oauth/token?</span></span><br><span class="line">  grant_type=refresh_token&amp;</span><br><span class="line">  client_id=<span class="variable constant_">CLIENT_ID</span>&amp;</span><br><span class="line">  client_secret=<span class="variable constant_">CLIENT_SECRET</span>&amp;</span><br><span class="line">  refresh_token=<span class="variable constant_">REFRESH_TOKEN</span></span><br></pre></td></tr></table></figure>
+
+<p><code>grant_type</code>参数为<code>refresh_token</code>表示要求更新令牌；</p>
+<p><code>client_id</code>参数和<code>client_secret</code>参数用于确认身份；</p>
+<p><code>refresh_token</code>参数就是用于更新令牌的令牌。</p>
+<p>B 网站验证通过以后，就会颁发新的令牌</p>
+<h2 id="授权码实现-github-授权"><a href="#授权码实现-github-授权" class="headerlink" title="授权码实现 github 授权"></a>授权码实现 github 授权</h2><p><img src="/../images/oauth2_01.png"></p>
+<p><img src="/../images/oauth2_02.png"></p>
+<p><img src="/../images/oauth2_03.png"></p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br></pre></td><td class="code"><pre><span class="line">const Koa = require(&quot;koa&quot;);</span><br><span class="line">const router = require(&quot;koa-router&quot;)();</span><br><span class="line">const staticFiles = require(&#x27;koa-static&#x27;)</span><br><span class="line">const path = require(&#x27;path&#x27;)</span><br><span class="line">const views = require(&#x27;koa-views&#x27;)</span><br><span class="line">const axios = require(&#x27;axios&#x27;)</span><br><span class="line">const qs = require(&#x27;qs&#x27;)</span><br><span class="line">const app = new Koa();</span><br><span class="line"></span><br><span class="line">let userInfo = &#123;&#125;</span><br><span class="line"></span><br><span class="line">app.use(staticFiles(path.resolve(__dirname, &quot;./public&quot;)))</span><br><span class="line">app.use(views(&#x27;views&#x27;, &#123; map: &#123; html: &#x27;ejs&#x27; &#125; &#125;))</span><br><span class="line"></span><br><span class="line">/* 模板路由处理 */</span><br><span class="line">router.get(&#x27;/login&#x27;, async ctx =&gt; &#123;</span><br><span class="line">  await ctx.render(&#x27;login&#x27;)</span><br><span class="line">&#125;)</span><br><span class="line">router.get(&#x27;/home&#x27;, async ctx =&gt; &#123;</span><br><span class="line">  await ctx.render(&#x27;home&#x27;, &#123; userInfo &#125;)</span><br><span class="line">&#125;)</span><br><span class="line"></span><br><span class="line">/* 拦截前端的a链接跳转 */</span><br><span class="line">router.get(&#x27;/loginByGithub&#x27;, async ctx =&gt; &#123;</span><br><span class="line">  /* 跳转到git获取授权码的地址  携带了client_id参数*/</span><br><span class="line">  const path = &#x27;https://github.com/login/oauth/authorize?client_id=xxx&#x27;</span><br><span class="line">  ctx.redirect(path)</span><br><span class="line">&#125;)</span><br><span class="line"></span><br><span class="line">/* 创建一个授权码的地址路由 */</span><br><span class="line">router.get(&#x27;/callback/github&#x27;, async ctx =&gt; &#123;</span><br><span class="line">  const &#123; code &#125; = ctx.query</span><br><span class="line">  /* 请求令牌 post  params参数 */</span><br><span class="line">  const accessToken = await axios.post(&#x27;https://github.com/login/oauth/access_token&#x27;, &#123;</span><br><span class="line">    client_id: &#x27;xxx&#x27;,</span><br><span class="line">    client_secret: &#x27;xxx&#x27;,</span><br><span class="line">    code</span><br><span class="line">  &#125;)</span><br><span class="line">  const &#123; access_token &#125; = qs.parse(accessToken.data)</span><br><span class="line">  /* 获取用户的信息 */</span><br><span class="line">  userInfo = await axios.get(&#x27;https://api.github.com/user&#x27;, &#123;</span><br><span class="line">    /* Bearer 后面记得跟一个空格 */</span><br><span class="line">    headers: &#123;</span><br><span class="line">      Authorization: &#x27;Bearer &#x27; + access_token</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;)</span><br><span class="line">  userInfo = userInfo.data</span><br><span class="line">  ctx.redirect(&#x27;/home&#x27;)</span><br><span class="line">&#125;)</span><br><span class="line"></span><br><span class="line">app.use(router.routes())</span><br><span class="line">app.listen(3000, () =&gt; &#123;</span><br><span class="line">  console.log(&#x27;server is running on port 3000&#x27;)</span><br><span class="line">&#125;)</span><br><span class="line"></span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="http://example.com/2024/12/13/c%E8%AF%AD%E8%A8%80%E9%93%BE%E8%A1%A8%E6%93%8D%E4%BD%9C/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="wangzhiwei">
+      <meta itemprop="description" content="javascript nodejs web developer...">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="WBlog">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/2024/12/13/c%E8%AF%AD%E8%A8%80%E9%93%BE%E8%A1%A8%E6%93%8D%E4%BD%9C/" class="post-title-link" itemprop="url">c语言链表操作</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2024-12-13 16:04:41" itemprop="dateCreated datePublished" datetime="2024-12-13T16:04:41+08:00">2024-12-13</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-calendar-check-o"></i>
+                </span>
+                <span class="post-meta-item-text">更新于</span>
+                <time title="修改时间：2025-03-18 11:10:52" itemprop="dateModified" datetime="2025-03-18T11:10:52+08:00">2025-03-18</time>
+              </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line"></span><br><span class="line">#include &lt;stdio.h&gt;</span><br><span class="line">#include &lt;stdlib.h&gt;</span><br><span class="line"></span><br><span class="line">// 定义链表节点结构体</span><br><span class="line">typedef struct Node &#123;</span><br><span class="line">    int data;</span><br><span class="line">    struct Node* next;</span><br><span class="line">&#125; Node;</span><br><span class="line"></span><br><span class="line">// 定义链表头结构体</span><br><span class="line">typedef struct LinkedList &#123;</span><br><span class="line">    Node* head;</span><br><span class="line">&#125; LinkedList;</span><br><span class="line"></span><br><span class="line">// 创建一个空链表</span><br><span class="line">LinkedList* createLinkedList() &#123;</span><br><span class="line">    LinkedList* list = (LinkedList*)malloc(sizeof(LinkedList));</span><br><span class="line">    if (list == NULL) &#123;</span><br><span class="line">        fprintf(stderr, &quot;Memory allocation failed\n&quot;);</span><br><span class="line">        exit(1);</span><br><span class="line">    &#125;</span><br><span class="line">    list-&gt;head = NULL;</span><br><span class="line">    return list;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">// 在链表头部插入节点</span><br><span class="line">void insertAtHead(LinkedList* list, int data) &#123;</span><br><span class="line">    Node* newNode = (Node*)malloc(sizeof(Node));</span><br><span class="line">    if (newNode == NULL) &#123;</span><br><span class="line">        fprintf(stderr, &quot;Memory allocation failed\n&quot;);</span><br><span class="line">        exit(1);</span><br><span class="line">    &#125;</span><br><span class="line">    newNode-&gt;data = data;</span><br><span class="line">    newNode-&gt;next = list-&gt;head;</span><br><span class="line">    list-&gt;head = newNode;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">// 删除链表中的第一个节点</span><br><span class="line">void deleteFromHead(LinkedList* list) &#123;</span><br><span class="line">    if (list-&gt;head == NULL) &#123;</span><br><span class="line">        fprintf(stderr, &quot;List is empty\n&quot;);</span><br><span class="line">        return;</span><br><span class="line">    &#125;</span><br><span class="line">    Node* temp = list-&gt;head;</span><br><span class="line">    list-&gt;head = list-&gt;head-&gt;next;</span><br><span class="line">    free(temp);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">// 遍历链表并打印所有节点的数据</span><br><span class="line">void traverseLinkedList(LinkedList* list) &#123;</span><br><span class="line">    Node* current = list-&gt;head;</span><br><span class="line">    while (current != NULL) &#123;</span><br><span class="line">        printf(&quot;%d -&gt; &quot;, current-&gt;data);</span><br><span class="line">        current = current-&gt;next;</span><br><span class="line">    &#125;</span><br><span class="line">    printf(&quot;NULL\n&quot;);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">// 释放链表的所有内存</span><br><span class="line">void freeLinkedList(LinkedList* list) &#123;</span><br><span class="line">    Node* current = list-&gt;head;</span><br><span class="line">    Node* temp;</span><br><span class="line">    while (current != NULL) &#123;</span><br><span class="line">        temp = current;</span><br><span class="line">        current = current-&gt;next;</span><br><span class="line">        free(temp);</span><br><span class="line">    &#125;</span><br><span class="line">    free(list);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">int main() &#123;</span><br><span class="line">    // 创建一个空链表</span><br><span class="line">    LinkedList* list = createLinkedList();</span><br><span class="line"></span><br><span class="line">    // 插入节点</span><br><span class="line">    insertAtHead(list, 10);</span><br><span class="line">    insertAtHead(list, 20);</span><br><span class="line">    insertAtHead(list, 30);</span><br><span class="line"></span><br><span class="line">    // 遍历链表</span><br><span class="line">    printf(&quot;Linked List after insertions:\n&quot;);</span><br><span class="line">    traverseLinkedList(list);</span><br><span class="line"></span><br><span class="line">    // 删除节点</span><br><span class="line">    deleteFromHead(list);</span><br><span class="line">    printf(&quot;Linked List after deleting from head:\n&quot;);</span><br><span class="line">    traverseLinkedList(list);</span><br><span class="line"></span><br><span class="line">    // 释放链表内存</span><br><span class="line">    freeLinkedList(list);</span><br><span class="line"></span><br><span class="line">    return 0;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"></span><br></pre></td></tr></table></figure>
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
     <link itemprop="mainEntityOfPage" href="http://example.com/2024/12/13/c-plusplus-c-%E6%B7%B7%E5%90%88%E7%BC%96%E8%AF%91/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -719,524 +1413,10 @@ https://docs.fluentbit.io/manual
   
   
 
-      
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="http://example.com/2024/12/13/mqtt-vue/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.gif">
-      <meta itemprop="name" content="wangzhiwei">
-      <meta itemprop="description" content="javascript nodejs web developer...">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="WBlog">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/2024/12/13/mqtt-vue/" class="post-title-link" itemprop="url">mqtt + vue</a>
-        </h2>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              <span class="post-meta-item-text">发表于</span>
-
-              <time title="创建时间：2024-12-13 15:35:26" itemprop="dateCreated datePublished" datetime="2024-12-13T15:35:26+08:00">2024-12-13</time>
-            </span>
-              <span class="post-meta-item">
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-calendar-check-o"></i>
-                </span>
-                <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2025-03-18 11:10:52" itemprop="dateModified" datetime="2025-03-18T11:10:52+08:00">2025-03-18</time>
-              </span>
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              <span class="post-meta-item-text">分类于</span>
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/mqtt/" itemprop="url" rel="index"><span itemprop="name">mqtt</span></a>
-                </span>
-            </span>
-
-          
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <p><a target="_blank" rel="noopener" href="https://www.bilibili.com/video/BV1Tw4m1Q7qG/?spm_id_from=333.337.search-card.all.click&vd_source=ffda878df0ed45bee1ade91d8f451048">https://www.bilibili.com/video/BV1Tw4m1Q7qG/?spm_id_from=333.337.search-card.all.click&amp;vd_source=ffda878df0ed45bee1ade91d8f451048</a><br><a target="_blank" rel="noopener" href="https://www.bilibili.com/video/BV1Zi4y1T78H?spm_id_from=333.788.player.switch&vd_source=ffda878df0ed45bee1ade91d8f451048">https://www.bilibili.com/video/BV1Zi4y1T78H?spm_id_from=333.788.player.switch&amp;vd_source=ffda878df0ed45bee1ade91d8f451048</a></p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">import mqtt from &#x27;mqtt&#x27;;</span><br><span class="line"> </span><br><span class="line">export default &#123;</span><br><span class="line">  name: &#x27;MqttComponent&#x27;,</span><br><span class="line">  data() &#123;</span><br><span class="line">    return &#123;</span><br><span class="line">      client: null,</span><br><span class="line">    &#125;;</span><br><span class="line">  &#125;,</span><br><span class="line">  created() &#123;</span><br><span class="line">    this.connectMqtt();</span><br><span class="line">  &#125;,</span><br><span class="line">  methods: &#123;</span><br><span class="line">    connectMqtt() &#123;</span><br><span class="line">      // 假设你的 MQTT 服务器支持 WebSocket，并且地址是 ws://your.mqtt.broker</span><br><span class="line">      this.client = mqtt.connect(&#x27;ws://your.mqtt.broker&#x27;, &#123;</span><br><span class="line">        clientId: &#x27;unique_client_id&#x27;,</span><br><span class="line">      &#125;);</span><br><span class="line"> </span><br><span class="line">      this.client.on(&#x27;connect&#x27;, () =&gt; &#123;</span><br><span class="line">        console.log(&#x27;MQTT Connected&#x27;);</span><br><span class="line">        // 订阅主题</span><br><span class="line">        this.client.subscribe(&#x27;your/topic&#x27;);</span><br><span class="line">      &#125;);</span><br><span class="line"> </span><br><span class="line">      this.client.on(&#x27;message&#x27;, (topic, message) =&gt; &#123;</span><br><span class="line">        // 处理接收到的消息</span><br><span class="line">        console.log(`Received message on $&#123;topic&#125;: $&#123;message&#125;`);</span><br><span class="line">      &#125;);</span><br><span class="line"> </span><br><span class="line">      this.client.on(&#x27;error&#x27;, (error) =&gt; &#123;</span><br><span class="line">        console.log(&#x27;MQTT Error:&#x27;, error);</span><br><span class="line">      &#125;);</span><br><span class="line">    &#125;,</span><br><span class="line">    publishMessage(topic, message) &#123;</span><br><span class="line">      // 发布消息</span><br><span class="line">      this.client.publish(topic, message);</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;,</span><br><span class="line">  beforeDestroy() &#123;</span><br><span class="line">    if (this.client) &#123;</span><br><span class="line">      this.client.end();</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;,</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line"></span><br></pre></td></tr></table></figure>
-
-<p><img src="/../images/mqtt_01.png"></p>
-<p><img src="/../images/mqtt_02.png"></p>
-<p><img src="/../images/mqtt_03.png"></p>
-<p>疑问：<br>mqtt 我也面没打开的时候，没有 订阅 ，java 还会一直往 mqtt发送消息吗？比如 id为1的集群状态，你那边还会一直发送吗？发送的话，我再次链接的时候会不会收到很多这个状态<br>mqtt只保留最新的一次消息</p>
-<p><img src="/../images/mqtt_04.png"></p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">[admin@cdn116 ~]$ sudo docker run -d --name emqx -p 2883:2883 -p 8083:8083 -p 8084:8084 -p 8883:8883 -p 18083:18083 emqx/emqx</span><br><span class="line"></span><br></pre></td></tr></table></figure>
-
-<p><a target="_blank" rel="noopener" href="http://192.168.40.116:18083/#/dashboard/overview">http://192.168.40.116:18083/#/dashboard/overview</a></p>
-<p>vue mqtt demo</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">&lt;template&gt;</span><br><span class="line">    &lt;div&gt;&#123;&#123;msg&#125;&#125;&lt;/div&gt;</span><br><span class="line">    &lt;button @click=&quot;stop&quot;&gt;stop&lt;/button&gt;</span><br><span class="line">    &lt;button @click=&quot;start&quot;&gt;start&lt;/button&gt;</span><br><span class="line">&lt;/template&gt;</span><br><span class="line"></span><br><span class="line">&lt;script&gt;</span><br><span class="line">import mqtt from &#x27;mqtt&#x27;</span><br><span class="line">import &#123; ref, onUnmounted &#125; from &#x27;vue&#x27;;</span><br><span class="line"></span><br><span class="line">const options = &#123;</span><br><span class="line">    port: 8083,</span><br><span class="line">    connectTimeout: 4000,</span><br><span class="line">    clientId: &#x27;mqttjs_&#x27; + Math.random().toString(16).substr(2, 8),</span><br><span class="line">    reconnectPeriod: 5000 // 自动重连时间间隔</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line">let client = null;</span><br><span class="line"></span><br><span class="line">export default &#123;</span><br><span class="line">    name: &quot;App&quot;,</span><br><span class="line">    setup() &#123;</span><br><span class="line">    </span><br><span class="line">        const msg = ref(&#x27;hello world&#x27;);</span><br><span class="line"></span><br><span class="line">        const start = () =&gt; &#123;</span><br><span class="line">            if (!client || client.connected === false) &#123;</span><br><span class="line">                client = mqtt.connect(&#x27;ws://192.168.40.116/mqtt&#x27;, options);</span><br><span class="line">                setupClientEvents();</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;;</span><br><span class="line"></span><br><span class="line">        const stop = () =&gt; &#123;</span><br><span class="line">            if (client &amp;&amp; client.connected === true) &#123;</span><br><span class="line">                client.end(function() &#123;</span><br><span class="line">                    console.log(&#x27;disconnected&#x27;);</span><br><span class="line">                &#125;);</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">        function setupClientEvents() &#123;</span><br><span class="line">            client.on(&#x27;connect&#x27;, function () &#123;</span><br><span class="line">                console.log(&#x27;Connected to MQTT broker&#x27;);</span><br><span class="line">                for (var i = 1; i &lt;= 10; i++) &#123;</span><br><span class="line">                    client.subscribe(`stock/$&#123;i&#125;/price`, function (err) &#123;</span><br><span class="line">                        if (err) &#123;</span><br><span class="line">                            console.error(&#x27;Subscription error:&#x27;, err);</span><br><span class="line">                        &#125;</span><br><span class="line">                    &#125;);</span><br><span class="line">                &#125;</span><br><span class="line">            &#125;);</span><br><span class="line"></span><br><span class="line">            client.on(&#x27;error&#x27;, function (err) &#123;</span><br><span class="line">                console.error(&#x27;Connection error:&#x27;, err);</span><br><span class="line">            &#125;);</span><br><span class="line"></span><br><span class="line">            client.on(&#x27;message&#x27;, function (topic, message) &#123;</span><br><span class="line">                console.log(topic + &#x27;:&#x27; + message.toString());</span><br><span class="line">                msg.value = JSON.parse(message.toString()).msg;</span><br><span class="line"></span><br><span class="line">            &#125;);</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        onUnmounted(() =&gt; &#123;</span><br><span class="line">            if (client) &#123;</span><br><span class="line">                client.end();</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;);</span><br><span class="line"></span><br><span class="line">        return &#123;</span><br><span class="line">            start,</span><br><span class="line">            stop,</span><br><span class="line">            msg</span><br><span class="line">        &#125;;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line">&lt;/script&gt;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"></span><br><span class="line"></span><br></pre></td></tr></table></figure>
-
-
-
-
-
-<p>yum search mosquitto</p>
-<p>yum install mosquitto.x86_64</p>
-<p>mosquitto_pub<br>mosquitto_sub </p>
-<p>命令就可以执行了</p>
-<p>参考文档</p>
-<p><a target="_blank" rel="noopener" href="https://xw1ei7mxto.feishu.cn/wiki/Wdn2wOBfvis1Hhk6rYccNrvHnYd">https://xw1ei7mxto.feishu.cn/wiki/Wdn2wOBfvis1Hhk6rYccNrvHnYd</a></p>
-<p>开启 mosquitto<br>mosquitto -c &#x2F;etc&#x2F;mosquitto&#x2F;mosquitto.conf -p 1884</p>
-<p>发布消息<br>mosquitto_pub -h 127.0.0.1 -p 1885 -t topic1 -m “Hello, topic1!”</p>
-<p>mosquitto_pub -h 127.0.0.1 -p 1885 -t topic1 -m ‘{“key1”:”value1”,”key2”:”value2”}’</p>
-<p>订阅消息<br>mosquitto_sub -h 127.0.0.1 -p 1884 -t topic1 -i client1 -F ‘%t : %p’</p>
-<p>参考文档：</p>
-<p>发布消息<br>mosquitto_pub -h 192.168.40.116 -p 1883 -t topic1 -m “Hello, topic1!”</p>
-<p>mosquitto_pub -h 192.168.40.116 -p 1883 -t topic1 -m ‘{“key1”:”value1”,”key2”:”value2”}’</p>
-<p>订阅消息<br>mosquitto_sub -h 192.168.40.116 -p 1883 -t topic1 -i client1 -F ‘%t : %p’</p>
-<p>cnpm install mqtt -g</p>
-<p>mqtt pub -h 192.168.40.116 -p 1883 -t topic1 -m ‘{“key1”:”value1”,”key2”:”value2”}’<br>mqtt sub -h 192.168.40.116 -p 1883 -t topic1 -i client1 -F ‘%t : %p’</p>
-<p>mqtt pub -h 192.168.40.116 -p 8083 -t topic1 -m ‘{“key1”:”value1”,”key2”:”value2”}’<br>mqtt sub -h 192.168.40.116 -p 8083 -t topic1 -i client1 -F ‘%t : %p’</p>
-
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
-      
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="http://example.com/2024/12/13/nodejs-%E8%87%AA%E5%B8%A6crypto-%E5%8A%A0%E5%AF%86/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.gif">
-      <meta itemprop="name" content="wangzhiwei">
-      <meta itemprop="description" content="javascript nodejs web developer...">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="WBlog">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/2024/12/13/nodejs-%E8%87%AA%E5%B8%A6crypto-%E5%8A%A0%E5%AF%86/" class="post-title-link" itemprop="url">nodejs 自带crypto 加密</a>
-        </h2>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              <span class="post-meta-item-text">发表于</span>
-
-              <time title="创建时间：2024-12-13 15:29:38" itemprop="dateCreated datePublished" datetime="2024-12-13T15:29:38+08:00">2024-12-13</time>
-            </span>
-              <span class="post-meta-item">
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-calendar-check-o"></i>
-                </span>
-                <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2025-03-18 11:10:52" itemprop="dateModified" datetime="2025-03-18T11:10:52+08:00">2025-03-18</time>
-              </span>
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              <span class="post-meta-item-text">分类于</span>
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/nodejs-crypto/" itemprop="url" rel="index"><span itemprop="name">nodejs crypto</span></a>
-                </span>
-            </span>
-
-          
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <p>nodejs 自带crypto 加密</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line"></span><br><span class="line">import crypto from &#x27;node:crypto&#x27;;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">// nodejs 自带rsa加解密</span><br><span class="line">const &#123; privateKey, publicKey &#125; = crypto.generateKeyPairSync(&#x27;rsa&#x27;, &#123;modulusLength: 1024&#125;);</span><br><span class="line">const encrypted = crypto.publicEncrypt(publicKey, Buffer.from(&#x27;xU7mp91!&#x27;))</span><br><span class="line"></span><br><span class="line">const rsa_pass = encrypted.toString(&#x27;hex&#x27;);</span><br><span class="line">console.log(rsa_pass);</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">const rsa_depass = crypto.privateDecrypt(privateKey, encrypted)</span><br><span class="line"></span><br><span class="line">console.log(rsa_depass.toString());</span><br><span class="line"></span><br><span class="line">//哈希函数</span><br><span class="line">//不能被解密 单项 不可逆的</span><br><span class="line"></span><br><span class="line">let hash = crypto.createHash(&#x27;sha256&#x27;);</span><br><span class="line"></span><br><span class="line">hash.update(&#x27;hello&#x27;);</span><br><span class="line"></span><br><span class="line">console.log(&#x27;sha256===&gt;&#x27;,hash.digest(&#x27;hex&#x27;));</span><br><span class="line"></span><br><span class="line">//md5 包裹一下存储到数据库中， i每次加密后值不变</span><br><span class="line">let hash1 = crypto.createHash(&#x27;md5&#x27;);</span><br><span class="line"></span><br><span class="line">hash1.update(&#x27;hello&#x27;);</span><br><span class="line"></span><br><span class="line">console.log(&#x27;md5===&gt;&#x27;,hash1.digest(&#x27;hex&#x27;));</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">//对称加密算法</span><br><span class="line">//第一个参数： aes-128-cbc 算法</span><br><span class="line">//第二个参数： key 加密的密钥 32位</span><br><span class="line">//第三个参数： iv 初始化向量 16位 保证我们生成的密钥是随机的,密钥串缺少位数，还可以进行补码操作</span><br><span class="line"></span><br><span class="line">let key = crypto.randomBytes(32);</span><br><span class="line">let iv = Buffer.from(crypto.randomBytes(16));</span><br><span class="line">const cipher = crypto.createCipheriv(&#x27;aes-256-cbc&#x27;, key, iv)</span><br><span class="line"></span><br><span class="line">cipher.update(&#x27;123456&#x27;,&#x27;utf-8&#x27;, &#x27;hex&#x27;)</span><br><span class="line"></span><br><span class="line">const result = cipher.final(&#x27;hex&#x27;) //输出16进制</span><br><span class="line"></span><br><span class="line">console.log(&quot;对称加密算法：&quot;,result)</span><br><span class="line"></span><br><span class="line">//解密 相同的算法 相同的key相同的iv</span><br><span class="line">const decipher = crypto.createDecipheriv(&#x27;aes-256-cbc&#x27;, key, iv)</span><br><span class="line">decipher.update(result,&#x27;hex&#x27;,&#x27;utf-8&#x27;)</span><br><span class="line">console.log(decipher.final(&#x27;utf-8&#x27;))</span><br><span class="line"></span><br></pre></td></tr></table></figure>
-
-<p>加密：<br><a target="_blank" rel="noopener" href="https://www.douyin.com/user/self?from_tab_name=main&modal_id=7310094866795613491&showTab=record">https://www.douyin.com/user/self?from_tab_name=main&amp;modal_id=7310094866795613491&amp;showTab=record</a></p>
-
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
-      
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="http://example.com/2024/12/13/graphql-express/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.gif">
-      <meta itemprop="name" content="wangzhiwei">
-      <meta itemprop="description" content="javascript nodejs web developer...">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="WBlog">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/2024/12/13/graphql-express/" class="post-title-link" itemprop="url">graphql + express</a>
-        </h2>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              <span class="post-meta-item-text">发表于</span>
-
-              <time title="创建时间：2024-12-13 15:18:53" itemprop="dateCreated datePublished" datetime="2024-12-13T15:18:53+08:00">2024-12-13</time>
-            </span>
-              <span class="post-meta-item">
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-calendar-check-o"></i>
-                </span>
-                <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2025-03-18 11:10:52" itemprop="dateModified" datetime="2025-03-18T11:10:52+08:00">2025-03-18</time>
-              </span>
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              <span class="post-meta-item-text">分类于</span>
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/graphql/" itemprop="url" rel="index"><span itemprop="name">graphql</span></a>
-                </span>
-                  ，
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/graphql/node/" itemprop="url" rel="index"><span itemprop="name">node</span></a>
-                </span>
-                  ，
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/graphql/node/express/" itemprop="url" rel="index"><span itemprop="name">express</span></a>
-                </span>
-            </span>
-
-          
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <p><img src="/../images/graphql_01.png"></p>
-<p>package.json</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">&#123;</span><br><span class="line">  &quot;name&quot;: &quot;01&quot;,</span><br><span class="line">  &quot;version&quot;: &quot;1.0.0&quot;,</span><br><span class="line">  &quot;main&quot;: &quot;index.js&quot;,</span><br><span class="line">  &quot;scripts&quot;: &#123;</span><br><span class="line">    &quot;test&quot;: &quot;echo \&quot;Error: no test specified\&quot; &amp;&amp; exit 1&quot;</span><br><span class="line">  &#125;,</span><br><span class="line">  &quot;keywords&quot;: [],</span><br><span class="line">  &quot;author&quot;: &quot;&quot;,</span><br><span class="line">  &quot;license&quot;: &quot;ISC&quot;,</span><br><span class="line">  &quot;description&quot;: &quot;&quot;,</span><br><span class="line">  &quot;dependencies&quot;: &#123;</span><br><span class="line">    &quot;express&quot;: &quot;^4.21.2&quot;,</span><br><span class="line">    &quot;express-graphql&quot;: &quot;^0.12.0&quot;,</span><br><span class="line">    &quot;graphql&quot;: &quot;^16.9.0&quot;,</span><br><span class="line">    &quot;nodemon&quot;: &quot;^3.1.7&quot;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br></pre></td></tr></table></figure>
-
-<p>helloworld.js</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br></pre></td><td class="code"><pre><span class="line">const express = require(&#x27;express&#x27;);</span><br><span class="line">const &#123; buildSchema &#125; = require(&#x27;graphql&#x27;);</span><br><span class="line">const &#123;graphqlHTTP&#125; = require(&#x27;express-graphql&#x27;);</span><br><span class="line"></span><br><span class="line">const schema = buildSchema(`</span><br><span class="line">  type Account &#123;</span><br><span class="line">    name: String</span><br><span class="line">    age: Int,</span><br><span class="line">    sex: String,</span><br><span class="line">    department: String</span><br><span class="line">  &#125;</span><br><span class="line">  type Query &#123;</span><br><span class="line">    hello: String,</span><br><span class="line">    accountName: String,</span><br><span class="line">    age: Int,</span><br><span class="line">    account: Account</span><br><span class="line">  &#125;</span><br><span class="line">`);</span><br><span class="line"></span><br><span class="line">const root = &#123;</span><br><span class="line">  hello: () =&gt; &#123;</span><br><span class="line">    return &#x27;Hello world!&#x27;;</span><br><span class="line">  &#125;,</span><br><span class="line">  accountName: () =&gt; &#123;</span><br><span class="line">    return &#x27;Account Name&#x27;;</span><br><span class="line">  &#125;,</span><br><span class="line">  age: () =&gt; &#123;</span><br><span class="line">    return 30;</span><br><span class="line">  &#125;,</span><br><span class="line">  account: () =&gt; &#123;</span><br><span class="line">    return &#123;</span><br><span class="line">      name: &#x27;Account Name&#x27;,</span><br><span class="line">      age: 30,</span><br><span class="line">      sex: &#x27;Male&#x27;,</span><br><span class="line">      department: &#x27;IT&#x27;</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line">const app = express();</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">app.use(&#x27;/graphql&#x27;, graphqlHTTP(&#123;</span><br><span class="line">  schema: schema,</span><br><span class="line">  rootValue: root,</span><br><span class="line">  graphiql: true,</span><br><span class="line">&#125;));</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">app.listen(4000);</span><br><span class="line"></span><br><span class="line"></span><br></pre></td></tr></table></figure>
-
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">nodemon helloworld.js</span><br><span class="line"></span><br><span class="line"></span><br></pre></td></tr></table></figure>
-
-<p>二、</p>
-<p><img src="/../images/graphql_02.png"></p>
-<p>baseType.js</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br></pre></td><td class="code"><pre><span class="line">const express = require(&#x27;express&#x27;);</span><br><span class="line">const &#123; buildSchema &#125; = require(&#x27;graphql&#x27;);</span><br><span class="line">const &#123;graphqlHTTP&#125; = require(&#x27;express-graphql&#x27;);</span><br><span class="line"></span><br><span class="line">//!为必须参数</span><br><span class="line">const schema = buildSchema(`</span><br><span class="line">  </span><br><span class="line">  type Account &#123;</span><br><span class="line">    name: String</span><br><span class="line">    age: Int</span><br><span class="line">    sex: String</span><br><span class="line">    department: String</span><br><span class="line">    salary(city: String!): Int</span><br><span class="line">  &#125;</span><br><span class="line">  type Query &#123;</span><br><span class="line">    getClassMates(classNum: Int!):[String]</span><br><span class="line">    account(username: String!): Account</span><br><span class="line">  &#125;</span><br><span class="line">`);</span><br><span class="line"></span><br><span class="line">const root = &#123;</span><br><span class="line">  getClassMates: (&#123;classNum&#125;) =&gt; &#123;</span><br><span class="line">    const obj = &#123;</span><br><span class="line">        1: [&#x27;Jack&#x27;, &#x27;Rose&#x27;, &#x27;Lucy&#x27;],</span><br><span class="line">        2: [&#x27;Tom&#x27;, &#x27;Jerry&#x27;, &#x27;Mike&#x27;]</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    return obj[classNum];</span><br><span class="line">  &#125;,</span><br><span class="line">  account: (&#123;username&#125;) =&gt; &#123;</span><br><span class="line">    const name = username;</span><br><span class="line">    const sex = &#x27;Male&#x27;;</span><br><span class="line">    const age = 30;</span><br><span class="line">    const department = &#x27;IT&#x27;;</span><br><span class="line">    const salary = (&#123;city&#125;) =&gt; &#123;</span><br><span class="line">      return city === &#x27;北京&#x27; ? 10000 : 4000;</span><br><span class="line">    &#125;</span><br><span class="line">    return &#123;name, sex, age, department, salary&#125;;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line">const app = express();</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">app.use(&#x27;/graphql&#x27;, graphqlHTTP(&#123;</span><br><span class="line">  schema: schema,</span><br><span class="line">  rootValue: root,</span><br><span class="line">  graphiql: true,</span><br><span class="line">&#125;));</span><br><span class="line"></span><br><span class="line">app.listen(4000);</span><br><span class="line"></span><br><span class="line"></span><br></pre></td></tr></table></figure>
-
-<p>三</p>
-<p>baseType.js</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br></pre></td><td class="code"><pre><span class="line">const express = require(&#x27;express&#x27;);</span><br><span class="line">const &#123; buildSchema &#125; = require(&#x27;graphql&#x27;);</span><br><span class="line">const &#123;graphqlHTTP&#125; = require(&#x27;express-graphql&#x27;);</span><br><span class="line"></span><br><span class="line">//!为必须参数</span><br><span class="line">const schema = buildSchema(`</span><br><span class="line">  </span><br><span class="line">  type Account &#123;</span><br><span class="line">    name: String</span><br><span class="line">    age: Int</span><br><span class="line">    sex: String</span><br><span class="line">    department: String</span><br><span class="line">    salary(city: String): Int</span><br><span class="line">  &#125;</span><br><span class="line">  type Query &#123;</span><br><span class="line">    getClassMates(classNum: Int!):[String]</span><br><span class="line">    account(username: String): Account</span><br><span class="line">  &#125;</span><br><span class="line">`);</span><br><span class="line"></span><br><span class="line">const root = &#123;</span><br><span class="line">  getClassMates: (&#123;classNum&#125;) =&gt; &#123;</span><br><span class="line">    const obj = &#123;</span><br><span class="line">        1: [&#x27;Jack&#x27;, &#x27;Rose&#x27;, &#x27;Lucy&#x27;],</span><br><span class="line">        2: [&#x27;Tom&#x27;, &#x27;Jerry&#x27;, &#x27;Mike&#x27;]</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    return obj[classNum];</span><br><span class="line">  &#125;,</span><br><span class="line">  account: (&#123;username&#125;) =&gt; &#123;</span><br><span class="line">    const name = username;</span><br><span class="line">    const sex = &#x27;Male&#x27;;</span><br><span class="line">    const age = 30;</span><br><span class="line">    const department = &#x27;IT&#x27;;</span><br><span class="line">    const salary = (&#123;city&#125;) =&gt; &#123;</span><br><span class="line">      return city === &#x27;北京&#x27; ? 10000 : 4000;</span><br><span class="line">    &#125;</span><br><span class="line">    return &#123;name, sex, age, department, salary&#125;;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line">const app = express();</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">app.use(&#x27;/graphql&#x27;, graphqlHTTP(&#123;</span><br><span class="line">  schema: schema,</span><br><span class="line">  rootValue: root,</span><br><span class="line">  graphiql: true,</span><br><span class="line">&#125;));</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">//静态资源目录</span><br><span class="line">app.use(express.static(&#x27;public&#x27;));</span><br><span class="line"></span><br><span class="line">app.listen(4000);</span><br><span class="line"></span><br><span class="line"></span><br></pre></td></tr></table></figure>
-
-<p>index.html</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">&lt;!DOCTYPE html&gt;</span><br><span class="line">&lt;html lang=&quot;en&quot;&gt;</span><br><span class="line">&lt;head&gt;</span><br><span class="line">    &lt;meta charset=&quot;UTF-8&quot;&gt;</span><br><span class="line">    &lt;meta name=&quot;viewport&quot; content=&quot;width=device-width, initial-scale=1.0&quot;&gt;</span><br><span class="line">    &lt;title&gt;Document&lt;/title&gt;</span><br><span class="line">&lt;/head&gt;</span><br><span class="line">&lt;body&gt;</span><br><span class="line">    </span><br><span class="line">    &lt;button onclick=&quot;getData()&quot;&gt;获取数据&lt;/button&gt;</span><br><span class="line"></span><br><span class="line">    &lt;script&gt;</span><br><span class="line"></span><br><span class="line">        function getData()&#123;</span><br><span class="line">            // 1.创建对象</span><br><span class="line">            const query = `</span><br><span class="line">            query Account($username: String, $city: String) &#123;</span><br><span class="line">                account(username: $username) &#123;</span><br><span class="line">                    name</span><br><span class="line">                    age</span><br><span class="line">                    sex</span><br><span class="line">                    salary(city: $city)</span><br><span class="line">                &#125;</span><br><span class="line">            &#125;</span><br><span class="line">            `</span><br><span class="line">            const variables = &#123;</span><br><span class="line">                username: &#x27;zhangsan&#x27;,</span><br><span class="line">                city: &#x27;北京&#x27;</span><br><span class="line">            &#125;</span><br><span class="line"></span><br><span class="line">            fetch(&#x27;/graphql&#x27;, &#123;</span><br><span class="line">                method: &#x27;POST&#x27;,</span><br><span class="line">                headers: &#123;</span><br><span class="line">                    &#x27;Content-Type&#x27;: &#x27;application/json&#x27;,</span><br><span class="line">                    &#x27;Accept&#x27;: &#x27;application/json&#x27;,</span><br><span class="line">                &#125;,</span><br><span class="line">                    body: JSON.stringify(&#123;query, variables&#125;)</span><br><span class="line">                &#125;)</span><br><span class="line">                .then(res =&gt; res.json())</span><br><span class="line">                .then(data =&gt; &#123;</span><br><span class="line">                    console.log(data)</span><br><span class="line">                &#125;</span><br><span class="line">            )</span><br><span class="line">            </span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">    &lt;/script&gt;</span><br><span class="line">&lt;/body&gt;</span><br><span class="line">&lt;/html&gt;</span><br><span class="line"></span><br><span class="line"></span><br></pre></td></tr></table></figure>
-
-<p>四、添加、修改、查询</p>
-<p><img src="/../images/graphql_03.png"></p>
-<p>mutation.js</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">const express = require(&#x27;express&#x27;);</span><br><span class="line">const &#123; buildSchema &#125; = require(&#x27;graphql&#x27;);</span><br><span class="line">const &#123;graphqlHTTP&#125; = require(&#x27;express-graphql&#x27;);</span><br><span class="line"></span><br><span class="line">const schema = buildSchema(`</span><br><span class="line">  type Account &#123;</span><br><span class="line">    name: String</span><br><span class="line">    age: Int</span><br><span class="line">    sex: String</span><br><span class="line">    department: String</span><br><span class="line">  &#125;</span><br><span class="line">  input AccountInput &#123;</span><br><span class="line">    name: String</span><br><span class="line">    age: Int</span><br><span class="line">    sex: String</span><br><span class="line">    department: String</span><br><span class="line">  &#125;</span><br><span class="line">  type Mutation &#123;</span><br><span class="line">    createAccount(input: AccountInput): Account</span><br><span class="line">    updateAccount(id: ID!, input: AccountInput): Account</span><br><span class="line">  &#125;</span><br><span class="line">  type Query &#123;</span><br><span class="line">    account: [Account]</span><br><span class="line">  &#125;</span><br><span class="line">`);</span><br><span class="line"></span><br><span class="line">const fakeDb = &#123;&#125;;</span><br><span class="line"></span><br><span class="line">const root = &#123;</span><br><span class="line">  createAccount: (&#123;input&#125;) =&gt; &#123;</span><br><span class="line">    //相当与数据库的保存</span><br><span class="line">    fakeDb[input.name] = input;</span><br><span class="line">    //返回保存结果</span><br><span class="line">    return fakeDb[input.name]</span><br><span class="line">  &#125;,</span><br><span class="line">  updateAccount: (&#123;id, input&#125;) =&gt; &#123;</span><br><span class="line">    //相当与数据库的更新</span><br><span class="line">    fakeDb[id] = Object.assign(&#123;&#125;, fakeDb[id], input);</span><br><span class="line">    //返回更新结果</span><br><span class="line">    return fakeDb[id]</span><br><span class="line">  &#125;,</span><br><span class="line">  account: () =&gt; &#123;</span><br><span class="line">    var arr = [];</span><br><span class="line">    for(const key in fakeDb) &#123;</span><br><span class="line">      arr.push(fakeDb[key]);</span><br><span class="line">    &#125;</span><br><span class="line">    return arr;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line">const app = express();</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">app.use(&#x27;/graphql&#x27;, graphqlHTTP(&#123;</span><br><span class="line">  schema: schema,</span><br><span class="line">  rootValue: root,</span><br><span class="line">  graphiql: true,</span><br><span class="line">&#125;));</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">app.listen(4000);</span><br><span class="line"></span><br></pre></td></tr></table></figure>
-
-<p>五、权限控制，中间件</p>
-<p><img src="/../images/graphql_04.png"></p>
-<p><img src="/../images/graphql_05.png"></p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">const express = require(&#x27;express&#x27;);</span><br><span class="line">const &#123; buildSchema &#125; = require(&#x27;graphql&#x27;);</span><br><span class="line">const &#123;graphqlHTTP&#125; = require(&#x27;express-graphql&#x27;);</span><br><span class="line"></span><br><span class="line">const schema = buildSchema(`</span><br><span class="line">  type Account &#123;</span><br><span class="line">    name: String</span><br><span class="line">    age: Int</span><br><span class="line">    sex: String</span><br><span class="line">    department: String</span><br><span class="line">  &#125;</span><br><span class="line">  input AccountInput &#123;</span><br><span class="line">    name: String</span><br><span class="line">    age: Int</span><br><span class="line">    sex: String</span><br><span class="line">    department: String</span><br><span class="line">  &#125;</span><br><span class="line">  type Mutation &#123;</span><br><span class="line">    createAccount(input: AccountInput): Account</span><br><span class="line">    updateAccount(id: ID!, input: AccountInput): Account</span><br><span class="line">  &#125;</span><br><span class="line">  type Query &#123;</span><br><span class="line">    account: [Account]</span><br><span class="line">  &#125;</span><br><span class="line">`);</span><br><span class="line"></span><br><span class="line">const fakeDb = &#123;&#125;;</span><br><span class="line"></span><br><span class="line">const root = &#123;</span><br><span class="line">  createAccount: (&#123;input&#125;) =&gt; &#123;</span><br><span class="line">    //相当与数据库的保存</span><br><span class="line">    fakeDb[input.name] = input;</span><br><span class="line">    //返回保存结果</span><br><span class="line">    return fakeDb[input.name]</span><br><span class="line">  &#125;,</span><br><span class="line">  updateAccount: (&#123;id, input&#125;) =&gt; &#123;</span><br><span class="line">    //相当与数据库的更新</span><br><span class="line">    fakeDb[id] = Object.assign(&#123;&#125;, fakeDb[id], input);</span><br><span class="line">    //返回更新结果</span><br><span class="line">    return fakeDb[id]</span><br><span class="line">  &#125;,</span><br><span class="line">  account: () =&gt; &#123;</span><br><span class="line">    var arr = [];</span><br><span class="line">    for(const key in fakeDb) &#123;</span><br><span class="line">      arr.push(fakeDb[key]);</span><br><span class="line">    &#125;</span><br><span class="line">    return arr;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line">const app = express();</span><br><span class="line"></span><br><span class="line">const middleware = (req, res, next) =&gt; &#123;</span><br><span class="line"></span><br><span class="line">    if(req.url.indexOf(&#x27;/graphql&#x27;) &gt; -1 &amp;&amp; req.headers.cookie.indexOf(&#x27;auth&#x27;) === -1) &#123;</span><br><span class="line">        res.send(JSON.stringify(&#123;</span><br><span class="line">            error: &quot;您没有权限访问该页面&quot;</span><br><span class="line">        &#125;))</span><br><span class="line">        return;</span><br><span class="line">    &#125;</span><br><span class="line">    next();</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">app.use(middleware);</span><br><span class="line"></span><br><span class="line">app.use(&#x27;/graphql&#x27;, graphqlHTTP(&#123;</span><br><span class="line">  schema: schema,</span><br><span class="line">  rootValue: root,</span><br><span class="line">  graphiql: true,</span><br><span class="line">&#125;));</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">app.listen(4000);</span><br><span class="line"></span><br><span class="line"></span><br></pre></td></tr></table></figure>
-
-
-<p>六、</p>
-<p><img src="/../images/graphql_06.png"></p>
-<p>七、使用GraphQLObjectType</p>
-<p><img src="/../images/graphql_07.png"></p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">const express = require(&#x27;express&#x27;);</span><br><span class="line">const graphql = require(&#x27;graphql&#x27;);</span><br><span class="line">const &#123;graphqlHTTP&#125; = require(&#x27;express-graphql&#x27;);</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">const &#123; GraphQLInt, GraphQLString, GraphQLObjectType, GraphQLSchema &#125; = graphql;</span><br><span class="line"></span><br><span class="line">var AccountType = new GraphQLObjectType(&#123;</span><br><span class="line">  name: &#x27;Account&#x27;,</span><br><span class="line">  fields: &#123;</span><br><span class="line">    name: &#123; type: GraphQLString &#125;,</span><br><span class="line">    age: &#123; type: GraphQLInt &#125;,</span><br><span class="line">    sex: &#123; type: GraphQLString &#125;,</span><br><span class="line">    department: &#123; type: GraphQLString &#125;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;);</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">var queryType = new GraphQLObjectType(&#123;</span><br><span class="line">  name: &#x27;Query&#x27;,</span><br><span class="line">  fields: &#123;</span><br><span class="line">    account: &#123;</span><br><span class="line">      type: AccountType,</span><br><span class="line">      args: &#123;</span><br><span class="line">        username: &#123; type: GraphQLString &#125;</span><br><span class="line">      &#125;,</span><br><span class="line">      resolve: function (_, &#123; username &#125;) &#123;</span><br><span class="line">        return &#123;</span><br><span class="line">          name: username,</span><br><span class="line">          age: 30,</span><br><span class="line">          sex: &#x27;Male&#x27;,</span><br><span class="line">          department: &#x27;IT&#x27;</span><br><span class="line">       &#125;</span><br><span class="line">      &#125;</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;)</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">var schema = new GraphQLSchema(&#123; query: queryType &#125;);</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"></span><br><span class="line"></span><br><span class="line">const app = express();</span><br><span class="line"></span><br><span class="line">app.use(&#x27;/graphql&#x27;, graphqlHTTP(&#123;</span><br><span class="line">    schema: schema,</span><br><span class="line">    graphiql: true,</span><br><span class="line">  &#125;));</span><br><span class="line">  </span><br><span class="line">  </span><br><span class="line">  app.listen(4000);</span><br><span class="line"></span><br><span class="line"></span><br></pre></td></tr></table></figure>
-
-<p>八、链接 mysql 实现增删改查</p>
-<p><img src="/../images/graphql_08.png"></p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br><span class="line">100</span><br><span class="line">101</span><br><span class="line">102</span><br><span class="line">103</span><br><span class="line">104</span><br><span class="line">105</span><br><span class="line">106</span><br><span class="line">107</span><br><span class="line">108</span><br><span class="line">109</span><br><span class="line">110</span><br><span class="line">111</span><br><span class="line">112</span><br><span class="line">113</span><br><span class="line">114</span><br><span class="line">115</span><br><span class="line">116</span><br><span class="line">117</span><br><span class="line">118</span><br><span class="line">119</span><br><span class="line">120</span><br><span class="line">121</span><br><span class="line">122</span><br><span class="line">123</span><br><span class="line">124</span><br><span class="line">125</span><br><span class="line">126</span><br><span class="line">127</span><br><span class="line">128</span><br><span class="line">129</span><br><span class="line">130</span><br><span class="line">131</span><br><span class="line">132</span><br><span class="line">133</span><br><span class="line">134</span><br><span class="line">135</span><br><span class="line">136</span><br><span class="line">137</span><br><span class="line">138</span><br><span class="line">139</span><br><span class="line">140</span><br><span class="line">141</span><br><span class="line">142</span><br><span class="line">143</span><br><span class="line">144</span><br><span class="line">145</span><br><span class="line">146</span><br><span class="line">147</span><br><span class="line">148</span><br><span class="line">149</span><br><span class="line">150</span><br><span class="line">151</span><br><span class="line">152</span><br><span class="line">153</span><br><span class="line">154</span><br><span class="line">155</span><br><span class="line">156</span><br><span class="line">157</span><br><span class="line">158</span><br><span class="line">159</span><br><span class="line">160</span><br><span class="line">161</span><br><span class="line">162</span><br><span class="line">163</span><br><span class="line">164</span><br><span class="line">165</span><br><span class="line">166</span><br><span class="line">167</span><br><span class="line">168</span><br><span class="line">169</span><br><span class="line">170</span><br><span class="line">171</span><br><span class="line">172</span><br><span class="line">173</span><br><span class="line">174</span><br><span class="line">175</span><br><span class="line">176</span><br><span class="line">177</span><br><span class="line">178</span><br><span class="line">179</span><br><span class="line">180</span><br><span class="line">181</span><br><span class="line">182</span><br><span class="line">183</span><br><span class="line">184</span><br><span class="line">185</span><br><span class="line">186</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">const express = require(&#x27;express&#x27;);</span><br><span class="line">const &#123; buildSchema &#125; = require(&#x27;graphql&#x27;);</span><br><span class="line">const &#123;graphqlHTTP&#125; = require(&#x27;express-graphql&#x27;);</span><br><span class="line">const mysql = require(&#x27;mysql2&#x27;);</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">var connection = mysql.createConnection(&#123;</span><br><span class="line">  host     : &#x27;localhost&#x27;,</span><br><span class="line">  user     : &#x27;admin&#x27;,</span><br><span class="line">  password : &#x27;Jason@#123&#x27;,</span><br><span class="line">  database : &#x27;dashen&#x27;</span><br><span class="line">&#125;);</span><br><span class="line"> </span><br><span class="line">connection.connect((err) =&gt; &#123;</span><br><span class="line">  if (err) &#123;</span><br><span class="line">    console.error(&#x27;Error connecting to MySQL:&#x27;, err);</span><br><span class="line">    process.exit(1);</span><br><span class="line">  &#125;</span><br><span class="line">  console.log(&#x27;Connected to MySQL database&#x27;);</span><br><span class="line">&#125;);</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">const schema = buildSchema(`</span><br><span class="line">  type Account &#123;</span><br><span class="line">    name: String</span><br><span class="line">    age: Int</span><br><span class="line">    sex: String</span><br><span class="line">    department: String</span><br><span class="line">  &#125;</span><br><span class="line">  input AccountInput &#123;</span><br><span class="line">    name: String</span><br><span class="line">    age: Int</span><br><span class="line">    sex: String</span><br><span class="line">    department: String</span><br><span class="line">  &#125;</span><br><span class="line">  type Mutation &#123;</span><br><span class="line">    createAccount(input: AccountInput): Account</span><br><span class="line">    updateAccount(id: ID!, input: AccountInput): Account</span><br><span class="line">    deleteAccount(id: ID!): Boolean</span><br><span class="line">  &#125;</span><br><span class="line">  type Query &#123;</span><br><span class="line">    account: [Account]</span><br><span class="line">  &#125;</span><br><span class="line">`);</span><br><span class="line"></span><br><span class="line">const fakeDb = &#123;&#125;;</span><br><span class="line"></span><br><span class="line">const root = &#123;</span><br><span class="line">  createAccount: (&#123;input&#125;) =&gt; &#123;</span><br><span class="line">    </span><br><span class="line">    const data = [</span><br><span class="line">      input.name,</span><br><span class="line">      input.age,</span><br><span class="line">      input.sex,</span><br><span class="line">      input.department</span><br><span class="line">    ]</span><br><span class="line"></span><br><span class="line">    return new Promise((resolve, reject) =&gt; &#123;</span><br><span class="line">      </span><br><span class="line">      connection.query(&#x27;INSERT INTO `account`(`name`,`age`,`sex`,`department`) VALUES(?,?,?,?)&#x27;,data,function (error, results, fields) &#123;</span><br><span class="line">        if (error) &#123;</span><br><span class="line">          console.log(error);</span><br><span class="line">          return;</span><br><span class="line">        &#125;;</span><br><span class="line">        console.log(&#x27;The solution is: &#x27;, results);</span><br><span class="line">        resolve(input);</span><br><span class="line">      &#125;);</span><br><span class="line"></span><br><span class="line">    &#125;);</span><br><span class="line">    </span><br><span class="line"></span><br><span class="line"></span><br><span class="line">  &#125;,</span><br><span class="line">  updateAccount: (&#123;id, input&#125;) =&gt; &#123;</span><br><span class="line">    const setClause = Object.keys(input).map(key =&gt; `$&#123;key&#125; = ?`).join(&#x27;, &#x27;);</span><br><span class="line">    const values = Object.values(input).concat(id);</span><br><span class="line"></span><br><span class="line">    return new Promise((resolve, reject) =&gt; &#123;</span><br><span class="line">      connection.query(</span><br><span class="line">        `UPDATE \`account\` SET $&#123;setClause&#125; WHERE \`name\` = ?`,</span><br><span class="line">        values,</span><br><span class="line">        function (error, results, fields) &#123;</span><br><span class="line">          if (error) &#123;</span><br><span class="line">            console.log(error);</span><br><span class="line">            return reject(error);</span><br><span class="line">          &#125;</span><br><span class="line">          console.log(&#x27;The solution is: &#x27;, results);</span><br><span class="line">          resolve(&#123; ...input, id &#125;); // 返回更新的数据，并保留 ID</span><br><span class="line">        &#125;</span><br><span class="line">      );</span><br><span class="line">    &#125;);</span><br><span class="line">  &#125;,</span><br><span class="line">  deleteAccount: (&#123;id&#125;) =&gt; &#123;</span><br><span class="line"></span><br><span class="line">    return new Promise((resolve, reject) =&gt; &#123;</span><br><span class="line">      connection.query(&#x27;DELETE FROM `account` WHERE name = ?&#x27;,id,function (error, results, fields) &#123;</span><br><span class="line">        if (error) &#123;</span><br><span class="line">          console.log(error);</span><br><span class="line">          return;</span><br><span class="line">        &#125;;</span><br><span class="line">        console.log(&#x27;The solution is: &#x27;, results);</span><br><span class="line">        resolve(true);</span><br><span class="line">      &#125;)</span><br><span class="line">    &#125;)</span><br><span class="line">  &#125;,</span><br><span class="line"></span><br><span class="line">  account: () =&gt; &#123;</span><br><span class="line">    // var arr = [];</span><br><span class="line">    // for(const key in fakeDb) &#123;</span><br><span class="line">    //   arr.push(fakeDb[key]);</span><br><span class="line">    // &#125;</span><br><span class="line">    // return arr;</span><br><span class="line"></span><br><span class="line">    return new Promise((resolve, reject) =&gt; &#123;</span><br><span class="line">      connection.query(&#x27;SELECT name, age, sex, department FROM `account`&#x27;,function (error, results, fields) &#123;</span><br><span class="line">        if (error) &#123;</span><br><span class="line">          console.log(error);</span><br><span class="line">          return;</span><br><span class="line">        &#125;;</span><br><span class="line">        console.log(&#x27;The solution is: &#x27;, results);</span><br><span class="line"></span><br><span class="line">        const arr = [];</span><br><span class="line">        for(let i = 0; i &lt; results.length; i++) &#123;</span><br><span class="line">          arr.push(&#123;</span><br><span class="line">            name: results[i].name,</span><br><span class="line">            age: results[i].age,</span><br><span class="line">            sex: results[i].sex,</span><br><span class="line">            department: results[i].department</span><br><span class="line">          &#125;);</span><br><span class="line">        &#125;</span><br><span class="line">        resolve(arr);</span><br><span class="line">      &#125;);</span><br><span class="line">    &#125;);</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">  &#125;</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line">const app = express();</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">app.use(&#x27;/graphql&#x27;, graphqlHTTP(&#123;</span><br><span class="line">  schema: schema,</span><br><span class="line">  rootValue: root,</span><br><span class="line">  graphiql: true,</span><br><span class="line">&#125;));</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">app.listen(4000);</span><br><span class="line"></span><br><span class="line"># mutation&#123;</span><br><span class="line">#   createAccount(input: &#123;</span><br><span class="line">#     name: &quot;wzw&quot;,</span><br><span class="line">#     age: 11,</span><br><span class="line">#     sex:&quot;男&quot;,</span><br><span class="line">#     department: &quot;xxx&quot;</span><br><span class="line">#   &#125;) &#123;</span><br><span class="line">#     name</span><br><span class="line">#   &#125;</span><br><span class="line"># &#125;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"># mutation&#123;</span><br><span class="line">#   updateAccount(id: &quot;111&quot;, input:&#123;</span><br><span class="line">#     age: 777</span><br><span class="line">#   &#125;)&#123;</span><br><span class="line">#     age</span><br><span class="line">#   &#125;</span><br><span class="line"># &#125;</span><br><span class="line"></span><br><span class="line"># mutation&#123;</span><br><span class="line">#   deleteAccount(id:&quot;111&quot;)</span><br><span class="line"># &#125;</span><br><span class="line"></span><br><span class="line">query&#123;</span><br><span class="line">  account&#123;</span><br><span class="line">    name</span><br><span class="line">    age</span><br><span class="line">    sex</span><br><span class="line">    department</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"></span><br></pre></td></tr></table></figure>
-
-
-
-
-<p>GraphQL教程，看过最详细的视频<br><a target="_blank" rel="noopener" href="https://www.bilibili.com/video/BV1EE411e7zB?spm_id_from=333.788.player.switch&vd_source=ffda878df0ed45bee1ade91d8f451048&p=6">https://www.bilibili.com/video/BV1EE411e7zB?spm_id_from=333.788.player.switch&amp;vd_source=ffda878df0ed45bee1ade91d8f451048&amp;p=6</a></p>
-<p><a target="_blank" rel="noopener" href="https://www.npmjs.com/package/mysql">https://www.npmjs.com/package/mysql</a></p>
-
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
-      
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="http://example.com/2024/12/13/docker-study/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.gif">
-      <meta itemprop="name" content="wangzhiwei">
-      <meta itemprop="description" content="javascript nodejs web developer...">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="WBlog">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/2024/12/13/docker-study/" class="post-title-link" itemprop="url">docker study</a>
-        </h2>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              <span class="post-meta-item-text">发表于</span>
-
-              <time title="创建时间：2024-12-13 15:12:17" itemprop="dateCreated datePublished" datetime="2024-12-13T15:12:17+08:00">2024-12-13</time>
-            </span>
-              <span class="post-meta-item">
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-calendar-check-o"></i>
-                </span>
-                <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2025-03-18 11:10:52" itemprop="dateModified" datetime="2025-03-18T11:10:52+08:00">2025-03-18</time>
-              </span>
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              <span class="post-meta-item-text">分类于</span>
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/docker/" itemprop="url" rel="index"><span itemprop="name">docker</span></a>
-                </span>
-                  ，
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/docker/%E5%B7%A5%E5%85%B7%E9%9B%86%E5%90%88/" itemprop="url" rel="index"><span itemprop="name">工具集合</span></a>
-                </span>
-            </span>
-
-          
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">&#123;</span><br><span class="line">    &quot;registry-mirrors&quot; :</span><br><span class="line">    [</span><br><span class="line">        &quot;https://docker.m.daocloud.io&quot;,</span><br><span class="line">        &quot;https://noohub.ru&quot;,</span><br><span class="line">        &quot;https://huecker.io&quot;,</span><br><span class="line">        &quot;https://dockerhub.timeweb.cloud&quot;,</span><br><span class="line">        &quot;https://docker.rainbond.cc&quot;</span><br><span class="line">    ]</span><br><span class="line">&#125;</span><br><span class="line"></span><br></pre></td></tr></table></figure>
-
-<p>mac 上修改源</p>
-<p><img src="/../images/docker_01.png"></p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">&#123;</span><br><span class="line">  &quot;builder&quot;: &#123;</span><br><span class="line">    &quot;gc&quot;: &#123;</span><br><span class="line">      &quot;defaultKeepStorage&quot;: &quot;20GB&quot;,</span><br><span class="line">      &quot;enabled&quot;: true</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;,</span><br><span class="line">  &quot;experimental&quot;: false,</span><br><span class="line">  &quot;features&quot;: &#123;</span><br><span class="line">    &quot;buildkit&quot;: true</span><br><span class="line">  &#125;,</span><br><span class="line">&quot;registry-mirrors&quot;: [</span><br><span class="line">   &quot;https://docker.m.daocloud.io&quot;,</span><br><span class="line">   &quot;https://noohub.ru&quot;,</span><br><span class="line">   &quot;https://huecker.io&quot;,</span><br><span class="line">   &quot;https://dockerhub.timeweb.cloud&quot;,</span><br><span class="line">   &quot;https://docker.rainbond.cc&quot;,</span><br><span class="line">   &quot;https://docker.1panelproxy.com&quot;,</span><br><span class="line"></span><br><span class="line">]</span><br><span class="line">&#125;</span><br><span class="line"></span><br></pre></td></tr></table></figure>
-
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br></pre></td><td class="code"><pre><span class="line">sudo mkdir -p /etc/docker</span><br><span class="line">sudo tee /etc/docker/daemon.json &lt;&lt;EOF</span><br><span class="line">&#123;</span><br><span class="line">&quot;registry-mirrors&quot; :</span><br><span class="line">[</span><br><span class="line">&quot;https://docker.m.daocloud.io&quot;,</span><br><span class="line">&quot;https://noohub.ru&quot;,</span><br><span class="line">&quot;https://huecker.io&quot;,</span><br><span class="line">&quot;https://dockerhub.timeweb.cloud&quot;,</span><br><span class="line">&quot;https://docker.rainbond.cc&quot;</span><br><span class="line">]</span><br><span class="line">&#125;</span><br><span class="line">EOF</span><br><span class="line">sudo systemctl daemon-reload</span><br><span class="line">sudo systemctl restart docker</span><br><span class="line">执行命令拉取镜像文件</span><br><span class="line">sudo docker pull dockerhub.icu/library/nginx</span><br><span class="line">sudo docker image ls</span><br><span class="line">sudo docker run hello-docker</span><br><span class="line">sudo docker run redis</span><br><span class="line">https://gist.github.com/y0ngb1n/7e8f16af3242c7815e7ca2f0833d3ea6</span><br><span class="line">创建 docker-study 文件夹</span><br><span class="line">创建 Dockerfile 文件 内容如下</span><br><span class="line">FROM node:14-alpine</span><br><span class="line">COPY index.js /index.js</span><br><span class="line">CMD node /index.js</span><br><span class="line">创建 index.js 文件</span><br><span class="line">console.log(&#x27;1111&#x27;);</span><br><span class="line">在目录下执行创建镜像文件命令</span><br><span class="line">sudo docker build -t hello-docker .</span><br><span class="line">导出镜像文件</span><br><span class="line">sudo docker save -o hello_docker.tar hello-docker:latest</span><br><span class="line">加载镜像文件</span><br><span class="line">sudo docker load -i xxx</span><br><span class="line">查看正在运行的镜像文件</span><br><span class="line">sudo docker ps -a</span><br><span class="line">sudo apt-get install docker.io</span><br><span class="line">source /etc/bash_completion.d/docker.io</span><br><span class="line">sudo docker.io version</span><br><span class="line">另外一种安装方式</span><br><span class="line">curl -sSL https://get.docker.com/ubuntu/|sudo.sh</span><br><span class="line">sudo docker run ubuntu echo &#x27;Hello world&#x27;</span><br><span class="line">不用sudo 启动 docker</span><br><span class="line">添加用户组</span><br><span class="line">sudo groupadd docker</span><br><span class="line">sudo gpasswd -a jkxy docker</span><br><span class="line">sudo service docker restart</span><br><span class="line">需要注销后重新登录才会生效</span><br><span class="line">docker version</span><br><span class="line">加载镜像文件</span><br><span class="line">docker load -i xxx</span><br><span class="line">加载后运行镜像文件</span><br><span class="line">sudo docker run -d -p 6379:6379 redis</span><br><span class="line">sudo docker run -d -p 5432:5432  -e POSTGRES_PASSWORD=admin -v /home/dc/postgresql/data:/var/lib/postgresql/data postgres:12.18-alpine</span><br><span class="line">查看运行的进程</span><br><span class="line">sudo docker ps</span><br><span class="line">参考文档</span><br><span class="line">https://blog.csdn.net/qq_40163617/article/details/107578706</span><br><span class="line">启动本地docker</span><br><span class="line">sudo systemctl start docker</span><br><span class="line">启动docker中的某个镜像</span><br><span class="line">docker start d7b67eb75ca2</span><br><span class="line">sudo docker pull nacos-registry.cn-hangzhou.cr.aliyuncs.com/nacos/nacos-server</span><br><span class="line">sudo docker pull &lt;your-mirror&gt;.mirror.aliyuncs.com/nacos/nacos-server</span><br><span class="line">docker run -d --name nacos -p 8848:8848 -e PREFER_HOST_MODE=hostname -e MODE=standalone nacos/nacos-server</span><br><span class="line">启动后，您可以通过访问http://localhost:8848/nacos来验证Nacos是否成功启动并运行正常</span><br><span class="line">http://localhost:8848/nacos</span><br><span class="line"></span><br></pre></td></tr></table></figure>
-
-
-<p>问题排查，进入 docker 下载 的 centos7内部查看网络连接情况</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">docker pull centos:7</span><br><span class="line">docker run -it centos:7 /bin/bash</span><br><span class="line">ping www.baidu.com</span><br><span class="line">ping 不通，修改 centos 的 dns</span><br><span class="line">echo &quot;nameserver 8.8.8.8&quot; &gt; /etc/resolv.conf</span><br><span class="line"></span><br></pre></td></tr></table></figure>
-
-<p>仓库：<br><a target="_blank" rel="noopener" href="https://github.com/wangzhiwei1888/nginx-njs-usecases">https://github.com/wangzhiwei1888/nginx-njs-usecases</a></p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br></pre></td><td class="code"><pre><span class="line">0.download-and-install 目录的</span><br><span class="line">Dockerfile 修改为：</span><br><span class="line"></span><br><span class="line"># build with:</span><br><span class="line">#   docker build -t nginx-njs:latest . </span><br><span class="line"></span><br><span class="line">FROM centos:7</span><br><span class="line"></span><br><span class="line">COPY resolv.conf /etc/resolv.conf</span><br><span class="line"></span><br><span class="line">ENV nginx_version=1.21.1</span><br><span class="line"></span><br><span class="line">RUN cp /etc/yum.repos.d/CentOS-Base.repo /etc/yum.repos.d/CentOS-Base.repo.backup</span><br><span class="line"># 替换为阿里云的镜像源</span><br><span class="line">RUN curl -o /etc/yum.repos.d/CentOS-Base.repo http://mirrors.aliyun.com/repo/Centos-7.repo</span><br><span class="line">RUN yum clean all</span><br><span class="line">RUN yum makecache</span><br><span class="line"></span><br><span class="line">RUN yum install -y epel-release</span><br><span class="line">RUN yum install -y curl vim wget file</span><br><span class="line"></span><br><span class="line">WORKDIR /root</span><br><span class="line">RUN wget http://nginx.org/download/nginx-$&#123;nginx_version&#125;.tar.gz</span><br><span class="line">RUN tar zxf nginx-$&#123;nginx_version&#125;.tar.gz</span><br><span class="line"></span><br><span class="line">RUN wget http://hg.nginx.org/njs/archive/tip.tar.gz -O njs.tar.gz</span><br><span class="line">RUN tar zxf njs.tar.gz</span><br><span class="line"></span><br><span class="line">RUN mv $(find /root -name &quot;njs-[0-9a-f]*&quot;) njs</span><br><span class="line">RUN wget https://github.com/libgd/libgd/releases/download/gd-2.2.5/libgd-2.2.5.tar.gz</span><br><span class="line">RUN tar zxf libgd-2.2.5.tar.gz</span><br><span class="line"></span><br><span class="line">RUN yum install -y gcc automake autoconf libtool make</span><br><span class="line">RUN yum install -y libxml2-devel libxslt-devel  # 添加这一行</span><br><span class="line">RUN yum install  -y openssl-devel pcre-devel zlib-devel libpng-devel libjpeg-devel</span><br><span class="line"></span><br><span class="line">WORKDIR /root/libgd-2.2.5</span><br><span class="line">RUN ./configure --with-png --with-jpeg</span><br><span class="line">RUN make</span><br><span class="line">RUN make install</span><br><span class="line">RUN echo /usr/local/lib &gt; /etc/ld.so.conf.d/libgd.conf</span><br><span class="line"></span><br><span class="line">WORKDIR /root/nginx-$&#123;nginx_version&#125;</span><br><span class="line">RUN ./configure \</span><br><span class="line">    --prefix=/root/nginx \</span><br><span class="line">    --with-http_ssl_module \</span><br><span class="line">    --with-stream \</span><br><span class="line">    --with-http_image_filter_module \</span><br><span class="line">    --with-http_realip_module \</span><br><span class="line">    --with-stream_ssl_module \</span><br><span class="line">    --add-dynamic-module=/root/njs/nginx</span><br><span class="line">RUN make</span><br><span class="line">RUN make install</span><br><span class="line"></span><br><span class="line">WORKDIR /root</span><br><span class="line">ENV PATH=$PATH:/root/nginx/sbin</span><br><span class="line"></span><br><span class="line">RUN ldconfig</span><br><span class="line"></span><br></pre></td></tr></table></figure>
-
-<p>添加 resolv.conf<br>内容为</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">nameserver 8.8.8.8</span><br><span class="line">nameserver 8.8.4.4</span><br><span class="line"></span><br></pre></td></tr></table></figure>
-
-<p><img src="/../images/docker_02.png"></p>
-<p>进入镜像内部 可以查看镜像内部情况</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">docker exec -it ff4c537f132d sh</span><br><span class="line"></span><br></pre></td></tr></table></figure>
-
-
-<p>4.64 复制打开抖音，看看【大神开发的作品】Docker 9分钟快速入门。# 程序员 # 教程… <a target="_blank" rel="noopener" href="https://v.douyin.com/iDkATutT/">https://v.douyin.com/iDkATutT/</a> NjP:&#x2F; 05&#x2F;18 <a href="mailto:&#104;&#x40;&#x6f;&#x2e;&#100;&#65;">&#104;&#x40;&#x6f;&#x2e;&#100;&#65;</a> </p>
-<p><img src="/../images/docker_03.png"></p>
-<p><img src="/../images/docker_04.png"></p>
-<p><img src="/../images/docker_05.png"></p>
-<p>redis 主从集群</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">docker network create mynet</span><br><span class="line"></span><br><span class="line">docker pull bitnami/redis</span><br><span class="line"></span><br><span class="line">mkdir -p /Users/mac/study/app/rd1</span><br><span class="line">mkdir -p /Users/mac/study/app/rd2</span><br><span class="line"></span><br><span class="line">主：</span><br><span class="line"></span><br><span class="line">docker run -d -p 6379:6379 \</span><br><span class="line">&gt; -v /Users/mac/study/app/rd1:/bitnami/redis/data \</span><br><span class="line">&gt; -e REDIS_REPLICATION_MODE=master \</span><br><span class="line">&gt; -e REDIS_PASSWORD=123456 \</span><br><span class="line">&gt; --network=mynet --name=redis01 \</span><br><span class="line">&gt; bitnami/redis</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">从机</span><br><span class="line">docker run -d -p 6380:6379 \</span><br><span class="line">-v /Users/mac/study/app/rd2:/bitnami/redis/data \</span><br><span class="line">-e REDIS_REPLICATION_MODE=slave \</span><br><span class="line">-e REDIS_MASTER_HOST=redis01 \</span><br><span class="line">-e REDIS_MASTER_PORT_NUMBER=6379 \</span><br><span class="line">-e REDIS_MASTER_PASSWORD=123456 \</span><br><span class="line">-e REDIS_PASSWORD=123456 \</span><br><span class="line">--network=mynet --name=redis02 \</span><br><span class="line">bitnami/redis</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">redis-cli -h 127.0.0.1 -p 6379 -a 123456</span><br><span class="line">set a 1</span><br><span class="line"></span><br><span class="line">redis-cli -h 127.0.0.1 -p 6380 -a 123456</span><br><span class="line">get a</span><br><span class="line"></span><br><span class="line"></span><br></pre></td></tr></table></figure>
-
-<p><img src="/../images/docker_06.png"></p>
-<p><img src="/../images/docker_07.png"></p>
-<p><a target="_blank" rel="noopener" href="https://github.com/bitnami/containers/blob/main/bitnami/redis/README.md">https://github.com/bitnami/containers/blob/main/bitnami/redis/README.md</a></p>
-<p>参考：<br><a target="_blank" rel="noopener" href="https://www.bilibili.com/video/BV1Zn4y1X7AZ?spm_id_from=333.788.player.switch&vd_source=ffda878df0ed45bee1ade91d8f451048&p=16">https://www.bilibili.com/video/BV1Zn4y1X7AZ?spm_id_from=333.788.player.switch&amp;vd_source=ffda878df0ed45bee1ade91d8f451048&amp;p=16</a><br><a target="_blank" rel="noopener" href="https://docs.docker.com/guides/nodejs/containerize/">https://docs.docker.com/guides/nodejs/containerize/</a></p>
-<p>curl -sSL <a target="_blank" rel="noopener" href="https://resource.fit2cloud.com/1panel/package/quick_start.sh">https://resource.fit2cloud.com/1panel/package/quick_start.sh</a> -o quick_start.sh &amp;&amp; sudo bash quick_start.sh</p>
-<p>设置 1Panel 端口（默认为29446）：<br>[1Panel Log]: 您设置的端口为：29446<br>[1Panel Log]: 防火墙开放 29446 端口<br>success<br>success<br>[1Panel Log]: 防火墙开放 29446 端口<br>防火墙规则已更新<br>规则已更新(v6)<br>未启用防火墙(跳过重新载入)<br>设置 1Panel 安全入口（默认为b5637a2e52）：<br>[1Panel Log]: 您设置的面板安全入口为：b5637a2e52<br>设置 1Panel 面板用户（默认为813b87280c）：<br>[1Panel Log]: 您设置的面板用户为：813b87280c<br>[1Panel Log]: 设置 1Panel 面板密码，设置完成后直接回车以继续（默认为122dff0e26）： </p>
-<p>[1Panel Log]: 配置 1Panel Service<br>Created symlink &#x2F;etc&#x2F;systemd&#x2F;system&#x2F;multi-user.target.wants&#x2F;1panel.service → &#x2F;etc&#x2F;systemd&#x2F;system&#x2F;1panel.service.<br>[1Panel Log]: 启动 1Panel 服务<br>[1Panel Log]: 1Panel 服务启动成功!<br>[1Panel Log]:<br>[1Panel Log]: &#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;感谢您的耐心等待，安装已经完成&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;<br>[1Panel Log]:<br>[1Panel Log]: 请用浏览器访问面板:<br>[1Panel Log]: 外网地址: <a target="_blank" rel="noopener" href="http://114.242.100.67:29446/b5637a2e52">http://114.242.100.67:29446/b5637a2e52</a><br>[1Panel Log]: 内网地址: <a target="_blank" rel="noopener" href="http://192.168.40.206:29446/b5637a2e52">http://192.168.40.206:29446/b5637a2e52</a><br>[1Panel Log]: 面板用户: 813b87280c<br>[1Panel Log]: 面板密码: 122dff0e26<br>[1Panel Log]:<br>[1Panel Log]: 项目官网: <a target="_blank" rel="noopener" href="https://1panel.cn/">https://1panel.cn</a><br>[1Panel Log]: 项目文档: <a target="_blank" rel="noopener" href="https://1panel.cn/docs">https://1panel.cn/docs</a><br>[1Panel Log]: 代码仓库: <a target="_blank" rel="noopener" href="https://github.com/1Panel-dev/1Panel">https://github.com/1Panel-dev/1Panel</a><br>[1Panel Log]:<br>[1Panel Log]: 如果使用的是云服务器，请至安全组开放 29446 端口<br>[1Panel Log]:<br>[1Panel Log]: 为了您的服务器安全，在您离开此界面后您将无法再看到您的密码，请务必牢记您的密码。<br>[1Panel Log]:<br>[1Panel Log]: &#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D; </p>
-<p><a target="_blank" rel="noopener" href="http://192.168.40.206:29446/apps/all">http://192.168.40.206:29446/apps/all</a></p>
-<p>mysql<br>root<br>mysql_n6Tj3M</p>
-<p>安装 halo<br>数据库名<br>halo_rh67h4<br>数据库用户<br>halo_enWd5p<br>数据库用户密码<br>halo_rDE33a</p>
-
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
-      
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="http://example.com/2024/12/13/webtorrent-desktop/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.gif">
-      <meta itemprop="name" content="wangzhiwei">
-      <meta itemprop="description" content="javascript nodejs web developer...">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="WBlog">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/2024/12/13/webtorrent-desktop/" class="post-title-link" itemprop="url">webtorrent-desktop</a>
-        </h2>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              <span class="post-meta-item-text">发表于</span>
-
-              <time title="创建时间：2024-12-13 14:54:17" itemprop="dateCreated datePublished" datetime="2024-12-13T14:54:17+08:00">2024-12-13</time>
-            </span>
-              <span class="post-meta-item">
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-calendar-check-o"></i>
-                </span>
-                <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2025-03-18 11:10:52" itemprop="dateModified" datetime="2025-03-18T11:10:52+08:00">2025-03-18</time>
-              </span>
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              <span class="post-meta-item-text">分类于</span>
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/%E5%B7%A5%E5%85%B7%E9%9B%86%E5%90%88/" itemprop="url" rel="index"><span itemprop="name">工具集合</span></a>
-                </span>
-            </span>
-
-          
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <blockquote>
-<p>nodejs + webRTC + electron 构建的种子下载工具, 实现边下边播。</p>
-</blockquote>
-<p>电影网站<br><a target="_blank" rel="noopener" href="https://github.com/wangzhiwei1888/zenshin">https://github.com/wangzhiwei1888/zenshin</a><br><a target="_blank" rel="noopener" href="https://youtu.be/DiVczJ92sAU?si=NvqnDvXE_LW7EHW8">https://youtu.be/DiVczJ92sAU?si=NvqnDvXE_LW7EHW8</a></p>
-<p>webtorrent-desktop<br>直接修改 npm 源 直接 npm install 安装 用 cnpm 安装依赖有问题。<br>npm config set registry <a target="_blank" rel="noopener" href="http://mirrors.cloud.tencent.com/npm/">http://mirrors.cloud.tencent.com/npm/</a></p>
-<p>参考：<br><a target="_blank" rel="noopener" href="https://cloud.tencent.com/developer/article/1372949">https://cloud.tencent.com/developer/article/1372949</a></p>
-<p><a target="_blank" rel="noopener" href="https://github.com/wangzhiwei1888/webtorrent-desktop">https://github.com/wangzhiwei1888/webtorrent-desktop</a><br><a target="_blank" rel="noopener" href="https://www.bilibili.com/video/BV1sD42177Lx?spm_id_from=333.788.videopod.sections&vd_source=ffda878df0ed45bee1ade91d8f451048">https://www.bilibili.com/video/BV1sD42177Lx?spm_id_from=333.788.videopod.sections&amp;vd_source=ffda878df0ed45bee1ade91d8f451048</a></p>
-<p><a target="_blank" rel="noopener" href="https://juejin.cn/post/6964571538729205773">https://juejin.cn/post/6964571538729205773</a></p>
-<p><a target="_blank" rel="noopener" href="https://www.nxrte.com/jishu/webrtc/8527.html">https://www.nxrte.com/jishu/webrtc/8527.html</a></p>
-<p><a target="_blank" rel="noopener" href="https://blog.csdn.net/tonglin12138/article/details/137825757">https://blog.csdn.net/tonglin12138/article/details/137825757</a><br><a target="_blank" rel="noopener" href="https://www.w3.org/TR/webrtc/">https://www.w3.org/TR/webrtc/</a><br><a target="_blank" rel="noopener" href="https://x.cnki.net/web/xmlRead/xml.html?pageType=web&fileName=FJDN202407008&tableName=CJFDTOTAL&dbCode=CJFD&topic=&fileSourceType=1&taskId=&from=&groupId=&appId=CRSP_BASIC_PSMC&act=&customReading=#">https://x.cnki.net/web/xmlRead/xml.html?pageType=web&amp;fileName=FJDN202407008&amp;tableName=CJFDTOTAL&amp;dbCode=CJFD&amp;topic=&amp;fileSourceType=1&amp;taskId=&amp;from=&amp;groupId=&amp;appId=CRSP_BASIC_PSMC&amp;act=&amp;customReading=#</a></p>
-<p><a target="_blank" rel="noopener" href="https://blog.csdn.net/Python_0011/article/details/131936099">https://blog.csdn.net/Python_0011/article/details/131936099</a></p>
-
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
 
   
   <nav class="pagination">
-    <a class="extend prev" rel="prev" href="/page/6/"><i class="fa fa-angle-left" aria-label="上一页"></i></a><a class="page-number" href="/">1</a><span class="space">&hellip;</span><a class="page-number" href="/page/6/">6</a><span class="page-number current">7</span><a class="page-number" href="/page/8/">8</a><a class="extend next" rel="next" href="/page/8/"><i class="fa fa-angle-right" aria-label="下一页"></i></a>
+    <a class="extend prev" rel="prev" href="/page/6/"><i class="fa fa-angle-left" aria-label="上一页"></i></a><a class="page-number" href="/">1</a><span class="space">&hellip;</span><a class="page-number" href="/page/6/">6</a><span class="page-number current">7</span><a class="page-number" href="/page/8/">8</a><a class="page-number" href="/page/9/">9</a><a class="extend next" rel="next" href="/page/8/"><i class="fa fa-angle-right" aria-label="下一页"></i></a>
   </nav>
 
 
@@ -1302,7 +1482,7 @@ https://docs.fluentbit.io/manual
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">80</span>
+          <span class="site-state-item-count">85</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>
