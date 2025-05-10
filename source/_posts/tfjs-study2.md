@@ -76,6 +76,13 @@ http-server -p 8080 --cors
 
 
 
+![](../images/tfjs/58.png)
+
+![](../images/tfjs/59.png)
+
+
+
+
 data.js
 
 ```
@@ -298,13 +305,16 @@ window.onload = async () => {
     
 
     model.compile({
-        loss: 'categoricalCrossentropy',
-        optimizer: tf.train.adam(),
-        metrics: ['accuracy']
+        loss: 'categoricalCrossentropy', // 交叉熵损失函数，用于多分类
+        optimizer: tf.train.adam(), // Adam优化器，用于训练
+        metrics: ['accuracy'] // 准确率
     });
 
     const [trainXs, trainYs] = tf.tidy(() => {
-        const d = data.nextTrainBatch(1000);
+        const d = data.nextTrainBatch(1000); //  获取训练数据 1000个训练数据
+
+        console.log(d)
+
         return [
             d.xs.reshape([1000, 28, 28, 1]),
             d.labels
@@ -312,7 +322,7 @@ window.onload = async () => {
     });
 
     const [testXs, testYs] = tf.tidy(() => {
-        const d = data.nextTestBatch(200);
+        const d = data.nextTestBatch(200); // 获取测试数据
         return [
             d.xs.reshape([200, 28, 28, 1]),
             d.labels
@@ -333,31 +343,31 @@ window.onload = async () => {
     const canvas = document.querySelector('canvas');
 
     canvas.addEventListener('mousemove', (e) => {
-        if (e.buttons === 1) {
+        if (e.buttons === 1) { // 左键按下
             const ctx = canvas.getContext('2d');
-            ctx.fillStyle = 'rgb(255,255,255)';
-            ctx.fillRect(e.offsetX, e.offsetY, 25, 25);
+            ctx.fillStyle = 'rgb(255,255,255)'; // 白色
+            ctx.fillRect(e.offsetX, e.offsetY, 25, 25); // 画一个25*25的矩形
         }
     });
 
     window.clear = () => {
         const ctx = canvas.getContext('2d');
-        ctx.fillStyle = 'rgb(0,0,0)';
-        ctx.fillRect(0, 0, 300, 300);
+        ctx.fillStyle = 'rgb(0,0,0)'; // 黑色
+        ctx.fillRect(0, 0, 300, 300); // 填充一个黑色
     };
 
     clear();
 
     window.predict = () => {
         const input = tf.tidy(() => {
-            return tf.image.resizeBilinear(
-                tf.browser.fromPixels(canvas),
-                [28, 28],
-                true
-            ).slice([0, 0, 0], [28, 28, 1])
-            .toFloat()
-            .div(255)
-            .reshape([1, 28, 28, 1]);
+            return tf.image.resizeBilinear( // 缩放图片
+                tf.browser.fromPixels(canvas), // 缩放图片
+                [28, 28], // 缩放后的大小
+                true // 是否保持图片的宽高比
+            ).slice([0, 0, 0], [28, 28, 1]) // 将彩色图片转换为黑白图片 获取图片的像素
+            .toFloat() // 转换为浮点数
+            .div(255) // 转换为0-1
+            .reshape([1, 28, 28, 1]); // 转换为张量
         });
         const pred = model.predict(input).argMax(1);
         alert(`预测结果为 ${pred.dataSync()[0]}`);
