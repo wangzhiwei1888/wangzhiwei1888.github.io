@@ -149,6 +149,191 @@
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="http://example.com/2024/12/18/nodejs/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="wangzhiwei">
+      <meta itemprop="description" content="javascript nodejs web developer...">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="WBlog">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/2024/12/18/nodejs/" class="post-title-link" itemprop="url">nodejs</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2024-12-18 11:41:08" itemprop="dateCreated datePublished" datetime="2024-12-18T11:41:08+08:00">2024-12-18</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-calendar-check-o"></i>
+                </span>
+                <span class="post-meta-item-text">更新于</span>
+                <time title="修改时间：2025-03-18 11:10:52" itemprop="dateModified" datetime="2025-03-18T11:10:52+08:00">2025-03-18</time>
+              </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/nodejs/" itemprop="url" rel="index"><span itemprop="name">nodejs</span></a>
+                </span>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <h1 id="nodejs"><a href="#nodejs" class="headerlink" title="nodejs"></a>nodejs</h1><p>nodejs 是 javascript 的运行环境, 不是一门语言</p>
+<p><img src="/../images/nodejs_01.jpeg"></p>
+<p>用户代码：js代码</p>
+<p>三方库：大部分都是js代码</p>
+<p>本地模块代码：js代码</p>
+<p>内置模块代码： c&#x2F;c++代码</p>
+<p>V8 引擎：c&#x2F;c++代码，作用：把js代码转换成机器码</p>
+<p>可以通过V8引擎的某种机制，扩展其功能</p>
+<p>V8 引擎的扩展和对扩展的编译，是通过一个工具： node-gyp 工具 完成 的</p>
+<p>某些第三方库需要使用node-gyp工具进行构建，因此需要先安装node-gyp</p>
+<p>koa 洋葱模型</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br></pre></td><td class="code"><pre><span class="line">app.use(async (ctx, next) =&gt; &#123;</span><br><span class="line"></span><br><span class="line">    consol.log(&#x27;111, start&#x27;)</span><br><span class="line">    await next()</span><br><span class="line">    consol.log(&#x27;111, end&#x27;)</span><br><span class="line"></span><br><span class="line">&#125;)</span><br><span class="line"></span><br><span class="line">app.use(async (ctx, next) =&gt; &#123;</span><br><span class="line"></span><br><span class="line">    consol.log(&#x27;222, start&#x27;)</span><br><span class="line">    await next()</span><br><span class="line">    consol.log(&#x27;222, end&#x27;)</span><br><span class="line"></span><br><span class="line">&#125;)</span><br><span class="line"></span><br><span class="line">app.use(async (ctx, next) =&gt; &#123;</span><br><span class="line"></span><br><span class="line">    consol.log(&#x27;333, start&#x27;)</span><br><span class="line">    await next()</span><br><span class="line">    consol.log(&#x27;333, end&#x27;)</span><br><span class="line"></span><br><span class="line">&#125;)</span><br><span class="line"></span><br><span class="line">打印顺序</span><br><span class="line"></span><br><span class="line">111, start</span><br><span class="line">222, start</span><br><span class="line">333, start</span><br><span class="line">333, end</span><br><span class="line">222, end</span><br><span class="line">111, end</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+
+
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br></pre></td><td class="code"><pre><span class="line">app.use(async (ctx, next) =&gt; &#123;</span><br><span class="line"></span><br><span class="line">    consol.log(&#x27;111, start&#x27;)</span><br><span class="line">    // await next()</span><br><span class="line">    consol.log(&#x27;111, end&#x27;)</span><br><span class="line"></span><br><span class="line">&#125;)</span><br><span class="line"></span><br><span class="line">app.use(async (ctx, next) =&gt; &#123;</span><br><span class="line"></span><br><span class="line">    consol.log(&#x27;222, start&#x27;)</span><br><span class="line">    await next()</span><br><span class="line">    consol.log(&#x27;222, end&#x27;)</span><br><span class="line"></span><br><span class="line">&#125;)</span><br><span class="line"></span><br><span class="line">app.use(async (ctx, next) =&gt; &#123;</span><br><span class="line"></span><br><span class="line">    consol.log(&#x27;333, start&#x27;)</span><br><span class="line">    await next()</span><br><span class="line">    consol.log(&#x27;333, end&#x27;)</span><br><span class="line"></span><br><span class="line">&#125;)</span><br><span class="line"></span><br><span class="line">打印顺序</span><br><span class="line"></span><br><span class="line">111, start</span><br><span class="line">111, end</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br></pre></td><td class="code"><pre><span class="line">app.use(async (ctx, next) =&gt; &#123;</span><br><span class="line"></span><br><span class="line">    consol.log(&#x27;111, start&#x27;)</span><br><span class="line">    await next()</span><br><span class="line">    consol.log(&#x27;111, end&#x27;)</span><br><span class="line"></span><br><span class="line">&#125;)</span><br><span class="line"></span><br><span class="line">app.use(async (ctx, next) =&gt; &#123;</span><br><span class="line"></span><br><span class="line">    consol.log(&#x27;222, start&#x27;)</span><br><span class="line">    // await next()</span><br><span class="line">    consol.log(&#x27;222, end&#x27;)</span><br><span class="line"></span><br><span class="line">&#125;)</span><br><span class="line"></span><br><span class="line">app.use(async (ctx, next) =&gt; &#123;</span><br><span class="line"></span><br><span class="line">    consol.log(&#x27;333, start&#x27;)</span><br><span class="line">    await next()</span><br><span class="line">    consol.log(&#x27;333, end&#x27;)</span><br><span class="line"></span><br><span class="line">&#125;)</span><br><span class="line"></span><br><span class="line">打印顺序</span><br><span class="line"></span><br><span class="line">111, start</span><br><span class="line">222, start</span><br><span class="line">222, end</span><br><span class="line">111, end</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+
+
+
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br></pre></td><td class="code"><pre><span class="line">app.use(async (ctx, next) =&gt; &#123;</span><br><span class="line"></span><br><span class="line">    consol.log(&#x27;111, start&#x27;)</span><br><span class="line">    await next()</span><br><span class="line">    consol.log(&#x27;111, end&#x27;)</span><br><span class="line"></span><br><span class="line">&#125;)</span><br><span class="line"></span><br><span class="line">app.use(async (ctx, next) =&gt; &#123;</span><br><span class="line"></span><br><span class="line">    consol.log(&#x27;222, start&#x27;)</span><br><span class="line">    await next()</span><br><span class="line">    consol.log(&#x27;222, end&#x27;)</span><br><span class="line"></span><br><span class="line">&#125;)</span><br><span class="line"></span><br><span class="line">app.use(async (ctx, next) =&gt; &#123;</span><br><span class="line"></span><br><span class="line">    consol.log(&#x27;333, start&#x27;)</span><br><span class="line">    // await next()</span><br><span class="line">    consol.log(&#x27;333, end&#x27;)</span><br><span class="line"></span><br><span class="line">&#125;)</span><br><span class="line"></span><br><span class="line">打印顺序</span><br><span class="line"></span><br><span class="line">111, start</span><br><span class="line">222, start</span><br><span class="line">333, start</span><br><span class="line">333, end</span><br><span class="line">222, end</span><br><span class="line">111, end</span><br></pre></td></tr></table></figure>
+
+
+
+<p>参考：<br>libuv book<br><a target="_blank" rel="noopener" href="https://luohaha.github.io/Chinese-uvbook/source/introduction.html">https://luohaha.github.io/Chinese-uvbook/source/introduction.html</a></p>
+<p><a target="_blank" rel="noopener" href="https://www.bilibili.com/video/BV1GfywY7Ebs?spm_id_from=333.788.videopod.episodes&vd_source=ffda878df0ed45bee1ade91d8f451048&p=43">https://www.bilibili.com/video/BV1GfywY7Ebs?spm_id_from=333.788.videopod.episodes&amp;vd_source=ffda878df0ed45bee1ade91d8f451048&amp;p=43</a></p>
+
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="http://example.com/2024/12/18/nodejs-%E4%BA%91%E5%BC%80%E5%8F%91%E4%BD%93%E9%AA%8C/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="wangzhiwei">
+      <meta itemprop="description" content="javascript nodejs web developer...">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="WBlog">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/2024/12/18/nodejs-%E4%BA%91%E5%BC%80%E5%8F%91%E4%BD%93%E9%AA%8C/" class="post-title-link" itemprop="url">nodejs 云开发体验</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2024-12-18 11:29:00" itemprop="dateCreated datePublished" datetime="2024-12-18T11:29:00+08:00">2024-12-18</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-calendar-check-o"></i>
+                </span>
+                <span class="post-meta-item-text">更新于</span>
+                <time title="修改时间：2025-03-18 11:10:52" itemprop="dateModified" datetime="2025-03-18T11:10:52+08:00">2025-03-18</time>
+              </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/nodejs/" itemprop="url" rel="index"><span itemprop="name">nodejs</span></a>
+                </span>
+                  ，
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/nodejs/%E4%BA%91%E5%BC%80%E5%8F%91/" itemprop="url" rel="index"><span itemprop="name">云开发</span></a>
+                </span>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <p><a target="_blank" rel="noopener" href="https://hzh.sealos.run/">https://hzh.sealos.run/</a></p>
+<p><img src="/../images/node_ykf_01.png"></p>
+<p><img src="/../images/node_ykf_02.png"></p>
+<p><img src="/../images/node_ykf_03.png"></p>
+<p><img src="/../images/node_ykf_04.png"></p>
+<p><img src="/../images/node_ykf_05.png"></p>
+
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
     <link itemprop="mainEntityOfPage" href="http://example.com/2024/12/18/%E5%86%85%E5%AD%98%E6%B3%84%E6%BC%8F%E6%8E%92%E6%9F%A5/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -1119,300 +1304,6 @@
   
   
 
-      
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="http://example.com/2024/12/13/fluent-bit-%E5%AE%89%E8%A3%85%E5%92%8C%E4%BD%BF%E7%94%A8/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.gif">
-      <meta itemprop="name" content="wangzhiwei">
-      <meta itemprop="description" content="javascript nodejs web developer...">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="WBlog">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/2024/12/13/fluent-bit-%E5%AE%89%E8%A3%85%E5%92%8C%E4%BD%BF%E7%94%A8/" class="post-title-link" itemprop="url">fluent-bit 安装和使用</a>
-        </h2>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              <span class="post-meta-item-text">发表于</span>
-
-              <time title="创建时间：2024-12-13 15:54:05" itemprop="dateCreated datePublished" datetime="2024-12-13T15:54:05+08:00">2024-12-13</time>
-            </span>
-              <span class="post-meta-item">
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-calendar-check-o"></i>
-                </span>
-                <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2025-03-18 11:10:52" itemprop="dateModified" datetime="2025-03-18T11:10:52+08:00">2025-03-18</time>
-              </span>
-
-          
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br><span class="line">100</span><br><span class="line">101</span><br><span class="line">102</span><br><span class="line">103</span><br><span class="line">104</span><br><span class="line">105</span><br><span class="line">106</span><br><span class="line">107</span><br><span class="line">108</span><br><span class="line">109</span><br><span class="line">110</span><br><span class="line">111</span><br><span class="line">112</span><br><span class="line">113</span><br><span class="line">114</span><br><span class="line">115</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">curl -s https://packages.fluentbit.io/fluentbit.key | sudo apt-key add -</span><br><span class="line">echo &quot;deb https://packages.fluentbit.io/ubuntu/focal focal main&quot; | sudo tee /etc/apt/sources.list.d/fluentbit.list</span><br><span class="line">sudo apt-get update</span><br><span class="line">sudo apt-get install -y fluent-bit</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">find / -name fluent-bit 2&gt;/dev/null</span><br><span class="line">/usr/lib/fluent-bit</span><br><span class="line">/opt/fluent-bit</span><br><span class="line">/opt/fluent-bit/bin/fluent-bit</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">默认配置</span><br><span class="line">cat /etc/fluent-bit/fluent-bit.conf</span><br><span class="line">[SERVICE]</span><br><span class="line">    # Flush</span><br><span class="line">    # =====</span><br><span class="line">    # set an interval of seconds before to flush records to a destination</span><br><span class="line">    flush        1</span><br><span class="line"></span><br><span class="line">    # Daemon</span><br><span class="line">    # ======</span><br><span class="line">    # instruct Fluent Bit to run in foreground or background mode.</span><br><span class="line">    daemon       Off</span><br><span class="line"></span><br><span class="line">    # Log_Level</span><br><span class="line">    # =========</span><br><span class="line">    # Set the verbosity level of the service, values can be:</span><br><span class="line">    #</span><br><span class="line">    # - error</span><br><span class="line">    # - warning</span><br><span class="line">    # - info</span><br><span class="line">    # - debug</span><br><span class="line">    # - trace</span><br><span class="line">    #</span><br><span class="line">    # by default &#x27;info&#x27; is set, that means it includes &#x27;error&#x27; and &#x27;warning&#x27;.</span><br><span class="line">    log_level    info</span><br><span class="line"></span><br><span class="line">    # Parsers File</span><br><span class="line">    # ============</span><br><span class="line">    # specify an optional &#x27;Parsers&#x27; configuration file</span><br><span class="line">    parsers_file parsers.conf</span><br><span class="line"></span><br><span class="line">    # Plugins File</span><br><span class="line">    # ============</span><br><span class="line">    # specify an optional &#x27;Plugins&#x27; configuration file to load external plugins.</span><br><span class="line">    plugins_file plugins.conf</span><br><span class="line"></span><br><span class="line">    # HTTP Server</span><br><span class="line">    # ===========</span><br><span class="line">    # Enable/Disable the built-in HTTP Server for metrics</span><br><span class="line">    http_server  Off</span><br><span class="line">    http_listen  0.0.0.0</span><br><span class="line">    http_port    2020</span><br><span class="line"></span><br><span class="line">    # Storage</span><br><span class="line">    # =======</span><br><span class="line">    # Fluent Bit can use memory and filesystem buffering based mechanisms</span><br><span class="line">    #</span><br><span class="line">    # - https://docs.fluentbit.io/manual/administration/buffering-and-storage</span><br><span class="line">    #</span><br><span class="line">    # storage metrics</span><br><span class="line">    # ---------------</span><br><span class="line">    # publish storage pipeline metrics in &#x27;/api/v1/storage&#x27;. The metrics are</span><br><span class="line">    # exported only if the &#x27;http_server&#x27; option is enabled.</span><br><span class="line">    #</span><br><span class="line">    storage.metrics on</span><br><span class="line"></span><br><span class="line">    # storage.path</span><br><span class="line">    # ------------</span><br><span class="line">    # absolute file system path to store filesystem data buffers (chunks).</span><br><span class="line">    #</span><br><span class="line">    # storage.path /tmp/storage</span><br><span class="line"></span><br><span class="line">    # storage.sync</span><br><span class="line">    # ------------</span><br><span class="line">    # configure the synchronization mode used to store the data into the</span><br><span class="line">    # filesystem. It can take the values normal or full.</span><br><span class="line">    #</span><br><span class="line">    # storage.sync normal</span><br><span class="line"></span><br><span class="line">    # storage.checksum</span><br><span class="line">    # ----------------</span><br><span class="line">    # enable the data integrity check when writing and reading data from the</span><br><span class="line">    # filesystem. The storage layer uses the CRC32 algorithm.</span><br><span class="line">    #</span><br><span class="line">    # storage.checksum off</span><br><span class="line"></span><br><span class="line">    # storage.backlog.mem_limit</span><br><span class="line">    # -------------------------</span><br><span class="line">    # if storage.path is set, Fluent Bit will look for data chunks that were</span><br><span class="line">    # not delivered and are still in the storage layer, these are called</span><br><span class="line">    # backlog data. This option configure a hint of maximum value of memory</span><br><span class="line">    # to use when processing these records.</span><br><span class="line">    #</span><br><span class="line">    # storage.backlog.mem_limit 5M</span><br><span class="line"></span><br><span class="line">[INPUT]</span><br><span class="line">    name cpu</span><br><span class="line">    tag  cpu.local</span><br><span class="line"></span><br><span class="line">    # Read interval (sec) Default: 1</span><br><span class="line">    interval_sec 1</span><br><span class="line"></span><br><span class="line">[OUTPUT]</span><br><span class="line">    name  stdout</span><br><span class="line">    match *</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"></span><br><span class="line">运行</span><br><span class="line">sudo /opt/fluent-bit/bin/fluent-bit -c /etc/fluent-bit/fluent-bit.conf</span><br><span class="line"></span><br><span class="line"></span><br></pre></td></tr></table></figure>
-
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">修改配置 实现每一秒中获取 cpu 的数据，写入到 es 数据库中</span><br><span class="line">sudo vi /etc/fluent-bit/fluent-bit.conf</span><br><span class="line"></span><br><span class="line">[SERVICE]</span><br><span class="line">    Flush        1</span><br><span class="line">    Daemon       Off</span><br><span class="line">    Log_Level    info</span><br><span class="line"></span><br><span class="line">[INPUT]</span><br><span class="line">    name cpu</span><br><span class="line">    tag  cpu.local</span><br><span class="line"></span><br><span class="line">    # Read interval (sec) Default: 1</span><br><span class="line">    interval_sec 1</span><br><span class="line"></span><br><span class="line">[OUTPUT]</span><br><span class="line">    name  es</span><br><span class="line">    match *</span><br><span class="line">    Host  localhost</span><br><span class="line">    Port  9200</span><br><span class="line">    Index fluent-bit</span><br><span class="line">    suppress_type_name On</span><br><span class="line"></span><br><span class="line">sudo /opt/fluent-bit/bin/fluent-bit -c /etc/fluent-bit/fluent-bit.conf</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">curl -X GET &quot;localhost:9200/_cat&quot;</span><br><span class="line">curl -X GET &quot;localhost:9200/_cat/indices&quot;</span><br><span class="line">curl -X GET &quot;localhost:9200/_cat/indices/fluent-bit&quot;</span><br><span class="line"></span><br><span class="line">curl -X GET &quot;localhost:9200/fluent-bit/_search?pretty&quot;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"></span><br></pre></td></tr></table></figure>
-
-
-
-
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">好的，下面是 Fluent Bit 的安装和使用指南。我们将分为两部分：安装和基本使用。</span><br><span class="line"></span><br><span class="line">### 1. 安装 Fluent Bit</span><br><span class="line"></span><br><span class="line">#### 在 Ubuntu/Debian 上安装</span><br><span class="line"></span><br><span class="line">1. **添加 Fluent Bit 的 APT 仓库**</span><br><span class="line"></span><br><span class="line">   ```sh</span><br><span class="line">   </span><br><span class="line">curl -s https://packages.fluentbit.io/fluentbit.key | sudo apt-key add -</span><br><span class="line">echo &quot;deb https://packages.fluentbit.io/ubuntu/focal focal main&quot; | sudo tee /etc/apt/sources.list.d/fluentbit.list</span><br><span class="line">sudo apt-get update</span><br></pre></td></tr></table></figure>
-
-<ol start="2">
-<li><p><strong>安装 Fluent Bit</strong></p>
-<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">sudo</span> apt-get install -y fluent-bit</span><br></pre></td></tr></table></figure></li>
-</ol>
-<h4 id="在-CentOS-RHEL-上安装"><a href="#在-CentOS-RHEL-上安装" class="headerlink" title="在 CentOS&#x2F;RHEL 上安装"></a>在 CentOS&#x2F;RHEL 上安装</h4><ol>
-<li><p><strong>添加 Fluent Bit 的 YUM 仓库</strong></p>
-<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">sudo</span> yum install -y epel-release</span><br><span class="line">curl -fsSL https://fluentbit.io/scripts/add_fluentbit_repo.sh | <span class="built_in">sudo</span> bash</span><br></pre></td></tr></table></figure>
-</li>
-<li><p><strong>安装 Fluent Bit</strong></p>
-<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">sudo</span> yum install -y fluent-bit</span><br></pre></td></tr></table></figure></li>
-</ol>
-<h4 id="在-macOS-上安装"><a href="#在-macOS-上安装" class="headerlink" title="在 macOS 上安装"></a>在 macOS 上安装</h4><ol>
-<li><p><strong>使用 Homebrew 安装</strong></p>
-<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">brew install fluent-bit</span><br></pre></td></tr></table></figure></li>
-</ol>
-<h3 id="2-配置-Fluent-Bit"><a href="#2-配置-Fluent-Bit" class="headerlink" title="2. 配置 Fluent Bit"></a>2. 配置 Fluent Bit</h3><p>Fluent Bit 的配置文件通常位于 <code>/etc/fluent-bit/fluent-bit.conf</code>。你可以根据需要编辑这个文件。</p>
-<h4 id="基本配置示例"><a href="#基本配置示例" class="headerlink" title="基本配置示例"></a>基本配置示例</h4><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line">[SERVICE]</span><br><span class="line">    Flush        1</span><br><span class="line">    Daemon       Off</span><br><span class="line">    Log_Level    info</span><br><span class="line">    Parsers_File parsers.conf</span><br><span class="line"></span><br><span class="line">[INPUT]</span><br><span class="line">    Name         tail</span><br><span class="line">    Path         /var/log/*.log</span><br><span class="line">    Parser       json</span><br><span class="line">    Tag          kube.*</span><br><span class="line"></span><br><span class="line">[FILTER]</span><br><span class="line">    Name         record_modifier</span><br><span class="line">    Match        *</span><br><span class="line">    Record       hostname myhostname</span><br><span class="line"></span><br><span class="line">[OUTPUT]</span><br><span class="line">    Name         stdout</span><br><span class="line">    Match        *</span><br></pre></td></tr></table></figure>
-
-<h3 id="3-启动-Fluent-Bit"><a href="#3-启动-Fluent-Bit" class="headerlink" title="3. 启动 Fluent Bit"></a>3. 启动 Fluent Bit</h3><p>你可以使用以下命令启动 Fluent Bit：</p>
-<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">sudo</span> fluent-bit -c /etc/fluent-bit/fluent-bit.conf</span><br></pre></td></tr></table></figure>
-
-<h3 id="4-检查日志"><a href="#4-检查日志" class="headerlink" title="4. 检查日志"></a>4. 检查日志</h3><p>Fluent Bit 的日志通常会输出到控制台或指定的日志文件中。你可以查看这些日志以确保 Fluent Bit 正常运行。</p>
-<h3 id="5-常见插件"><a href="#5-常见插件" class="headerlink" title="5. 常见插件"></a>5. 常见插件</h3><ul>
-<li><p><strong>输入插件</strong>:</p>
-<ul>
-<li><code>tail</code>: 读取文件。</li>
-<li><code>forward</code>: 接收来自其他 Fluentd&#x2F;Fluent Bit 实例的数据。</li>
-<li><code>syslog</code>: 读取系统日志。</li>
-</ul>
-</li>
-<li><p><strong>过滤器插件</strong>:</p>
-<ul>
-<li><code>record_modifier</code>: 修改记录字段。</li>
-<li><code>grep</code>: 过滤记录。</li>
-<li><code>throttle</code>: 限制输出速率。</li>
-</ul>
-</li>
-<li><p><strong>输出插件</strong>:</p>
-<ul>
-<li><code>stdout</code>: 输出到控制台。</li>
-<li><code>es</code>: 输出到 Elasticsearch。</li>
-<li><code>kafka</code>: 输出到 Kafka。</li>
-<li><code>s3</code>: 输出到 Amazon S3。</li>
-</ul>
-</li>
-</ul>
-<h3 id="6-示例：将日志发送到-Elasticsearch"><a href="#6-示例：将日志发送到-Elasticsearch" class="headerlink" title="6. 示例：将日志发送到 Elasticsearch"></a>6. 示例：将日志发送到 Elasticsearch</h3><p>假设你想将日志发送到 Elasticsearch，可以配置如下：</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">[OUTPUT]</span><br><span class="line">    Name         es</span><br><span class="line">    Match        *</span><br><span class="line">    Host         localhost</span><br><span class="line">    Port         9200</span><br><span class="line">    Index        fluent-bit</span><br><span class="line">    Type         log</span><br></pre></td></tr></table></figure>
-
-<h3 id="7-常见问题"><a href="#7-常见问题" class="headerlink" title="7. 常见问题"></a>7. 常见问题</h3><ul>
-<li><p><strong>Fluent Bit 不启动</strong>:</p>
-<ul>
-<li>检查配置文件是否有语法错误。</li>
-<li>确保所需插件已安装。</li>
-<li>查看日志文件以获取更多信息。</li>
-</ul>
-</li>
-<li><p><strong>日志数据不完整</strong>:</p>
-<ul>
-<li>检查输入插件的配置是否正确。</li>
-<li>确保日志文件路径和权限设置正确。</li>
-</ul>
-</li>
-</ul>
-<h3 id="8-更多资源"><a href="#8-更多资源" class="headerlink" title="8. 更多资源"></a>8. 更多资源</h3><ul>
-<li><strong>官方文档</strong>: <a target="_blank" rel="noopener" href="https://docs.fluentbit.io/manual/">Fluent Bit 官方文档</a></li>
-<li><strong>GitHub 仓库</strong>: <a target="_blank" rel="noopener" href="https://github.com/fluent/fluent-bit">Fluent Bit GitHub 仓库</a></li>
-</ul>
-<p>希望这些信息对你有所帮助！如果有更多具体问题，欢迎继续提问。</p>
-<pre><code>
-参考文档：
-https://docs.fluentbit.io/manual
-</code></pre>
-
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
-      
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="http://example.com/2024/12/13/Elasticsearch-%E6%8F%90%E4%BE%9B%E4%BA%86%E4%B8%B0%E5%AF%8C%E7%9A%84-RESTful-API/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.gif">
-      <meta itemprop="name" content="wangzhiwei">
-      <meta itemprop="description" content="javascript nodejs web developer...">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="WBlog">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/2024/12/13/Elasticsearch-%E6%8F%90%E4%BE%9B%E4%BA%86%E4%B8%B0%E5%AF%8C%E7%9A%84-RESTful-API/" class="post-title-link" itemprop="url">Elasticsearch 提供了丰富的 RESTful API</a>
-        </h2>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              <span class="post-meta-item-text">发表于</span>
-
-              <time title="创建时间：2024-12-13 15:48:41" itemprop="dateCreated datePublished" datetime="2024-12-13T15:48:41+08:00">2024-12-13</time>
-            </span>
-              <span class="post-meta-item">
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-calendar-check-o"></i>
-                </span>
-                <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2025-03-18 11:10:52" itemprop="dateModified" datetime="2025-03-18T11:10:52+08:00">2025-03-18</time>
-              </span>
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              <span class="post-meta-item-text">分类于</span>
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/Elasticsearch/" itemprop="url" rel="index"><span itemprop="name">Elasticsearch</span></a>
-                </span>
-                  ，
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/Elasticsearch/%E6%95%B0%E6%8D%AE%E5%BA%93/" itemprop="url" rel="index"><span itemprop="name">数据库</span></a>
-                </span>
-            </span>
-
-          
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <p>Elasticsearch 提供了丰富的 RESTful API，可以通过 HTTP 请求与 Elasticsearch 进行交互。以下是一些常见的操作及其对应的 API 用法：</p>
-<p><img src="/../images/es_01.png"></p>
-<p><a target="_blank" rel="noopener" href="http://localhost:9200/">http://localhost:9200/</a></p>
-<p>查看索引列表<br>curl -X GET “127.0.0.1:9200&#x2F;_cat”<br>curl -X GET “127.0.0.1:9200&#x2F;_cat&#x2F;indices”<br>获取集群健康状态</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">curl -X GET &quot;localhost:9200/_cluster/health?pretty&quot;</span><br><span class="line"></span><br></pre></td></tr></table></figure>
-
-<p>创建索引</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">curl -X PUT &quot;localhost:9200/my_index?pretty&quot;</span><br><span class="line"></span><br></pre></td></tr></table></figure>
-
-<p>删除索引</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">curl -X DELETE &quot;localhost:9200/my_index?pretty&quot;</span><br><span class="line"></span><br></pre></td></tr></table></figure>
-
-<p>添加</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">curl -X POST &quot;localhost:9200/my_index/_doc/1?pretty&quot; -H &#x27;Content-Type: application/json&#x27; -d&#x27;</span><br><span class="line">&#123;</span><br><span class="line">  &quot;field1&quot;: &quot;value1&quot;,</span><br><span class="line">  &quot;field2&quot;: &quot;value2&quot;</span><br><span class="line">&#125;</span><br><span class="line">&#x27;</span><br></pre></td></tr></table></figure>
-<p>修改<br>某一条文档局部更新</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">curl -X POST &quot;localhost:9200/my_index/_update/1?pretty&quot; -H &#x27;Content-Type: application/json&#x27; -d&#x27;</span><br><span class="line">&#123;</span><br><span class="line">  &quot;doc&quot;: &#123;</span><br><span class="line">    &quot;field1&quot;: &quot;new_value1&quot;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br><span class="line">&#x27;</span><br><span class="line"></span><br></pre></td></tr></table></figure>
-
-
-<p>某一条文档全量更新</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">curl -X PUT &quot;localhost:9200/my_index/_doc/1?pretty&quot; -H &#x27;Content-Type: application/json&#x27; -d&#x27;</span><br><span class="line">&#123;</span><br><span class="line">  &quot;field1&quot;: &quot;111111111111value1&quot;,</span><br><span class="line">  &quot;field2&quot;: &quot;value2&quot;</span><br><span class="line">&#125;</span><br><span class="line">&#x27;</span><br></pre></td></tr></table></figure>
-<p>查询 my_index 索引中 ID 为 1 的文档：</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">curl -X GET &quot;localhost:9200/my_index/_doc/1?pretty&quot;</span><br><span class="line"></span><br></pre></td></tr></table></figure>
-
-<p>删除 my_index 索引中 ID 为 1 的文档：</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">curl -X DELETE &quot;localhost:9200/my_index/_doc/1?pretty&quot;</span><br><span class="line"></span><br></pre></td></tr></table></figure>
-<p>查询 my_index 里面的数据列表</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">curl -X GET &quot;localhost:9200/my_index/_search&quot;</span><br><span class="line"></span><br></pre></td></tr></table></figure>
-
-<p>条件查询</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">curl -X GET &quot;localhost:9200/my_index/_search?q=field1:111111111111value1&quot;</span><br><span class="line"></span><br></pre></td></tr></table></figure>
-
-<p>分页查询</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">curl -X GET &quot;localhost:9200/my_index/_search?pretty&quot; -H &#x27;Content-Type: application/json&#x27; -d&#x27;</span><br><span class="line">&#123;</span><br><span class="line">  &quot;from&quot;: 0,</span><br><span class="line">  &quot;size&quot;: 2,</span><br><span class="line">  &quot;query&quot;: &#123;</span><br><span class="line">    &quot;match_all&quot;: &#123;&#125;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;&#x27;</span><br><span class="line"></span><br></pre></td></tr></table></figure>
-
-
-<p>查询排序</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">curl -X GET &quot;localhost:9200/my_index/_search?pretty&quot; -H &#x27;Content-Type: application/json&#x27; -d&#x27;</span><br><span class="line">&#123;</span><br><span class="line">  &quot;query&quot;: &#123;</span><br><span class="line">    &quot;match_all&quot;: &#123;&#125;</span><br><span class="line">  &#125;,</span><br><span class="line">  &quot;sort&quot;: [</span><br><span class="line">    &#123;&quot;_id&quot;: &quot;desc&quot;&#125;</span><br><span class="line">  ]</span><br><span class="line">&#125;&#x27;</span><br><span class="line"></span><br></pre></td></tr></table></figure>
-
-<p>过滤返回字段</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">curl -X GET &quot;localhost:9200/my_index/_search?pretty&quot; -H &#x27;Content-Type: application/json&#x27; -d&#x27;</span><br><span class="line">&#123;</span><br><span class="line">  &quot;query&quot;: &#123;</span><br><span class="line">    &quot;match_all&quot;: &#123;&#125;</span><br><span class="line">  &#125;,</span><br><span class="line">  &quot;sort&quot;: [</span><br><span class="line">    &#123;&quot;_id&quot;: &quot;desc&quot;&#125;</span><br><span class="line">  ],</span><br><span class="line">  &quot;_source&quot;: [&quot;field1&quot;]</span><br><span class="line">&#125;&#x27;</span><br><span class="line"></span><br></pre></td></tr></table></figure>
-
-<p>在 Elasticsearch 中进行分页查询通常使用 <code>from</code> 和 <code>size</code> 参数。<code>from</code> 参数表示从第几条记录开始，<code>size</code> 参数表示每次查询返回的记录数。以下是一个示例，展示如何进行分页查询：</p>
-<h3 id="示例请求"><a href="#示例请求" class="headerlink" title="示例请求"></a>示例请求</h3><p>假设你有一个索引 <code>my_index</code>，并且你想分页查询其中的文档。</p>
-<h4 id="第一页（前10条记录）"><a href="#第一页（前10条记录）" class="headerlink" title="第一页（前10条记录）"></a>第一页（前10条记录）</h4><figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">curl -X GET <span class="string">&quot;localhost:9200/my_index/_search?pretty&quot;</span> -H <span class="string">&#x27;Content-Type: application/json&#x27;</span> -d<span class="string">&#x27;</span></span><br><span class="line"><span class="string">&#123;</span></span><br><span class="line"><span class="string">  &quot;from&quot;: 0,</span></span><br><span class="line"><span class="string">  &quot;size&quot;: 10,</span></span><br><span class="line"><span class="string">  &quot;query&quot;: &#123;</span></span><br><span class="line"><span class="string">    &quot;match_all&quot;: &#123;&#125;</span></span><br><span class="line"><span class="string">  &#125;</span></span><br><span class="line"><span class="string">&#125;&#x27;</span></span><br></pre></td></tr></table></figure>
-
-<h4 id="第二页（第11到第20条记录）"><a href="#第二页（第11到第20条记录）" class="headerlink" title="第二页（第11到第20条记录）"></a>第二页（第11到第20条记录）</h4><figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">curl -X GET <span class="string">&quot;localhost:9200/my_index/_search?pretty&quot;</span> -H <span class="string">&#x27;Content-Type: application/json&#x27;</span> -d<span class="string">&#x27;</span></span><br><span class="line"><span class="string">&#123;</span></span><br><span class="line"><span class="string">  &quot;from&quot;: 10,</span></span><br><span class="line"><span class="string">  &quot;size&quot;: 10,</span></span><br><span class="line"><span class="string">  &quot;query&quot;: &#123;</span></span><br><span class="line"><span class="string">    &quot;match_all&quot;: &#123;&#125;</span></span><br><span class="line"><span class="string">  &#125;</span></span><br><span class="line"><span class="string">&#125;&#x27;</span></span><br></pre></td></tr></table></figure>
-
-<h4 id="第三页（第21到第30条记录）"><a href="#第三页（第21到第30条记录）" class="headerlink" title="第三页（第21到第30条记录）"></a>第三页（第21到第30条记录）</h4><figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">curl -X GET <span class="string">&quot;localhost:9200/my_index/_search?pretty&quot;</span> -H <span class="string">&#x27;Content-Type: application/json&#x27;</span> -d<span class="string">&#x27;</span></span><br><span class="line"><span class="string">&#123;</span></span><br><span class="line"><span class="string">  &quot;from&quot;: 20,</span></span><br><span class="line"><span class="string">  &quot;size&quot;: 10,</span></span><br><span class="line"><span class="string">  &quot;query&quot;: &#123;</span></span><br><span class="line"><span class="string">    &quot;match_all&quot;: &#123;&#125;</span></span><br><span class="line"><span class="string">  &#125;</span></span><br><span class="line"><span class="string">&#125;&#x27;</span></span><br></pre></td></tr></table></figure>
-
-<h3 id="参数说明"><a href="#参数说明" class="headerlink" title="参数说明"></a>参数说明</h3><ul>
-<li><strong><code>from</code></strong>: 表示从第几条记录开始。例如，<code>from: 0</code> 表示从第一条记录开始，<code>from: 10</code> 表示从第11条记录开始。</li>
-<li><strong><code>size</code></strong>: 表示每次查询返回的记录数。例如，<code>size: 10</code> 表示每次返回10条记录。</li>
-<li><strong><code>query</code></strong>: 查询条件。这里使用 <code>match_all</code> 表示匹配所有文档。你可以根据需要替换为其他查询条件。</li>
-</ul>
-<h3 id="注意事项"><a href="#注意事项" class="headerlink" title="注意事项"></a>注意事项</h3><ul>
-<li><strong>性能问题</strong>: 当 <code>from</code> 值很大时，分页查询可能会变得非常慢。对于这种情况，建议使用 <code>search_after</code> 或 <code>scroll</code> API。</li>
-<li><strong><code>search_after</code></strong>: 适用于深分页，可以避免性能问题。</li>
-<li><strong><code>scroll</code></strong>: 适用于导出大量数据，可以保持搜索上下文一段时间。</li>
-</ul>
-<h3 id="search-after-示例"><a href="#search-after-示例" class="headerlink" title="search_after 示例"></a><code>search_after</code> 示例</h3><figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">curl -X GET <span class="string">&quot;localhost:9200/my_index/_search?pretty&quot;</span> -H <span class="string">&#x27;Content-Type: application/json&#x27;</span> -d<span class="string">&#x27;</span></span><br><span class="line"><span class="string">&#123;</span></span><br><span class="line"><span class="string">  &quot;size&quot;: 10,</span></span><br><span class="line"><span class="string">  &quot;query&quot;: &#123;</span></span><br><span class="line"><span class="string">    &quot;match_all&quot;: &#123;&#125;</span></span><br><span class="line"><span class="string">  &#125;,</span></span><br><span class="line"><span class="string">  &quot;sort&quot;: [</span></span><br><span class="line"><span class="string">    &#123;&quot;_id&quot;: &quot;asc&quot;&#125;</span></span><br><span class="line"><span class="string">  ],</span></span><br><span class="line"><span class="string">  &quot;search_after&quot;: [10]</span></span><br><span class="line"><span class="string">&#125;&#x27;</span></span><br></pre></td></tr></table></figure>
-
-<h3 id="scroll-示例"><a href="#scroll-示例" class="headerlink" title="scroll 示例"></a><code>scroll</code> 示例</h3><figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 初始化 scroll</span></span><br><span class="line">curl -X GET <span class="string">&quot;localhost:9200/my_index/_search?scroll=1m&amp;pretty&quot;</span> -H <span class="string">&#x27;Content-Type: application/json&#x27;</span> -d<span class="string">&#x27;</span></span><br><span class="line"><span class="string">&#123;</span></span><br><span class="line"><span class="string">  &quot;size&quot;: 100,</span></span><br><span class="line"><span class="string">  &quot;query&quot;: &#123;</span></span><br><span class="line"><span class="string">    &quot;match_all&quot;: &#123;&#125;</span></span><br><span class="line"><span class="string">  &#125;</span></span><br><span class="line"><span class="string">&#125;&#x27;</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 使用 scroll_id 获取下一批数据</span></span><br><span class="line">curl -X GET <span class="string">&quot;localhost:9200/_search/scroll?pretty&quot;</span> -H <span class="string">&#x27;Content-Type: application/json&#x27;</span> -d<span class="string">&#x27;</span></span><br><span class="line"><span class="string">&#123;</span></span><br><span class="line"><span class="string">  &quot;scroll&quot;: &quot;1m&quot;,</span></span><br><span class="line"><span class="string">  &quot;scroll_id&quot;: &quot;your_scroll_id&quot;</span></span><br><span class="line"><span class="string">&#125;&#x27;</span></span><br></pre></td></tr></table></figure>
-
-<p>希望这些示例能帮助你实现分页查询。如果有更多具体的问题或需要进一步的帮助，请随时提问。</p>
-<p>条件查询</p>
-<p>范围查询</p>
-<p>全文检索 </p>
-<p>完全匹配</p>
-<p>高亮查询</p>
-<p>聚合查询</p>
-<p>映射关系</p>
-
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
 
   
   <nav class="pagination">
@@ -1482,7 +1373,7 @@ https://docs.fluentbit.io/manual
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">85</span>
+          <span class="site-state-item-count">87</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>
