@@ -149,6 +149,90 @@
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="http://example.com/2025/04/24/%E6%98%AF%E5%90%A6%E5%8F%AF%E4%BB%A5%E9%80%9A%E8%BF%87-%E5%91%BD%E4%BB%A4%E8%A1%8C%E5%8F%91%E9%80%81-ws-localhost-8080/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="wangzhiwei">
+      <meta itemprop="description" content="javascript nodejs web developer...">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="WBlog">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/2025/04/24/%E6%98%AF%E5%90%A6%E5%8F%AF%E4%BB%A5%E9%80%9A%E8%BF%87-%E5%91%BD%E4%BB%A4%E8%A1%8C%E5%8F%91%E9%80%81-ws-localhost-8080/" class="post-title-link" itemprop="url">是否可以通过 命令行发送 ws://localhost:8080</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+              
+
+              <time title="创建时间：2025-04-24 18:08:00 / 修改时间：18:09:18" itemprop="dateCreated datePublished" datetime="2025-04-24T18:08:00+08:00">2025-04-24</time>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <p>是的，可以通过命令行工具发送消息到 <code>ws://localhost:8080</code>，但需要借助一些工具，比如 <code>wscat</code>。</p>
+<h3 id="1-安装-wscat"><a href="#1-安装-wscat" class="headerlink" title="1. 安装 wscat"></a>1. <strong>安装 wscat</strong></h3><p><code>wscat</code> 是一个命令行工具，可以用来测试 WebSocket 服务。</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">npm install -g wscat</span><br></pre></td></tr></table></figure>
+
+<h3 id="2-连接到-WebSocket-服务器"><a href="#2-连接到-WebSocket-服务器" class="headerlink" title="2. 连接到 WebSocket 服务器"></a>2. <strong>连接到 WebSocket 服务器</strong></h3><p>使用 <code>wscat</code> 连接到服务器：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">wscat -c ws://localhost:8080</span><br></pre></td></tr></table></figure>
+
+<p>连接成功后，你应该看到类似这样的提示：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">connected (press CTRL+C to quit)</span><br></pre></td></tr></table></figure>
+
+<h3 id="3-发送消息"><a href="#3-发送消息" class="headerlink" title="3. 发送消息"></a>3. <strong>发送消息</strong></h3><p>当连接成功后，可以发送 JSON 格式的指令。例如：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&gt; &#123;<span class="string">&quot;windowSize&quot;</span>: 10, <span class="string">&quot;predictionTime&quot;</span>: 5&#125;</span><br></pre></td></tr></table></figure>
+
+<h3 id="4-查看返回消息"><a href="#4-查看返回消息" class="headerlink" title="4. 查看返回消息"></a>4. <strong>查看返回消息</strong></h3><p>服务器会将监控和预测数据发送回客户端，你可以在命令行中看到返回的 JSON 消息。</p>
+<h3 id="5-断开连接"><a href="#5-断开连接" class="headerlink" title="5. 断开连接"></a>5. <strong>断开连接</strong></h3><p>按 <code>Ctrl+C</code> 断开连接。</p>
+<h3 id="6-其他命令行工具"><a href="#6-其他命令行工具" class="headerlink" title="6. 其他命令行工具"></a>6. <strong>其他命令行工具</strong></h3><ul>
+<li>**<code>websocat</code>**：另一个选择，使用方法类似：<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">websocat ws://localhost:8080</span><br></pre></td></tr></table></figure>
+安装方法：<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">cargo install websocat</span><br></pre></td></tr></table></figure></li>
+<li>**<code>socat</code>**：通过 <code>socat</code> 也可以实现类似功能，但语法略有不同。</li>
+</ul>
+<p>使用这些工具，你可以快速测试 WebSocket 服务器的功能。</p>
+<p>package.json</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line">&#123;</span><br><span class="line">  &quot;name&quot;: &quot;nodejs-backend&quot;,</span><br><span class="line">  &quot;version&quot;: &quot;1.0.0&quot;,</span><br><span class="line">  &quot;description&quot;: &quot;&quot;,</span><br><span class="line">  &quot;main&quot;: &quot;index.js&quot;,</span><br><span class="line">  &quot;scripts&quot;: &#123;</span><br><span class="line">    &quot;test&quot;: &quot;echo \&quot;Error: no test specified\&quot; &amp;&amp; exit 1&quot;</span><br><span class="line">  &#125;,</span><br><span class="line">  &quot;keywords&quot;: [],</span><br><span class="line">  &quot;author&quot;: &quot;&quot;,</span><br><span class="line">  &quot;license&quot;: &quot;ISC&quot;,</span><br><span class="line">  &quot;dependencies&quot;: &#123;</span><br><span class="line">    &quot;systeminformation&quot;: &quot;^5.25.11&quot;,</span><br><span class="line">    &quot;websocket&quot;: &quot;^1.0.35&quot;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+
+<p>server.js</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br><span class="line">100</span><br><span class="line">101</span><br><span class="line">102</span><br><span class="line">103</span><br><span class="line">104</span><br><span class="line">105</span><br><span class="line">106</span><br><span class="line">107</span><br><span class="line">108</span><br><span class="line">109</span><br><span class="line">110</span><br><span class="line">111</span><br><span class="line">112</span><br><span class="line">113</span><br><span class="line">114</span><br><span class="line">115</span><br><span class="line">116</span><br><span class="line">117</span><br><span class="line">118</span><br><span class="line">119</span><br><span class="line">120</span><br><span class="line">121</span><br><span class="line">122</span><br><span class="line">123</span><br><span class="line">124</span><br><span class="line">125</span><br><span class="line">126</span><br><span class="line">127</span><br><span class="line">128</span><br><span class="line">129</span><br><span class="line">130</span><br><span class="line">131</span><br><span class="line">132</span><br><span class="line">133</span><br><span class="line">134</span><br><span class="line">135</span><br><span class="line">136</span><br><span class="line">137</span><br><span class="line">138</span><br><span class="line">139</span><br><span class="line">140</span><br><span class="line">141</span><br><span class="line">142</span><br><span class="line">143</span><br><span class="line">144</span><br><span class="line">145</span><br><span class="line">146</span><br><span class="line">147</span><br><span class="line">148</span><br><span class="line">149</span><br><span class="line">150</span><br><span class="line">151</span><br><span class="line">152</span><br><span class="line">153</span><br><span class="line">154</span><br><span class="line">155</span><br><span class="line">156</span><br><span class="line">157</span><br><span class="line">158</span><br><span class="line">159</span><br><span class="line">160</span><br><span class="line">161</span><br><span class="line">162</span><br><span class="line">163</span><br><span class="line">164</span><br><span class="line">165</span><br><span class="line">166</span><br><span class="line">167</span><br><span class="line">168</span><br><span class="line">169</span><br><span class="line">170</span><br><span class="line">171</span><br></pre></td><td class="code"><pre><span class="line">// 指定与服务器和监控过程相关的导入。</span><br><span class="line">const http = require(&quot;http&quot;); // 导入 &#x27;http&#x27; 模块以创建 HTTP 服务器。</span><br><span class="line">const WebSocketServer = require(&quot;websocket&quot;).server; // 导入 WebSocket 服务器模块。</span><br><span class="line">const si = require(&#x27;systeminformation&#x27;); // 导入 &#x27;systeminformation&#x27; 库以获取设备的系统信息。</span><br><span class="line">const fs = require(&#x27;fs&#x27;); // 导入 &#x27;fs&#x27; 模块以处理文件系统。</span><br><span class="line"></span><br><span class="line">// 与机器学习相关的导入。</span><br><span class="line">// var MLP = require(&#x27;mlp&#x27;); // 导入 &#x27;mlp&#x27; 库，用于多层感知机预测。</span><br><span class="line">// var KNN = require(&#x27;ml-knn&#x27;); // 导入 &#x27;ml-knn&#x27; 库，用于 K 最近邻分类。</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">// 声明并初始化将在服务器脚本中使用的全局变量。</span><br><span class="line">var monitoringInterval; // 声明一个用于监控间隔的变量。</span><br><span class="line">var sampleSize = 0; // 初始化一个用于样本大小的变量，在数据收集阶段使用。</span><br><span class="line">var predTime = 0; // 初始化一个用于预测时间的变量，表示用户希望进行预测的时间点。</span><br><span class="line">var predRX = 0; // 初始化一个用于预测下载速度的变量，单位为 Kb/s。</span><br><span class="line">var predTX = 0; // 初始化一个用于预测上传速度的变量，单位为 Kb/s。</span><br><span class="line">var predLat = 0; // 初始化一个用于预测延迟的变量，单位为 ms。</span><br><span class="line">var scoreQoS = &quot;&quot;; // 初始化一个用于 QoS（服务质量）得分的变量。</span><br><span class="line">var latency = 0; // 初始化一个用于延迟测量的变量，单位为 ms。</span><br><span class="line">var averageLatency = 0; // 初始化一个用于计算平均延迟的变量，单位为 ms。</span><br><span class="line">var deviceActivity = &quot;&quot;; // 初始化一个用于确定设备活动状态的变量，状态可以是“空闲”“浏览”或“流媒体”。</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">// 从本地存储的数据库中获取一些之前存储的下载速度值。</span><br><span class="line">const contents1 = fs.readFileSync(&quot;./Databases/downloadSpeed.txt&quot;, &#x27;utf-8&#x27;); // 读取 &#x27;downloadSpeed.txt&#x27; 文件的内容。</span><br><span class="line">var downloadArray = contents1.split(/\r?\n/); // 将内容分割成一个数组，假设每一行代表一个值。</span><br><span class="line"></span><br><span class="line">// 从本地存储的数据库中获取一些之前存储的上传速度值。</span><br><span class="line">const contents2 = fs.readFileSync(&quot;./Databases/uploadSpeed.txt&quot;, &#x27;utf-8&#x27;); // 读取 &#x27;uploadSpeed.txt&#x27; 文件的内容。</span><br><span class="line">var uploadArray = contents2.split(/\r?\n/); // 将内容分割成一个数组，假设每一行代表一个值。</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"></span><br><span class="line"></span><br><span class="line">// 在 8080 端口上托管服务器连接。</span><br><span class="line">const server = http.createServer(); // 创建 HTTP 服务器实例。</span><br><span class="line">server.listen(8080); // 在 8080 端口上监听传入的 HTTP 请求。</span><br><span class="line">console.log(&quot;Server started on port 8080...&quot;); // 记录消息，指示服务器已启动。</span><br><span class="line">console.log(&quot;Waiting for connection...&quot;); // 记录消息，指示服务器正在等待连接。</span><br><span class="line"></span><br><span class="line">// 创建 WebSocket 服务器实例，并将其附加到之前创建的 HTTP 服务器。</span><br><span class="line">const wsServer = new WebSocketServer(&#123;</span><br><span class="line">    httpServer: server,</span><br><span class="line">&#125;);</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">// 通过 WebSocket 服务器监听客户端的连接请求。</span><br><span class="line">wsServer.on(&quot;request&quot;, function (request) &#123;</span><br><span class="line">    // 接受客户端的连接。</span><br><span class="line">    const connection = request.accept(null, request.origin);</span><br><span class="line">    // 使用 &quot;message&quot; 关键字接受来自客户端的消息。</span><br><span class="line">    connection.on(&quot;message&quot;, function (message) &#123;</span><br><span class="line">        // 此处包含列表 5-16 的内容</span><br><span class="line"></span><br><span class="line">        // 获取从客户端获得的消息。</span><br><span class="line">        // 在这种情况下，收到的第一条消息是客户端发送的 URL。</span><br><span class="line">        // 这确保了通信是正常的。</span><br><span class="line">        console.log(&quot;Message from Client:&quot;, message.utf8Data);</span><br><span class="line">        // 初始化一个变量以包含客户端发送的消息。</span><br><span class="line">        var clientMessage = message.utf8Data;</span><br><span class="line">        // 检查客户端发送的消息中是否包含 JSONObject 中的 &quot;windowSize&quot; 变量。</span><br><span class="line">        // 这作为触发监控过程的决定因素。</span><br><span class="line">        // 收到 &quot;windowSize&quot; 变量意味着客户端运行正常。</span><br><span class="line">        if (clientMessage.includes(&quot;windowSize&quot;)) &#123;</span><br><span class="line">            const msg = JSON.parse(clientMessage); // 初始化一个常量以解析消息。</span><br><span class="line">            // 从 JSONObject 中获取 &quot;windowSize&quot; 和 &quot;predictionTime&quot; 的值。</span><br><span class="line">            sampleSize = msg.windowSize; // &quot;windowSize&quot; 的值。</span><br><span class="line">            predTime = msg.predictionTime; // &quot;predictionTime&quot; 的值。</span><br><span class="line">            // 初始化一个计数器，以知道已收集了多少网络流量。</span><br><span class="line">            var counter = 0;</span><br><span class="line">            // 初始化一个数组，以包含延迟项。</span><br><span class="line">            var latencyArray = [];</span><br><span class="line">            // 初始化一个计数器，以知道已收集了多少延迟值。</span><br><span class="line">            var counterLatency = 0;</span><br><span class="line">            // 使用 setInterval 方法创建一个每秒运行一次的函数。</span><br><span class="line">            // 该方法以函数和毫秒为单位的时间间隔作为输入。</span><br><span class="line">            monitoringInterval = setInterval(function () &#123;</span><br><span class="line">                // 此处包含列表 5-17 和列表 5-18 的内容</span><br><span class="line"></span><br><span class="line">                // 从 Wi-Fi 接口获取网络数据。</span><br><span class="line">                si.networkStats().then(data =&gt; &#123;</span><br><span class="line">                    // 计算每秒接收的数据包数量，即下载速度。</span><br><span class="line">                    var RX = Math.round((((data[0].rx_sec) / 1000) + Number.EPSILON) * 100) / 100;</span><br><span class="line">                    // 计算每秒发送的数据包数量，即上传速度。</span><br><span class="line">                    var TX = Math.round((((data[0].tx_sec) / 1000) + Number.EPSILON) * 100) / 100;</span><br><span class="line">                    // 使用 push() 方法将新读取的流量添加到预加载的数组中。</span><br><span class="line">                    // 预加载的数组以时间序列方式存储参数。</span><br><span class="line">                    // 根据设备活动，这可能会提高算法的性能。</span><br><span class="line">                    downloadArray.push(RX); // 将下载速度值添加到其预加载的数组中。</span><br><span class="line">                    uploadArray.push(TX); // 将上传速度值添加到其预加载的数组中。</span><br><span class="line">                    // 将值记录到控制台。</span><br><span class="line">                    console.log(&quot;Download Speed: &quot; + RX + &quot; KB/s&quot;);</span><br><span class="line">                    console.log(&quot;Upload Speed: &quot; + TX + &quot; KB/s&quot;);</span><br><span class="line">                    console.log(&quot;-----------------------------&quot;);</span><br><span class="line">                    // 当记录了六十个值时，停止监控过程并触发机器学习算法。</span><br><span class="line">                    if (counter == 60) &#123;</span><br><span class="line">                        // 使用 clearInterval() 方法停止监控过程。</span><br><span class="line">                        clearInterval(monitoringInterval);</span><br><span class="line">                        // 调用预测方法，对下载速度进行时间序列预测。</span><br><span class="line">                        // 确保如果算法失败并返回 NaN，则再次调用该方法。</span><br><span class="line">                        while (true) &#123;</span><br><span class="line">                            predRX = predictMLP(downloadArray, parseInt(sampleSize), parseInt(predTime), 0.1, 0.01);</span><br><span class="line">                            if (!isNaN(predRX)) &#123;</span><br><span class="line">                                // 如果获得实际数字，则退出循环。</span><br><span class="line">                                break;</span><br><span class="line">                            &#125;</span><br><span class="line">                        &#125;</span><br><span class="line">                        // 调用预测方法，对上传速度进行时间序列预测。</span><br><span class="line">                        // 确保如果算法失败并返回 NaN，则再次调用该方法。</span><br><span class="line">                        while (true) &#123;</span><br><span class="line">                            predTX = predictMLP(uploadArray, parseInt(sampleSize), parseInt(predTime), 0.1, 0.01);</span><br><span class="line">                            if (!isNaN(predTX)) &#123;</span><br><span class="line">                                // 如果获得实际数字，则退出循环。</span><br><span class="line">                                break;</span><br><span class="line">                            &#125;</span><br><span class="line">                        &#125;</span><br><span class="line">                        // 调用预测方法，对延迟进行时间序列预测。</span><br><span class="line">                        // 确保如果算法失败并返回 NaN，则再次调用该方法。</span><br><span class="line">                        while (true) &#123;</span><br><span class="line">                            predLat = predictMLP(latencyArray, parseInt(sampleSize), parseInt(predTime), 0.1, 0.01);</span><br><span class="line">                            if (!isNaN(predLat)) &#123;</span><br><span class="line">                                // 如果获得实际数字，则退出循环。</span><br><span class="line">                                break;</span><br><span class="line">                            &#125;</span><br><span class="line">                        &#125;</span><br><span class="line">                        // 通过调用分类方法对设备活动进行分类。</span><br><span class="line">                        deviceActivity = calculateKNN(RX, TX);</span><br><span class="line">                        // 创建一个包含预测和分类结果的常量变量。</span><br><span class="line">                        const predictionMessage = &#123;</span><br><span class="line">                            downloadSpeed: RX,</span><br><span class="line">                            uploadSpeed: TX,</span><br><span class="line">                            predictedDownloadSpeed: predRX,</span><br><span class="line">                            predictedUploadSpeed: predTX,</span><br><span class="line">                            predictedLatency: predLat,</span><br><span class="line">                            predictedQoS: scoreQoS,</span><br><span class="line">                            deviceActivity: deviceActivity,</span><br><span class="line">                            averageLatency: averageLatency</span><br><span class="line">                        &#125;;</span><br><span class="line">                        // 将指标消息封装在 JSON 格式的字符串中，并通过 WebSocket 连接发送。</span><br><span class="line">                        connection.send(JSON.stringify(predictionMessage));</span><br><span class="line">                    &#125; else &#123;</span><br><span class="line">                        // 创建一个包含每秒发送给客户端的网络流量值的常量变量。</span><br><span class="line">                        // 添加所有 3 个实时值。</span><br><span class="line">                        const jsonMessage = &#123;</span><br><span class="line">                            downloadSpeed: RX,</span><br><span class="line">                            uploadSpeed: TX,</span><br><span class="line">                            latency: latency</span><br><span class="line">                        &#125;;</span><br><span class="line">                        // 将实时消息封装在 JSON 格式的字符串中，并通过 WebSocket 连接发送。</span><br><span class="line">                        connection.send(JSON.stringify(jsonMessage));</span><br><span class="line">                        // 增加网络流量计数器。</span><br><span class="line">                        counter = counter + 1;</span><br><span class="line">                    &#125;</span><br><span class="line">                &#125;)</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">            &#125;, 1000); // 指定监控过程的时间间隔为 1000 毫秒。</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;);</span><br><span class="line">    // 使用 &quot;close&quot; 关键字处理客户端断开连接。</span><br><span class="line">    connection.on(&quot;close&quot;, function (reasonCode, description) &#123;</span><br><span class="line">        // 记录消息，指示客户端已断开连接。</span><br><span class="line">        console.log(&quot;Client has disconnected.&quot;);</span><br><span class="line">        // 当客户端断开连接时，停止监控过程。</span><br><span class="line">        clearInterval(monitoringInterval);</span><br><span class="line">    &#125;);</span><br><span class="line">&#125;);</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"></span><br></pre></td></tr></table></figure>
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
     <link itemprop="mainEntityOfPage" href="http://example.com/2025/04/11/huggingface-%E4%B8%8A%E7%9A%84%E6%A8%A1%E5%9E%8B%E5%BE%AE%E8%B0%83%E5%90%8E%E5%A6%82%E4%BD%95%E5%9C%A8-ollama-%E4%B8%AD%E4%BD%BF%E7%94%A8/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -745,93 +829,6 @@
   
   
 
-      
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="http://example.com/2025/04/01/YOLO-V1%E5%8E%9F%E7%90%86/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.gif">
-      <meta itemprop="name" content="wangzhiwei">
-      <meta itemprop="description" content="javascript nodejs web developer...">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="WBlog">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/2025/04/01/YOLO-V1%E5%8E%9F%E7%90%86/" class="post-title-link" itemprop="url">YOLO V1原理</a>
-        </h2>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              <span class="post-meta-item-text">发表于</span>
-
-              <time title="创建时间：2025-04-01 16:07:37" itemprop="dateCreated datePublished" datetime="2025-04-01T16:07:37+08:00">2025-04-01</time>
-            </span>
-              <span class="post-meta-item">
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-calendar-check-o"></i>
-                </span>
-                <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2025-04-02 10:06:41" itemprop="dateModified" datetime="2025-04-02T10:06:41+08:00">2025-04-02</time>
-              </span>
-
-          
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <h2 id="YOLO-V1原理"><a href="#YOLO-V1原理" class="headerlink" title="YOLO V1原理"></a>YOLO V1原理</h2><h3 id="YOLO-V1-是一个单阶段的检测算法"><a href="#YOLO-V1-是一个单阶段的检测算法" class="headerlink" title="YOLO V1 是一个单阶段的检测算法"></a>YOLO V1 是一个单阶段的检测算法</h3><h3 id="YOLO-V1-对小物体，和比较接近的物体，检测准确度较差，YOLO的网格大小-会限制检测精度，尤其在物体较小或聚集的情况下"><a href="#YOLO-V1-对小物体，和比较接近的物体，检测准确度较差，YOLO的网格大小-会限制检测精度，尤其在物体较小或聚集的情况下" class="headerlink" title="YOLO V1 对小物体，和比较接近的物体，检测准确度较差，YOLO的网格大小 会限制检测精度，尤其在物体较小或聚集的情况下"></a>YOLO V1 对小物体，和比较接近的物体，检测准确度较差，YOLO的网格大小 会限制检测精度，尤其在物体较小或聚集的情况下</h3><p><img src="/../images/yolov1_ppt/yolov1_ppt-01.png"></p>
-<p><img src="/../images/yolov1_ppt/yolov1_ppt-02.png"></p>
-<h3 id="Classification-类别"><a href="#Classification-类别" class="headerlink" title="Classification 类别"></a>Classification 类别</h3><h3 id="Regression-边界框"><a href="#Regression-边界框" class="headerlink" title="Regression 边界框"></a>Regression 边界框</h3><h3 id="Localization-定位任务"><a href="#Localization-定位任务" class="headerlink" title="Localization 定位任务"></a>Localization 定位任务</h3><h3 id="Region-Proposal-区域候选-是指在目标检测过程中，通过某种算法预先找出图像中目标可能出现的位置，这些位置被称为候选区域"><a href="#Region-Proposal-区域候选-是指在目标检测过程中，通过某种算法预先找出图像中目标可能出现的位置，这些位置被称为候选区域" class="headerlink" title="Region Proposal 区域候选: 是指在目标检测过程中，通过某种算法预先找出图像中目标可能出现的位置，这些位置被称为候选区域"></a>Region Proposal 区域候选: 是指在目标检测过程中，通过某种算法预先找出图像中目标可能出现的位置，这些位置被称为候选区域</h3><p><img src="/../images/yolov1_ppt/yolov1_ppt-03.png"></p>
-<h3 id="Iou-交并比-反应了预测效果（0-1）"><a href="#Iou-交并比-反应了预测效果（0-1）" class="headerlink" title="Iou 交并比 反应了预测效果（0-1）"></a>Iou 交并比 反应了预测效果（0-1）</h3><p><img src="/../images/yolov1_ppt/yolov1_ppt-04.png"></p>
-<h3 id="YOLO-You-Only-Look-Once-是一种时时物体检测方法，对整个图像同时进行检测，不像传统的对图像进行分类后检测，这使得YOLO可以显著提高检测速度。"><a href="#YOLO-You-Only-Look-Once-是一种时时物体检测方法，对整个图像同时进行检测，不像传统的对图像进行分类后检测，这使得YOLO可以显著提高检测速度。" class="headerlink" title="YOLO (You Only Look Once) 是一种时时物体检测方法，对整个图像同时进行检测，不像传统的对图像进行分类后检测，这使得YOLO可以显著提高检测速度。"></a>YOLO (You Only Look Once) 是一种时时物体检测方法，对整个图像同时进行检测，不像传统的对图像进行分类后检测，这使得YOLO可以显著提高检测速度。</h3><h3 id="2015年发布第一个版本"><a href="#2015年发布第一个版本" class="headerlink" title="2015年发布第一个版本"></a>2015年发布第一个版本</h3><p><img src="/../images/yolov1_ppt/yolov1_ppt-05.png"></p>
-<p><img src="/../images/yolov1_ppt/yolov1_ppt-06.png"></p>
-<h3 id="Training-Phase-How-to-establish-a-connection-between-the-7x7x30-output-and-the-labels-of-the-input-image-to-compute-the-loss"><a href="#Training-Phase-How-to-establish-a-connection-between-the-7x7x30-output-and-the-labels-of-the-input-image-to-compute-the-loss" class="headerlink" title="Training Phase: How to establish a connection between the 7x7x30 output and the labels of the input image to compute the loss?"></a>Training Phase: How to establish a connection between the 7x7x30 output and the labels of the input image to compute the loss?</h3><h3 id="训练阶段：如何在7x7x30输出与输入标签之间建立连接计算损失的图像？"><a href="#训练阶段：如何在7x7x30输出与输入标签之间建立连接计算损失的图像？" class="headerlink" title="训练阶段：如何在7x7x30输出与输入标签之间建立连接计算损失的图像？"></a>训练阶段：如何在7x7x30输出与输入标签之间建立连接计算损失的图像？</h3><h3 id="Inference-Phase-How-to-obtain-bounding-boxes-and-class-probabilities-from-the-7x7x30-output"><a href="#Inference-Phase-How-to-obtain-bounding-boxes-and-class-probabilities-from-the-7x7x30-output" class="headerlink" title="Inference Phase: How to obtain bounding boxes and class probabilities from the 7x7x30 output?"></a>Inference Phase: How to obtain bounding boxes and class probabilities from the 7x7x30 output?</h3><h3 id="推理阶段：如何从7x7x30输出中获取边界框和类概率？"><a href="#推理阶段：如何从7x7x30输出中获取边界框和类概率？" class="headerlink" title="推理阶段：如何从7x7x30输出中获取边界框和类概率？"></a>推理阶段：如何从7x7x30输出中获取边界框和类概率？</h3><p><img src="/../images/yolov1_ppt/yolov1_ppt-07.png"></p>
-<h3 id="If-multiple-objects-are-in-the-same-cell-only-one-class-is-assigned-for-training"><a href="#If-multiple-objects-are-in-the-same-cell-only-one-class-is-assigned-for-training" class="headerlink" title="If multiple objects are in the same cell, only one class is assigned for training."></a>If multiple objects are in the same cell, only one class is assigned for training.</h3><p><img src="/../images/yolov1_ppt/yolov1_ppt-08.png"></p>
-<p>regression problem. 回归问题</p>
-<p><img src="/../images/yolov1_ppt/yolov1_ppt-09.png"><br><img src="/../images/yolov1_ppt/yolov1_ppt-10.png"></p>
-<h3 id="Bounding-box-coordinate-regression"><a href="#Bounding-box-coordinate-regression" class="headerlink" title="Bounding box coordinate regression"></a>Bounding box coordinate regression</h3><h3 id="边界框坐标回归损失，用于计算真实的-xywh-和预测的-xywh-之间的差别，此处用比较简单的平方损失函数"><a href="#边界框坐标回归损失，用于计算真实的-xywh-和预测的-xywh-之间的差别，此处用比较简单的平方损失函数" class="headerlink" title="边界框坐标回归损失，用于计算真实的 xywh 和预测的 xywh 之间的差别，此处用比较简单的平方损失函数"></a>边界框坐标回归损失，用于计算真实的 xywh 和预测的 xywh 之间的差别，此处用比较简单的平方损失函数</h3><p>（1 ij obj） 第i个网格的第j个box, 一个网格会生成两个box,两个box中用于检测物体的box,交并比 Iou 大的box， （1 ij obj）取1 否则 取0</p>
-<p>用于检测的box 和 ground truth 之间的坐标回归的损失</p>
-<p>拉姆达 λ 是为了调解不同损失之间的权重 值 为 5</p>
-<h3 id="Bounding-box-score-prediction"><a href="#Bounding-box-score-prediction" class="headerlink" title="Bounding box score prediction"></a>Bounding box score prediction</h3><h3 id="边界框得分预测损失"><a href="#边界框得分预测损失" class="headerlink" title="边界框得分预测损失"></a>边界框得分预测损失</h3><p>用于计算物体存在的置信度误差<br>Ci 是网格中存在物体的概率，Ci 取1 否则取0<br>（1 ij nobj） 第i个网格的第j个box, 一个网格会生成两个box,两个box中 不用于 检测物体的box, λ 是为了调节不同损失之间的权重 值 为 0.5</p>
-<h3 id="Classscore-prediction"><a href="#Classscore-prediction" class="headerlink" title="Classscore prediction"></a>Classscore prediction</h3><h3 id="类得分预测损失"><a href="#类得分预测损失" class="headerlink" title="类得分预测损失"></a>类得分预测损失</h3><p>用于计算物体类别的置信度误差，预测类别概率于实际类别的概率之间的差异<br>（1 i obj）如果有某个物体的中心落在第i 个 网格中，这一项取1，否则取0，取1 就会计算后面的平方损失</p>
-<p><img src="/../images/yolov1_ppt/yolov1_ppt-11.png"></p>
-<h3 id="推理阶段-每个-网格-都有-2个-bounding-box"><a href="#推理阶段-每个-网格-都有-2个-bounding-box" class="headerlink" title="推理阶段 每个 网格 都有 2个 bounding box"></a>推理阶段 每个 网格 都有 2个 bounding box</h3><p>（图一）7<em>7</em>2 &#x3D; 98个 bounding box，每个 bounding box 都有一个置信度，我们用粗细来区分了不同的置信度，置信度越大就越粗</p>
-<p>（图二）同时我们还可以得到 每个 bounding box 的 类别概率,右侧的有计算公式</p>
-<p>中这个 网格里有物体的情况下 是第i个类别的概率 条件概率 * 网格中有物体的概率 * 预测框和真实框之间的Iou<br>&#x3D; 网格是第i 类的概率 * Iou</p>
-<p><img src="/../images/yolov1_ppt/yolov1_ppt-12.png"><br><img src="/../images/yolov1_ppt/yolov1_ppt-13.png"><br><img src="/../images/yolov1_ppt/yolov1_ppt-14.png"><br><img src="/../images/yolov1_ppt/yolov1_ppt-15.png"><br><img src="/../images/yolov1_ppt/yolov1_ppt-16.png"><br><img src="/../images/yolov1_ppt/yolov1_ppt-17.png"><br><img src="/../images/yolov1_ppt/yolov1_ppt-18.png"></p>
-<p><img src="/../images/yolov1_ppt/yolov1_ppt-19.png"><br><img src="/../images/yolov1_ppt/yolov1_ppt-20.png"><br><img src="/../images/yolov1_ppt/yolov1_ppt-21.png"></p>
-<h3 id="NMS-非极大值抑制，移除那些多余的-bounding-boxes-仅保留具有最高置信度的-bounding-boxes"><a href="#NMS-非极大值抑制，移除那些多余的-bounding-boxes-仅保留具有最高置信度的-bounding-boxes" class="headerlink" title="NMS 非极大值抑制，移除那些多余的 bounding boxes, 仅保留具有最高置信度的 bounding boxes"></a>NMS 非极大值抑制，移除那些多余的 bounding boxes, 仅保留具有最高置信度的 bounding boxes</h3><p><img src="/../images/yolov1_ppt/yolov1_ppt-22.png"></p>
-<p>参考：<br><a target="_blank" rel="noopener" href="https://www.bilibili.com/video/BV1gKwAeWEo4?spm_id_from=333.788.player.switch&vd_source=ffda878df0ed45bee1ade91d8f451048&p=3">https://www.bilibili.com/video/BV1gKwAeWEo4?spm_id_from=333.788.player.switch&amp;vd_source=ffda878df0ed45bee1ade91d8f451048&amp;p=3</a></p>
-
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
 
   
   <nav class="pagination">
@@ -901,7 +898,7 @@
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">87</span>
+          <span class="site-state-item-count">88</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>
