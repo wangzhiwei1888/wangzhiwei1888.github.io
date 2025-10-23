@@ -149,6 +149,87 @@
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="http://example.com/2025/10/23/%E6%8A%93%E5%8C%85/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="wangzhiwei">
+      <meta itemprop="description" content="javascript nodejs web developer...">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="WBlog">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/2025/10/23/%E6%8A%93%E5%8C%85/" class="post-title-link" itemprop="url">抓9000 端口 上的请求</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+              
+
+              <time title="创建时间：2025-10-23 17:03:14 / 修改时间：17:18:10" itemprop="dateCreated datePublished" datetime="2025-10-23T17:03:14+08:00">2025-10-23</time>
+            </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/%E6%8A%93%E5%8C%85/" itemprop="url" rel="index"><span itemprop="name">抓包</span></a>
+                </span>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <p>192.168.40.116 机器上</p>
+<p>ip a</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">1: lo: &lt;LOOPBACK,UP,LOWER_UP&gt; mtu 65536 qdisc noqueue state UNKNOWN group default qlen 1000</span><br><span class="line">    link/loopback 00:00:00:00:00:00 brd 00:00:00:00:00:00</span><br><span class="line">    inet 127.0.0.1/8 scope host lo</span><br><span class="line">       valid_lft forever preferred_lft forever</span><br><span class="line">    inet6 ::1/128 scope host</span><br><span class="line">       valid_lft forever preferred_lft forever</span><br><span class="line">2: ens192: &lt;BROADCAST,MULTICAST,UP,LOWER_UP&gt; mtu 1500 qdisc mq state UP group default qlen 1000</span><br><span class="line">    link/ether 00:0c:29:94:5c:7f brd ff:ff:ff:ff:ff:ff</span><br><span class="line">    inet 192.168.40.116/24 brd 192.168.40.255 scope global noprefixroute ens192</span><br><span class="line">       valid_lft forever preferred_lft forever</span><br><span class="line">    inet 172.17.10.10/24 scope global ens192</span><br><span class="line">       valid_lft forever preferred_lft forever</span><br><span class="line">    inet6 2408:8606:8400:30a:6::41/128 scope global noprefixroute dynamic</span><br><span class="line">       valid_lft 6018sec preferred_lft 5718sec</span><br><span class="line">    inet6 fe80::d6f6:f5f6:1e6c:cf29/64 scope link noprefixroute</span><br><span class="line">       valid_lft forever preferred_lft forever</span><br><span class="line">3: virbr0: &lt;NO-CARRIER,BROADCAST,MULTICAST,UP&gt; mtu 1500 qdisc noqueue state DOWN group default qlen 1000</span><br><span class="line">    link/ether 52:54:00:26:ce:e5 brd ff:ff:ff:ff:ff:ff</span><br><span class="line">    inet 192.168.122.1/24 brd 192.168.122.255 scope global virbr0</span><br><span class="line">       valid_lft forever preferred_lft forever</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<p>ens192 为默认网卡</p>
+<p>sudo tcpdump ‘port 9000’ -w a.cap -i ens192</p>
+<p>监听 9000 端口 上的请求，指定 网卡 为 ens192 并将其保存到 a.cap 文件中</p>
+<p>下载 a.cap 文件</p>
+<p>将其 拉入到 wireshark 进行分析</p>
+<p>sudo ln -s &#x2F;Applications&#x2F;Wireshark.app&#x2F;Contents&#x2F;MacOS&#x2F;Wireshark &#x2F;usr&#x2F;local&#x2F;bin&#x2F;wireshark</p>
+<p>wireshark a.cap</p>
+<p>也可以将 a.cap 文件拉入到 wireshark 中进行查看</p>
+<p><img src="/../images/wireshark/01.png"></p>
+<p><img src="/../images/wireshark/02.png"></p>
+
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
     <link itemprop="mainEntityOfPage" href="http://example.com/2025/08/13/sekiro/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -172,10 +253,16 @@
                 <i class="fa fa-calendar-o"></i>
               </span>
               <span class="post-meta-item-text">发表于</span>
-              
 
-              <time title="创建时间：2025-08-13 15:47:06 / 修改时间：15:51:13" itemprop="dateCreated datePublished" datetime="2025-08-13T15:47:06+08:00">2025-08-13</time>
+              <time title="创建时间：2025-08-13 15:47:06" itemprop="dateCreated datePublished" datetime="2025-08-13T15:47:06+08:00">2025-08-13</time>
             </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-calendar-check-o"></i>
+                </span>
+                <span class="post-meta-item-text">更新于</span>
+                <time title="修改时间：2025-10-23 17:02:14" itemprop="dateModified" datetime="2025-10-23T17:02:14+08:00">2025-10-23</time>
+              </span>
 
           
 
@@ -189,6 +276,8 @@
 
       
           <p>安装：sekiro</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">docker run -d --name sekiro -p 5612:5612 \</span><br><span class="line">  registry.cn-beijing.aliyuncs.com/iinti/common:sekiro-all-in-one-latest</span><br><span class="line">  </span><br></pre></td></tr></table></figure>
+
 <p>浏览器中登录：<br><a target="_blank" rel="noopener" href="http://127.0.0.1:5612/#/">http://127.0.0.1:5612/#/</a></p>
 <p>打开某网页，在浏览器 console 中输入：</p>
 <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">function SekiroClient(e)&#123;if(this.wsURL=e,this.handlers=&#123;&#125;,this.socket=&#123;&#125;,!e)throw new Error(&quot;wsURL can not be empty!!&quot;);this.webSocketFactory=this.resolveWebSocketFactory(),this.connect()&#125;SekiroClient.prototype.resolveWebSocketFactory=function()&#123;if(&quot;object&quot;==typeof window)&#123;var e=window.WebSocket?window.WebSocket:window.MozWebSocket;return function(o)&#123;function t(o)&#123;this.mSocket=new e(o)&#125;return t.prototype.close=function()&#123;this.mSocket.close()&#125;,t.prototype.onmessage=function(e)&#123;this.mSocket.onmessage=e&#125;,t.prototype.onopen=function(e)&#123;this.mSocket.onopen=e&#125;,t.prototype.onclose=function(e)&#123;this.mSocket.onclose=e&#125;,t.prototype.send=function(e)&#123;this.mSocket.send(e)&#125;,new t(o)&#125;&#125;if(&quot;object&quot;==typeof weex)try&#123;console.log(&quot;test webSocket for weex&quot;);var o=weex.requireModule(&quot;webSocket&quot;);return console.log(&quot;find webSocket for weex:&quot;+o),function(e)&#123;try&#123;o.close()&#125;catch(e)&#123;&#125;return o.WebSocket(e,&quot;&quot;),o&#125;&#125;catch(e)&#123;console.log(e)&#125;if(&quot;object&quot;==typeof WebSocket)return function(o)&#123;return new e(o)&#125;;throw new Error(&quot;the js environment do not support websocket&quot;)&#125;,SekiroClient.prototype.connect=function()&#123;console.log(&quot;sekiro: begin of connect to wsURL: &quot;+this.wsURL);var e=this;try&#123;this.socket=this.webSocketFactory(this.wsURL)&#125;catch(o)&#123;return console.log(&quot;sekiro: create connection failed,reconnect after 2s:&quot;+o),void setTimeout(function()&#123;e.connect()&#125;,2e3)&#125;this.socket.onmessage(function(o)&#123;e.handleSekiroRequest(o.data)&#125;),this.socket.onopen(function(e)&#123;console.log(&quot;sekiro: open a sekiro client connection&quot;)&#125;),this.socket.onclose(function(o)&#123;console.log(&quot;sekiro: disconnected ,reconnection after 2s&quot;),setTimeout(function()&#123;e.connect()&#125;,2e3)&#125;)&#125;,SekiroClient.prototype.handleSekiroRequest=function(e)&#123;console.log(&quot;receive sekiro request: &quot;+e);var o=JSON.parse(e),t=o.__sekiro_seq__;if(o.action)&#123;var n=o.action;if(this.handlers[n])&#123;var s=this.handlers[n],i=this;try&#123;s(o,function(e)&#123;try&#123;i.sendSuccess(t,e)&#125;catch(e)&#123;i.sendFailed(t,&quot;e:&quot;+e)&#125;&#125;,function(e)&#123;i.sendFailed(t,e)&#125;)&#125;catch(e)&#123;console.log(&quot;error: &quot;+e),i.sendFailed(t,&quot;:&quot;+e)&#125;&#125;else this.sendFailed(t,&quot;no action handler: &quot;+n+&quot; defined&quot;)&#125;else this.sendFailed(t,&quot;need request param &#123;action&#125;&quot;)&#125;,SekiroClient.prototype.sendSuccess=function(e,o)&#123;var t;if(&quot;string&quot;==typeof o)try&#123;t=JSON.parse(o)&#125;catch(e)&#123;(t=&#123;&#125;).data=o&#125;else&quot;object&quot;==typeof o?t=o:(t=&#123;&#125;).data=o;(Array.isArray(t)||&quot;string&quot;==typeof t)&amp;&amp;(t=&#123;data:t,code:0&#125;),t.code?t.code=0:(t.status,t.status=0),t.__sekiro_seq__=e;var n=JSON.stringify(t);console.log(&quot;response :&quot;+n),this.socket.send(n)&#125;,SekiroClient.prototype.sendFailed=function(e,o)&#123;&quot;string&quot;!=typeof o&amp;&amp;(o=JSON.stringify(o));var t=&#123;&#125;;t.message=o,t.status=-1,t.__sekiro_seq__=e;var n=JSON.stringify(t);console.log(&quot;sekiro: response :&quot;+n),this.socket.send(n)&#125;,SekiroClient.prototype.registerAction=function(e,o)&#123;if(&quot;string&quot;!=typeof e)throw new Error(&quot;an action must be string&quot;);if(&quot;function&quot;!=typeof o)throw new Error(&quot;a handler must be function&quot;);return console.log(&quot;sekiro: register action: &quot;+e),this.handlers[e]=o,this&#125;;</span><br><span class="line">var client = new SekiroClient(&quot;ws://127.0.0.1:5612/business/register?group=testAction&amp;clientId=&quot; + Math.random());</span><br><span class="line">client.registerAction(&quot;testAction&quot;, function (request, resolve, reject) &#123;</span><br><span class="line"></span><br><span class="line">    resolve(Math.random());</span><br><span class="line">&#125;);</span><br><span class="line"></span><br><span class="line"></span><br></pre></td></tr></table></figure>
@@ -995,115 +1084,6 @@
   
   
 
-      
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="http://example.com/2025/04/25/ollama-serve-%E5%A6%82%E4%BD%95%E8%AE%A9%E8%BF%9B%E7%A8%8B%E4%B8%80%E7%9B%B4%E5%9C%A8/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.gif">
-      <meta itemprop="name" content="wangzhiwei">
-      <meta itemprop="description" content="javascript nodejs web developer...">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="WBlog">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/2025/04/25/ollama-serve-%E5%A6%82%E4%BD%95%E8%AE%A9%E8%BF%9B%E7%A8%8B%E4%B8%80%E7%9B%B4%E5%9C%A8/" class="post-title-link" itemprop="url">ollama serve 如何让进程一直在</a>
-        </h2>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              <span class="post-meta-item-text">发表于</span>
-              
-
-              <time title="创建时间：2025-04-25 14:18:16 / 修改时间：14:18:49" itemprop="dateCreated datePublished" datetime="2025-04-25T14:18:16+08:00">2025-04-25</time>
-            </span>
-
-          
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <p>以下是几种让 <code>ollama serve</code> 进程一直运行的方法：</p>
-<h3 id="使用-screen-工具"><a href="#使用-screen-工具" class="headerlink" title="使用 screen 工具"></a>使用 <code>screen</code> 工具</h3><ol>
-<li>安装 <code>screen</code>（如果尚未安装）：<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">sudo</span> apt install screen</span><br></pre></td></tr></table></figure></li>
-<li>创建一个新的 <code>screen</code> 会话并运行 <code>ollama serve</code>：<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">screen -S ollama_session</span><br><span class="line">ollama serve</span><br></pre></td></tr></table></figure></li>
-<li>按下 <code>Ctrl+A</code> 然后按下 <code>D</code>，将当前会话分离，此时 <code>ollama serve</code> 将在后台继续运行。</li>
-</ol>
-<h3 id="使用-tmux-工具"><a href="#使用-tmux-工具" class="headerlink" title="使用 tmux 工具"></a>使用 <code>tmux</code> 工具</h3><ol>
-<li>安装 <code>tmux</code>（如果尚未安装）：<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">sudo</span> apt install tmux</span><br></pre></td></tr></table></figure></li>
-<li>创建一个新的 <code>tmux</code> 会话并运行 <code>ollama serve</code>：<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">tmux new -s ollama_session</span><br><span class="line">ollama serve</span><br></pre></td></tr></table></figure></li>
-<li>按下 <code>Ctrl+B</code> 然后按下 <code>D</code>，将当前会话分离，<code>ollama serve</code> 会在后台持续运行。</li>
-</ol>
-<h3 id="使用-nohup-命令"><a href="#使用-nohup-命令" class="headerlink" title="使用 nohup 命令"></a>使用 <code>nohup</code> 命令</h3><p>执行以下命令来后台运行 Ollama：</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">nohup</span> ollama serve &amp;</span><br></pre></td></tr></table></figure>
-<p>这会生成一个名为 <code>nohup.out</code> 的文件，用于存储输出日志。</p>
-<h3 id="使用-systemd-管理服务（仅限-Linux）"><a href="#使用-systemd-管理服务（仅限-Linux）" class="headerlink" title="使用 systemd 管理服务（仅限 Linux）"></a>使用 <code>systemd</code> 管理服务（仅限 Linux）</h3><ol>
-<li>创建服务文件：<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">sudo</span> nano /etc/systemd/system/ollama.service</span><br></pre></td></tr></table></figure></li>
-<li>在文件中添加以下内容：<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line">[Unit]</span><br><span class="line">Description=Ollama AI Service</span><br><span class="line">After=network.target</span><br><span class="line"></span><br><span class="line">[Service]</span><br><span class="line">Type=simple</span><br><span class="line">User=&lt;your-username&gt;</span><br><span class="line">WorkingDirectory=/path/to/ollama</span><br><span class="line">ExecStart=/usr/bin/ollama serve</span><br><span class="line">Restart=on-failure</span><br><span class="line">Environment=&quot;OLLAMA_HOST=0.0.0.0:11434&quot;</span><br><span class="line"></span><br><span class="line">[Install]</span><br><span class="line">WantedBy=multi-user.target</span><br></pre></td></tr></table></figure></li>
-<li>启用并启动服务：<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">sudo</span> systemctl <span class="built_in">enable</span> ollama.service</span><br><span class="line"><span class="built_in">sudo</span> systemctl start ollama.service</span><br></pre></td></tr></table></figure>
-如果需要停止服务，可以使用以下命令：<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">sudo</span> systemctl stop ollama.service</span><br></pre></td></tr></table></figure>
-查看服务状态：</li>
-</ol>
-<pre><code class="bash">sudo systemctl status ollama.service
-```。
-
-### 关闭终端时自动重启
-
-这种方式需要手动编写字 shell 脚本，并将其添加到系统的启动项中，让系统在启动时自动运行该脚本，从而实现关闭终端时自动重启的效果。不过需要注意的是，这种方法一般用于特定场景，且需要根据系统的不同（如 Windows 和 Linux）采取不同的实现方式。
-
-这些方法可以让 `ollama serve` 在后台持续运行，你可以根据自己的需求和系统环境选择合适的方式。
-
-
-这是一段 `systemd` 服务配置文件的代码，用于管理 Ollama 服务的启动、运行和停止等行为。下面是对代码各部分的详细解释：
-
-### `[Unit]` 部分
-
-  * **Description=Ollama AI Service** ：用于描述该服务的简单信息，这里表示这是一个名为 “Ollama AI Service” 的服务。
-  * **After=network.target** ：定义了服务的启动顺序依赖关系，表示该服务要在 `network.target` 单元之后启动。`network.target` 是一个用于标记网络服务可用的目标单元，这确保了 Ollama 服务在启动时网络已经就绪，以便它能正常地通过网络进行通信。
-
-### `[Service]` 部分
-
-  * **Type=simple** ：指定了服务的类型为简单类型，表示服务进程会在启动后立即开始运行，并且不会 fork 出子进程。这是最常见和简单的服务类型，适用于大多数直接运行的守护进程。
-  * **User=&lt;your-username&gt;** ：定义了运行该服务的系统用户。`&lt;your-username&gt;` 是一个占位符，需要替换为实际的系统用户名。这样可以控制服务运行时的用户权限，以确保服务在合适的权限级别下运行，避免使用 root 用户带来的安全风险。
-  * **WorkingDirectory=/path/to/ollama** ：设置了服务的工作目录，即服务在运行时所在的目录。`/path/to/ollama` 是一个示例路径，需替换为实际存放 Ollama 相关文件和配置的目录路径，这有助于服务在运行过程中正确地访问和操作文件。
-  * **ExecStart=/usr/bin/ollama serve** ：指定了启动服务时要执行的命令。这里表示使用 `/usr/bin/ollama` 可执行文件，并传递 `serve` 参数来启动 Ollama 服务，这是启动 Ollama 的核心命令，用于使 Ollama 以服务的形式开始监听和处理请求。
-  * **Restart=on-failure** ：配置了服务的重启策略。当服务因错误（如非零退出码、被信号终止等）而停止时，`systemd` 会自动尝试重启该服务，这提高了服务的可靠性和可用性，确保服务能够自动从一些常见的故障中恢复。
-  * **Environment=&quot;OLLAMA_HOST=0.0.0.0:11434&quot;** ：设置了一个环境变量 `OLLAMA_HOST`，其值为 `0.0.0.0:11434`。这通常用于指定 Ollama 服务监听的主机地址和端口号，`0.0.0.0` 表示监听所有网络接口，`11434` 是默认的服务端口，这样可以使 Ollama 服务能够接收来自任何网络接口的请求。
-
-### `[Install]` 部分
-
-  * **WantedBy=multi-user.target** ：定义了该服务的安装目标，表示当系统进入多用户模式（`multi-user.target`）时，该服务会被自动启动。`multi-user.target` 是一个常见的系统目标，用于表示多用户环境下的系统状态，这使得 Ollama 服务能够在系统启动后自动运行，为用户提供了一种方便的自动启动机制。
-</code></pre>
-
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
 
   
   <nav class="pagination">
@@ -1173,12 +1153,12 @@
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">88</span>
+          <span class="site-state-item-count">89</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>
       <div class="site-state-item site-state-categories">
-        <span class="site-state-item-count">56</span>
+        <span class="site-state-item-count">57</span>
         <span class="site-state-item-name">分类</span>
       </div>
       <div class="site-state-item site-state-tags">
