@@ -6,6 +6,13 @@ tags:
 
 安装：sekiro
 
+```
+
+docker run -d --name sekiro -p 5612:5612 \
+  registry.cn-beijing.aliyuncs.com/iinti/common:sekiro-all-in-one-latest
+  
+```
+
 浏览器中登录：
 http://127.0.0.1:5612/#/
 
