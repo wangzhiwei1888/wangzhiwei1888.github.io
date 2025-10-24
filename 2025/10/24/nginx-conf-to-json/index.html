@@ -1,0 +1,394 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 7.3.0">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+<link rel="stylesheet" href="/lib/font-awesome/css/font-awesome.min.css">
+
+<script id="hexo-configurations">
+    var NexT = window.NexT || {};
+    var CONFIG = {"hostname":"example.com","root":"/","scheme":"Muse","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":false,"show_result":false,"style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":false,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}}};
+  </script>
+
+  <meta name="description" content="python 版本pip install crossplane crossplane parse –indent&#x3D;4 nginx.conf &gt; nginx.json crossplane build nginx.json https:&#x2F;&#x2F;github.com&#x2F;nginxinc&#x2F;crossplane?tab&#x3D;readme-ov-file#crossplane-parse 转换为 js">
+<meta property="og:type" content="article">
+<meta property="og:title" content="nginx conf to json">
+<meta property="og:url" content="http://example.com/2025/10/24/nginx-conf-to-json/index.html">
+<meta property="og:site_name" content="WBlog">
+<meta property="og:description" content="python 版本pip install crossplane crossplane parse –indent&#x3D;4 nginx.conf &gt; nginx.json crossplane build nginx.json https:&#x2F;&#x2F;github.com&#x2F;nginxinc&#x2F;crossplane?tab&#x3D;readme-ov-file#crossplane-parse 转换为 js">
+<meta property="og:locale" content="zh_CN">
+<meta property="article:published_time" content="2025-10-24T00:57:09.000Z">
+<meta property="article:modified_time" content="2025-10-24T01:17:42.794Z">
+<meta property="article:author" content="wangzhiwei">
+<meta property="article:tag" content="javascript nodejs web developer fe engineer">
+<meta name="twitter:card" content="summary">
+
+<link rel="canonical" href="http://example.com/2025/10/24/nginx-conf-to-json/">
+
+
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome : false,
+    isPost : true,
+    lang   : 'zh-CN'
+  };
+</script>
+
+  <title>nginx conf to json | WBlog</title>
+  
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div class="container use-motion">
+    <div class="headband"></div>
+
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏">
+      <span class="toggle-line toggle-line-first"></span>
+      <span class="toggle-line toggle-line-middle"></span>
+      <span class="toggle-line toggle-line-last"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <h1 class="site-title">WBlog</h1>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+      <p class="site-subtitle" itemprop="description">wangzhiwei blog</p>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+    </div>
+  </div>
+</div>
+
+
+
+
+<nav class="site-nav">
+  <ul id="menu" class="menu">
+        <li class="menu-item menu-item-home">
+
+    <a href="/" rel="section"><i class="fa fa-fw fa-home"></i>首页</a>
+
+  </li>
+        <li class="menu-item menu-item-archives">
+
+    <a href="/archives/" rel="section"><i class="fa fa-fw fa-archive"></i>归档</a>
+
+  </li>
+  </ul>
+</nav>
+
+
+
+
+</div>
+    </header>
+
+    
+  <div class="back-to-top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+
+
+    <main class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+
+          <div class="content post posts-expand">
+            
+
+    
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="http://example.com/2025/10/24/nginx-conf-to-json/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="wangzhiwei">
+      <meta itemprop="description" content="javascript nodejs web developer...">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="WBlog">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          nginx conf to json
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+              
+
+              <time title="创建时间：2025-10-24 08:57:09 / 修改时间：09:17:42" itemprop="dateCreated datePublished" datetime="2025-10-24T08:57:09+08:00">2025-10-24</time>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+        <p>python 版本<br>pip install crossplane</p>
+<p>crossplane parse –indent&#x3D;4 nginx.conf &gt; nginx.json</p>
+<p>crossplane build nginx.json</p>
+<p><a target="_blank" rel="noopener" href="https://github.com/nginxinc/crossplane?tab=readme-ov-file#crossplane-parse">https://github.com/nginxinc/crossplane?tab=readme-ov-file#crossplane-parse</a></p>
+<h2 id="转换为-js-版本"><a href="#转换为-js-版本" class="headerlink" title="转换为 js 版本"></a>转换为 js 版本</h2><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br><span class="line">100</span><br><span class="line">101</span><br><span class="line">102</span><br><span class="line">103</span><br><span class="line">104</span><br><span class="line">105</span><br><span class="line">106</span><br><span class="line">107</span><br><span class="line">108</span><br><span class="line">109</span><br><span class="line">110</span><br><span class="line">111</span><br><span class="line">112</span><br><span class="line">113</span><br><span class="line">114</span><br><span class="line">115</span><br><span class="line">116</span><br><span class="line">117</span><br><span class="line">118</span><br><span class="line">119</span><br><span class="line">120</span><br><span class="line">121</span><br><span class="line">122</span><br><span class="line">123</span><br><span class="line">124</span><br><span class="line">125</span><br><span class="line">126</span><br><span class="line">127</span><br><span class="line">128</span><br><span class="line">129</span><br><span class="line">130</span><br><span class="line">131</span><br><span class="line">132</span><br><span class="line">133</span><br><span class="line">134</span><br><span class="line">135</span><br><span class="line">136</span><br><span class="line">137</span><br><span class="line">138</span><br><span class="line">139</span><br><span class="line">140</span><br><span class="line">141</span><br><span class="line">142</span><br><span class="line">143</span><br><span class="line">144</span><br><span class="line">145</span><br><span class="line">146</span><br><span class="line">147</span><br><span class="line">148</span><br><span class="line">149</span><br><span class="line">150</span><br><span class="line">151</span><br><span class="line">152</span><br><span class="line">153</span><br><span class="line">154</span><br><span class="line">155</span><br><span class="line">156</span><br><span class="line">157</span><br><span class="line">158</span><br><span class="line">159</span><br><span class="line">160</span><br><span class="line">161</span><br><span class="line">162</span><br><span class="line">163</span><br><span class="line">164</span><br><span class="line">165</span><br><span class="line">166</span><br><span class="line">167</span><br><span class="line">168</span><br><span class="line">169</span><br><span class="line">170</span><br><span class="line">171</span><br><span class="line">172</span><br><span class="line">173</span><br><span class="line">174</span><br><span class="line">175</span><br><span class="line">176</span><br><span class="line">177</span><br><span class="line">178</span><br><span class="line">179</span><br><span class="line">180</span><br><span class="line">181</span><br><span class="line">182</span><br><span class="line">183</span><br><span class="line">184</span><br><span class="line">185</span><br><span class="line">186</span><br><span class="line">187</span><br><span class="line">188</span><br><span class="line">189</span><br><span class="line">190</span><br><span class="line">191</span><br><span class="line">192</span><br><span class="line">193</span><br><span class="line">194</span><br><span class="line">195</span><br><span class="line">196</span><br><span class="line">197</span><br><span class="line">198</span><br><span class="line">199</span><br><span class="line">200</span><br><span class="line">201</span><br><span class="line">202</span><br><span class="line">203</span><br><span class="line">204</span><br><span class="line">205</span><br><span class="line">206</span><br><span class="line">207</span><br><span class="line">208</span><br><span class="line">209</span><br><span class="line">210</span><br><span class="line">211</span><br><span class="line">212</span><br><span class="line">213</span><br><span class="line">214</span><br><span class="line">215</span><br><span class="line">216</span><br><span class="line">217</span><br><span class="line">218</span><br><span class="line">219</span><br><span class="line">220</span><br><span class="line">221</span><br><span class="line">222</span><br><span class="line">223</span><br><span class="line">224</span><br><span class="line">225</span><br><span class="line">226</span><br><span class="line">227</span><br><span class="line">228</span><br><span class="line">229</span><br><span class="line">230</span><br><span class="line">231</span><br></pre></td><td class="code"><pre><span class="line">nginx-parser.js</span><br><span class="line"></span><br><span class="line">// nginx config lexer + parser (browser version)</span><br><span class="line">// 用法：</span><br><span class="line">//   import &#123; parseNginx &#125; from &#x27;./nginx-parser.js&#x27;;</span><br><span class="line">//   const payload = parseNginx(nginxText, &#123; filename:&#x27;nginx.conf&#x27;, comments:true &#125;);</span><br><span class="line"></span><br><span class="line">const EXTERNAL_PARSERS = &#123;&#125;;   // 预留第三方指令解析器</span><br><span class="line"></span><br><span class="line">// ---------- lexer ----------</span><br><span class="line">function* lex(text, filename = &#x27;nginx.conf&#x27;) &#123;</span><br><span class="line">  let line = 1, col = 0, idx = 0;</span><br><span class="line">  const len = text.length;</span><br><span class="line"></span><br><span class="line">  function skipWhitespace() &#123;</span><br><span class="line">    while (idx &lt; len &amp;&amp; /\s/.test(text[idx])) &#123;</span><br><span class="line">      if (text[idx] === &#x27;\n&#x27;) &#123; line++; col = 0; &#125;</span><br><span class="line">      else col++;</span><br><span class="line">      idx++;</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  function readString(quote) &#123;</span><br><span class="line">    const start = ++idx;  // skip open quote</span><br><span class="line">    col++;</span><br><span class="line">    while (idx &lt; len &amp;&amp; text[idx] !== quote) &#123;</span><br><span class="line">      if (text[idx] === &#x27;\n&#x27;) &#123; line++; col = 0; &#125;</span><br><span class="line">      else if (text[idx] === &#x27;\\&#x27;) &#123; idx++; col++; &#125; // skip escaped</span><br><span class="line">      idx++; col++;</span><br><span class="line">    &#125;</span><br><span class="line">    if (idx &gt;= len) throw new Error(`Unterminated quoted string at $&#123;filename&#125;:$&#123;line&#125;`);</span><br><span class="line">    const val = text.slice(start, idx);</span><br><span class="line">    idx++; col++; // skip close quote</span><br><span class="line">    return [val, line, true];   // [token, lineno, quoted]</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  function readToken() &#123;</span><br><span class="line">    const start = idx;</span><br><span class="line">    while (idx &lt; len &amp;&amp; !/\s|[&#123;&#125;;#&quot;&#x27;\\]/.test(text[idx])) &#123;</span><br><span class="line">      idx++; col++;</span><br><span class="line">    &#125;</span><br><span class="line">    return text.slice(start, idx);</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  while (idx &lt; len) &#123;</span><br><span class="line">    skipWhitespace();</span><br><span class="line">    if (idx &gt;= len) break;</span><br><span class="line">    const ch = text[idx];</span><br><span class="line"></span><br><span class="line">    if (ch === &#x27;#&#x27; || ch === &#x27;;&#x27; || ch === &#x27;&#123;&#x27; || ch === &#x27;&#125;&#x27;) &#123;</span><br><span class="line">      const tok = ch === &#x27;#&#x27; ? text.slice(idx, text.indexOf(&#x27;\n&#x27;, idx)) || text.slice(idx)</span><br><span class="line">                             : ch;</span><br><span class="line">      yield [tok, line, false];</span><br><span class="line">      if (tok === &#x27;\n&#x27;) &#123; line++; col = 0; &#125;</span><br><span class="line">      else col++;</span><br><span class="line">      idx += tok.length;</span><br><span class="line">    &#125; else if (ch === &#x27;&quot;&#x27; || ch === &quot;&#x27;&quot;) &#123;</span><br><span class="line">      yield readString(ch);</span><br><span class="line">    &#125; else &#123;</span><br><span class="line">      const tok = readToken();</span><br><span class="line">      if (tok) yield [tok, line, false];</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">// ---------- util ----------</span><br><span class="line">class NgxParserDirectiveError extends Error &#123;</span><br><span class="line">  constructor(msg, lineno) &#123;</span><br><span class="line">    super(msg);</span><br><span class="line">    this.name = &#x27;NgxParserDirectiveError&#x27;;</span><br><span class="line">    this.lineno = lineno;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">// 简易版 analyze，只检查末尾符号</span><br><span class="line">function analyze(&#123; fname, stmt, term, ctx, strict, check_ctx, check_args &#125;) &#123;</span><br><span class="line">  const dir = stmt.directive;</span><br><span class="line">  if (dir === &#x27;#&#x27;) return;          // 注释跳过</span><br><span class="line">  if (dir.startsWith(&#x27;#&#x27;)) return;  // 行内注释也跳过</span><br><span class="line">  // 更复杂的上下文/参数检查可在此扩展</span><br><span class="line">  if (term !== &#x27;;&#x27; &amp;&amp; term !== &#x27;&#123;&#x27; &amp;&amp; term !== &#x27;&#125;&#x27;) &#123;</span><br><span class="line">    throw new NgxParserDirectiveError(</span><br><span class="line">      `directive &quot;$&#123;dir&#125;&quot; is not terminated by &quot;;&quot; or &quot;&#123;&quot;`, stmt.line);</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">function enterBlockCtx(stmt, ctx) &#123;</span><br><span class="line">  // 返回新的上下文，简单拼路径</span><br><span class="line">  return [...ctx, stmt.directive];</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">// ---------- parser ----------</span><br><span class="line">export function parseNginx(text, &#123;</span><br><span class="line">  filename = &#x27;nginx.conf&#x27;,</span><br><span class="line">  onerror = null,</span><br><span class="line">  catchErrors = true,</span><br><span class="line">  ignore = [],</span><br><span class="line">  single = false,</span><br><span class="line">  comments = false,</span><br><span class="line">  strict = false,</span><br><span class="line">  checkCtx = true,</span><br><span class="line">  checkArgs = true</span><br><span class="line">&#125; = &#123;&#125;) &#123;</span><br><span class="line">  const tokens = [...lex(text, filename)]; // 先全部展开，方便 next()</span><br><span class="line">  let tokIdx = 0;</span><br><span class="line">  function next() &#123;</span><br><span class="line">    if (tokIdx &gt;= tokens.length) return [null, -1, false];</span><br><span class="line">    return tokens[tokIdx++];</span><br><span class="line">  &#125;</span><br><span class="line">  function peek() &#123;</span><br><span class="line">    if (tokIdx &gt;= tokens.length) return [null, -1, false];</span><br><span class="line">    return tokens[tokIdx];</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  const payload = &#123;</span><br><span class="line">    status: &#x27;ok&#x27;,</span><br><span class="line">    errors: [],</span><br><span class="line">    config: []</span><br><span class="line">  &#125;;</span><br><span class="line"></span><br><span class="line">  function handleError(parsing, e) &#123;</span><br><span class="line">    const file = parsing.file;</span><br><span class="line">    const errObj = &#123; file, error: e.message, line: e.lineno || null &#125;;</span><br><span class="line">    if (onerror) errObj.callback = onerror(e);</span><br><span class="line"></span><br><span class="line">    parsing.status = &#x27;failed&#x27;;</span><br><span class="line">    parsing.errors.push(&#123; error: e.message, line: e.lineno || null &#125;);</span><br><span class="line"></span><br><span class="line">    payload.status = &#x27;failed&#x27;;</span><br><span class="line">    payload.errors.push(errObj);</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  function _parse(parsing, ctx = [], consume = false) &#123;</span><br><span class="line">    const fname = parsing.file;</span><br><span class="line">    const parsed = [];</span><br><span class="line"></span><br><span class="line">    while (true) &#123;</span><br><span class="line">      const [token, lineno, quoted] = next();</span><br><span class="line">      if (!token) break;</span><br><span class="line">      if (token === &#x27;&#125;&#x27; &amp;&amp; !quoted) break;</span><br><span class="line">      if (consume) &#123;</span><br><span class="line">        if (token === &#x27;&#123;&#x27; &amp;&amp; !quoted) _parse(parsing, ctx, true);</span><br><span class="line">        continue;</span><br><span class="line">      &#125;</span><br><span class="line"></span><br><span class="line">      const directive = token;</span><br><span class="line"></span><br><span class="line">      // 注释行</span><br><span class="line">      if (directive.startsWith(&#x27;#&#x27;) &amp;&amp; !quoted) &#123;</span><br><span class="line">        if (comments) &#123;</span><br><span class="line">          parsed.push(&#123; directive: &#x27;#&#x27;, line: lineno, args: [], comment: directive.slice(1).trim() &#125;);</span><br><span class="line">        &#125;</span><br><span class="line">        continue;</span><br><span class="line">      &#125;</span><br><span class="line"></span><br><span class="line">      const stmt = &#123; directive, line: lineno, args: [] &#125;;</span><br><span class="line">      if (!single) stmt.file = fname;</span><br><span class="line"></span><br><span class="line">      // 收集参数</span><br><span class="line">      const commentsInArgs = [];</span><br><span class="line">      let term;</span><br><span class="line">      while (true) &#123;</span><br><span class="line">        const [t, , q] = peek();</span><br><span class="line">        if (!t || (!q &amp;&amp; [&#x27;;&#x27;, &#x27;&#123;&#x27;, &#x27;&#125;&#x27;].includes(t))) &#123; term = t; next(); break; &#125;</span><br><span class="line">        next();</span><br><span class="line">        if (t.startsWith(&#x27;#&#x27;) &amp;&amp; !q) commentsInArgs.push(t.slice(1).trim());</span><br><span class="line">        else stmt.args.push(t);</span><br><span class="line">      &#125;</span><br><span class="line"></span><br><span class="line">      if (ignore.includes(stmt.directive)) &#123;</span><br><span class="line">        if (term === &#x27;&#123;&#x27; &amp;&amp; !quoted) _parse(parsing, ctx, true);</span><br><span class="line">        continue;</span><br><span class="line">      &#125;</span><br><span class="line"></span><br><span class="line">      // if 特殊处理</span><br><span class="line">      if (stmt.directive === &#x27;if&#x27;) &#123;</span><br><span class="line">        const args = stmt.args;</span><br><span class="line">        if (args.length &amp;&amp; args[0].startsWith(&#x27;(&#x27;) &amp;&amp; args[args.length - 1].endsWith(&#x27;)&#x27;)) &#123;</span><br><span class="line">          args[0] = args[0].slice(1).trimLeft();</span><br><span class="line">          args[args.length - 1] = args[args.length - 1].slice(0, -1).trimRight();</span><br><span class="line">        &#125;</span><br><span class="line">      &#125;</span><br><span class="line"></span><br><span class="line">      try &#123;</span><br><span class="line">        analyze(&#123; fname, stmt, term, ctx, strict, check_ctx: checkCtx, check_args: checkArgs &#125;);</span><br><span class="line">      &#125; catch (e) &#123;</span><br><span class="line">        if (catchErrors) &#123;</span><br><span class="line">          handleError(parsing, e);</span><br><span class="line">          if (e.message.includes(&#x27;is not terminated&#x27;) &amp;&amp; term !== &#x27;&#125;&#x27; &amp;&amp; !quoted) &#123;</span><br><span class="line">            _parse(parsing, ctx, true);</span><br><span class="line">          &#125;</span><br><span class="line">          continue;</span><br><span class="line">        &#125; else &#123;</span><br><span class="line">          throw e;</span><br><span class="line">        &#125;</span><br><span class="line">      &#125;</span><br><span class="line"></span><br><span class="line">      // include 处理（浏览器端不做文件 IO，只留空壳）</span><br><span class="line">      if (!single &amp;&amp; stmt.directive === &#x27;include&#x27;) &#123;</span><br><span class="line">        stmt.includes = [];   // 实际文件列表无法获取，留空</span><br><span class="line">      &#125;</span><br><span class="line"></span><br><span class="line">      if (term === &#x27;&#123;&#x27; &amp;&amp; !quoted) &#123;</span><br><span class="line">        const inner = enterBlockCtx(stmt, ctx);</span><br><span class="line">        stmt.block = _parse(parsing, inner);</span><br><span class="line">      &#125;</span><br><span class="line"></span><br><span class="line">      parsed.push(stmt);</span><br><span class="line"></span><br><span class="line">      // 行内注释追加</span><br><span class="line">      commentsInArgs.forEach(c =&gt; parsed.push(&#123; directive: &#x27;#&#x27;, line: stmt.line, args: [], comment: c &#125;));</span><br><span class="line">    &#125;</span><br><span class="line">    return parsed;</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  // 主流程</span><br><span class="line">  const parsing = &#123; file: filename, status: &#x27;ok&#x27;, errors: [], parsed: [] &#125;;</span><br><span class="line">  try &#123;</span><br><span class="line">    parsing.parsed = _parse(parsing, []);</span><br><span class="line">  &#125; catch (e) &#123;</span><br><span class="line">    handleError(parsing, e);</span><br><span class="line">  &#125;</span><br><span class="line">  payload.config.push(parsing);</span><br><span class="line">  return payload;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">// 预留外部解析器注册</span><br><span class="line">export function registerExternalParser(parser, directives) &#123;</span><br><span class="line">  directives.forEach(d =&gt; &#123; EXTERNAL_PARSERS[d] = parser; &#125;);</span><br><span class="line">&#125;</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br></pre></td><td class="code"><pre><span class="line">a.html</span><br><span class="line">&lt;!DOCTYPE html&gt;</span><br><span class="line">&lt;html lang=&quot;en&quot;&gt;</span><br><span class="line">  &lt;head&gt;</span><br><span class="line">    &lt;meta charset=&quot;UTF-8&quot; /&gt;</span><br><span class="line">    &lt;meta name=&quot;viewport&quot; content=&quot;width=device-width, initial-scale=1.0&quot; /&gt;</span><br><span class="line">    &lt;title&gt;Document&lt;/title&gt;</span><br><span class="line">  &lt;/head&gt;</span><br><span class="line">  &lt;body&gt;</span><br><span class="line">    &lt;script type=&quot;module&quot;&gt;</span><br><span class="line">      import &#123; parseNginx &#125; from &quot;./nginx-parser.js&quot;;</span><br><span class="line"></span><br><span class="line">      const conf = `</span><br><span class="line">      user  nginx;</span><br><span class="line">      worker_processes  auto;</span><br><span class="line">      </span><br><span class="line">      events &#123;</span><br><span class="line">          worker_connections  1024;</span><br><span class="line">      &#125;</span><br><span class="line">      </span><br><span class="line">      http &#123;</span><br><span class="line">          include       mime.types;</span><br><span class="line">          default_type  application/octet-stream;</span><br><span class="line">      </span><br><span class="line">          server &#123;</span><br><span class="line">              listen 80;</span><br><span class="line">              location / &#123;</span><br><span class="line">                  root /usr/share/nginx/html;</span><br><span class="line">              &#125;</span><br><span class="line">          &#125;</span><br><span class="line">      &#125;</span><br><span class="line">      `;</span><br><span class="line"></span><br><span class="line">      const payload = parseNginx(conf, &#123; comments: true &#125;);</span><br><span class="line">      console.log(JSON.stringify(payload, null, 2));</span><br><span class="line">    &lt;/script&gt;</span><br><span class="line">  &lt;/body&gt;</span><br><span class="line">&lt;/html&gt;</span><br><span class="line"></span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br><span class="line">100</span><br><span class="line">101</span><br><span class="line">102</span><br><span class="line">103</span><br><span class="line">104</span><br><span class="line">105</span><br><span class="line">106</span><br><span class="line">107</span><br><span class="line">108</span><br><span class="line">109</span><br><span class="line">110</span><br><span class="line">111</span><br><span class="line">112</span><br><span class="line">113</span><br><span class="line">114</span><br><span class="line">115</span><br><span class="line">116</span><br><span class="line">117</span><br><span class="line">118</span><br><span class="line">119</span><br><span class="line">120</span><br><span class="line">121</span><br><span class="line">122</span><br><span class="line">123</span><br><span class="line">124</span><br><span class="line">125</span><br><span class="line">126</span><br><span class="line">127</span><br><span class="line">128</span><br><span class="line">129</span><br><span class="line">130</span><br><span class="line">131</span><br><span class="line">132</span><br><span class="line">133</span><br><span class="line">134</span><br><span class="line">135</span><br><span class="line">136</span><br><span class="line">137</span><br><span class="line">138</span><br><span class="line">139</span><br><span class="line">140</span><br><span class="line">141</span><br><span class="line">142</span><br><span class="line">143</span><br><span class="line">144</span><br><span class="line">145</span><br><span class="line">146</span><br><span class="line">147</span><br><span class="line">148</span><br><span class="line">149</span><br><span class="line">150</span><br><span class="line">151</span><br><span class="line">152</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">nginx-builder.js</span><br><span class="line"></span><br><span class="line">// nginx config builder (browser version)</span><br><span class="line">// 用法：</span><br><span class="line">//   import &#123; build, buildFiles &#125; from &#x27;./nginx-builder.js&#x27;;</span><br><span class="line">//   const txt = build(payload, &#123; indent:4, tabs:false, header:true &#125;);</span><br><span class="line"></span><br><span class="line">const EXTERNAL_BUILDERS = &#123;&#125;;</span><br><span class="line"></span><br><span class="line">// 与 Python 版行为完全一致的转义检测</span><br><span class="line">function* _escape(string) &#123;</span><br><span class="line">  let prev = &#x27;&#x27;, char = &#x27;&#x27;;</span><br><span class="line">  for (let i = 0; i &lt; string.length; i++) &#123;</span><br><span class="line">    char = string[i];</span><br><span class="line">    if (prev === &#x27;\\&#x27; || prev + char === &#x27;$&#123;&#x27;) &#123;</span><br><span class="line">      prev += char;</span><br><span class="line">      yield prev;</span><br><span class="line">      prev = &#x27;&#x27;;</span><br><span class="line">      continue;</span><br><span class="line">    &#125;</span><br><span class="line">    if (prev === &#x27;$&#x27;) yield prev;</span><br><span class="line">    if (char !== &#x27;\\&#x27; &amp;&amp; char !== &#x27;$&#x27;) yield char;</span><br><span class="line">    prev = char;</span><br><span class="line">  &#125;</span><br><span class="line">  if (char === &#x27;\\&#x27; || char === &#x27;$&#x27;) yield char;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">function _needsQuotes(str) &#123;</span><br><span class="line">  if (str === &#x27;&#x27;) return true;</span><br><span class="line">  const gen = _escape(str);</span><br><span class="line">  // 首字符</span><br><span class="line">  let &#123; value: char, done &#125; = gen.next();</span><br><span class="line">  if (done) return false;</span><br><span class="line">  if (/\s/.test(char) || [&#x27;&#123;&#x27;, &#x27;&#125;&#x27;, &#x27;;&#x27;, &#x27;&quot;&#x27;, &quot;&#x27;&quot;, &#x27;$&#123;&#x27;].includes(char)) return true;</span><br><span class="line"></span><br><span class="line">  let expanding = false;</span><br><span class="line">  for (const ch of gen) &#123;</span><br><span class="line">    if (/\s/.test(ch) || [&#x27;&#123;&#x27;, &#x27;;&#x27;, &#x27;&quot;&#x27;, &quot;&#x27;&quot;].includes(ch)) return true;</span><br><span class="line">    if (ch === (expanding ? &#x27;&#125;&#x27; : &#x27;$&#123;&#x27;)) expanding = !expanding;</span><br><span class="line">  &#125;</span><br><span class="line">  return expanding;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">// 把字符串转成 nginx 可识别的带引号格式</span><br><span class="line">function _enquote(arg) &#123;</span><br><span class="line">  if (!_needsQuotes(arg)) return arg;</span><br><span class="line">  // 浏览器里 repr 等价 JSON.stringify 后去头尾引号再自己加</span><br><span class="line">  let s = JSON.stringify(arg);</span><br><span class="line">  // JSON 会把 \ 变成 \\，我们需要单 \</span><br><span class="line">  s = s.replace(/\\\\/g, &#x27;\\&#x27;);</span><br><span class="line">  // 再包一层引号</span><br><span class="line">  return `&quot;$&#123;s.slice(1, -1)&#125;&quot;`;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">/**</span><br><span class="line"> * 将 payload 构建成字符串</span><br><span class="line"> * @param &#123;Array&#125; payload  对应 python 里的 parsed 数组</span><br><span class="line"> * @param &#123;Object&#125; opts</span><br><span class="line"> *        indent:number     缩进空格数</span><br><span class="line"> *        tabs:boolean      用 tab 代替空格</span><br><span class="line"> *        header:boolean    是否带生成头注释</span><br><span class="line"> * @returns &#123;string&#125;  nginx 文本</span><br><span class="line"> */</span><br><span class="line">export function build(payload, &#123; indent = 4, tabs = false, header = false &#125; = &#123;&#125;) &#123;</span><br><span class="line">  const padChar = tabs ? &#x27;\t&#x27; : &#x27; &#x27;;</span><br><span class="line">  const padding = (d) =&gt; padChar.repeat(tabs ? d : d * indent);</span><br><span class="line"></span><br><span class="line">  let head = &#x27;&#x27;;</span><br><span class="line">  if (header) &#123;</span><br><span class="line">    head += &#x27;# This config was built from JSON using NGINX crossplane.\n&#x27;;</span><br><span class="line">    head += &#x27;# If you encounter any bugs please report them here:\n&#x27;;</span><br><span class="line">    head += &#x27;# https://github.com/nginxinc/crossplane/issues\n\n&#x27;;</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  function _buildBlock(block, depth, lastLine) &#123;</span><br><span class="line">    let out = &#x27;&#x27;;</span><br><span class="line">    const margin = padding(depth);</span><br><span class="line"></span><br><span class="line">    for (const stmt of block) &#123;</span><br><span class="line">      const dir = _enquote(stmt.directive);</span><br><span class="line">      const line = stmt.line || 0;</span><br><span class="line"></span><br><span class="line">      // 行尾注释合并</span><br><span class="line">      if (dir === &#x27;#&#x27; &amp;&amp; line === lastLine) &#123;</span><br><span class="line">        out += &#x27; #&#x27; + stmt.comment;</span><br><span class="line">        continue;</span><br><span class="line">      &#125;</span><br><span class="line">      if (dir === &#x27;#&#x27;) &#123;</span><br><span class="line">        out += (out ? &#x27;\n&#x27; : &#x27;&#x27;) + margin + &#x27;#&#x27; + stmt.comment;</span><br><span class="line">        lastLine = line;</span><br><span class="line">        continue;</span><br><span class="line">      &#125;</span><br><span class="line"></span><br><span class="line">      // 外部自定义构造器</span><br><span class="line">      if (EXTERNAL_BUILDERS[dir]) &#123;</span><br><span class="line">        out += (out ? &#x27;\n&#x27; : &#x27;&#x27;) + margin + EXTERNAL_BUILDERS[dir](stmt, padding, indent, tabs);</span><br><span class="line">        lastLine = line;</span><br><span class="line">        continue;</span><br><span class="line">      &#125;</span><br><span class="line"></span><br><span class="line">      // 普通指令</span><br><span class="line">      const args = stmt.args.map(_enquote);</span><br><span class="line">      let built;</span><br><span class="line">      if (dir === &#x27;if&#x27;) &#123;</span><br><span class="line">        built = `if ($&#123;args.join(&#x27; &#x27;)&#125;)`;</span><br><span class="line">      &#125; else if (args.length) &#123;</span><br><span class="line">        built = `$&#123;dir&#125; $&#123;args.join(&#x27; &#x27;)&#125;`;</span><br><span class="line">      &#125; else &#123;</span><br><span class="line">        built = dir;</span><br><span class="line">      &#125;</span><br><span class="line"></span><br><span class="line">      if (stmt.block == null) &#123;</span><br><span class="line">        built += &#x27;;&#x27;;</span><br><span class="line">      &#125; else &#123;</span><br><span class="line">        built += &#x27; &#123;&#x27;;</span><br><span class="line">        const inner = _buildBlock(stmt.block, depth + 1, line);</span><br><span class="line">        built += inner + &#x27;\n&#x27; + margin + &#x27;&#125;&#x27;;</span><br><span class="line">      &#125;</span><br><span class="line">      out += (out ? &#x27;\n&#x27; : &#x27;&#x27;) + margin + built;</span><br><span class="line">      lastLine = line;</span><br><span class="line">    &#125;</span><br><span class="line">    return out;</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  const body = _buildBlock(payload, 0, 0);</span><br><span class="line">  return head + body;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">/**</span><br><span class="line"> * 为浏览器准备的“写盘”封装：返回 filename =&gt; content 的 Map</span><br><span class="line"> * @param &#123;Object&#125; payload   crossplane.parse 的完整输出</span><br><span class="line"> * @param &#123;Object&#125; opts      同 build 函数</span><br><span class="line"> * @returns &#123;Map&#125;            key=绝对路径，value=文本</span><br><span class="line"> */</span><br><span class="line">export function buildFiles(payload, &#123; indent = 4, tabs = false, header = false &#125; = &#123;&#125;) &#123;</span><br><span class="line">  const map = new Map();</span><br><span class="line">  for (const config of payload.config) &#123;</span><br><span class="line">    const content = build(config.parsed, &#123; indent, tabs, header &#125;);</span><br><span class="line">    map.set(config.file, content.replace(/\n+$/, &#x27;\n&#x27;)); // 保证末尾一个换行</span><br><span class="line">  &#125;</span><br><span class="line">  return map;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">/**</span><br><span class="line"> * 注册第三方构造器</span><br><span class="line"> * @param &#123;Function&#125; builder     function(stmt, padding, indent, tabs)-&gt;string</span><br><span class="line"> * @param &#123;Array&lt;string&gt;&#125; dirs   指令列表</span><br><span class="line"> */</span><br><span class="line">export function registerExternalBuilder(builder, dirs) &#123;</span><br><span class="line">  dirs.forEach(d =&gt; &#123; EXTERNAL_BUILDERS[d] = builder; &#125;);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>b.html</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br><span class="line">100</span><br><span class="line">101</span><br><span class="line">102</span><br><span class="line">103</span><br><span class="line">104</span><br><span class="line">105</span><br><span class="line">106</span><br><span class="line">107</span><br><span class="line">108</span><br><span class="line">109</span><br><span class="line">110</span><br><span class="line">111</span><br></pre></td><td class="code"><pre><span class="line">&lt;!DOCTYPE html&gt;</span><br><span class="line">&lt;html lang=&quot;en&quot;&gt;</span><br><span class="line">  &lt;head&gt;</span><br><span class="line">    &lt;meta charset=&quot;UTF-8&quot; /&gt;</span><br><span class="line">    &lt;meta name=&quot;viewport&quot; content=&quot;width=device-width, initial-scale=1.0&quot; /&gt;</span><br><span class="line">    &lt;title&gt;Document&lt;/title&gt;</span><br><span class="line">  &lt;/head&gt;</span><br><span class="line">  &lt;body&gt;</span><br><span class="line">    &lt;script type=&quot;module&quot;&gt;</span><br><span class="line">      import &#123; build, buildFiles &#125; from &quot;./nginx-builder.js&quot;;</span><br><span class="line"></span><br><span class="line">      const payload = &#123;</span><br><span class="line">        config: [</span><br><span class="line">          &#123;</span><br><span class="line">            file: &quot;/etc/nginx/nginx.conf&quot;,</span><br><span class="line">            parsed: [</span><br><span class="line">              &#123;</span><br><span class="line">                directive: &quot;user&quot;,</span><br><span class="line">                line: 2,</span><br><span class="line">                args: [&quot;nginx&quot;],</span><br><span class="line">                file: &quot;nginx.conf&quot;,</span><br><span class="line">              &#125;,</span><br><span class="line">              &#123;</span><br><span class="line">                directive: &quot;worker_processes&quot;,</span><br><span class="line">                line: 3,</span><br><span class="line">                args: [&quot;auto&quot;],</span><br><span class="line">                file: &quot;nginx.conf&quot;,</span><br><span class="line">              &#125;,</span><br><span class="line">              &#123;</span><br><span class="line">                directive: &quot;events&quot;,</span><br><span class="line">                line: 5,</span><br><span class="line">                args: [],</span><br><span class="line">                file: &quot;nginx.conf&quot;,</span><br><span class="line">                block: [</span><br><span class="line">                  &#123;</span><br><span class="line">                    directive: &quot;worker_connections&quot;,</span><br><span class="line">                    line: 6,</span><br><span class="line">                    args: [&quot;1024&quot;],</span><br><span class="line">                    file: &quot;nginx.conf&quot;,</span><br><span class="line">                  &#125;,</span><br><span class="line">                ],</span><br><span class="line">              &#125;,</span><br><span class="line">              &#123;</span><br><span class="line">                directive: &quot;http&quot;,</span><br><span class="line">                line: 9,</span><br><span class="line">                args: [],</span><br><span class="line">                file: &quot;nginx.conf&quot;,</span><br><span class="line">                block: [</span><br><span class="line">                  &#123;</span><br><span class="line">                    directive: &quot;include&quot;,</span><br><span class="line">                    line: 10,</span><br><span class="line">                    args: [&quot;mime.types&quot;],</span><br><span class="line">                    file: &quot;nginx.conf&quot;,</span><br><span class="line">                    includes: [],</span><br><span class="line">                  &#125;,</span><br><span class="line">                  &#123;</span><br><span class="line">                    directive: &quot;default_type&quot;,</span><br><span class="line">                    line: 11,</span><br><span class="line">                    args: [&quot;application/octet-stream&quot;],</span><br><span class="line">                    file: &quot;nginx.conf&quot;,</span><br><span class="line">                  &#125;,</span><br><span class="line">                  &#123;</span><br><span class="line">                    directive: &quot;server&quot;,</span><br><span class="line">                    line: 13,</span><br><span class="line">                    args: [],</span><br><span class="line">                    file: &quot;nginx.conf&quot;,</span><br><span class="line">                    block: [</span><br><span class="line">                      &#123;</span><br><span class="line">                        directive: &quot;listen&quot;,</span><br><span class="line">                        line: 14,</span><br><span class="line">                        args: [&quot;80&quot;],</span><br><span class="line">                        file: &quot;nginx.conf&quot;,</span><br><span class="line">                      &#125;,</span><br><span class="line">                      &#123;</span><br><span class="line">                        directive: &quot;location&quot;,</span><br><span class="line">                        line: 15,</span><br><span class="line">                        args: [&quot;/&quot;],</span><br><span class="line">                        file: &quot;nginx.conf&quot;,</span><br><span class="line">                        block: [</span><br><span class="line">                          &#123;</span><br><span class="line">                            directive: &quot;root&quot;,</span><br><span class="line">                            line: 16,</span><br><span class="line">                            args: [&quot;/usr/share/nginx/html&quot;],</span><br><span class="line">                            file: &quot;nginx.conf&quot;,</span><br><span class="line">                          &#125;,</span><br><span class="line">                        ],</span><br><span class="line">                      &#125;,</span><br><span class="line">                    ],</span><br><span class="line">                  &#125;,</span><br><span class="line">                ],</span><br><span class="line">              &#125;,</span><br><span class="line">            ],</span><br><span class="line">          &#125;,</span><br><span class="line">        ],</span><br><span class="line">      &#125;;</span><br><span class="line"></span><br><span class="line">      // 1. 只拿文本</span><br><span class="line">      const txt = build(payload.config[0].parsed, &#123; header: true &#125;);</span><br><span class="line">      console.log(txt);</span><br><span class="line"></span><br><span class="line">      // 2. 拿全部文件</span><br><span class="line">      const fileMap = buildFiles(payload);</span><br><span class="line">      for (const [name, content] of fileMap) &#123;</span><br><span class="line">        console.log(&quot;===&quot;, name, &quot;===&quot;);</span><br><span class="line">        console.log(content);</span><br><span class="line">      &#125;</span><br><span class="line">    &lt;/script&gt;</span><br><span class="line">  &lt;/body&gt;</span><br><span class="line">&lt;/html&gt;</span><br><span class="line"></span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+    </div>
+
+    
+    
+    
+
+      <footer class="post-footer">
+
+        
+
+
+        
+    <div class="post-nav">
+      <div class="post-nav-item">
+    <a href="/2025/10/23/%E6%8A%93%E5%8C%85/" rel="prev" title="抓9000 端口 上的请求">
+      <i class="fa fa-chevron-left"></i> 抓9000 端口 上的请求
+    </a></div>
+      <div class="post-nav-item"></div>
+    </div>
+      </footer>
+    
+  </article>
+  
+  
+  
+
+
+
+          </div>
+          
+
+<script>
+  window.addEventListener('tabs:register', () => {
+    let { activeClass } = CONFIG.comments;
+    if (CONFIG.comments.storage) {
+      activeClass = localStorage.getItem('comments_active') || activeClass;
+    }
+    if (activeClass) {
+      let activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      if (activeTab) {
+        activeTab.click();
+      }
+    }
+  });
+  if (CONFIG.comments.storage) {
+    window.addEventListener('tabs:click', event => {
+      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
+      let commentClass = event.target.classList[1];
+      localStorage.setItem('comments_active', commentClass);
+    });
+  }
+</script>
+
+        </div>
+          
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line toggle-line-first"></span>
+    <span class="toggle-line toggle-line-middle"></span>
+    <span class="toggle-line toggle-line-last"></span>
+  </div>
+
+  <aside class="sidebar">
+    <div class="sidebar-inner">
+
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E8%BD%AC%E6%8D%A2%E4%B8%BA-js-%E7%89%88%E6%9C%AC"><span class="nav-number">1.</span> <span class="nav-text">转换为 js 版本</span></a></li></ol></div>
+      </div>
+      <!--/noindex-->
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+  <p class="site-author-name" itemprop="name">wangzhiwei</p>
+  <div class="site-description" itemprop="description">javascript nodejs web developer...</div>
+</div>
+<div class="site-state-wrap motion-element">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">90</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+        <span class="site-state-item-count">57</span>
+        <span class="site-state-item-name">分类</span>
+      </div>
+      <div class="site-state-item site-state-tags">
+        <span class="site-state-item-count">62</span>
+        <span class="site-state-item-name">标签</span>
+      </div>
+  </nav>
+</div>
+
+
+
+      </div>
+
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+    </main>
+
+    <footer class="footer">
+      <div class="footer-inner">
+        
+
+        
+
+<div class="copyright">
+  
+  &copy; 
+  <span itemprop="copyrightYear">2025</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">wangzhiwei</span>
+</div>
+  <div class="powered-by">由 <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> & <a href="https://muse.theme-next.org/" class="theme-link" rel="noopener" target="_blank">NexT.Muse</a> 强力驱动
+  </div>
+
+        
+
+
+
+
+
+
+
+
+      </div>
+    </footer>
+  </div>
+
+  
+  <script src="/lib/anime.min.js"></script>
+  <script src="/lib/velocity/velocity.min.js"></script>
+  <script src="/lib/velocity/velocity.ui.min.js"></script>
+
+<script src="/js/utils.js"></script>
+
+<script src="/js/motion.js"></script>
+
+
+<script src="/js/schemes/muse.js"></script>
+
+
+<script src="/js/next-boot.js"></script>
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  
+
+</body>
+</html>

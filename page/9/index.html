@@ -149,6 +149,121 @@
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="http://example.com/2024/12/13/go/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="wangzhiwei">
+      <meta itemprop="description" content="javascript nodejs web developer...">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="WBlog">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/2024/12/13/go/" class="post-title-link" itemprop="url">go</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2024-12-13 14:53:00" itemprop="dateCreated datePublished" datetime="2024-12-13T14:53:00+08:00">2024-12-13</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-calendar-check-o"></i>
+                </span>
+                <span class="post-meta-item-text">更新于</span>
+                <time title="修改时间：2025-03-18 11:10:52" itemprop="dateModified" datetime="2025-03-18T11:10:52+08:00">2025-03-18</time>
+              </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/go/" itemprop="url" rel="index"><span itemprop="name">go</span></a>
+                </span>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <p>下载<br><a target="_blank" rel="noopener" href="https://golang.google.cn/dl/">https://golang.google.cn/dl/</a></p>
+<p>安装<br><a target="_blank" rel="noopener" href="https://golang.google.cn/doc/install">https://golang.google.cn/doc/install</a></p>
+<p>rm -rf &#x2F;usr&#x2F;local&#x2F;go &amp;&amp; tar -C &#x2F;usr&#x2F;local -xzf go1.23.0.linux-amd64.tar.gz</p>
+<p>vi .profile<br>export PATH&#x3D;$PATH:&#x2F;usr&#x2F;local&#x2F;go&#x2F;bin</p>
+<p>source .profile</p>
+<p>go version</p>
+<p>更好镜像源<br>go env -w GO111MODULE&#x3D;on<br>go env -w GOPROXY&#x3D;<a target="_blank" rel="noopener" href="https://goproxy.io,direct/">https://goproxy.io,direct</a></p>
+<p><a target="_blank" rel="noopener" href="https://gin-gonic.com/zh-cn/docs/quickstart/">https://gin-gonic.com/zh-cn/docs/quickstart/</a></p>
+<p>安装gin<br>go get github.com&#x2F;gin-gonic&#x2F;gin</p>
+<p>安装 fresh 代替 go run xxx.go<br>go install github.com&#x2F;pilu&#x2F;fresh@latest</p>
+<p>命令找不到，需要配置环境变量<br>vi .profile<br>export PATH&#x3D;$PATH:&#x2F;home&#x2F;dc&#x2F;go&#x2F;bin<br>source .profile</p>
+<p>参考视频<br><a target="_blank" rel="noopener" href="https://www.bilibili.com/video/BV1tU4y1u7i7/?spm_id_from=333.337.search-card.all.click&vd_source=ffda878df0ed45bee1ade91d8f451048">https://www.bilibili.com/video/BV1tU4y1u7i7/?spm_id_from=333.337.search-card.all.click&amp;vd_source=ffda878df0ed45bee1ade91d8f451048</a></p>
+<p>运行项目<br>go run xxx.go</p>
+<p>参考<br><a target="_blank" rel="noopener" href="https://github.com/goproxyio/goproxy.io/blob/master/content/zh/docs/getting-started.md">https://github.com/goproxyio/goproxy.io/blob/master/content/zh/docs/getting-started.md</a></p>
+<p>go项目开发学习</p>
+<p>8小时转职Golang工程师(如果你想低成本学习Go语言)<br><a target="_blank" rel="noopener" href="https://www.bilibili.com/video/BV1gf4y1r79E?spm_id_from=333.788.videopod.episodes&vd_source=ffda878df0ed45bee1ade91d8f451048&p=2">https://www.bilibili.com/video/BV1gf4y1r79E?spm_id_from=333.788.videopod.episodes&amp;vd_source=ffda878df0ed45bee1ade91d8f451048&amp;p=2</a></p>
+<p>在线文章：<a target="_blank" rel="noopener" href="https://www.yuque.com/aceld/mo95lb/dsk886">https://www.yuque.com/aceld/mo95lb/dsk886</a><br>代码<br><a target="_blank" rel="noopener" href="https://pan.baidu.com/disk/main?from=homeSave#/index?category=all&path=%2F%E6%88%91%E7%9A%84%E8%B5%84%E6%BA%90">https://pan.baidu.com/disk/main?from=homeSave#/index?category=all&amp;path=%2F%E6%88%91%E7%9A%84%E8%B5%84%E6%BA%90</a><br>gin快速入门<br><a target="_blank" rel="noopener" href="https://gin-gonic.com/zh-cn/docs/quickstart/">https://gin-gonic.com/zh-cn/docs/quickstart/</a><br>GO流行的Gin框架快速搭建开发</p>
+<p><a target="_blank" rel="noopener" href="https://www.bilibili.com/video/BV1Jy4y1F7RG/?spm_id_from=333.337.search-card.all.click&vd_source=ffda878df0ed45bee1ade91d8f451048">https://www.bilibili.com/video/BV1Jy4y1F7RG/?spm_id_from=333.337.search-card.all.click&amp;vd_source=ffda878df0ed45bee1ade91d8f451048</a></p>
+<p>go 七牛云代理<br><a target="_blank" rel="noopener" href="https://goproxy.cn/">https://goproxy.cn/</a></p>
+<p>开发学习<br>环境搭建<br>安装</p>
+<p>配置<br>cat ~&#x2F;.bashrc 添加如下配置</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">export GOROOT=&quot;/usr/local/go&quot;</span><br><span class="line">export GOPATH=$HOME/go</span><br><span class="line">export GOBIN=$GOROOT/bin</span><br><span class="line">export PATH=$PATH:$GOBIN</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<p>配置镜像源</p>
+<p><img src="/../images/go_01.png"></p>
+<p>创建 go.mod</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">go mod init firstGolang</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+<p>export GOPATH&#x3D;$HOME&#x2F;go</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">在$HOME/go 即  /home/dc/go/ 目录下的 src 目录创建项目</span><br><span class="line"></span><br><span class="line">/home/dc/go/src/nc-data-sync-go/firstGolang</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<p><img src="/../images/go_02.png"></p>
+<p>安装gin </p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">go get -u github.com/gin-gonic/gin</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+<p>gin 的使用参考<br><a target="_blank" rel="noopener" href="https://gin-gonic.com/zh-cn/docs/quickstart/">https://gin-gonic.com/zh-cn/docs/quickstart/</a></p>
+<p>tool.go</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">package models</span><br><span class="line"></span><br><span class="line">func Add(a int, b int) int &#123;</span><br><span class="line">    return a + b</span><br><span class="line">&#125;</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<p>main.go</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">package main</span><br><span class="line"></span><br><span class="line">import (</span><br><span class="line">    &quot;firstGolang/models&quot;</span><br><span class="line">    &quot;fmt&quot;</span><br><span class="line">)</span><br><span class="line"></span><br><span class="line">func main() &#123;</span><br><span class="line"></span><br><span class="line">    num := models.Add(1, 2)</span><br><span class="line">    fmt.Println(&quot;1+2=&quot;, num)</span><br><span class="line">&#125;</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<p>注意包名为文件夹名称</p>
+<p><img src="/../images/go_03.png"></p>
+
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
     <link itemprop="mainEntityOfPage" href="http://example.com/2024/12/13/njs/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -1772,7 +1887,7 @@
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">89</span>
+          <span class="site-state-item-count">90</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>
