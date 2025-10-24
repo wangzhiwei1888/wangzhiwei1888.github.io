@@ -341,6 +341,7 @@ function _needsQuotes(str) {
 
 // 把字符串转成 nginx 可识别的带引号格式
 function _enquote(arg) {
+  if (arg == null) return '""';          // 新增：空参数直接给 ""
   if (!_needsQuotes(arg)) return arg;
   // 浏览器里 repr 等价 JSON.stringify 后去头尾引号再自己加
   let s = JSON.stringify(arg);
@@ -375,7 +376,7 @@ export function build(payload, { indent = 4, tabs = false, header = false } = {}
     const margin = padding(depth);
 
     for (const stmt of block) {
-      const dir = _enquote(stmt.directive);
+      const dir = _enquote(stmt.directive ?? stmt.cmd ?? '');
       const line = stmt.line || 0;
 
       // 行尾注释合并
@@ -397,7 +398,7 @@ export function build(payload, { indent = 4, tabs = false, header = false } = {}
       }
 
       // 普通指令
-      const args = stmt.args.map(_enquote);
+      const args = (stmt.args ?? stmt.arguments ?? []).map(_enquote);
       let built;
       if (dir === 'if') {
         built = `if (${args.join(' ')})`;
