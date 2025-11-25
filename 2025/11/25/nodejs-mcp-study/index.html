@@ -1,0 +1,419 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 7.3.0">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+<link rel="stylesheet" href="/lib/font-awesome/css/font-awesome.min.css">
+
+<script id="hexo-configurations">
+    var NexT = window.NexT || {};
+    var CONFIG = {"hostname":"example.com","root":"/","scheme":"Muse","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":false,"show_result":false,"style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":false,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}}};
+  </script>
+
+  <meta name="description" content="nodejs mcppackage.json 1234567891011121314151617181920&#123;  &quot;name&quot;: &quot;nodejs-mcp-server&quot;,  &quot;version&quot;: &quot;1.0.0&quot;,  &quot;main&quot;: &quot;server.js&quot;,  &amp;quot">
+<meta property="og:type" content="article">
+<meta property="og:title" content="nodejs mcp study">
+<meta property="og:url" content="http://example.com/2025/11/25/nodejs-mcp-study/index.html">
+<meta property="og:site_name" content="WBlog">
+<meta property="og:description" content="nodejs mcppackage.json 1234567891011121314151617181920&#123;  &quot;name&quot;: &quot;nodejs-mcp-server&quot;,  &quot;version&quot;: &quot;1.0.0&quot;,  &quot;main&quot;: &quot;server.js&quot;,  &amp;quot">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="http://example.com/images/mcp001.png">
+<meta property="article:published_time" content="2025-11-25T09:54:01.000Z">
+<meta property="article:modified_time" content="2025-11-25T10:06:24.144Z">
+<meta property="article:author" content="wangzhiwei">
+<meta property="article:tag" content="nodejs mcp">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="http://example.com/images/mcp001.png">
+
+<link rel="canonical" href="http://example.com/2025/11/25/nodejs-mcp-study/">
+
+
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome : false,
+    isPost : true,
+    lang   : 'zh-CN'
+  };
+</script>
+
+  <title>nodejs mcp study | WBlog</title>
+  
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div class="container use-motion">
+    <div class="headband"></div>
+
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏">
+      <span class="toggle-line toggle-line-first"></span>
+      <span class="toggle-line toggle-line-middle"></span>
+      <span class="toggle-line toggle-line-last"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <h1 class="site-title">WBlog</h1>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+      <p class="site-subtitle" itemprop="description">wangzhiwei blog</p>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+    </div>
+  </div>
+</div>
+
+
+
+
+<nav class="site-nav">
+  <ul id="menu" class="menu">
+        <li class="menu-item menu-item-home">
+
+    <a href="/" rel="section"><i class="fa fa-fw fa-home"></i>首页</a>
+
+  </li>
+        <li class="menu-item menu-item-archives">
+
+    <a href="/archives/" rel="section"><i class="fa fa-fw fa-archive"></i>归档</a>
+
+  </li>
+  </ul>
+</nav>
+
+
+
+
+</div>
+    </header>
+
+    
+  <div class="back-to-top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+
+
+    <main class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+
+          <div class="content post posts-expand">
+            
+
+    
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="http://example.com/2025/11/25/nodejs-mcp-study/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="wangzhiwei">
+      <meta itemprop="description" content="javascript nodejs web developer...">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="WBlog">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          nodejs mcp study
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+              
+
+              <time title="创建时间：2025-11-25 17:54:01 / 修改时间：18:06:24" itemprop="dateCreated datePublished" datetime="2025-11-25T17:54:01+08:00">2025-11-25</time>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+        <h2 id="nodejs-mcp"><a href="#nodejs-mcp" class="headerlink" title="nodejs mcp"></a>nodejs mcp</h2><p>package.json</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line">&#123;</span><br><span class="line">  &quot;name&quot;: &quot;nodejs-mcp-server&quot;,</span><br><span class="line">  &quot;version&quot;: &quot;1.0.0&quot;,</span><br><span class="line">  &quot;main&quot;: &quot;server.js&quot;,</span><br><span class="line">  &quot;scripts&quot;: &#123;</span><br><span class="line">    &quot;test&quot;: &quot;echo \&quot;Error: no test specified\&quot; &amp;&amp; exit 1&quot;,</span><br><span class="line">    &quot;start&quot;: &quot;node server.js&quot;</span><br><span class="line">  &#125;,</span><br><span class="line">  &quot;keywords&quot;: [],</span><br><span class="line">  &quot;author&quot;: &quot;&quot;,</span><br><span class="line">  &quot;license&quot;: &quot;ISC&quot;,</span><br><span class="line">  &quot;description&quot;: &quot;&quot;,</span><br><span class="line">  &quot;dependencies&quot;: &#123;</span><br><span class="line">    &quot;@modelcontextprotocol/sdk&quot;: &quot;^1.22.0&quot;,</span><br><span class="line">    &quot;express&quot;: &quot;^5.1.0&quot;,</span><br><span class="line">    &quot;zod&quot;: &quot;^3.24.1&quot;</span><br><span class="line">  &#125;,</span><br><span class="line">  &quot;type&quot;: &quot;module&quot;</span><br><span class="line">&#125;</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<p>以文件的形式提供mcp服务<br>server.js</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br></pre></td><td class="code"><pre><span class="line">import &#123; McpServer, ResourceTemplate &#125; from &#x27;@modelcontextprotocol/sdk/server/mcp.js&#x27;;</span><br><span class="line">import &#123; StdioServerTransport &#125; from &#x27;@modelcontextprotocol/sdk/server/stdio.js&#x27;;</span><br><span class="line">import * as z from &#x27;zod&#x27;;</span><br><span class="line"></span><br><span class="line">const server = new McpServer(&#123;</span><br><span class="line">    name: &#x27;demo-server&#x27;,</span><br><span class="line">    version: &#x27;1.0.0&#x27;</span><br><span class="line">&#125;);</span><br><span class="line"></span><br><span class="line">// 工具1：笑话（修复版）</span><br><span class="line">server.registerTool(</span><br><span class="line">    &#x27;tell_weird_joke&#x27;,</span><br><span class="line">    &#123;</span><br><span class="line">        title: &#x27;Tell Weird Joke&#x27;,</span><br><span class="line">        description: &#x27;Generate a weird joke about a specified topic&#x27;,</span><br><span class="line">        inputSchema: z.object(&#123;  // 修复：必须使用 z.object()</span><br><span class="line">            topic: z.string().describe(&#x27;The topic of the joke&#x27;)</span><br><span class="line">        &#125;)</span><br><span class="line">    &#125;,</span><br><span class="line">    async (&#123; topic &#125;) =&gt; &#123;</span><br><span class="line">        return &#123;</span><br><span class="line">            content: [&#123; type: &#x27;text&#x27;, text: `The weirdest joke about $&#123;topic&#125; is... hahaha!` &#125;],</span><br><span class="line">        &#125;;</span><br><span class="line">    &#125;</span><br><span class="line">);</span><br><span class="line"></span><br><span class="line">// 工具2：加法（修复版）</span><br><span class="line">server.registerTool(</span><br><span class="line">    &#x27;add&#x27;,</span><br><span class="line">    &#123;</span><br><span class="line">        title: &#x27;Addition Tool&#x27;,</span><br><span class="line">        description: &#x27;Add two numbers&#x27;,</span><br><span class="line">        inputSchema: z.object(&#123;  // 修复：必须使用 z.object()</span><br><span class="line">            a: z.number(),</span><br><span class="line">            b: z.number()</span><br><span class="line">        &#125;)</span><br><span class="line">    &#125;,</span><br><span class="line">    async (&#123; a, b &#125;) =&gt; &#123;</span><br><span class="line">        return &#123;</span><br><span class="line">            content: [&#123; type: &#x27;text&#x27;, text: `Result: $&#123;a + b&#125;` &#125;],</span><br><span class="line">        &#125;;</span><br><span class="line">    &#125;</span><br><span class="line">);</span><br><span class="line"></span><br><span class="line">// 资源：问候</span><br><span class="line">server.registerResource(</span><br><span class="line">    &#x27;greeting&#x27;,</span><br><span class="line">    new ResourceTemplate(&#x27;greeting://&#123;name&#125;&#x27;, &#123; list: undefined &#125;),</span><br><span class="line">    &#123; title: &#x27;Greeting Resource&#x27;, description: &#x27;Dynamic greeting generator&#x27; &#125;,</span><br><span class="line">    async (uri, &#123; name &#125;) =&gt; (&#123;</span><br><span class="line">        contents: [&#123; uri: uri.href, text: `Hello, $&#123;name&#125;!` &#125;]</span><br><span class="line">    &#125;)</span><br><span class="line">);</span><br><span class="line"></span><br><span class="line">// 启动</span><br><span class="line">async function main() &#123;</span><br><span class="line">    const transport = new StdioServerTransport();</span><br><span class="line">    await server.connect(transport);</span><br><span class="line">    console.error(&#x27;✅ MCP 服务器已启动&#x27;);</span><br><span class="line">&#125;</span><br><span class="line">main().catch(console.error);</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+
+
+<h2 id="运行"><a href="#运行" class="headerlink" title="运行"></a>运行</h2><p>npx @modelcontextprotocol&#x2F;inspector nodejs server.js</p>
+<p><img src="/../images/mcp001.png"></p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">&quot;tell_weird_joke&quot;: &#123;</span><br><span class="line">      &quot;isActive&quot;: true,</span><br><span class="line">      &quot;name&quot;: &quot;tell_weird_joke&quot;,</span><br><span class="line">      &quot;type&quot;: &quot;stdio&quot;,</span><br><span class="line">      &quot;command&quot;: &quot;node&quot;,</span><br><span class="line">      &quot;args&quot;: [</span><br><span class="line">        &quot;/Users/wangzhiwei/work/ai-getway-study/nodejs-mcp-server/server.js&quot;</span><br><span class="line">      ],</span><br><span class="line">      &quot;installSource&quot;: &quot;unknown&quot;</span><br><span class="line">    &#125;,</span><br></pre></td></tr></table></figure>
+
+
+<p>以http端点的形式提供 mcp 服务<br>server2.js </p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br><span class="line">100</span><br><span class="line">101</span><br></pre></td><td class="code"><pre><span class="line">import &#123; McpServer, ResourceTemplate &#125; from &#x27;@modelcontextprotocol/sdk/server/mcp.js&#x27;;</span><br><span class="line">import &#123; StreamableHTTPServerTransport &#125; from &#x27;@modelcontextprotocol/sdk/server/streamableHttp.js&#x27;;</span><br><span class="line">import express from &#x27;express&#x27;;</span><br><span class="line">import * as z from &#x27;zod&#x27;;</span><br><span class="line"></span><br><span class="line">// 1. 创建 MCP 服务器（保持不变）</span><br><span class="line">const server = new McpServer(&#123;</span><br><span class="line">    name: &#x27;demo-server&#x27;,</span><br><span class="line">    version: &#x27;1.0.0&#x27;</span><br><span class="line">&#125;);</span><br><span class="line"></span><br><span class="line">// 2. 注册所有工具和资源（保持不变）</span><br><span class="line">server.registerTool(</span><br><span class="line">    &#x27;tell_weird_joke&#x27;,</span><br><span class="line">    &#123;</span><br><span class="line">        title: &#x27;Tell Weird Joke&#x27;,</span><br><span class="line">        description: &#x27;Generate a weird joke about a specified topic&#x27;,</span><br><span class="line">        inputSchema: z.object(&#123;</span><br><span class="line">            topic: z.string().describe(&#x27;The topic of the joke&#x27;)</span><br><span class="line">        &#125;)</span><br><span class="line">    &#125;,</span><br><span class="line">    async (&#123; topic &#125;) =&gt; &#123;</span><br><span class="line">        return &#123;</span><br><span class="line">            content: [&#123; type: &#x27;text&#x27;, text: `The weirdest joke about $&#123;topic&#125; is... hahaha!` &#125;],</span><br><span class="line">        &#125;;</span><br><span class="line">    &#125;</span><br><span class="line">);</span><br><span class="line"></span><br><span class="line">server.registerTool(</span><br><span class="line">    &#x27;add&#x27;,</span><br><span class="line">    &#123;</span><br><span class="line">        title: &#x27;Addition Tool&#x27;,</span><br><span class="line">        description: &#x27;Add two numbers&#x27;,</span><br><span class="line">        inputSchema: z.object(&#123;</span><br><span class="line">            a: z.number(),</span><br><span class="line">            b: z.number()</span><br><span class="line">        &#125;)</span><br><span class="line">    &#125;,</span><br><span class="line">    async (&#123; a, b &#125;) =&gt; &#123;</span><br><span class="line">        return &#123;</span><br><span class="line">            content: [&#123; type: &#x27;text&#x27;, text: `Result: $&#123;a + b&#125;` &#125;],</span><br><span class="line">        &#125;;</span><br><span class="line">    &#125;</span><br><span class="line">);</span><br><span class="line"></span><br><span class="line">server.registerResource(</span><br><span class="line">    &#x27;greeting&#x27;,</span><br><span class="line">    new ResourceTemplate(&#x27;greeting://&#123;name&#125;&#x27;, &#123; list: undefined &#125;),</span><br><span class="line">    &#123; title: &#x27;Greeting Resource&#x27;, description: &#x27;Dynamic greeting generator&#x27; &#125;,</span><br><span class="line">    async (uri, &#123; name &#125;) =&gt; (&#123;</span><br><span class="line">        contents: [&#123; uri: uri.href, text: `Hello, $&#123;name&#125;!` &#125;]</span><br><span class="line">    &#125;)</span><br><span class="line">);</span><br><span class="line"></span><br><span class="line">// 3. 创建 Express 应用</span><br><span class="line">const app = express();</span><br><span class="line">app.use(express.json());</span><br><span class="line"></span><br><span class="line">// 4. 添加健康检查端点（可选）</span><br><span class="line">app.get(&#x27;/health&#x27;, (req, res) =&gt; &#123;</span><br><span class="line">    res.json(&#123; status: &#x27;ok&#x27;, timestamp: new Date().toISOString() &#125;);</span><br><span class="line">&#125;);</span><br><span class="line"></span><br><span class="line">// 5. 核心 MCP HTTP 端点</span><br><span class="line">app.post(&#x27;/mcp&#x27;, async (req, res) =&gt; &#123;</span><br><span class="line">    // 每个请求创建独立 transport 实例（避免请求 ID 冲突）</span><br><span class="line">    const transport = new StreamableHTTPServerTransport(&#123;</span><br><span class="line">        sessionIdGenerator: undefined,</span><br><span class="line">        enableJsonResponse: true // 启用 JSON 响应格式</span><br><span class="line">    &#125;);</span><br><span class="line"></span><br><span class="line">    // 请求结束时清理资源</span><br><span class="line">    res.on(&#x27;close&#x27;, () =&gt; &#123;</span><br><span class="line">        transport.close();</span><br><span class="line">    &#125;);</span><br><span class="line"></span><br><span class="line">    try &#123;</span><br><span class="line">        // 将 transport 连接到 MCP 服务器</span><br><span class="line">        await server.connect(transport);</span><br><span class="line">        </span><br><span class="line">        // 处理请求并返回响应</span><br><span class="line">        await transport.handleRequest(req, res, req.body);</span><br><span class="line">    &#125; catch (error) &#123;</span><br><span class="line">        console.error(&#x27;❌ MCP request error:&#x27;, error);</span><br><span class="line">        if (!res.headersSent) &#123;</span><br><span class="line">            res.status(500).json(&#123; error: &#x27;Internal server error&#x27; &#125;);</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;);</span><br><span class="line"></span><br><span class="line">// 6. 启动 HTTP 服务器</span><br><span class="line">const port = parseInt(process.env.PORT || &#x27;3000&#x27;);</span><br><span class="line">app.listen(port, () =&gt; &#123;</span><br><span class="line">    console.log(`🚀 MCP HTTP Server running at http://localhost:$&#123;port&#125;`);</span><br><span class="line">    console.log(`📡 MCP endpoint: http://localhost:$&#123;port&#125;/mcp`);</span><br><span class="line">    console.log(`🏥 Health check: http://localhost:$&#123;port&#125;/health`);</span><br><span class="line">&#125;).on(&#x27;error&#x27;, error =&gt; &#123;</span><br><span class="line">    console.error(&#x27;❌ Server error:&#x27;, error);</span><br><span class="line">    process.exit(1);</span><br><span class="line">&#125;);</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<h2 id="运行-1"><a href="#运行-1" class="headerlink" title="运行"></a>运行</h2><p>node server2.js</p>
+<h2 id="测试"><a href="#测试" class="headerlink" title="测试"></a>测试</h2><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">curl http://localhost:3000/health</span><br><span class="line">&#123;&quot;status&quot;:&quot;ok&quot;,&quot;timestamp&quot;:&quot;2025-11-25T10:00:07.470Z&quot;&#125;%</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">curl -X POST http://localhost:3000/mcp \</span><br><span class="line">  -H &quot;Content-Type: application/json&quot; \</span><br><span class="line">  -d &#x27;&#123;&quot;jsonrpc&quot;:&quot;2.0&quot;,&quot;id&quot;:1,&quot;method&quot;:&quot;tools/list&quot;,&quot;params&quot;:&#123;&#125;&#125;&#x27;</span><br><span class="line">&#123;&quot;jsonrpc&quot;:&quot;2.0&quot;,&quot;error&quot;:&#123;&quot;code&quot;:-32000,&quot;message&quot;:&quot;Not Acceptable: Client must accept both application/json and text/event-stream&quot;&#125;,&quot;id&quot;:null&#125;%</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">curl -X POST http://localhost:3000/mcp \</span><br><span class="line">  -H &quot;Content-Type: application/json&quot; \</span><br><span class="line">  -H &quot;Accept: application/json, text/event-stream&quot; \</span><br><span class="line">  -d &#x27;&#123;&quot;jsonrpc&quot;:&quot;2.0&quot;,&quot;id&quot;:1,&quot;method&quot;:&quot;tools/list&quot;,&quot;params&quot;:&#123;&#125;&#125;&#x27;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">  &#123;&quot;result&quot;:&#123;&quot;tools&quot;:[&#123;&quot;name&quot;:&quot;tell_weird_joke&quot;,&quot;title&quot;:&quot;Tell Weird Joke&quot;,&quot;description&quot;:&quot;Generate a weird joke about a specified topic&quot;,&quot;inputSchema&quot;:&#123;&quot;type&quot;:&quot;object&quot;,&quot;properties&quot;:&#123;&quot;topic&quot;:&#123;&quot;type&quot;:&quot;string&quot;,&quot;description&quot;:&quot;The topic of the joke&quot;&#125;&#125;,&quot;required&quot;:[&quot;topic&quot;],&quot;additionalProperties&quot;:false,&quot;$schema&quot;:&quot;http://json-schema.org/draft-07/schema#&quot;&#125;&#125;,&#123;&quot;name&quot;:&quot;add&quot;,&quot;title&quot;:&quot;Addition Tool&quot;,&quot;description&quot;:&quot;Add two numbers&quot;,&quot;inputSchema&quot;:&#123;&quot;type&quot;:&quot;object&quot;,&quot;properties&quot;:&#123;&quot;a&quot;:&#123;&quot;type&quot;:&quot;number&quot;&#125;,&quot;b&quot;:&#123;&quot;type&quot;:&quot;number&quot;&#125;&#125;,&quot;required&quot;:[&quot;a&quot;,&quot;b&quot;],&quot;additionalProperties&quot;:false,&quot;$schema&quot;:&quot;http://json-schema.org/draft-07/schema#&quot;&#125;&#125;]&#125;,&quot;jsonrpc&quot;:&quot;2.0&quot;,&quot;id&quot;:1&#125;%</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">curl -X POST http://localhost:3000/mcp \</span><br><span class="line">  -H &quot;Content-Type: application/json&quot; \</span><br><span class="line">  -H &quot;Accept: application/json, text/event-stream&quot; \</span><br><span class="line">  -d &#x27;&#123;&quot;jsonrpc&quot;:&quot;2.0&quot;,&quot;id&quot;:2,&quot;method&quot;:&quot;tools/call&quot;,&quot;params&quot;:&#123;&quot;name&quot;:&quot;add&quot;,&quot;arguments&quot;:&#123;&quot;a&quot;:5,&quot;b&quot;:3&#125;&#125;&#125;&#x27;</span><br><span class="line"></span><br><span class="line">  &#123;&quot;result&quot;:&#123;&quot;content&quot;:[&#123;&quot;type&quot;:&quot;text&quot;,&quot;text&quot;:&quot;Result: 8&quot;&#125;]&#125;,&quot;jsonrpc&quot;:&quot;2.0&quot;,&quot;id&quot;:2&#125;%</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">curl -X POST http://localhost:3000/mcp \</span><br><span class="line">  -H &quot;Content-Type: application/json&quot; \</span><br><span class="line">  -H &quot;Accept: application/json, text/event-stream&quot; \</span><br><span class="line">  -d &#x27;&#123;&quot;jsonrpc&quot;:&quot;2.0&quot;,&quot;id&quot;:3,&quot;method&quot;:&quot;tools/call&quot;,&quot;params&quot;:&#123;&quot;name&quot;:&quot;tell_weird_joke&quot;,&quot;arguments&quot;:&#123;&quot;topic&quot;:&quot;programming&quot;&#125;&#125;&#125;&#x27;</span><br><span class="line"></span><br><span class="line">&#123;&quot;result&quot;:&#123;&quot;content&quot;:[&#123;&quot;type&quot;:&quot;text&quot;,&quot;text&quot;:&quot;The weirdest joke about programming is... hahaha!&quot;&#125;]&#125;,&quot;jsonrpc&quot;:&quot;2.0&quot;,&quot;id&quot;:3&#125;%</span><br></pre></td></tr></table></figure>
+
+
+
+
+<h2 id="参考文档"><a href="#参考文档" class="headerlink" title="参考文档"></a>参考文档</h2><p><a target="_blank" rel="noopener" href="https://github.com/modelcontextprotocol/typescript-sdk">https://github.com/modelcontextprotocol/typescript-sdk</a></p>
+
+    </div>
+
+    
+    
+    
+
+      <footer class="post-footer">
+          <div class="post-tags">
+              <a href="/tags/nodejs-mcp/" rel="tag"># nodejs mcp</a>
+          </div>
+
+        
+
+
+        
+    <div class="post-nav">
+      <div class="post-nav-item">
+    <a href="/2025/10/24/nginx-conf-to-json/" rel="prev" title="nginx conf to json">
+      <i class="fa fa-chevron-left"></i> nginx conf to json
+    </a></div>
+      <div class="post-nav-item"></div>
+    </div>
+      </footer>
+    
+  </article>
+  
+  
+  
+
+
+
+          </div>
+          
+
+<script>
+  window.addEventListener('tabs:register', () => {
+    let { activeClass } = CONFIG.comments;
+    if (CONFIG.comments.storage) {
+      activeClass = localStorage.getItem('comments_active') || activeClass;
+    }
+    if (activeClass) {
+      let activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      if (activeTab) {
+        activeTab.click();
+      }
+    }
+  });
+  if (CONFIG.comments.storage) {
+    window.addEventListener('tabs:click', event => {
+      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
+      let commentClass = event.target.classList[1];
+      localStorage.setItem('comments_active', commentClass);
+    });
+  }
+</script>
+
+        </div>
+          
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line toggle-line-first"></span>
+    <span class="toggle-line toggle-line-middle"></span>
+    <span class="toggle-line toggle-line-last"></span>
+  </div>
+
+  <aside class="sidebar">
+    <div class="sidebar-inner">
+
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#nodejs-mcp"><span class="nav-number">1.</span> <span class="nav-text">nodejs mcp</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E8%BF%90%E8%A1%8C"><span class="nav-number">2.</span> <span class="nav-text">运行</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E8%BF%90%E8%A1%8C-1"><span class="nav-number">3.</span> <span class="nav-text">运行</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%B5%8B%E8%AF%95"><span class="nav-number">4.</span> <span class="nav-text">测试</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%8F%82%E8%80%83%E6%96%87%E6%A1%A3"><span class="nav-number">5.</span> <span class="nav-text">参考文档</span></a></li></ol></div>
+      </div>
+      <!--/noindex-->
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+  <p class="site-author-name" itemprop="name">wangzhiwei</p>
+  <div class="site-description" itemprop="description">javascript nodejs web developer...</div>
+</div>
+<div class="site-state-wrap motion-element">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">91</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+        <span class="site-state-item-count">57</span>
+        <span class="site-state-item-name">分类</span>
+      </div>
+      <div class="site-state-item site-state-tags">
+        <span class="site-state-item-count">63</span>
+        <span class="site-state-item-name">标签</span>
+      </div>
+  </nav>
+</div>
+
+
+
+      </div>
+
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+    </main>
+
+    <footer class="footer">
+      <div class="footer-inner">
+        
+
+        
+
+<div class="copyright">
+  
+  &copy; 
+  <span itemprop="copyrightYear">2025</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">wangzhiwei</span>
+</div>
+  <div class="powered-by">由 <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> & <a href="https://muse.theme-next.org/" class="theme-link" rel="noopener" target="_blank">NexT.Muse</a> 强力驱动
+  </div>
+
+        
+
+
+
+
+
+
+
+
+      </div>
+    </footer>
+  </div>
+
+  
+  <script src="/lib/anime.min.js"></script>
+  <script src="/lib/velocity/velocity.min.js"></script>
+  <script src="/lib/velocity/velocity.ui.min.js"></script>
+
+<script src="/js/utils.js"></script>
+
+<script src="/js/motion.js"></script>
+
+
+<script src="/js/schemes/muse.js"></script>
+
+
+<script src="/js/next-boot.js"></script>
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  
+
+</body>
+</html>

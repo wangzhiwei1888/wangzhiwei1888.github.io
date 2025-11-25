@@ -149,6 +149,70 @@
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="http://example.com/2024/12/13/c%E8%AF%AD%E8%A8%80%E9%93%BE%E8%A1%A8%E6%93%8D%E4%BD%9C/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="wangzhiwei">
+      <meta itemprop="description" content="javascript nodejs web developer...">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="WBlog">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/2024/12/13/c%E8%AF%AD%E8%A8%80%E9%93%BE%E8%A1%A8%E6%93%8D%E4%BD%9C/" class="post-title-link" itemprop="url">c语言链表操作</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2024-12-13 16:04:41" itemprop="dateCreated datePublished" datetime="2024-12-13T16:04:41+08:00">2024-12-13</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-calendar-check-o"></i>
+                </span>
+                <span class="post-meta-item-text">更新于</span>
+                <time title="修改时间：2025-03-18 11:10:52" itemprop="dateModified" datetime="2025-03-18T11:10:52+08:00">2025-03-18</time>
+              </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line"></span><br><span class="line">#include &lt;stdio.h&gt;</span><br><span class="line">#include &lt;stdlib.h&gt;</span><br><span class="line"></span><br><span class="line">// 定义链表节点结构体</span><br><span class="line">typedef struct Node &#123;</span><br><span class="line">    int data;</span><br><span class="line">    struct Node* next;</span><br><span class="line">&#125; Node;</span><br><span class="line"></span><br><span class="line">// 定义链表头结构体</span><br><span class="line">typedef struct LinkedList &#123;</span><br><span class="line">    Node* head;</span><br><span class="line">&#125; LinkedList;</span><br><span class="line"></span><br><span class="line">// 创建一个空链表</span><br><span class="line">LinkedList* createLinkedList() &#123;</span><br><span class="line">    LinkedList* list = (LinkedList*)malloc(sizeof(LinkedList));</span><br><span class="line">    if (list == NULL) &#123;</span><br><span class="line">        fprintf(stderr, &quot;Memory allocation failed\n&quot;);</span><br><span class="line">        exit(1);</span><br><span class="line">    &#125;</span><br><span class="line">    list-&gt;head = NULL;</span><br><span class="line">    return list;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">// 在链表头部插入节点</span><br><span class="line">void insertAtHead(LinkedList* list, int data) &#123;</span><br><span class="line">    Node* newNode = (Node*)malloc(sizeof(Node));</span><br><span class="line">    if (newNode == NULL) &#123;</span><br><span class="line">        fprintf(stderr, &quot;Memory allocation failed\n&quot;);</span><br><span class="line">        exit(1);</span><br><span class="line">    &#125;</span><br><span class="line">    newNode-&gt;data = data;</span><br><span class="line">    newNode-&gt;next = list-&gt;head;</span><br><span class="line">    list-&gt;head = newNode;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">// 删除链表中的第一个节点</span><br><span class="line">void deleteFromHead(LinkedList* list) &#123;</span><br><span class="line">    if (list-&gt;head == NULL) &#123;</span><br><span class="line">        fprintf(stderr, &quot;List is empty\n&quot;);</span><br><span class="line">        return;</span><br><span class="line">    &#125;</span><br><span class="line">    Node* temp = list-&gt;head;</span><br><span class="line">    list-&gt;head = list-&gt;head-&gt;next;</span><br><span class="line">    free(temp);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">// 遍历链表并打印所有节点的数据</span><br><span class="line">void traverseLinkedList(LinkedList* list) &#123;</span><br><span class="line">    Node* current = list-&gt;head;</span><br><span class="line">    while (current != NULL) &#123;</span><br><span class="line">        printf(&quot;%d -&gt; &quot;, current-&gt;data);</span><br><span class="line">        current = current-&gt;next;</span><br><span class="line">    &#125;</span><br><span class="line">    printf(&quot;NULL\n&quot;);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">// 释放链表的所有内存</span><br><span class="line">void freeLinkedList(LinkedList* list) &#123;</span><br><span class="line">    Node* current = list-&gt;head;</span><br><span class="line">    Node* temp;</span><br><span class="line">    while (current != NULL) &#123;</span><br><span class="line">        temp = current;</span><br><span class="line">        current = current-&gt;next;</span><br><span class="line">        free(temp);</span><br><span class="line">    &#125;</span><br><span class="line">    free(list);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">int main() &#123;</span><br><span class="line">    // 创建一个空链表</span><br><span class="line">    LinkedList* list = createLinkedList();</span><br><span class="line"></span><br><span class="line">    // 插入节点</span><br><span class="line">    insertAtHead(list, 10);</span><br><span class="line">    insertAtHead(list, 20);</span><br><span class="line">    insertAtHead(list, 30);</span><br><span class="line"></span><br><span class="line">    // 遍历链表</span><br><span class="line">    printf(&quot;Linked List after insertions:\n&quot;);</span><br><span class="line">    traverseLinkedList(list);</span><br><span class="line"></span><br><span class="line">    // 删除节点</span><br><span class="line">    deleteFromHead(list);</span><br><span class="line">    printf(&quot;Linked List after deleting from head:\n&quot;);</span><br><span class="line">    traverseLinkedList(list);</span><br><span class="line"></span><br><span class="line">    // 释放链表内存</span><br><span class="line">    freeLinkedList(list);</span><br><span class="line"></span><br><span class="line">    return 0;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"></span><br></pre></td></tr></table></figure>
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
     <link itemprop="mainEntityOfPage" href="http://example.com/2024/12/13/c-plusplus-c-%E6%B7%B7%E5%90%88%E7%BC%96%E8%AF%91/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -1149,94 +1213,10 @@ https://docs.fluentbit.io/manual
   
   
 
-      
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="http://example.com/2024/12/13/webtorrent-desktop/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.gif">
-      <meta itemprop="name" content="wangzhiwei">
-      <meta itemprop="description" content="javascript nodejs web developer...">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="WBlog">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/2024/12/13/webtorrent-desktop/" class="post-title-link" itemprop="url">webtorrent-desktop</a>
-        </h2>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              <span class="post-meta-item-text">发表于</span>
-
-              <time title="创建时间：2024-12-13 14:54:17" itemprop="dateCreated datePublished" datetime="2024-12-13T14:54:17+08:00">2024-12-13</time>
-            </span>
-              <span class="post-meta-item">
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-calendar-check-o"></i>
-                </span>
-                <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2025-03-18 11:10:52" itemprop="dateModified" datetime="2025-03-18T11:10:52+08:00">2025-03-18</time>
-              </span>
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              <span class="post-meta-item-text">分类于</span>
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/%E5%B7%A5%E5%85%B7%E9%9B%86%E5%90%88/" itemprop="url" rel="index"><span itemprop="name">工具集合</span></a>
-                </span>
-            </span>
-
-          
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <blockquote>
-<p>nodejs + webRTC + electron 构建的种子下载工具, 实现边下边播。</p>
-</blockquote>
-<p>电影网站<br><a target="_blank" rel="noopener" href="https://github.com/wangzhiwei1888/zenshin">https://github.com/wangzhiwei1888/zenshin</a><br><a target="_blank" rel="noopener" href="https://youtu.be/DiVczJ92sAU?si=NvqnDvXE_LW7EHW8">https://youtu.be/DiVczJ92sAU?si=NvqnDvXE_LW7EHW8</a></p>
-<p>webtorrent-desktop<br>直接修改 npm 源 直接 npm install 安装 用 cnpm 安装依赖有问题。<br>npm config set registry <a target="_blank" rel="noopener" href="http://mirrors.cloud.tencent.com/npm/">http://mirrors.cloud.tencent.com/npm/</a></p>
-<p>参考：<br><a target="_blank" rel="noopener" href="https://cloud.tencent.com/developer/article/1372949">https://cloud.tencent.com/developer/article/1372949</a></p>
-<p><a target="_blank" rel="noopener" href="https://github.com/wangzhiwei1888/webtorrent-desktop">https://github.com/wangzhiwei1888/webtorrent-desktop</a><br><a target="_blank" rel="noopener" href="https://www.bilibili.com/video/BV1sD42177Lx?spm_id_from=333.788.videopod.sections&vd_source=ffda878df0ed45bee1ade91d8f451048">https://www.bilibili.com/video/BV1sD42177Lx?spm_id_from=333.788.videopod.sections&amp;vd_source=ffda878df0ed45bee1ade91d8f451048</a></p>
-<p><a target="_blank" rel="noopener" href="https://juejin.cn/post/6964571538729205773">https://juejin.cn/post/6964571538729205773</a></p>
-<p><a target="_blank" rel="noopener" href="https://www.nxrte.com/jishu/webrtc/8527.html">https://www.nxrte.com/jishu/webrtc/8527.html</a></p>
-<p><a target="_blank" rel="noopener" href="https://blog.csdn.net/tonglin12138/article/details/137825757">https://blog.csdn.net/tonglin12138/article/details/137825757</a><br><a target="_blank" rel="noopener" href="https://www.w3.org/TR/webrtc/">https://www.w3.org/TR/webrtc/</a><br><a target="_blank" rel="noopener" href="https://x.cnki.net/web/xmlRead/xml.html?pageType=web&fileName=FJDN202407008&tableName=CJFDTOTAL&dbCode=CJFD&topic=&fileSourceType=1&taskId=&from=&groupId=&appId=CRSP_BASIC_PSMC&act=&customReading=#">https://x.cnki.net/web/xmlRead/xml.html?pageType=web&amp;fileName=FJDN202407008&amp;tableName=CJFDTOTAL&amp;dbCode=CJFD&amp;topic=&amp;fileSourceType=1&amp;taskId=&amp;from=&amp;groupId=&amp;appId=CRSP_BASIC_PSMC&amp;act=&amp;customReading=#</a></p>
-<p><a target="_blank" rel="noopener" href="https://blog.csdn.net/Python_0011/article/details/131936099">https://blog.csdn.net/Python_0011/article/details/131936099</a></p>
-
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
 
   
   <nav class="pagination">
-    <a class="extend prev" rel="prev" href="/page/7/"><i class="fa fa-angle-left" aria-label="上一页"></i></a><a class="page-number" href="/">1</a><span class="space">&hellip;</span><a class="page-number" href="/page/7/">7</a><span class="page-number current">8</span><a class="page-number" href="/page/9/">9</a><a class="extend next" rel="next" href="/page/9/"><i class="fa fa-angle-right" aria-label="下一页"></i></a>
+    <a class="extend prev" rel="prev" href="/page/7/"><i class="fa fa-angle-left" aria-label="上一页"></i></a><a class="page-number" href="/">1</a><span class="space">&hellip;</span><a class="page-number" href="/page/7/">7</a><span class="page-number current">8</span><a class="page-number" href="/page/9/">9</a><a class="page-number" href="/page/10/">10</a><a class="extend next" rel="next" href="/page/9/"><i class="fa fa-angle-right" aria-label="下一页"></i></a>
   </nav>
 
 
@@ -1302,7 +1282,7 @@ https://docs.fluentbit.io/manual
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">90</span>
+          <span class="site-state-item-count">91</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>
@@ -1311,7 +1291,7 @@ https://docs.fluentbit.io/manual
         <span class="site-state-item-name">分类</span>
       </div>
       <div class="site-state-item site-state-tags">
-        <span class="site-state-item-count">62</span>
+        <span class="site-state-item-count">63</span>
         <span class="site-state-item-name">标签</span>
       </div>
   </nav>

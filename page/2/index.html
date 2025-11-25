@@ -149,6 +149,103 @@
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="http://example.com/2025/05/09/tfjs-study2/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="wangzhiwei">
+      <meta itemprop="description" content="javascript nodejs web developer...">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="WBlog">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/2025/05/09/tfjs-study2/" class="post-title-link" itemprop="url">tfjs-study2</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2025-05-09 20:03:12" itemprop="dateCreated datePublished" datetime="2025-05-09T20:03:12+08:00">2025-05-09</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-calendar-check-o"></i>
+                </span>
+                <span class="post-meta-item-text">更新于</span>
+                <time title="修改时间：2025-05-10 09:37:59" itemprop="dateModified" datetime="2025-05-10T09:37:59+08:00">2025-05-10</time>
+              </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <h2 id="手写数字识别-使用卷积神经网络"><a href="#手写数字识别-使用卷积神经网络" class="headerlink" title="手写数字识别 - 使用卷积神经网络"></a>手写数字识别 - 使用卷积神经网络</h2><p><img src="/../images/tfjs/45.png"></p>
+<p><img src="/../images/tfjs/46.png"></p>
+<p><img src="/../images/tfjs/47.png"></p>
+<p><img src="/../images/tfjs/48.png"></p>
+<p><img src="/../images/tfjs/49.png"></p>
+<p><img src="/../images/tfjs/50.png"></p>
+<p><img src="/../images/tfjs/51.png"></p>
+<p><img src="/../images/tfjs/52.png"></p>
+<p>为什么要用卷积神经网络？</p>
+<p>图片数据量大，运算量大， 200 * 200 * 3 &#x3D; 120，000</p>
+<p>卷积神经网络模拟人类视觉处理流程，高效提取特征</p>
+<p>卷积神经网络的层</p>
+<h2 id="卷积层：提取特征"><a href="#卷积层：提取特征" class="headerlink" title="卷积层：提取特征"></a>卷积层：提取特征</h2><p>跟着 image kernels （卷积核） 了解卷积运算</p>
+<p><a target="_blank" rel="noopener" href="https://setosa.io/ev/image-kernels/">https://setosa.io/ev/image-kernels/</a></p>
+<p><img src="/../images/tfjs/53.png"></p>
+<p><img src="/../images/tfjs/54.png"></p>
+<p>使用多个卷积核（filter&#x2F; kernel）对图像进行卷积操作</p>
+<p><a target="_blank" rel="noopener" href="https://cs231n.github.io/convolutional-networks/">https://cs231n.github.io/convolutional-networks/</a></p>
+<p><img src="/../images/tfjs/55.png"></p>
+<p>卷积层有权重需要需要训练，卷积核就是权重</p>
+<h2 id="池化层：用于提取最强的特征，扩大感受野，减少计算量，没有权重需要训练"><a href="#池化层：用于提取最强的特征，扩大感受野，减少计算量，没有权重需要训练" class="headerlink" title="池化层：用于提取最强的特征，扩大感受野，减少计算量，没有权重需要训练"></a>池化层：用于提取最强的特征，扩大感受野，减少计算量，没有权重需要训练</h2><p><img src="/../images/tfjs/56.png"></p>
+<h2 id="全连接层：-作为输出层，作为分类器，有权重需要训练"><a href="#全连接层：-作为输出层，作为分类器，有权重需要训练" class="headerlink" title="全连接层： 作为输出层，作为分类器，有权重需要训练"></a>全连接层： 作为输出层，作为分类器，有权重需要训练</h2><p>relu : 从 0 和 x  中选择最大的，小于0 的部分变成 0，大于0 的部分不变</p>
+<p><img src="/../images/tfjs/57.png"></p>
+<p>http-server -p 8080 –cors</p>
+<p><img src="/../images/tfjs/58.png"></p>
+<p><img src="/../images/tfjs/59.png"></p>
+<p>data.js</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br><span class="line">100</span><br><span class="line">101</span><br><span class="line">102</span><br><span class="line">103</span><br><span class="line">104</span><br><span class="line">105</span><br><span class="line">106</span><br><span class="line">107</span><br><span class="line">108</span><br><span class="line">109</span><br><span class="line">110</span><br><span class="line">111</span><br><span class="line">112</span><br><span class="line">113</span><br><span class="line">114</span><br><span class="line">115</span><br><span class="line">116</span><br><span class="line">117</span><br><span class="line">118</span><br><span class="line">119</span><br><span class="line">120</span><br><span class="line">121</span><br><span class="line">122</span><br><span class="line">123</span><br><span class="line">124</span><br><span class="line">125</span><br><span class="line">126</span><br><span class="line">127</span><br><span class="line">128</span><br><span class="line">129</span><br><span class="line">130</span><br><span class="line">131</span><br><span class="line">132</span><br><span class="line">133</span><br><span class="line">134</span><br><span class="line">135</span><br><span class="line">136</span><br><span class="line">137</span><br><span class="line">138</span><br><span class="line">139</span><br><span class="line">140</span><br><span class="line">141</span><br><span class="line">142</span><br><span class="line">143</span><br><span class="line">144</span><br><span class="line">145</span><br><span class="line">146</span><br><span class="line">147</span><br></pre></td><td class="code"><pre><span class="line">/**</span><br><span class="line"> * @license</span><br><span class="line"> * Copyright 2018 Google LLC. All Rights Reserved.</span><br><span class="line"> * Licensed under the Apache License, Version 2.0 (the &quot;License&quot;);</span><br><span class="line"> * you may not use this file except in compliance with the License.</span><br><span class="line"> * You may obtain a copy of the License at</span><br><span class="line"> *</span><br><span class="line"> * http://www.apache.org/licenses/LICENSE-2.0</span><br><span class="line"> *</span><br><span class="line"> * Unless required by applicable law or agreed to in writing, software</span><br><span class="line"> * distributed under the License is distributed on an &quot;AS IS&quot; BASIS,</span><br><span class="line"> * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.</span><br><span class="line"> * See the License for the specific language governing permissions and</span><br><span class="line"> * limitations under the License.</span><br><span class="line"> * =============================================================================</span><br><span class="line"> */</span><br><span class="line"></span><br><span class="line">import * as tf from &#x27;@tensorflow/tfjs&#x27;;</span><br><span class="line"></span><br><span class="line">const IMAGE_SIZE = 784;</span><br><span class="line">const NUM_CLASSES = 10;</span><br><span class="line">const NUM_DATASET_ELEMENTS = 65000;</span><br><span class="line"></span><br><span class="line">const TRAIN_TEST_RATIO = 5 / 6;</span><br><span class="line"></span><br><span class="line">const NUM_TRAIN_ELEMENTS = Math.floor(TRAIN_TEST_RATIO * NUM_DATASET_ELEMENTS);</span><br><span class="line">const NUM_TEST_ELEMENTS = NUM_DATASET_ELEMENTS - NUM_TRAIN_ELEMENTS;</span><br><span class="line"></span><br><span class="line">const MNIST_IMAGES_SPRITE_PATH =</span><br><span class="line">    &#x27;http://127.0.0.1:8080/mnist/mnist_images.png&#x27;;</span><br><span class="line">const MNIST_LABELS_PATH =</span><br><span class="line">    &#x27;http://127.0.0.1:8080/mnist/mnist_labels_uint8&#x27;;</span><br><span class="line"></span><br><span class="line">/**</span><br><span class="line"> * A class that fetches the sprited MNIST dataset and returns shuffled batches.</span><br><span class="line"> *</span><br><span class="line"> * NOTE: This will get much easier. For now, we do data fetching and</span><br><span class="line"> * manipulation manually.</span><br><span class="line"> */</span><br><span class="line">export class MnistData &#123;</span><br><span class="line">  constructor() &#123;</span><br><span class="line">    this.shuffledTrainIndex = 0;</span><br><span class="line">    this.shuffledTestIndex = 0;</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  async load() &#123;</span><br><span class="line">    // Make a request for the MNIST sprited image.</span><br><span class="line">    const img = new Image();</span><br><span class="line">    const canvas = document.createElement(&#x27;canvas&#x27;);</span><br><span class="line">    const ctx = canvas.getContext(&#x27;2d&#x27;);</span><br><span class="line">    const imgRequest = new Promise((resolve, reject) =&gt; &#123;</span><br><span class="line">      img.crossOrigin = &#x27;&#x27;;</span><br><span class="line">      img.onload = () =&gt; &#123;</span><br><span class="line">        img.width = img.naturalWidth;</span><br><span class="line">        img.height = img.naturalHeight;</span><br><span class="line"></span><br><span class="line">        const datasetBytesBuffer =</span><br><span class="line">            new ArrayBuffer(NUM_DATASET_ELEMENTS * IMAGE_SIZE * 4);</span><br><span class="line"></span><br><span class="line">        const chunkSize = 5000;</span><br><span class="line">        canvas.width = img.width;</span><br><span class="line">        canvas.height = chunkSize;</span><br><span class="line"></span><br><span class="line">        for (let i = 0; i &lt; NUM_DATASET_ELEMENTS / chunkSize; i++) &#123;</span><br><span class="line">          const datasetBytesView = new Float32Array(</span><br><span class="line">              datasetBytesBuffer, i * IMAGE_SIZE * chunkSize * 4,</span><br><span class="line">              IMAGE_SIZE * chunkSize);</span><br><span class="line">          ctx.drawImage(</span><br><span class="line">              img, 0, i * chunkSize, img.width, chunkSize, 0, 0, img.width,</span><br><span class="line">              chunkSize);</span><br><span class="line"></span><br><span class="line">          const imageData = ctx.getImageData(0, 0, canvas.width, canvas.height);</span><br><span class="line"></span><br><span class="line">          for (let j = 0; j &lt; imageData.data.length / 4; j++) &#123;</span><br><span class="line">            // All channels hold an equal value since the image is grayscale, so</span><br><span class="line">            // just read the red channel.</span><br><span class="line">            datasetBytesView[j] = imageData.data[j * 4] / 255;</span><br><span class="line">          &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        this.datasetImages = new Float32Array(datasetBytesBuffer);</span><br><span class="line"></span><br><span class="line">        resolve();</span><br><span class="line">      &#125;;</span><br><span class="line">      img.src = MNIST_IMAGES_SPRITE_PATH;</span><br><span class="line">    &#125;);</span><br><span class="line"></span><br><span class="line">    const labelsRequest = fetch(MNIST_LABELS_PATH);</span><br><span class="line">    const [imgResponse, labelsResponse] =</span><br><span class="line">        await Promise.all([imgRequest, labelsRequest]);</span><br><span class="line"></span><br><span class="line">    this.datasetLabels = new Uint8Array(await labelsResponse.arrayBuffer());</span><br><span class="line"></span><br><span class="line">    // Create shuffled indices into the train/test set for when we select a</span><br><span class="line">    // random dataset element for training / validation.</span><br><span class="line">    this.trainIndices = tf.util.createShuffledIndices(NUM_TRAIN_ELEMENTS);</span><br><span class="line">    this.testIndices = tf.util.createShuffledIndices(NUM_TEST_ELEMENTS);</span><br><span class="line"></span><br><span class="line">    // Slice the the images and labels into train and test sets.</span><br><span class="line">    this.trainImages =</span><br><span class="line">        this.datasetImages.slice(0, IMAGE_SIZE * NUM_TRAIN_ELEMENTS);</span><br><span class="line">    this.testImages = this.datasetImages.slice(IMAGE_SIZE * NUM_TRAIN_ELEMENTS);</span><br><span class="line">    this.trainLabels =</span><br><span class="line">        this.datasetLabels.slice(0, NUM_CLASSES * NUM_TRAIN_ELEMENTS);</span><br><span class="line">    this.testLabels =</span><br><span class="line">        this.datasetLabels.slice(NUM_CLASSES * NUM_TRAIN_ELEMENTS);</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  nextTrainBatch(batchSize) &#123;</span><br><span class="line">    return this.nextBatch(</span><br><span class="line">        batchSize, [this.trainImages, this.trainLabels], () =&gt; &#123;</span><br><span class="line">          this.shuffledTrainIndex =</span><br><span class="line">              (this.shuffledTrainIndex + 1) % this.trainIndices.length;</span><br><span class="line">          return this.trainIndices[this.shuffledTrainIndex];</span><br><span class="line">        &#125;);</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  nextTestBatch(batchSize) &#123;</span><br><span class="line">    return this.nextBatch(batchSize, [this.testImages, this.testLabels], () =&gt; &#123;</span><br><span class="line">      this.shuffledTestIndex =</span><br><span class="line">          (this.shuffledTestIndex + 1) % this.testIndices.length;</span><br><span class="line">      return this.testIndices[this.shuffledTestIndex];</span><br><span class="line">    &#125;);</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  nextBatch(batchSize, data, index) &#123;</span><br><span class="line">    const batchImagesArray = new Float32Array(batchSize * IMAGE_SIZE);</span><br><span class="line">    const batchLabelsArray = new Uint8Array(batchSize * NUM_CLASSES);</span><br><span class="line"></span><br><span class="line">    for (let i = 0; i &lt; batchSize; i++) &#123;</span><br><span class="line">      const idx = index();</span><br><span class="line"></span><br><span class="line">      const image =</span><br><span class="line">          data[0].slice(idx * IMAGE_SIZE, idx * IMAGE_SIZE + IMAGE_SIZE);</span><br><span class="line">      batchImagesArray.set(image, i * IMAGE_SIZE);</span><br><span class="line"></span><br><span class="line">      const label =</span><br><span class="line">          data[1].slice(idx * NUM_CLASSES, idx * NUM_CLASSES + NUM_CLASSES);</span><br><span class="line">      batchLabelsArray.set(label, i * NUM_CLASSES);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    const xs = tf.tensor2d(batchImagesArray, [batchSize, IMAGE_SIZE]);</span><br><span class="line">    const labels = tf.tensor2d(batchLabelsArray, [batchSize, NUM_CLASSES]);</span><br><span class="line"></span><br><span class="line">    return &#123;xs, labels&#125;;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<p>script.js</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br><span class="line">100</span><br><span class="line">101</span><br><span class="line">102</span><br><span class="line">103</span><br><span class="line">104</span><br><span class="line">105</span><br><span class="line">106</span><br><span class="line">107</span><br><span class="line">108</span><br><span class="line">109</span><br><span class="line">110</span><br><span class="line">111</span><br><span class="line">112</span><br><span class="line">113</span><br><span class="line">114</span><br><span class="line">115</span><br><span class="line">116</span><br><span class="line">117</span><br><span class="line">118</span><br><span class="line">119</span><br><span class="line">120</span><br><span class="line">121</span><br><span class="line">122</span><br><span class="line">123</span><br><span class="line">124</span><br><span class="line">125</span><br><span class="line">126</span><br><span class="line">127</span><br><span class="line">128</span><br><span class="line">129</span><br><span class="line">130</span><br><span class="line">131</span><br><span class="line">132</span><br><span class="line">133</span><br><span class="line">134</span><br><span class="line">135</span><br><span class="line">136</span><br></pre></td><td class="code"><pre><span class="line">import * as tf from &#x27;@tensorflow/tfjs&#x27;;</span><br><span class="line">import * as tfvis from &#x27;@tensorflow/tfjs-vis&#x27;;</span><br><span class="line">import &#123; MnistData &#125; from &#x27;./data&#x27;;</span><br><span class="line"></span><br><span class="line">window.onload = async () =&gt; &#123;</span><br><span class="line">    const data = new MnistData();</span><br><span class="line">    await data.load();</span><br><span class="line">    const examples = data.nextTestBatch(20);</span><br><span class="line"></span><br><span class="line">    console.log(examples)</span><br><span class="line"></span><br><span class="line">    const surface = tfvis.visor().surface(&#123; name: &#x27;输入示例&#x27; &#125;);</span><br><span class="line">    for (let i = 0; i &lt; 20; i += 1) &#123;</span><br><span class="line">        //tf.tidy 创建一个临时的tensor，当tensor被使用完之后，tf.tidy会自动销毁tensor</span><br><span class="line">        const imageTensor = tf.tidy(() =&gt; &#123;</span><br><span class="line">            return examples.xs</span><br><span class="line">                .slice([i, 0], [1, 784]) // / 获取第i个数据</span><br><span class="line">                .reshape([28, 28, 1]);</span><br><span class="line">        &#125;);</span><br><span class="line"></span><br><span class="line">        const canvas = document.createElement(&#x27;canvas&#x27;);</span><br><span class="line">        canvas.width = 28;</span><br><span class="line">        canvas.height = 28;</span><br><span class="line">        canvas.style = &#x27;margin: 4px&#x27;;</span><br><span class="line">        await tf.browser.toPixels(imageTensor, canvas); // 将tensor转为canvas</span><br><span class="line">        surface.drawArea.appendChild(canvas); // 添加canvas到surface</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    const model = tf.sequential();</span><br><span class="line">    model.add(tf.layers.conv2d(&#123;</span><br><span class="line">        inputShape: [28, 28, 1],</span><br><span class="line">        kernelSize: 5, // 卷积核大小，奇数有中心点</span><br><span class="line">        filters: 8, // 卷积核数量，即输出通道数量</span><br><span class="line">        strides: 1, // 步长，即卷积核滑动的步长</span><br><span class="line">        activation: &#x27;relu&#x27;,</span><br><span class="line">        kernelInitializer: &#x27;varianceScaling&#x27; // 初始化权重的函数，这里使用varianceScaling，即权重初始化为0，方差为1</span><br><span class="line">    &#125;));</span><br><span class="line"></span><br><span class="line">    //  池化层，将输入的图片缩小，即缩小图片的分辨率，但图片内容不变</span><br><span class="line">    model.add(tf.layers.maxPool2d(&#123;</span><br><span class="line">        poolSize: [2, 2], // 池化核大小</span><br><span class="line">        strides: [2, 2] // 滑动步长</span><br><span class="line">    &#125;));</span><br><span class="line">    model.add(tf.layers.conv2d(&#123;</span><br><span class="line">        kernelSize: 5,</span><br><span class="line">        filters: 16,</span><br><span class="line">        strides: 1,</span><br><span class="line">        activation: &#x27;relu&#x27;,</span><br><span class="line">        kernelInitializer: &#x27;varianceScaling&#x27;</span><br><span class="line">    &#125;));</span><br><span class="line">    model.add(tf.layers.maxPool2d(&#123;</span><br><span class="line">        poolSize: [2, 2],</span><br><span class="line">        strides: [2, 2]</span><br><span class="line">    &#125;));</span><br><span class="line">    model.add(tf.layers.flatten()); // 展平，将二维数组变为一维数组</span><br><span class="line"></span><br><span class="line">    model.add(tf.layers.dropout(&#123; rate: 0.9 &#125;)); // 防止过拟合，随机丢弃一些神经元</span><br><span class="line"></span><br><span class="line">    model.add(tf.layers.dense(&#123;</span><br><span class="line">        units: 10, // 0-9 10个分类</span><br><span class="line">        activation: &#x27;softmax&#x27;, // 输出为0-9的概率</span><br><span class="line">        kernelInitializer: &#x27;varianceScaling&#x27; // 权重初始化为0，方差为1</span><br><span class="line">    &#125;));</span><br><span class="line"></span><br><span class="line">    </span><br><span class="line"></span><br><span class="line">    model.compile(&#123;</span><br><span class="line">        loss: &#x27;categoricalCrossentropy&#x27;, // 交叉熵损失函数，用于多分类</span><br><span class="line">        optimizer: tf.train.adam(), // Adam优化器，用于训练</span><br><span class="line">        metrics: [&#x27;accuracy&#x27;] // 准确率</span><br><span class="line">    &#125;);</span><br><span class="line"></span><br><span class="line">    const [trainXs, trainYs] = tf.tidy(() =&gt; &#123;</span><br><span class="line">        const d = data.nextTrainBatch(1000); //  获取训练数据 1000个训练数据</span><br><span class="line"></span><br><span class="line">        console.log(d)</span><br><span class="line"></span><br><span class="line">        return [</span><br><span class="line">            d.xs.reshape([1000, 28, 28, 1]),</span><br><span class="line">            d.labels</span><br><span class="line">        ];</span><br><span class="line">    &#125;);</span><br><span class="line"></span><br><span class="line">    const [testXs, testYs] = tf.tidy(() =&gt; &#123;</span><br><span class="line">        const d = data.nextTestBatch(200); // 获取测试数据</span><br><span class="line">        return [</span><br><span class="line">            d.xs.reshape([200, 28, 28, 1]),</span><br><span class="line">            d.labels</span><br><span class="line">        ];</span><br><span class="line">    &#125;);</span><br><span class="line"></span><br><span class="line">    await model.fit(trainXs, trainYs, &#123;</span><br><span class="line">        validationData: [testXs, testYs],</span><br><span class="line">        batchSize: 50,</span><br><span class="line">        epochs: 100,</span><br><span class="line">        callbacks: tfvis.show.fitCallbacks(</span><br><span class="line">            &#123; name: &#x27;训练效果&#x27; &#125;,</span><br><span class="line">            [&#x27;loss&#x27;, &#x27;val_loss&#x27;, &#x27;acc&#x27;, &#x27;val_acc&#x27;],</span><br><span class="line">            &#123; callbacks: [&#x27;onEpochEnd&#x27;] &#125;</span><br><span class="line">        )</span><br><span class="line">    &#125;);</span><br><span class="line"></span><br><span class="line">    const canvas = document.querySelector(&#x27;canvas&#x27;);</span><br><span class="line"></span><br><span class="line">    canvas.addEventListener(&#x27;mousemove&#x27;, (e) =&gt; &#123;</span><br><span class="line">        if (e.buttons === 1) &#123; // 左键按下</span><br><span class="line">            const ctx = canvas.getContext(&#x27;2d&#x27;);</span><br><span class="line">            ctx.fillStyle = &#x27;rgb(255,255,255)&#x27;; // 白色</span><br><span class="line">            ctx.fillRect(e.offsetX, e.offsetY, 25, 25); // 画一个25*25的矩形</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;);</span><br><span class="line"></span><br><span class="line">    window.clear = () =&gt; &#123;</span><br><span class="line">        const ctx = canvas.getContext(&#x27;2d&#x27;);</span><br><span class="line">        ctx.fillStyle = &#x27;rgb(0,0,0)&#x27;; // 黑色</span><br><span class="line">        ctx.fillRect(0, 0, 300, 300); // 填充一个黑色</span><br><span class="line">    &#125;;</span><br><span class="line"></span><br><span class="line">    clear();</span><br><span class="line"></span><br><span class="line">    window.predict = () =&gt; &#123;</span><br><span class="line">        const input = tf.tidy(() =&gt; &#123;</span><br><span class="line">            return tf.image.resizeBilinear( // 缩放图片</span><br><span class="line">                tf.browser.fromPixels(canvas), // 缩放图片</span><br><span class="line">                [28, 28], // 缩放后的大小</span><br><span class="line">                true // 是否保持图片的宽高比</span><br><span class="line">            ).slice([0, 0, 0], [28, 28, 1]) // 将彩色图片转换为黑白图片 获取图片的像素</span><br><span class="line">            .toFloat() // 转换为浮点数</span><br><span class="line">            .div(255) // 转换为0-1</span><br><span class="line">            .reshape([1, 28, 28, 1]); // 转换为张量</span><br><span class="line">        &#125;);</span><br><span class="line">        const pred = model.predict(input).argMax(1);</span><br><span class="line">        alert(`预测结果为 $&#123;pred.dataSync()[0]&#125;`);</span><br><span class="line">    &#125;;</span><br><span class="line">&#125;;</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<p>index.html</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">&lt;script src=&quot;script.js&quot;&gt;&lt;/script&gt;</span><br><span class="line">&lt;canvas width=&quot;300&quot; height=&quot;300&quot; style=&quot;border: 2px solid #666;&quot;&gt;&lt;/canvas&gt;</span><br><span class="line">&lt;br&gt;</span><br><span class="line">&lt;button onclick=&quot;window.clear();&quot; style=&quot;margin: 4px;&quot;&gt;清除&lt;/button&gt;</span><br><span class="line">&lt;button onclick=&quot;window.predict();&quot; style=&quot;margin: 4px;&quot;&gt;预测&lt;/button&gt;</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
     <link itemprop="mainEntityOfPage" href="http://example.com/2025/04/28/tfjs-study/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -990,71 +1087,10 @@
   
   
 
-      
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="http://example.com/2025/04/03/yolov8-deepsort-%E5%A4%9A%E7%9B%AE%E6%A0%87%E8%B7%9F%E8%B8%AA/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.gif">
-      <meta itemprop="name" content="wangzhiwei">
-      <meta itemprop="description" content="javascript nodejs web developer...">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="WBlog">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/2025/04/03/yolov8-deepsort-%E5%A4%9A%E7%9B%AE%E6%A0%87%E8%B7%9F%E8%B8%AA/" class="post-title-link" itemprop="url">yolov8+deepsort 多目标跟踪</a>
-        </h2>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              <span class="post-meta-item-text">发表于</span>
-              
-
-              <time title="创建时间：2025-04-03 09:13:13 / 修改时间：09:21:44" itemprop="dateCreated datePublished" datetime="2025-04-03T09:13:13+08:00">2025-04-03</time>
-            </span>
-
-          
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <p><img src="/../images/yolo_gz_01.png"></p>
-<p>参考：<br><a target="_blank" rel="noopener" href="https://www.bilibili.com/video/BV1k8oQYYESy?spm_id_from=333.788.videopod.episodes&vd_source=ffda878df0ed45bee1ade91d8f451048&p=2">https://www.bilibili.com/video/BV1k8oQYYESy?spm_id_from=333.788.videopod.episodes&amp;vd_source=ffda878df0ed45bee1ade91d8f451048&amp;p=2</a></p>
-<p><a target="_blank" rel="noopener" href="https://www.bilibili.com/video/BV1J3411M7KQ?spm_id_from=333.788.videopod.sections&vd_source=ffda878df0ed45bee1ade91d8f451048">https://www.bilibili.com/video/BV1J3411M7KQ?spm_id_from=333.788.videopod.sections&amp;vd_source=ffda878df0ed45bee1ade91d8f451048</a></p>
-
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
 
   
   <nav class="pagination">
-    <a class="extend prev" rel="prev" href="/"><i class="fa fa-angle-left" aria-label="上一页"></i></a><a class="page-number" href="/">1</a><span class="page-number current">2</span><a class="page-number" href="/page/3/">3</a><span class="space">&hellip;</span><a class="page-number" href="/page/9/">9</a><a class="extend next" rel="next" href="/page/3/"><i class="fa fa-angle-right" aria-label="下一页"></i></a>
+    <a class="extend prev" rel="prev" href="/"><i class="fa fa-angle-left" aria-label="上一页"></i></a><a class="page-number" href="/">1</a><span class="page-number current">2</span><a class="page-number" href="/page/3/">3</a><span class="space">&hellip;</span><a class="page-number" href="/page/10/">10</a><a class="extend next" rel="next" href="/page/3/"><i class="fa fa-angle-right" aria-label="下一页"></i></a>
   </nav>
 
 
@@ -1120,7 +1156,7 @@
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">90</span>
+          <span class="site-state-item-count">91</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>
@@ -1129,7 +1165,7 @@
         <span class="site-state-item-name">分类</span>
       </div>
       <div class="site-state-item site-state-tags">
-        <span class="site-state-item-count">62</span>
+        <span class="site-state-item-count">63</span>
         <span class="site-state-item-name">标签</span>
       </div>
   </nav>
