@@ -149,6 +149,123 @@
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="http://example.com/2024/12/13/docker-study/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="wangzhiwei">
+      <meta itemprop="description" content="javascript nodejs web developer...">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="WBlog">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/2024/12/13/docker-study/" class="post-title-link" itemprop="url">docker study</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2024-12-13 15:12:17" itemprop="dateCreated datePublished" datetime="2024-12-13T15:12:17+08:00">2024-12-13</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-calendar-check-o"></i>
+                </span>
+                <span class="post-meta-item-text">更新于</span>
+                <time title="修改时间：2025-03-18 11:10:52" itemprop="dateModified" datetime="2025-03-18T11:10:52+08:00">2025-03-18</time>
+              </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/docker/" itemprop="url" rel="index"><span itemprop="name">docker</span></a>
+                </span>
+                  ，
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/docker/%E5%B7%A5%E5%85%B7%E9%9B%86%E5%90%88/" itemprop="url" rel="index"><span itemprop="name">工具集合</span></a>
+                </span>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">&#123;</span><br><span class="line">    &quot;registry-mirrors&quot; :</span><br><span class="line">    [</span><br><span class="line">        &quot;https://docker.m.daocloud.io&quot;,</span><br><span class="line">        &quot;https://noohub.ru&quot;,</span><br><span class="line">        &quot;https://huecker.io&quot;,</span><br><span class="line">        &quot;https://dockerhub.timeweb.cloud&quot;,</span><br><span class="line">        &quot;https://docker.rainbond.cc&quot;</span><br><span class="line">    ]</span><br><span class="line">&#125;</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<p>mac 上修改源</p>
+<p><img src="/../images/docker_01.png"></p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">&#123;</span><br><span class="line">  &quot;builder&quot;: &#123;</span><br><span class="line">    &quot;gc&quot;: &#123;</span><br><span class="line">      &quot;defaultKeepStorage&quot;: &quot;20GB&quot;,</span><br><span class="line">      &quot;enabled&quot;: true</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;,</span><br><span class="line">  &quot;experimental&quot;: false,</span><br><span class="line">  &quot;features&quot;: &#123;</span><br><span class="line">    &quot;buildkit&quot;: true</span><br><span class="line">  &#125;,</span><br><span class="line">&quot;registry-mirrors&quot;: [</span><br><span class="line">   &quot;https://docker.m.daocloud.io&quot;,</span><br><span class="line">   &quot;https://noohub.ru&quot;,</span><br><span class="line">   &quot;https://huecker.io&quot;,</span><br><span class="line">   &quot;https://dockerhub.timeweb.cloud&quot;,</span><br><span class="line">   &quot;https://docker.rainbond.cc&quot;,</span><br><span class="line">   &quot;https://docker.1panelproxy.com&quot;,</span><br><span class="line"></span><br><span class="line">]</span><br><span class="line">&#125;</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br></pre></td><td class="code"><pre><span class="line">sudo mkdir -p /etc/docker</span><br><span class="line">sudo tee /etc/docker/daemon.json &lt;&lt;EOF</span><br><span class="line">&#123;</span><br><span class="line">&quot;registry-mirrors&quot; :</span><br><span class="line">[</span><br><span class="line">&quot;https://docker.m.daocloud.io&quot;,</span><br><span class="line">&quot;https://noohub.ru&quot;,</span><br><span class="line">&quot;https://huecker.io&quot;,</span><br><span class="line">&quot;https://dockerhub.timeweb.cloud&quot;,</span><br><span class="line">&quot;https://docker.rainbond.cc&quot;</span><br><span class="line">]</span><br><span class="line">&#125;</span><br><span class="line">EOF</span><br><span class="line">sudo systemctl daemon-reload</span><br><span class="line">sudo systemctl restart docker</span><br><span class="line">执行命令拉取镜像文件</span><br><span class="line">sudo docker pull dockerhub.icu/library/nginx</span><br><span class="line">sudo docker image ls</span><br><span class="line">sudo docker run hello-docker</span><br><span class="line">sudo docker run redis</span><br><span class="line">https://gist.github.com/y0ngb1n/7e8f16af3242c7815e7ca2f0833d3ea6</span><br><span class="line">创建 docker-study 文件夹</span><br><span class="line">创建 Dockerfile 文件 内容如下</span><br><span class="line">FROM node:14-alpine</span><br><span class="line">COPY index.js /index.js</span><br><span class="line">CMD node /index.js</span><br><span class="line">创建 index.js 文件</span><br><span class="line">console.log(&#x27;1111&#x27;);</span><br><span class="line">在目录下执行创建镜像文件命令</span><br><span class="line">sudo docker build -t hello-docker .</span><br><span class="line">导出镜像文件</span><br><span class="line">sudo docker save -o hello_docker.tar hello-docker:latest</span><br><span class="line">加载镜像文件</span><br><span class="line">sudo docker load -i xxx</span><br><span class="line">查看正在运行的镜像文件</span><br><span class="line">sudo docker ps -a</span><br><span class="line">sudo apt-get install docker.io</span><br><span class="line">source /etc/bash_completion.d/docker.io</span><br><span class="line">sudo docker.io version</span><br><span class="line">另外一种安装方式</span><br><span class="line">curl -sSL https://get.docker.com/ubuntu/|sudo.sh</span><br><span class="line">sudo docker run ubuntu echo &#x27;Hello world&#x27;</span><br><span class="line">不用sudo 启动 docker</span><br><span class="line">添加用户组</span><br><span class="line">sudo groupadd docker</span><br><span class="line">sudo gpasswd -a jkxy docker</span><br><span class="line">sudo service docker restart</span><br><span class="line">需要注销后重新登录才会生效</span><br><span class="line">docker version</span><br><span class="line">加载镜像文件</span><br><span class="line">docker load -i xxx</span><br><span class="line">加载后运行镜像文件</span><br><span class="line">sudo docker run -d -p 6379:6379 redis</span><br><span class="line">sudo docker run -d -p 5432:5432  -e POSTGRES_PASSWORD=admin -v /home/dc/postgresql/data:/var/lib/postgresql/data postgres:12.18-alpine</span><br><span class="line">查看运行的进程</span><br><span class="line">sudo docker ps</span><br><span class="line">参考文档</span><br><span class="line">https://blog.csdn.net/qq_40163617/article/details/107578706</span><br><span class="line">启动本地docker</span><br><span class="line">sudo systemctl start docker</span><br><span class="line">启动docker中的某个镜像</span><br><span class="line">docker start d7b67eb75ca2</span><br><span class="line">sudo docker pull nacos-registry.cn-hangzhou.cr.aliyuncs.com/nacos/nacos-server</span><br><span class="line">sudo docker pull &lt;your-mirror&gt;.mirror.aliyuncs.com/nacos/nacos-server</span><br><span class="line">docker run -d --name nacos -p 8848:8848 -e PREFER_HOST_MODE=hostname -e MODE=standalone nacos/nacos-server</span><br><span class="line">启动后，您可以通过访问http://localhost:8848/nacos来验证Nacos是否成功启动并运行正常</span><br><span class="line">http://localhost:8848/nacos</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+
+<p>问题排查，进入 docker 下载 的 centos7内部查看网络连接情况</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">docker pull centos:7</span><br><span class="line">docker run -it centos:7 /bin/bash</span><br><span class="line">ping www.baidu.com</span><br><span class="line">ping 不通，修改 centos 的 dns</span><br><span class="line">echo &quot;nameserver 8.8.8.8&quot; &gt; /etc/resolv.conf</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<p>仓库：<br><a target="_blank" rel="noopener" href="https://github.com/wangzhiwei1888/nginx-njs-usecases">https://github.com/wangzhiwei1888/nginx-njs-usecases</a></p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br></pre></td><td class="code"><pre><span class="line">0.download-and-install 目录的</span><br><span class="line">Dockerfile 修改为：</span><br><span class="line"></span><br><span class="line"># build with:</span><br><span class="line">#   docker build -t nginx-njs:latest . </span><br><span class="line"></span><br><span class="line">FROM centos:7</span><br><span class="line"></span><br><span class="line">COPY resolv.conf /etc/resolv.conf</span><br><span class="line"></span><br><span class="line">ENV nginx_version=1.21.1</span><br><span class="line"></span><br><span class="line">RUN cp /etc/yum.repos.d/CentOS-Base.repo /etc/yum.repos.d/CentOS-Base.repo.backup</span><br><span class="line"># 替换为阿里云的镜像源</span><br><span class="line">RUN curl -o /etc/yum.repos.d/CentOS-Base.repo http://mirrors.aliyun.com/repo/Centos-7.repo</span><br><span class="line">RUN yum clean all</span><br><span class="line">RUN yum makecache</span><br><span class="line"></span><br><span class="line">RUN yum install -y epel-release</span><br><span class="line">RUN yum install -y curl vim wget file</span><br><span class="line"></span><br><span class="line">WORKDIR /root</span><br><span class="line">RUN wget http://nginx.org/download/nginx-$&#123;nginx_version&#125;.tar.gz</span><br><span class="line">RUN tar zxf nginx-$&#123;nginx_version&#125;.tar.gz</span><br><span class="line"></span><br><span class="line">RUN wget http://hg.nginx.org/njs/archive/tip.tar.gz -O njs.tar.gz</span><br><span class="line">RUN tar zxf njs.tar.gz</span><br><span class="line"></span><br><span class="line">RUN mv $(find /root -name &quot;njs-[0-9a-f]*&quot;) njs</span><br><span class="line">RUN wget https://github.com/libgd/libgd/releases/download/gd-2.2.5/libgd-2.2.5.tar.gz</span><br><span class="line">RUN tar zxf libgd-2.2.5.tar.gz</span><br><span class="line"></span><br><span class="line">RUN yum install -y gcc automake autoconf libtool make</span><br><span class="line">RUN yum install -y libxml2-devel libxslt-devel  # 添加这一行</span><br><span class="line">RUN yum install  -y openssl-devel pcre-devel zlib-devel libpng-devel libjpeg-devel</span><br><span class="line"></span><br><span class="line">WORKDIR /root/libgd-2.2.5</span><br><span class="line">RUN ./configure --with-png --with-jpeg</span><br><span class="line">RUN make</span><br><span class="line">RUN make install</span><br><span class="line">RUN echo /usr/local/lib &gt; /etc/ld.so.conf.d/libgd.conf</span><br><span class="line"></span><br><span class="line">WORKDIR /root/nginx-$&#123;nginx_version&#125;</span><br><span class="line">RUN ./configure \</span><br><span class="line">    --prefix=/root/nginx \</span><br><span class="line">    --with-http_ssl_module \</span><br><span class="line">    --with-stream \</span><br><span class="line">    --with-http_image_filter_module \</span><br><span class="line">    --with-http_realip_module \</span><br><span class="line">    --with-stream_ssl_module \</span><br><span class="line">    --add-dynamic-module=/root/njs/nginx</span><br><span class="line">RUN make</span><br><span class="line">RUN make install</span><br><span class="line"></span><br><span class="line">WORKDIR /root</span><br><span class="line">ENV PATH=$PATH:/root/nginx/sbin</span><br><span class="line"></span><br><span class="line">RUN ldconfig</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<p>添加 resolv.conf<br>内容为</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">nameserver 8.8.8.8</span><br><span class="line">nameserver 8.8.4.4</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<p><img src="/../images/docker_02.png"></p>
+<p>进入镜像内部 可以查看镜像内部情况</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">docker exec -it ff4c537f132d sh</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+
+<p>4.64 复制打开抖音，看看【大神开发的作品】Docker 9分钟快速入门。# 程序员 # 教程… <a target="_blank" rel="noopener" href="https://v.douyin.com/iDkATutT/">https://v.douyin.com/iDkATutT/</a> NjP:&#x2F; 05&#x2F;18 <a href="mailto:&#104;&#x40;&#x6f;&#x2e;&#100;&#65;">&#104;&#x40;&#x6f;&#x2e;&#100;&#65;</a> </p>
+<p><img src="/../images/docker_03.png"></p>
+<p><img src="/../images/docker_04.png"></p>
+<p><img src="/../images/docker_05.png"></p>
+<p>redis 主从集群</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">docker network create mynet</span><br><span class="line"></span><br><span class="line">docker pull bitnami/redis</span><br><span class="line"></span><br><span class="line">mkdir -p /Users/mac/study/app/rd1</span><br><span class="line">mkdir -p /Users/mac/study/app/rd2</span><br><span class="line"></span><br><span class="line">主：</span><br><span class="line"></span><br><span class="line">docker run -d -p 6379:6379 \</span><br><span class="line">&gt; -v /Users/mac/study/app/rd1:/bitnami/redis/data \</span><br><span class="line">&gt; -e REDIS_REPLICATION_MODE=master \</span><br><span class="line">&gt; -e REDIS_PASSWORD=123456 \</span><br><span class="line">&gt; --network=mynet --name=redis01 \</span><br><span class="line">&gt; bitnami/redis</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">从机</span><br><span class="line">docker run -d -p 6380:6379 \</span><br><span class="line">-v /Users/mac/study/app/rd2:/bitnami/redis/data \</span><br><span class="line">-e REDIS_REPLICATION_MODE=slave \</span><br><span class="line">-e REDIS_MASTER_HOST=redis01 \</span><br><span class="line">-e REDIS_MASTER_PORT_NUMBER=6379 \</span><br><span class="line">-e REDIS_MASTER_PASSWORD=123456 \</span><br><span class="line">-e REDIS_PASSWORD=123456 \</span><br><span class="line">--network=mynet --name=redis02 \</span><br><span class="line">bitnami/redis</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">redis-cli -h 127.0.0.1 -p 6379 -a 123456</span><br><span class="line">set a 1</span><br><span class="line"></span><br><span class="line">redis-cli -h 127.0.0.1 -p 6380 -a 123456</span><br><span class="line">get a</span><br><span class="line"></span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<p><img src="/../images/docker_06.png"></p>
+<p><img src="/../images/docker_07.png"></p>
+<p><a target="_blank" rel="noopener" href="https://github.com/bitnami/containers/blob/main/bitnami/redis/README.md">https://github.com/bitnami/containers/blob/main/bitnami/redis/README.md</a></p>
+<p>参考：<br><a target="_blank" rel="noopener" href="https://www.bilibili.com/video/BV1Zn4y1X7AZ?spm_id_from=333.788.player.switch&vd_source=ffda878df0ed45bee1ade91d8f451048&p=16">https://www.bilibili.com/video/BV1Zn4y1X7AZ?spm_id_from=333.788.player.switch&amp;vd_source=ffda878df0ed45bee1ade91d8f451048&amp;p=16</a><br><a target="_blank" rel="noopener" href="https://docs.docker.com/guides/nodejs/containerize/">https://docs.docker.com/guides/nodejs/containerize/</a></p>
+<p>curl -sSL <a target="_blank" rel="noopener" href="https://resource.fit2cloud.com/1panel/package/quick_start.sh">https://resource.fit2cloud.com/1panel/package/quick_start.sh</a> -o quick_start.sh &amp;&amp; sudo bash quick_start.sh</p>
+<p>设置 1Panel 端口（默认为29446）：<br>[1Panel Log]: 您设置的端口为：29446<br>[1Panel Log]: 防火墙开放 29446 端口<br>success<br>success<br>[1Panel Log]: 防火墙开放 29446 端口<br>防火墙规则已更新<br>规则已更新(v6)<br>未启用防火墙(跳过重新载入)<br>设置 1Panel 安全入口（默认为b5637a2e52）：<br>[1Panel Log]: 您设置的面板安全入口为：b5637a2e52<br>设置 1Panel 面板用户（默认为813b87280c）：<br>[1Panel Log]: 您设置的面板用户为：813b87280c<br>[1Panel Log]: 设置 1Panel 面板密码，设置完成后直接回车以继续（默认为122dff0e26）： </p>
+<p>[1Panel Log]: 配置 1Panel Service<br>Created symlink &#x2F;etc&#x2F;systemd&#x2F;system&#x2F;multi-user.target.wants&#x2F;1panel.service → &#x2F;etc&#x2F;systemd&#x2F;system&#x2F;1panel.service.<br>[1Panel Log]: 启动 1Panel 服务<br>[1Panel Log]: 1Panel 服务启动成功!<br>[1Panel Log]:<br>[1Panel Log]: &#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;感谢您的耐心等待，安装已经完成&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;<br>[1Panel Log]:<br>[1Panel Log]: 请用浏览器访问面板:<br>[1Panel Log]: 外网地址: <a target="_blank" rel="noopener" href="http://114.242.100.67:29446/b5637a2e52">http://114.242.100.67:29446/b5637a2e52</a><br>[1Panel Log]: 内网地址: <a target="_blank" rel="noopener" href="http://192.168.40.206:29446/b5637a2e52">http://192.168.40.206:29446/b5637a2e52</a><br>[1Panel Log]: 面板用户: 813b87280c<br>[1Panel Log]: 面板密码: 122dff0e26<br>[1Panel Log]:<br>[1Panel Log]: 项目官网: <a target="_blank" rel="noopener" href="https://1panel.cn/">https://1panel.cn</a><br>[1Panel Log]: 项目文档: <a target="_blank" rel="noopener" href="https://1panel.cn/docs">https://1panel.cn/docs</a><br>[1Panel Log]: 代码仓库: <a target="_blank" rel="noopener" href="https://github.com/1Panel-dev/1Panel">https://github.com/1Panel-dev/1Panel</a><br>[1Panel Log]:<br>[1Panel Log]: 如果使用的是云服务器，请至安全组开放 29446 端口<br>[1Panel Log]:<br>[1Panel Log]: 为了您的服务器安全，在您离开此界面后您将无法再看到您的密码，请务必牢记您的密码。<br>[1Panel Log]:<br>[1Panel Log]: &#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D; </p>
+<p><a target="_blank" rel="noopener" href="http://192.168.40.206:29446/apps/all">http://192.168.40.206:29446/apps/all</a></p>
+<p>mysql<br>root<br>mysql_n6Tj3M</p>
+<p>安装 halo<br>数据库名<br>halo_rh67h4<br>数据库用户<br>halo_enWd5p<br>数据库用户密码<br>halo_rDE33a</p>
+
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
     <link itemprop="mainEntityOfPage" href="http://example.com/2024/12/13/webtorrent-desktop/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -1713,90 +1830,6 @@
   
   
 
-      
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="http://example.com/2024/12/12/vite-%E5%8E%9F%E7%90%86/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.gif">
-      <meta itemprop="name" content="wangzhiwei">
-      <meta itemprop="description" content="javascript nodejs web developer...">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="WBlog">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/2024/12/12/vite-%E5%8E%9F%E7%90%86/" class="post-title-link" itemprop="url">vite 原理</a>
-        </h2>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              <span class="post-meta-item-text">发表于</span>
-
-              <time title="创建时间：2024-12-12 10:36:14" itemprop="dateCreated datePublished" datetime="2024-12-12T10:36:14+08:00">2024-12-12</time>
-            </span>
-              <span class="post-meta-item">
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-calendar-check-o"></i>
-                </span>
-                <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2025-03-18 11:10:52" itemprop="dateModified" datetime="2025-03-18T11:10:52+08:00">2025-03-18</time>
-              </span>
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              <span class="post-meta-item-text">分类于</span>
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/%E6%9E%84%E5%BB%BA%E5%B7%A5%E5%85%B7/" itemprop="url" rel="index"><span itemprop="name">构建工具</span></a>
-                </span>
-            </span>
-
-          
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <p>一个开发服务器，它基于 原生 ES 模块 提供了 丰富的内建功能，如速度快到惊人的 模块热更新（HMR）。</p>
-<p>一套构建指令，它使用 Rollup 打包你的代码，并且它是预配置的，可输出用于生产环境的高度优化过的静态资源。</p>
-<p><img src="/../images/vite.png"></p>
-<p>vs</p>
-<p><img src="/../images/webpack.png"></p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">&lt;!doctype html&gt;</span><br><span class="line">&lt;html lang=&quot;en&quot;&gt;</span><br><span class="line">  &lt;head&gt;</span><br><span class="line">    &lt;meta charset=&quot;UTF-8&quot; /&gt;</span><br><span class="line">    &lt;link rel=&quot;icon&quot; type=&quot;image/svg+xml&quot; href=&quot;/vite.svg&quot; /&gt;</span><br><span class="line">    &lt;meta name=&quot;viewport&quot; content=&quot;width=device-width, initial-scale=1.0&quot; /&gt;</span><br><span class="line">    &lt;title&gt;Vite + Vue&lt;/title&gt;</span><br><span class="line">  &lt;/head&gt;</span><br><span class="line">  &lt;body&gt;</span><br><span class="line">    &lt;div id=&quot;app&quot;&gt;&lt;/div&gt;</span><br><span class="line">    &lt;script type=&quot;module&quot; src=&quot;/src/main.js&quot;&gt;&lt;/script&gt;</span><br><span class="line">  &lt;/body&gt;</span><br><span class="line">&lt;/html&gt;</span><br><span class="line"></span><br></pre></td></tr></table></figure>
-
-
-
-<p>参考：<br><a target="_blank" rel="noopener" href="https://vitejs.cn/vite3-cn/guide/">https://vitejs.cn/vite3-cn/guide/</a></p>
-<p><a target="_blank" rel="noopener" href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Guide/Modules">https://developer.mozilla.org/en-US/docs/Web/JavaScript/Guide/Modules</a></p>
-
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
 
   
   <nav class="pagination">
@@ -1866,7 +1899,7 @@
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">91</span>
+          <span class="site-state-item-count">92</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>
@@ -1875,7 +1908,7 @@
         <span class="site-state-item-name">分类</span>
       </div>
       <div class="site-state-item site-state-tags">
-        <span class="site-state-item-count">63</span>
+        <span class="site-state-item-count">64</span>
         <span class="site-state-item-name">标签</span>
       </div>
   </nav>
