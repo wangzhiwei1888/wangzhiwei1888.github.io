@@ -235,3 +235,6 @@ data:{"jsonrpc":"2.0","result":{"content":[{"text":"Tool echo: aa","type":"text"
 ```
 
 另外一种方法是自己调用一下 dify 的 passport 接口，将 user_id 传给 dify. 待验证。
+
+
+![](../images/mcp01.png)
