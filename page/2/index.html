@@ -149,6 +149,82 @@
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="http://example.com/2025/05/10/tfjs-study4/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="wangzhiwei">
+      <meta itemprop="description" content="javascript nodejs web developer...">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="WBlog">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/2025/05/10/tfjs-study4/" class="post-title-link" itemprop="url">tfjs-study4</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+              
+
+              <time title="创建时间：2025-05-10 10:27:08 / 修改时间：12:05:40" itemprop="dateCreated datePublished" datetime="2025-05-10T10:27:08+08:00">2025-05-10</time>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <h2 id="基于迁移学习的图像分类器-–商标识别任务"><a href="#基于迁移学习的图像分类器-–商标识别任务" class="headerlink" title="基于迁移学习的图像分类器 –商标识别任务"></a>基于迁移学习的图像分类器 –商标识别任务</h2><p>把已训练好的模型参数迁移到新的模型来帮助新模型训练</p>
+<p>深度学习模型参数多，从头训练陈本高</p>
+<p>删除原始模型的最后一层，基于此截断模型的输出训练一个新的（通常相当浅的）模型</p>
+<p>加载商标训练数据并可视化<br>定义模型结构：截断模型 + 双层神经网络<br>训练模型并预测</p>
+<p><img src="/../images/tfjs/61.png"></p>
+<p><img src="/../images/tfjs/62.png"></p>
+<p><img src="/../images/tfjs/63.png"></p>
+<p><img src="/../images/tfjs/64.png"></p>
+<p>data.js</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br></pre></td><td class="code"><pre><span class="line">const IMAGE_SIZE = 224;</span><br><span class="line"></span><br><span class="line">const loadImg = (src) =&gt; &#123;</span><br><span class="line">    return new Promise(resolve =&gt; &#123;</span><br><span class="line">        const img = new Image();</span><br><span class="line">        img.crossOrigin = &quot;anonymous&quot;;</span><br><span class="line">        img.src = src;</span><br><span class="line">        img.width = IMAGE_SIZE;</span><br><span class="line">        img.height = IMAGE_SIZE;</span><br><span class="line">        img.onload = () =&gt; resolve(img);</span><br><span class="line">    &#125;);</span><br><span class="line">&#125;;</span><br><span class="line">export const getInputs = async () =&gt; &#123;</span><br><span class="line">    const loadImgs = [];</span><br><span class="line">    const labels = [];</span><br><span class="line">    for (let i = 0; i &lt; 30; i += 1) &#123;</span><br><span class="line">        [&#x27;android&#x27;, &#x27;apple&#x27;, &#x27;windows&#x27;].forEach(label =&gt; &#123;</span><br><span class="line">            const src = `http://127.0.0.1:8080/brand/train/$&#123;label&#125;-$&#123;i&#125;.jpg`;</span><br><span class="line">            const img = loadImg(src);</span><br><span class="line">            loadImgs.push(img);</span><br><span class="line">            labels.push([</span><br><span class="line">                label === &#x27;android&#x27; ? 1 : 0,</span><br><span class="line">                label === &#x27;apple&#x27; ? 1 : 0,</span><br><span class="line">                label === &#x27;windows&#x27; ? 1 : 0,</span><br><span class="line">            ]);</span><br><span class="line">        &#125;);</span><br><span class="line">    &#125;</span><br><span class="line">    const inputs = await Promise.all(loadImgs);</span><br><span class="line">    return &#123;</span><br><span class="line">        inputs,</span><br><span class="line">        labels,</span><br><span class="line">    &#125;;</span><br><span class="line">&#125;</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+
+<p>script.js</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">import * as tf from &#x27;@tensorflow/tfjs&#x27;;</span><br><span class="line">import * as tfvis from &#x27;@tensorflow/tfjs-vis&#x27;;</span><br><span class="line">import &#123; getInputs &#125; from &#x27;./data&#x27;;</span><br><span class="line">import &#123; img2x, file2img &#125; from &#x27;./utils&#x27;;</span><br><span class="line"></span><br><span class="line">const MOBILENET_MODEL_PATH = &#x27;http://127.0.0.1:8080/mobilenet/web_model/model.json&#x27;;</span><br><span class="line">const NUM_CLASSES = 3;</span><br><span class="line">const BRAND_CLASSES = [&#x27;android&#x27;, &#x27;apple&#x27;, &#x27;windows&#x27;];</span><br><span class="line"></span><br><span class="line">window.onload = async () =&gt; &#123;</span><br><span class="line">    const &#123; inputs, labels &#125; = await getInputs();</span><br><span class="line">    const surface = tfvis.visor().surface(&#123; name: &#x27;输入示例&#x27;, styles: &#123; height: 250 &#125; &#125;);</span><br><span class="line">    inputs.forEach(img =&gt; &#123;</span><br><span class="line">        surface.drawArea.appendChild(img);</span><br><span class="line">    &#125;);</span><br><span class="line"></span><br><span class="line">    const mobilenet = await tf.loadLayersModel(MOBILENET_MODEL_PATH);</span><br><span class="line">    mobilenet.summary(); // 模型结构/*  */</span><br><span class="line">    const layer = mobilenet.getLayer(&#x27;conv_pw_13_relu&#x27;); //  获取模型中间层</span><br><span class="line">    const truncatedMobilenet = tf.model(&#123; //  截断模型</span><br><span class="line">        inputs: mobilenet.inputs, //  输入层</span><br><span class="line">        outputs: layer.output //  输出层 </span><br><span class="line">    &#125;);</span><br><span class="line"></span><br><span class="line">    //  创建新模型</span><br><span class="line">    const model = tf.sequential();</span><br><span class="line"></span><br><span class="line">    console.log(layer.outputShape)</span><br><span class="line">    model.add(tf.layers.flatten(&#123; //  展平层， 一维的向量，无训练参数 </span><br><span class="line">        inputShape: layer.outputShape.slice(1) //  获取中间层输出的形状</span><br><span class="line">    &#125;));</span><br><span class="line">    model.add(tf.layers.dense(&#123; //  全连接层</span><br><span class="line">        units: 10,</span><br><span class="line">        activation: &#x27;relu&#x27;</span><br><span class="line">    &#125;));</span><br><span class="line">    model.add(tf.layers.dense(&#123; // 分类层 </span><br><span class="line">        units: NUM_CLASSES,</span><br><span class="line">        activation: &#x27;softmax&#x27;</span><br><span class="line">    &#125;));</span><br><span class="line"></span><br><span class="line">    // 定义损失函数和优化器</span><br><span class="line">    model.compile(&#123; loss: &#x27;categoricalCrossentropy&#x27;, optimizer: tf.train.adam() &#125;);</span><br><span class="line"></span><br><span class="line">    //训练数据经过截断模型，转为可以用于新模型训练的数据</span><br><span class="line">    const &#123; xs, ys &#125; = tf.tidy(() =&gt; &#123;</span><br><span class="line">        const xs = tf.concat(inputs.map(imgEl =&gt; truncatedMobilenet.predict(img2x(imgEl))));</span><br><span class="line">        const ys = tf.tensor(labels);</span><br><span class="line">        return &#123; xs, ys &#125;;</span><br><span class="line">    &#125;);</span><br><span class="line"></span><br><span class="line">    await model.fit(xs, ys, &#123;</span><br><span class="line">        epochs: 20,</span><br><span class="line">        callbacks: tfvis.show.fitCallbacks(</span><br><span class="line">            &#123; name: &#x27;训练效果&#x27; &#125;,</span><br><span class="line">            [&#x27;loss&#x27;],</span><br><span class="line">            &#123; callbacks: [&#x27;onEpochEnd&#x27;] &#125;</span><br><span class="line">        )</span><br><span class="line">    &#125;);</span><br><span class="line"></span><br><span class="line">    window.predict = async (file) =&gt; &#123;</span><br><span class="line">        const img = await file2img(file);</span><br><span class="line">        document.body.appendChild(img);</span><br><span class="line">        const pred = tf.tidy(() =&gt; &#123;</span><br><span class="line">            const x = img2x(img);</span><br><span class="line">            const input = truncatedMobilenet.predict(x);</span><br><span class="line">            return model.predict(input);</span><br><span class="line">        &#125;);</span><br><span class="line"></span><br><span class="line">        const index = pred.argMax(1).dataSync()[0];</span><br><span class="line">        setTimeout(() =&gt; &#123;</span><br><span class="line">            alert(`预测结果：$&#123;BRAND_CLASSES[index]&#125;`);</span><br><span class="line">        &#125;, 0);</span><br><span class="line">    &#125;;</span><br><span class="line"></span><br><span class="line">    window.download = async () =&gt; &#123;</span><br><span class="line">        await model.save(&#x27;downloads://model&#x27;);</span><br><span class="line">    &#125;;</span><br><span class="line">&#125;;</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+
+<p>utils.js</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">import * as tf from &#x27;@tensorflow/tfjs&#x27;;</span><br><span class="line"></span><br><span class="line">export function img2x(imgEl)&#123;</span><br><span class="line">    return tf.tidy(() =&gt; &#123;</span><br><span class="line">        const input = tf.browser.fromPixels(imgEl)</span><br><span class="line">            .toFloat()</span><br><span class="line">            .sub(255 / 2)</span><br><span class="line">            .div(255 / 2)</span><br><span class="line">            .reshape([1, 224, 224, 3]);</span><br><span class="line">        return input;</span><br><span class="line">    &#125;);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">export function file2img(f) &#123;</span><br><span class="line">    return new Promise(resolve =&gt; &#123;</span><br><span class="line">        const reader = new FileReader();</span><br><span class="line">        reader.readAsDataURL(f);</span><br><span class="line">        reader.onload = (e) =&gt; &#123;</span><br><span class="line">            const img = document.createElement(&#x27;img&#x27;);</span><br><span class="line">            img.src = e.target.result;</span><br><span class="line">            img.width = 224;</span><br><span class="line">            img.height = 224;</span><br><span class="line">            img.onload = () =&gt; resolve(img);</span><br><span class="line">        &#125;;</span><br><span class="line">    &#125;);</span><br><span class="line">&#125;</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
     <link itemprop="mainEntityOfPage" href="http://example.com/2025/05/10/tfjs-study3/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -1040,73 +1116,6 @@
   
   
 
-      
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="http://example.com/2025/04/10/LLama-factory-%E5%AE%9E%E9%AA%8C/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.gif">
-      <meta itemprop="name" content="wangzhiwei">
-      <meta itemprop="description" content="javascript nodejs web developer...">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="WBlog">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/2025/04/10/LLama-factory-%E5%AE%9E%E9%AA%8C/" class="post-title-link" itemprop="url">LLama-factory 实验</a>
-        </h2>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              <span class="post-meta-item-text">发表于</span>
-              
-
-              <time title="创建时间：2025-04-10 11:53:49 / 修改时间：13:05:46" itemprop="dateCreated datePublished" datetime="2025-04-10T11:53:49+08:00">2025-04-10</time>
-            </span>
-
-          
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <h1 id="LLama-factory-实验"><a href="#LLama-factory-实验" class="headerlink" title="LLama-factory 实验"></a>LLama-factory 实验</h1><p><img src="/../images/llama_factory/img00.png"><br><img src="/../images/llama_factory/img01.png"><br><img src="/../images/llama_factory/img02.png"><br><img src="/../images/llama_factory/img03.png"><br><img src="/../images/llama_factory/img04.png"><br><img src="/../images/llama_factory/img05.png"><br><img src="/../images/llama_factory/img06.png"><br><img src="/../images/llama_factory/img07.png"><br><img src="/../images/llama_factory/img08.png"><br><img src="/../images/llama_factory/img09.png"><br><img src="/../images/llama_factory/img10.png"><br><img src="/../images/llama_factory/img11.png"><br><img src="/../images/llama_factory/img12.png"></p>
-<p>参考：</p>
-<p><a target="_blank" rel="noopener" href="https://github.com/huggingface/llama-factory">LLama-factory 实验</a><br><a target="_blank" rel="noopener" href="https://matpool.com/application/">https://matpool.com/application/</a></p>
-<h1 id="上传文件"><a href="#上传文件" class="headerlink" title="上传文件"></a>上传文件</h1><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">scp -P 28508 -r /path/to/local/directory root@px-asia-3.matpool.com:/path/to/remote/directory/</span><br><span class="line"></span><br></pre></td></tr></table></figure>
-
-<h1 id="最好是把资源提前存储到网盘上，比较省时间"><a href="#最好是把资源提前存储到网盘上，比较省时间" class="headerlink" title="最好是把资源提前存储到网盘上，比较省时间"></a>最好是把资源提前存储到网盘上，比较省时间</h1><p><img src="/../images/llama_factory/img13.png"></p>
-<h1 id="参考视频"><a href="#参考视频" class="headerlink" title="参考视频"></a>参考视频</h1><p>【大模型微调！手把手带你用LLaMA-Factory工具微调Qwen大模型！有手就行，零代码微调任意大语言模型】 <a target="_blank" rel="noopener" href="https://www.bilibili.com/video/BV1Q8rYYdErf/?p=2&share_source=copy_web&vd_source=314434c1c439c02d05fc140813b03c9c">https://www.bilibili.com/video/BV1Q8rYYdErf/?p=2&amp;share_source=copy_web&amp;vd_source=314434c1c439c02d05fc140813b03c9c</a></p>
-<p>【10分钟快速掌握多模态视觉大模型的微调训练【整合包已备好，快来学起来吧！】】 <a target="_blank" rel="noopener" href="https://www.bilibili.com/video/BV1M8tMeYEbe/?share_source=copy_web&vd_source=314434c1c439c02d05fc140813b03c9c">https://www.bilibili.com/video/BV1M8tMeYEbe/?share_source=copy_web&amp;vd_source=314434c1c439c02d05fc140813b03c9c</a></p>
-<p>训练时，在webui中选择mllm_demo数据集即可。详细操作步骤参考视频：【10分钟快速掌握多模态视觉大模型的微调训练【整合包已备好，快来学起来吧！】】 <a target="_blank" rel="noopener" href="https://www.bilibili.com/video/BV1M8tMeYEbe/?share_source=copy_web&vd_source=314434c1c439c02d05fc140813b03c9c">https://www.bilibili.com/video/BV1M8tMeYEbe/?share_source=copy_web&amp;vd_source=314434c1c439c02d05fc140813b03c9c</a></p>
-
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
 
   
   <nav class="pagination">
@@ -1176,7 +1185,7 @@
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">92</span>
+          <span class="site-state-item-count">93</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>
@@ -1185,7 +1194,7 @@
         <span class="site-state-item-name">分类</span>
       </div>
       <div class="site-state-item site-state-tags">
-        <span class="site-state-item-count">64</span>
+        <span class="site-state-item-count">65</span>
         <span class="site-state-item-name">标签</span>
       </div>
   </nav>

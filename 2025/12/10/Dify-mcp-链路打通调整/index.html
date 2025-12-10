@@ -1,0 +1,392 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 7.3.0">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+<link rel="stylesheet" href="/lib/font-awesome/css/font-awesome.min.css">
+
+<script id="hexo-configurations">
+    var NexT = window.NexT || {};
+    var CONFIG = {"hostname":"example.com","root":"/","scheme":"Muse","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":false,"show_result":false,"style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":false,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}}};
+  </script>
+
+  <meta name="description" content="Dify mcp 链路打通调整参考文档：https:&#x2F;&#x2F;github.com&#x2F;langgenius&#x2F;dify&#x2F;issues&#x2F;28224https:&#x2F;&#x2F;www.youtube.com&#x2F;watch?v&#x3D;kLKn3_tj70s dify应用的集成通过获取登录后接口返回的 user_uuid，进行编码，编码为符合dify要求的格式 12345678910111213141516171819202122us">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Dify mcp 链路打通调整">
+<meta property="og:url" content="http://example.com/2025/12/10/Dify-mcp-%E9%93%BE%E8%B7%AF%E6%89%93%E9%80%9A%E8%B0%83%E6%95%B4/index.html">
+<meta property="og:site_name" content="WBlog">
+<meta property="og:description" content="Dify mcp 链路打通调整参考文档：https:&#x2F;&#x2F;github.com&#x2F;langgenius&#x2F;dify&#x2F;issues&#x2F;28224https:&#x2F;&#x2F;www.youtube.com&#x2F;watch?v&#x3D;kLKn3_tj70s dify应用的集成通过获取登录后接口返回的 user_uuid，进行编码，编码为符合dify要求的格式 12345678910111213141516171819202122us">
+<meta property="og:locale" content="zh_CN">
+<meta property="article:published_time" content="2025-12-10T09:39:02.000Z">
+<meta property="article:modified_time" content="2025-12-10T09:44:24.531Z">
+<meta property="article:author" content="wangzhiwei">
+<meta property="article:tag" content="Dify mcp 链路打通调整">
+<meta name="twitter:card" content="summary">
+
+<link rel="canonical" href="http://example.com/2025/12/10/Dify-mcp-%E9%93%BE%E8%B7%AF%E6%89%93%E9%80%9A%E8%B0%83%E6%95%B4/">
+
+
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome : false,
+    isPost : true,
+    lang   : 'zh-CN'
+  };
+</script>
+
+  <title>Dify mcp 链路打通调整 | WBlog</title>
+  
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div class="container use-motion">
+    <div class="headband"></div>
+
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏">
+      <span class="toggle-line toggle-line-first"></span>
+      <span class="toggle-line toggle-line-middle"></span>
+      <span class="toggle-line toggle-line-last"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <h1 class="site-title">WBlog</h1>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+      <p class="site-subtitle" itemprop="description">wangzhiwei blog</p>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+    </div>
+  </div>
+</div>
+
+
+
+
+<nav class="site-nav">
+  <ul id="menu" class="menu">
+        <li class="menu-item menu-item-home">
+
+    <a href="/" rel="section"><i class="fa fa-fw fa-home"></i>首页</a>
+
+  </li>
+        <li class="menu-item menu-item-archives">
+
+    <a href="/archives/" rel="section"><i class="fa fa-fw fa-archive"></i>归档</a>
+
+  </li>
+  </ul>
+</nav>
+
+
+
+
+</div>
+    </header>
+
+    
+  <div class="back-to-top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+
+
+    <main class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+
+          <div class="content post posts-expand">
+            
+
+    
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="http://example.com/2025/12/10/Dify-mcp-%E9%93%BE%E8%B7%AF%E6%89%93%E9%80%9A%E8%B0%83%E6%95%B4/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="wangzhiwei">
+      <meta itemprop="description" content="javascript nodejs web developer...">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="WBlog">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          Dify mcp 链路打通调整
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+              
+
+              <time title="创建时间：2025-12-10 17:39:02 / 修改时间：17:44:24" itemprop="dateCreated datePublished" datetime="2025-12-10T17:39:02+08:00">2025-12-10</time>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+        <h2 id="Dify-mcp-链路打通调整"><a href="#Dify-mcp-链路打通调整" class="headerlink" title="Dify mcp 链路打通调整"></a>Dify mcp 链路打通调整</h2><h3 id="参考文档："><a href="#参考文档：" class="headerlink" title="参考文档："></a>参考文档：</h3><p><a target="_blank" rel="noopener" href="https://github.com/langgenius/dify/issues/28224">https://github.com/langgenius/dify/issues/28224</a><br><a target="_blank" rel="noopener" href="https://www.youtube.com/watch?v=kLKn3_tj70s">https://www.youtube.com/watch?v=kLKn3_tj70s</a></p>
+<h3 id="dify应用的集成"><a href="#dify应用的集成" class="headerlink" title="dify应用的集成"></a>dify应用的集成</h3><p>通过获取登录后接口返回的 user_uuid，进行编码，编码为符合dify要求的格式</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line">user:&#123;&quot;user_uuid&quot;:&quot;c23afa76-c1d0-4980-ab00-9c041409b034&quot;&#125;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">async function compressAndEncodeBase64(input: string) &#123;</span><br><span class="line">  const uint8Array = (new TextEncoder()).encode(input);</span><br><span class="line">  const compressedStream = new Response(</span><br><span class="line">    new Blob([uint8Array]).stream().pipeThrough(new CompressionStream(&quot;gzip&quot;))</span><br><span class="line">  ).arrayBuffer();</span><br><span class="line">  const compressedUint8Array = new Uint8Array(await compressedStream);</span><br><span class="line">  return btoa(String.fromCharCode(...compressedUint8Array));</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">//编码为符合dify要求的格式</span><br><span class="line">compressAndEncodeBase64(&#x27;c23afa76-c1d0-4980-ab00-9c041409b034&#x27;, then(code) =&gt; &#123;</span><br><span class="line">    console.log(code);</span><br><span class="line">&#125;)</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">//根据上一步生成的code,拼接最终的url参数 sys.user_id</span><br><span class="line">https://xxxxxx:8080/chatbot/DpIAYCqQAtgSpHSc?sys.user_id=H4sIAAAAAAAAE0s2Mk5MSzQ30002TDHQNbG0MNBNTDIw0LVMNjAxNDGwTDIwNgEA0UXx2iQAAAA=</span><br><span class="line"></span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<h3 id="参考文档：-1"><a href="#参考文档：-1" class="headerlink" title="参考文档："></a>参考文档：</h3><p><a target="_blank" rel="noopener" href="https://github.com/langgenius/dify/pull/27524">https://github.com/langgenius/dify/pull/27524</a><br><a target="_blank" rel="noopener" href="https://github.com/langgenius/dify/issues/27468">https://github.com/langgenius/dify/issues/27468</a></p>
+<h3 id="链路打通的最新抓包文件"><a href="#链路打通的最新抓包文件" class="headerlink" title="链路打通的最新抓包文件"></a>链路打通的最新抓包文件</h3><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br><span class="line">100</span><br><span class="line">101</span><br><span class="line">102</span><br><span class="line">103</span><br><span class="line">104</span><br><span class="line">105</span><br><span class="line">106</span><br><span class="line">107</span><br><span class="line">108</span><br><span class="line">109</span><br><span class="line">110</span><br><span class="line">111</span><br><span class="line">112</span><br><span class="line">113</span><br><span class="line">114</span><br><span class="line">115</span><br><span class="line">116</span><br><span class="line">117</span><br><span class="line">118</span><br><span class="line">119</span><br><span class="line">120</span><br><span class="line">121</span><br><span class="line">122</span><br><span class="line">123</span><br><span class="line">124</span><br><span class="line">125</span><br><span class="line">126</span><br><span class="line">127</span><br><span class="line">128</span><br><span class="line">129</span><br><span class="line">130</span><br><span class="line">131</span><br><span class="line">132</span><br><span class="line">133</span><br><span class="line">134</span><br><span class="line">135</span><br><span class="line">136</span><br><span class="line">137</span><br><span class="line">138</span><br><span class="line">139</span><br><span class="line">140</span><br><span class="line">141</span><br><span class="line">142</span><br><span class="line">143</span><br><span class="line">144</span><br><span class="line">145</span><br><span class="line">146</span><br><span class="line">147</span><br><span class="line">148</span><br><span class="line">149</span><br><span class="line">150</span><br><span class="line">151</span><br><span class="line">152</span><br><span class="line">153</span><br><span class="line">154</span><br><span class="line">155</span><br><span class="line">156</span><br><span class="line">157</span><br><span class="line">158</span><br><span class="line">159</span><br><span class="line">160</span><br><span class="line">161</span><br><span class="line">162</span><br><span class="line">163</span><br><span class="line">164</span><br><span class="line">165</span><br><span class="line">166</span><br><span class="line">167</span><br><span class="line">168</span><br><span class="line">169</span><br><span class="line">170</span><br><span class="line">171</span><br><span class="line">172</span><br><span class="line">173</span><br><span class="line">174</span><br><span class="line">175</span><br><span class="line">176</span><br><span class="line">177</span><br><span class="line">178</span><br><span class="line">179</span><br><span class="line">180</span><br><span class="line">181</span><br><span class="line">182</span><br><span class="line">183</span><br><span class="line">184</span><br><span class="line">185</span><br></pre></td><td class="code"><pre><span class="line">uuid: c23afa76-c1d0-4980-ab00-9c041409b034</span><br><span class="line">POST /mcp HTTP/1.1</span><br><span class="line">Host: 192.168.40.211:18080</span><br><span class="line">Accept-Encoding: gzip, deflate</span><br><span class="line">Connection: keep-alive</span><br><span class="line">User-Agent: python-httpx/0.27.2</span><br><span class="line">uuid: c23afa76-c1d0-4980-ab00-9c041409b034</span><br><span class="line">Content-Type: application/json</span><br><span class="line">Accept: application/json, text/event-stream</span><br><span class="line">Content-Length: 190</span><br><span class="line"></span><br><span class="line">&#123;&quot;jsonrpc&quot;: &quot;2.0&quot;, &quot;id&quot;: 0, &quot;method&quot;: &quot;initialize&quot;, &quot;params&quot;: &#123;&quot;protocolVersion&quot;: &quot;2024-11-05&quot;, &quot;capabilities&quot;: &#123;&#125;, &quot;clientInfo&quot;: &#123;&quot;name&quot;: &quot;MCP Streamable HTTP Client&quot;, &quot;version&quot;: &quot;1.0.0&quot;&#125;&#125;&#125;</span><br><span class="line">HTTP/1.1 200 OK</span><br><span class="line">Server: njet/4.0.0.0</span><br><span class="line">Date: Wed, 10 Dec 2025 06:27:21 GMT</span><br><span class="line">Content-Type: application/json</span><br><span class="line">Connection: keep-alive</span><br><span class="line">Content-Length: 277</span><br><span class="line">Mcp-Session-Id: aTkSyQiJwOoCAAB9</span><br><span class="line"></span><br><span class="line">&#123;&quot;jsonrpc&quot;:&quot;2.0&quot;,&quot;result&quot;:&#123;&quot;protocolVersion&quot;:&quot;2024-11-05&quot;,&quot;serverInfo&quot;:&#123;&quot;name&quot;:&quot;lua-resty-mcp&quot;,&quot;version&quot;:&quot;2.0&quot;&#125;,&quot;capabilities&quot;:&#123;&quot;completions&quot;:&#123;&#125;,&quot;prompts&quot;:&#123;&quot;listChanged&quot;:true&#125;,&quot;logging&quot;:&#123;&#125;,&quot;tools&quot;:&#123;&quot;listChanged&quot;:true&#125;,&quot;resources&quot;:&#123;&quot;listChanged&quot;:true,&quot;subscribe&quot;:true&#125;&#125;&#125;,&quot;id&quot;:0&#125;</span><br><span class="line">POST /mcp HTTP/1.1</span><br><span class="line">Host: 192.168.40.211:18080</span><br><span class="line">Accept-Encoding: gzip, deflate</span><br><span class="line">Connection: keep-alive</span><br><span class="line">User-Agent: python-httpx/0.27.2</span><br><span class="line">uuid: c23afa76-c1d0-4980-ab00-9c041409b034</span><br><span class="line">Content-Type: application/json</span><br><span class="line">Accept: application/json, text/event-stream</span><br><span class="line">Mcp-Session-Id: aTkSyQiJwOoCAAB9</span><br><span class="line">Content-Length: 71</span><br><span class="line"></span><br><span class="line">&#123;&quot;jsonrpc&quot;: &quot;2.0&quot;, &quot;method&quot;: &quot;notifications/initialized&quot;, &quot;params&quot;: &#123;&#125;&#125;</span><br><span class="line">HTTP/1.1 202 Accepted</span><br><span class="line">Server: njet/4.0.0.0</span><br><span class="line">Date: Wed, 10 Dec 2025 06:27:21 GMT</span><br><span class="line">Content-Type: text/plain</span><br><span class="line">Transfer-Encoding: chunked</span><br><span class="line">Connection: keep-alive</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">POST /mcp HTTP/1.1</span><br><span class="line">Host: 192.168.40.211:18080</span><br><span class="line">Accept-Encoding: gzip, deflate</span><br><span class="line">Connection: keep-alive</span><br><span class="line">User-Agent: python-httpx/0.27.2</span><br><span class="line">uuid: c23afa76-c1d0-4980-ab00-9c041409b034</span><br><span class="line">Content-Type: application/json</span><br><span class="line">Accept: application/json, text/event-stream</span><br><span class="line">Mcp-Session-Id: aTkSyQiJwOoCAAB9</span><br><span class="line">Content-Length: 65</span><br><span class="line"></span><br><span class="line">&#123;&quot;jsonrpc&quot;: &quot;2.0&quot;, &quot;id&quot;: 1, &quot;method&quot;: &quot;tools/list&quot;, &quot;params&quot;: &#123;&#125;&#125;</span><br><span class="line">HTTP/1.1 200 OK</span><br><span class="line">Server: njet/4.0.0.0</span><br><span class="line">Date: Wed, 10 Dec 2025 06:27:21 GMT</span><br><span class="line">Content-Type: text/event-stream</span><br><span class="line">Transfer-Encoding: chunked</span><br><span class="line">Connection: keep-alive</span><br><span class="line">Cache-Control: no-store, no-transform</span><br><span class="line">Connection: keep-alive</span><br><span class="line"></span><br><span class="line">data:&#123;&quot;jsonrpc&quot;:&quot;2.0&quot;,&quot;result&quot;:&#123;&quot;tools&quot;:[&#123;&quot;name&quot;:&quot;echo&quot;,&quot;inputSchema&quot;:&#123;&quot;required&quot;:[&quot;message&quot;],&quot;type&quot;:&quot;object&quot;,&quot;properties&quot;:&#123;&quot;message&quot;:&#123;&quot;type&quot;:&quot;string&quot;&#125;&#125;&#125;,&quot;description&quot;:&quot;Echo a message as a tool&quot;&#125;,&#123;&quot;name&quot;:&quot;exp&quot;,&quot;inputSchema&quot;:&#123;&quot;required&quot;:[&quot;inputA&quot;,&quot;oper&quot;,&quot;inputB&quot;],&quot;type&quot;:&quot;object&quot;,&quot;properties&quot;:&#123;&quot;inputB&quot;:&#123;&quot;type&quot;:&quot;number&quot;&#125;,&quot;oper&quot;:&#123;&quot;type&quot;:&quot;string&quot;&#125;,&quot;inputA&quot;:&#123;&quot;type&quot;:&quot;number&quot;&#125;&#125;&#125;,&quot;description&quot;:&quot;a tool to calculate math expressions, like 1+1=?&quot;&#125;]&#125;,&quot;id&quot;:1&#125;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">POST /mcp HTTP/1.1</span><br><span class="line">Host: 192.168.40.211:18080</span><br><span class="line">Accept-Encoding: gzip, deflate</span><br><span class="line">Connection: keep-alive</span><br><span class="line">User-Agent: python-httpx/0.27.2</span><br><span class="line">uuid: c23afa76-c1d0-4980-ab00-9c041409b034</span><br><span class="line">Content-Type: application/json</span><br><span class="line">Accept: application/json, text/event-stream</span><br><span class="line">Mcp-Session-Id: aTkSyQiJwOoCAAB9</span><br><span class="line">Content-Length: 111</span><br><span class="line"></span><br><span class="line">&#123;&quot;jsonrpc&quot;: &quot;2.0&quot;, &quot;id&quot;: 2, &quot;method&quot;: &quot;tools/call&quot;, &quot;params&quot;: &#123;&quot;name&quot;: &quot;echo&quot;, &quot;arguments&quot;: &#123;&quot;message&quot;: &quot;aa&quot;&#125;&#125;&#125;</span><br><span class="line">HTTP/1.1 200 OK</span><br><span class="line">Server: njet/4.0.0.0</span><br><span class="line">Date: Wed, 10 Dec 2025 06:27:24 GMT</span><br><span class="line">Content-Type: text/event-stream</span><br><span class="line">Transfer-Encoding: chunked</span><br><span class="line">Connection: keep-alive</span><br><span class="line">Cache-Control: no-store, no-transform</span><br><span class="line">Connection: keep-alive</span><br><span class="line"></span><br><span class="line">data:&#123;&quot;jsonrpc&quot;:&quot;2.0&quot;,&quot;result&quot;:&#123;&quot;content&quot;:[&#123;&quot;text&quot;:&quot;Tool echo: aa&quot;,&quot;type&quot;:&quot;text&quot;&#125;]&#125;,&quot;id&quot;:2&#125;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">POST /mcp HTTP/1.1</span><br><span class="line">Host: 192.168.40.211:18080</span><br><span class="line">Accept-Encoding: gzip, deflate</span><br><span class="line">Connection: keep-alive</span><br><span class="line">User-Agent: python-httpx/0.27.2</span><br><span class="line">uuid: c23afa76-c1d0-4980-ab00-9c041409b034</span><br><span class="line">Content-Type: application/json</span><br><span class="line">Accept: application/json, text/event-stream</span><br><span class="line">Mcp-Session-Id: aTkSyQiJwOoCAAB9</span><br><span class="line">Content-Length: 111</span><br><span class="line"></span><br><span class="line">&#123;&quot;jsonrpc&quot;: &quot;2.0&quot;, &quot;id&quot;: 3, &quot;method&quot;: &quot;tools/call&quot;, &quot;params&quot;: &#123;&quot;name&quot;: &quot;echo&quot;, &quot;arguments&quot;: &#123;&quot;message&quot;: &quot;aa&quot;&#125;&#125;&#125;</span><br><span class="line">HTTP/1.1 200 OK</span><br><span class="line">Server: njet/4.0.0.0</span><br><span class="line">Date: Wed, 10 Dec 2025 06:27:27 GMT</span><br><span class="line">Content-Type: text/event-stream</span><br><span class="line">Transfer-Encoding: chunked</span><br><span class="line">Connection: keep-alive</span><br><span class="line">Cache-Control: no-store, no-transform</span><br><span class="line">Connection: keep-alive</span><br><span class="line"></span><br><span class="line">data:&#123;&quot;jsonrpc&quot;:&quot;2.0&quot;,&quot;result&quot;:&#123;&quot;content&quot;:[&#123;&quot;text&quot;:&quot;Tool echo: aa&quot;,&quot;type&quot;:&quot;text&quot;&#125;]&#125;,&quot;id&quot;:3&#125;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">POST /mcp HTTP/1.1</span><br><span class="line">Host: 192.168.40.211:18080</span><br><span class="line">Accept-Encoding: gzip, deflate</span><br><span class="line">Connection: keep-alive</span><br><span class="line">User-Agent: python-httpx/0.27.2</span><br><span class="line">uuid: c23afa76-c1d0-4980-ab00-9c041409b034</span><br><span class="line">Content-Type: application/json</span><br><span class="line">Accept: application/json, text/event-stream</span><br><span class="line">Mcp-Session-Id: aTkSyQiJwOoCAAB9</span><br><span class="line">Content-Length: 111</span><br><span class="line"></span><br><span class="line">&#123;&quot;jsonrpc&quot;: &quot;2.0&quot;, &quot;id&quot;: 4, &quot;method&quot;: &quot;tools/call&quot;, &quot;params&quot;: &#123;&quot;name&quot;: &quot;echo&quot;, &quot;arguments&quot;: &#123;&quot;message&quot;: &quot;aa&quot;&#125;&#125;&#125;</span><br><span class="line">HTTP/1.1 200 OK</span><br><span class="line">Server: njet/4.0.0.0</span><br><span class="line">Date: Wed, 10 Dec 2025 06:27:30 GMT</span><br><span class="line">Content-Type: text/event-stream</span><br><span class="line">Transfer-Encoding: chunked</span><br><span class="line">Connection: keep-alive</span><br><span class="line">Cache-Control: no-store, no-transform</span><br><span class="line">Connection: keep-alive</span><br><span class="line"></span><br><span class="line">data:&#123;&quot;jsonrpc&quot;:&quot;2.0&quot;,&quot;result&quot;:&#123;&quot;content&quot;:[&#123;&quot;text&quot;:&quot;Tool echo: aa&quot;,&quot;type&quot;:&quot;text&quot;&#125;]&#125;,&quot;id&quot;:4&#125;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">POST /mcp HTTP/1.1</span><br><span class="line">Host: 192.168.40.211:18080</span><br><span class="line">Accept-Encoding: gzip, deflate</span><br><span class="line">Connection: keep-alive</span><br><span class="line">User-Agent: python-httpx/0.27.2</span><br><span class="line">uuid: c23afa76-c1d0-4980-ab00-9c041409b034</span><br><span class="line">Content-Type: application/json</span><br><span class="line">Accept: application/json, text/event-stream</span><br><span class="line">Mcp-Session-Id: aTkSyQiJwOoCAAB9</span><br><span class="line">Content-Length: 111</span><br><span class="line"></span><br><span class="line">&#123;&quot;jsonrpc&quot;: &quot;2.0&quot;, &quot;id&quot;: 5, &quot;method&quot;: &quot;tools/call&quot;, &quot;params&quot;: &#123;&quot;name&quot;: &quot;echo&quot;, &quot;arguments&quot;: &#123;&quot;message&quot;: &quot;aa&quot;&#125;&#125;&#125;</span><br><span class="line">HTTP/1.1 200 OK</span><br><span class="line">Server: njet/4.0.0.0</span><br><span class="line">Date: Wed, 10 Dec 2025 06:27:33 GMT</span><br><span class="line">Content-Type: text/event-stream</span><br><span class="line">Transfer-Encoding: chunked</span><br><span class="line">Connection: keep-alive</span><br><span class="line">Cache-Control: no-store, no-transform</span><br><span class="line">Connection: keep-alive</span><br><span class="line"></span><br><span class="line">data:&#123;&quot;jsonrpc&quot;:&quot;2.0&quot;,&quot;result&quot;:&#123;&quot;content&quot;:[&#123;&quot;text&quot;:&quot;Tool echo: aa&quot;,&quot;type&quot;:&quot;text&quot;&#125;]&#125;,&quot;id&quot;:5&#125;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">POST /mcp HTTP/1.1</span><br><span class="line">Host: 192.168.40.211:18080</span><br><span class="line">Accept-Encoding: gzip, deflate</span><br><span class="line">Connection: keep-alive</span><br><span class="line">User-Agent: python-httpx/0.27.2</span><br><span class="line">uuid: c23afa76-c1d0-4980-ab00-9c041409b034</span><br><span class="line">Content-Type: application/json</span><br><span class="line">Accept: application/json, text/event-stream</span><br><span class="line">Mcp-Session-Id: aTkSyQiJwOoCAAB9</span><br><span class="line">Content-Length: 111</span><br><span class="line"></span><br><span class="line">&#123;&quot;jsonrpc&quot;: &quot;2.0&quot;, &quot;id&quot;: 6, &quot;method&quot;: &quot;tools/call&quot;, &quot;params&quot;: &#123;&quot;name&quot;: &quot;echo&quot;, &quot;arguments&quot;: &#123;&quot;message&quot;: &quot;aa&quot;&#125;&#125;&#125;</span><br><span class="line">HTTP/1.1 200 OK</span><br><span class="line">Server: njet/4.0.0.0</span><br><span class="line">Date: Wed, 10 Dec 2025 06:27:36 GMT</span><br><span class="line">Content-Type: text/event-stream</span><br><span class="line">Transfer-Encoding: chunked</span><br><span class="line">Connection: keep-alive</span><br><span class="line">Cache-Control: no-store, no-transform</span><br><span class="line">Connection: keep-alive</span><br><span class="line"></span><br><span class="line">data:&#123;&quot;jsonrpc&quot;:&quot;2.0&quot;,&quot;result&quot;:&#123;&quot;content&quot;:[&#123;&quot;text&quot;:&quot;Tool echo: aa&quot;,&quot;type&quot;:&quot;text&quot;&#125;]&#125;,&quot;id&quot;:6&#125;</span><br><span class="line"></span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<p>另外一种方法是自己调用一下 dify 的 passport 接口，将 user_id 传给 dify. 待验证。</p>
+
+    </div>
+
+    
+    
+    
+
+      <footer class="post-footer">
+          <div class="post-tags">
+              <a href="/tags/Dify-mcp-%E9%93%BE%E8%B7%AF%E6%89%93%E9%80%9A%E8%B0%83%E6%95%B4/" rel="tag"># Dify mcp 链路打通调整</a>
+          </div>
+
+        
+
+
+        
+    <div class="post-nav">
+      <div class="post-nav-item">
+    <a href="/2025/12/08/dify-X-App-Passport-%E4%B8%AD-end-user-id-%E6%89%93%E9%80%9A%E5%A4%A7%E6%A8%A1%E5%9E%8B%E8%AE%BF%E9%97%AE%E9%93%BE%E8%B7%AF/" rel="prev" title="dify X-App-Passport 中 end_user_id 打通大模型访问链路">
+      <i class="fa fa-chevron-left"></i> dify X-App-Passport 中 end_user_id 打通大模型访问链路
+    </a></div>
+      <div class="post-nav-item"></div>
+    </div>
+      </footer>
+    
+  </article>
+  
+  
+  
+
+
+
+          </div>
+          
+
+<script>
+  window.addEventListener('tabs:register', () => {
+    let { activeClass } = CONFIG.comments;
+    if (CONFIG.comments.storage) {
+      activeClass = localStorage.getItem('comments_active') || activeClass;
+    }
+    if (activeClass) {
+      let activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      if (activeTab) {
+        activeTab.click();
+      }
+    }
+  });
+  if (CONFIG.comments.storage) {
+    window.addEventListener('tabs:click', event => {
+      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
+      let commentClass = event.target.classList[1];
+      localStorage.setItem('comments_active', commentClass);
+    });
+  }
+</script>
+
+        </div>
+          
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line toggle-line-first"></span>
+    <span class="toggle-line toggle-line-middle"></span>
+    <span class="toggle-line toggle-line-last"></span>
+  </div>
+
+  <aside class="sidebar">
+    <div class="sidebar-inner">
+
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#Dify-mcp-%E9%93%BE%E8%B7%AF%E6%89%93%E9%80%9A%E8%B0%83%E6%95%B4"><span class="nav-number">1.</span> <span class="nav-text">Dify mcp 链路打通调整</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%8F%82%E8%80%83%E6%96%87%E6%A1%A3%EF%BC%9A"><span class="nav-number">1.1.</span> <span class="nav-text">参考文档：</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#dify%E5%BA%94%E7%94%A8%E7%9A%84%E9%9B%86%E6%88%90"><span class="nav-number">1.2.</span> <span class="nav-text">dify应用的集成</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%8F%82%E8%80%83%E6%96%87%E6%A1%A3%EF%BC%9A-1"><span class="nav-number">1.3.</span> <span class="nav-text">参考文档：</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E9%93%BE%E8%B7%AF%E6%89%93%E9%80%9A%E7%9A%84%E6%9C%80%E6%96%B0%E6%8A%93%E5%8C%85%E6%96%87%E4%BB%B6"><span class="nav-number">1.4.</span> <span class="nav-text">链路打通的最新抓包文件</span></a></li></ol></li></ol></div>
+      </div>
+      <!--/noindex-->
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+  <p class="site-author-name" itemprop="name">wangzhiwei</p>
+  <div class="site-description" itemprop="description">javascript nodejs web developer...</div>
+</div>
+<div class="site-state-wrap motion-element">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">93</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+        <span class="site-state-item-count">57</span>
+        <span class="site-state-item-name">分类</span>
+      </div>
+      <div class="site-state-item site-state-tags">
+        <span class="site-state-item-count">65</span>
+        <span class="site-state-item-name">标签</span>
+      </div>
+  </nav>
+</div>
+
+
+
+      </div>
+
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+    </main>
+
+    <footer class="footer">
+      <div class="footer-inner">
+        
+
+        
+
+<div class="copyright">
+  
+  &copy; 
+  <span itemprop="copyrightYear">2025</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">wangzhiwei</span>
+</div>
+  <div class="powered-by">由 <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> & <a href="https://muse.theme-next.org/" class="theme-link" rel="noopener" target="_blank">NexT.Muse</a> 强力驱动
+  </div>
+
+        
+
+
+
+
+
+
+
+
+      </div>
+    </footer>
+  </div>
+
+  
+  <script src="/lib/anime.min.js"></script>
+  <script src="/lib/velocity/velocity.min.js"></script>
+  <script src="/lib/velocity/velocity.ui.min.js"></script>
+
+<script src="/js/utils.js"></script>
+
+<script src="/js/motion.js"></script>
+
+
+<script src="/js/schemes/muse.js"></script>
+
+
+<script src="/js/next-boot.js"></script>
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  
+
+</body>
+</html>
