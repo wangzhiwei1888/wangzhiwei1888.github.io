@@ -149,6 +149,166 @@
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="http://example.com/2025/12/11/yt-dlp-youtube-%E8%A7%86%E9%A2%91%E4%B8%8B%E8%BD%BD/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="wangzhiwei">
+      <meta itemprop="description" content="javascript nodejs web developer...">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="WBlog">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/2025/12/11/yt-dlp-youtube-%E8%A7%86%E9%A2%91%E4%B8%8B%E8%BD%BD/" class="post-title-link" itemprop="url">yt-dlp youtube 视频下载</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+              
+
+              <time title="创建时间：2025-12-11 11:02:52 / 修改时间：11:29:02" itemprop="dateCreated datePublished" datetime="2025-12-11T11:02:52+08:00">2025-12-11</time>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <h2 id="yt-dlp-youtube-视频下载"><a href="#yt-dlp-youtube-视频下载" class="headerlink" title="yt-dlp youtube 视频下载"></a>yt-dlp youtube 视频下载</h2><p><code>yt-dlp</code> 是 youtube-dl 的一个活跃社区分支，修复速度快、支持的站点更多，且每天都会更新。<br>下面给你一份 30 秒上手教程，以及如果你刚在用 docker-compose，也附带容器化用法。</p>
+<hr>
+<ol>
+<li>安装</li>
+</ol>
+<hr>
+<p>macOS（homebrew）</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">brew install yt-dlp/taps/yt-dlp        # 官方源，永远最新</span><br></pre></td></tr></table></figure>
+<p>或升级</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">brew upgrade yt-dlp</span><br></pre></td></tr></table></figure>
+
+<p>Linux（pip）</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">python3 -m pip install -U yt-dlp</span><br></pre></td></tr></table></figure>
+
+<p>Windows（scoop）</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">scoop install yt-dlp</span><br></pre></td></tr></table></figure>
+
+<hr>
+<ol start="2">
+<li>快速验证</li>
+</ol>
+<hr>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">yt-dlp --version        # 2023.* 或更高</span><br><span class="line">yt-dlp -F &quot;https://www.youtube.com/watch?v=dQw4w9WgXcQ&quot;</span><br></pre></td></tr></table></figure>
+<p>会列出所有可选清晰度，说明安装成功。</p>
+<hr>
+<ol start="3">
+<li>常用一行命令</li>
+</ol>
+<hr>
+<p>最佳画质音视频合一，保存到 ~&#x2F;Downloads</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">yt-dlp -P ~/Downloads -o &quot;%(title)s.%(ext)s&quot; 网址</span><br></pre></td></tr></table></figure>
+
+<p>只要音频（320 k MP3）</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">yt-dlp -x --audio-format mp3 --audio-quality 0 -P ~/Music 网址</span><br></pre></td></tr></table></figure>
+
+<p>整播单，独立文件夹，可断点续跑</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">yt-dlp -P ~/Videos:/MyPlaylist -o &quot;%(playlist_index)03d  %(title)s.%(ext)s&quot; \</span><br><span class="line">       --download-archive archive.txt 播单地址</span><br></pre></td></tr></table></figure>
+
+<p>限速 5 MB&#x2F;s、4 线程、断点续传</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">yt-dlp -r 5M -N 4 -c 网址</span><br></pre></td></tr></table></figure>
+
+<hr>
+<ol start="4">
+<li>容器化用法（可选）</li>
+</ol>
+<hr>
+<p>官方镜像（每晚构建）</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">docker run --rm -u $(id -u):$(id -g) \</span><br><span class="line">  -v &quot;$(pwd)&quot;:/workdir ghcr.io/yt-dlp/yt-dlp:latest \</span><br><span class="line">  -P /workdir -o &quot;%(title)s.%(ext)s&quot; 网址</span><br></pre></td></tr></table></figure>
+
+<p>docker-compose 示例</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">services:</span><br><span class="line">  ytdl:</span><br><span class="line">    image: ghcr.io/yt-dlp/yt-dlp:latest</span><br><span class="line">    volumes:</span><br><span class="line">      - ./downloads:/workdir</span><br><span class="line">    command: [&quot;-P&quot;, &quot;/workdir&quot;, &quot;-o&quot;, &quot;%(title)s.%(ext)s&quot;, &quot;网址&quot;]</span><br></pre></td></tr></table></figure>
+<p>然后</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">docker-compose run --rm ytdl</span><br></pre></td></tr></table></figure>
+
+<hr>
+<ol start="5">
+<li>常见坑</li>
+</ol>
+<hr>
+<ul>
+<li>“Unable to extract uploader id” → 版本太旧，升级即可。  </li>
+<li>“ERROR: Postprocessing: ffprobe not found” → 装 ffmpeg（<code>brew install ffmpeg</code>）。  </li>
+<li>下载慢 → 加 <code>-N 4</code> 或使用代理 <code>--proxy socks5://127.0.0.1:1080</code>。  </li>
+<li>遇到验证码&#x2F;地区限制 → 导出 cookies：<code>--cookies-from-browser chrome</code> 或 cookies.txt。</li>
+</ul>
+<hr>
+<ol start="6">
+<li>查看帮助</li>
+</ol>
+<hr>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">yt-dlp --help | less</span><br><span class="line">yt-dlp --list-extractors | grep -i twitch</span><br></pre></td></tr></table></figure>
+
+<p>换上网址就能下，祝使用愉快。</p>
+<p>yt-dlp -r 5M -N 4 -c “<a target="_blank" rel="noopener" href="https://www.youtube.com/watch?v=BcqPv3aR0lM">https://www.youtube.com/watch?v=BcqPv3aR0lM</a>“ 执行报错</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">yt-dlp -r 5M -N 4 -c &quot;https://www.youtube.com/watch?v=BcqPv3aR0lM &quot;</span><br><span class="line">[youtube] Extracting URL: https://www.youtube.com/watch?v=BcqPv3aR0lM </span><br><span class="line">[youtube] BcqPv3aR0lM: Downloading webpage</span><br><span class="line">WARNING: [youtube] Unable to download webpage: HTTP Error 429: Too Many Requests (caused by &lt;HTTPError 429: Too Many Requests&gt;)</span><br><span class="line">[youtube] BcqPv3aR0lM: Downloading initial data API JSON</span><br><span class="line">[youtube] BcqPv3aR0lM: Downloading tv client config</span><br><span class="line">[youtube] BcqPv3aR0lM: Downloading player a644926e-main</span><br><span class="line">[youtube] BcqPv3aR0lM: Downloading tv player API JSON</span><br><span class="line">[youtube] BcqPv3aR0lM: Downloading android sdkless player API JSON</span><br><span class="line">[youtube] BcqPv3aR0lM: Downloading web player API JSON</span><br><span class="line">WARNING: [youtube] No title found in player responses; falling back to title from initial data. Other metadata may also be missing</span><br><span class="line">ERROR: [youtube] BcqPv3aR0lM: Sign in to confirm you’re not a bot. Use --cookies-from-browser or --cookies for the authentication. See  https://github.com/yt-dlp/yt-dlp/wiki/FAQ#how-do-i-pass-cookies-to-yt-dlp   for how to manually pass cookies. Also see  https://github.com/yt-dlp/yt-dlp/wiki/Extractors#exporting-youtube-cookies   for tips on effectively exporting YouTube cookies</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+
+<p>YouTube 已经把你这台 IP 标记成“可疑流量”，所以：</p>
+<ol>
+<li>所有匿名请求都返回 429 &#x2F; “Sign in to confirm you’re not a bot”  </li>
+<li>yt-dlp 再换客户端（web&#x2F;tv&#x2F;android）也拿不到完整数据，只能强制你登录。</li>
+</ol>
+<p>要解决，就得让 yt-dlp“假装”你是浏览器里的已登录用户——把浏览器 Cookie 塞给它。下面给出最简三步，macOS 示例，其他系统同理。</p>
+<hr>
+<h2 id="①-安装浏览器导出插件（一次就行）"><a href="#①-安装浏览器导出插件（一次就行）" class="headerlink" title="① 安装浏览器导出插件（一次就行）"></a>① 安装浏览器导出插件（一次就行）</h2><p>Chrome&#x2F;Edge<br>• Get “Get cookies.txt LOCALLY” （<a target="_blank" rel="noopener" href="https://chrome.google.com/webstore/detail/get-cookiestxt-locally/cclelndahbckbenkjhflpdbgdldlbecc%EF%BC%89">https://chrome.google.com/webstore/detail/get-cookiestxt-locally/cclelndahbckbenkjhflpdbgdldlbecc）</a><br>• 打开 YouTube 并登录账号 → 点插件 → “Export as Netscape” → 保存为 <code>youtube.com_cookies.txt</code></p>
+<p>Firefox<br>• 装 “Export Cookies” （<a target="_blank" rel="noopener" href="https://addons.mozilla.org/firefox/addon/export-cookies-txt/%EF%BC%89">https://addons.mozilla.org/firefox/addon/export-cookies-txt/）</a> → 同样导出 Netscape 格式。</p>
+<hr>
+<h2 id="②-用-cookies-重新下载"><a href="#②-用-cookies-重新下载" class="headerlink" title="② 用 cookies 重新下载"></a>② 用 cookies 重新下载</h2><p>把刚才导出的文件放在当前目录，运行  </p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">yt-dlp --cookies youtube.com_cookies.txt -r 5M -N 4 -c &quot;https://www.youtube.com/watch?v=BcqPv3aR0lM&quot;</span><br></pre></td></tr></table></figure>
+<p>通常就能直接拿到 1080p&#x2F;720p 无需验证码。</p>
+<hr>
+<h2 id="③（可选）更懒的办法：直接读浏览器数据库"><a href="#③（可选）更懒的办法：直接读浏览器数据库" class="headerlink" title="③（可选）更懒的办法：直接读浏览器数据库"></a>③（可选）更懒的办法：直接读浏览器数据库</h2><p>如果你不想每次手动导出，可以让 yt-dlp 自己抽 Cookie（macOS 示例）  </p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">yt-dlp --cookies-from-browser chrome -r 5M -N 4 -c &quot;https://www.youtube.com/watch?v=BcqPv3aR0lM&quot;</span><br></pre></td></tr></table></figure>
+<p>• 会弹框要钥匙串权限，允许即可。<br>• 支持 chrome, chromium, firefox, safari, edge。</p>
+<hr>
+<h2 id="还报错？再加一层伪装"><a href="#还报错？再加一层伪装" class="headerlink" title="还报错？再加一层伪装"></a>还报错？再加一层伪装</h2><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">yt-dlp \</span><br><span class="line">  --cookies youtube.com_cookies.txt \</span><br><span class="line">  -r 5M -N 4 -c \</span><br><span class="line">  --user-agent &quot;Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36&quot; \</span><br><span class="line">  --proxy socks5://127.0.0.1:1080   # 如果你有代理</span><br><span class="line">  &quot;https://www.youtube.com/watch?v=BcqPv3aR0lM&quot;</span><br></pre></td></tr></table></figure>
+
+<hr>
+<h2 id="短期应急方案"><a href="#短期应急方案" class="headerlink" title="短期应急方案"></a>短期应急方案</h2><p>• 换个网络（手机热点、隔壁 Wi-Fi）往往就解除 429，可暂时不用 Cookie。<br>• 降低并发：把 <code>-N 4</code> 改成 <code>-N 1</code> 并加长间隔 <code>--sleep-requests 1 --sleep-interval 5</code>。</p>
+<hr>
+<h2 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h2><p>YouTube 429 ≠ yt-dlp 坏了，只是 IP&#x2F;账号被限。<br>“登录 + 塞 Cookie”是目前最稳的通用解法；导出一次后就能批量下。</p>
+<h2 id="yt-dlp-UI界面"><a href="#yt-dlp-UI界面" class="headerlink" title="yt-dlp + UI界面"></a>yt-dlp + UI界面</h2><p>Media Downloader（Qt 外壳，功能最全）<br>仓库  <a target="_blank" rel="noopener" href="https://github.com/mhogomchungu/media-downloader">https://github.com/mhogomchungu/media-downloader</a><br>特点<br>同时支持 yt-dlp、gallery-dl、aria2、wget…<br>内嵌“格式选择器”，可预览所有清晰度、帧率、码率。<br>自带“引擎管理”：一键更新 yt-dlp 可执行文件。<br>支持“订阅”——定时把播单增量拉到本地。<br>安装<br>Windows：Releases 里 MediaDownloader-Setup.exe<br>macOS：brew install –cask media-downloader<br>Linux：AppImage &#x2F; flatpak 都有。</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">yt-dlp --cookies-from-browser chrome -r 5M -N 4 -c yt-dlp -r 5M -N 4 -c &quot;https://www.bilibili.com/video/BV1u8mcBBEZT/?spm_id_from=333.1007.tianma.1-1-1.click&quot;</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
     <link itemprop="mainEntityOfPage" href="http://example.com/2025/12/10/Dify-mcp-%E9%93%BE%E8%B7%AF%E6%89%93%E9%80%9A%E8%B0%83%E6%95%B4/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -812,95 +972,6 @@
   
   
 
-      
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="http://example.com/2025/05/10/tfjs-study5/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.gif">
-      <meta itemprop="name" content="wangzhiwei">
-      <meta itemprop="description" content="javascript nodejs web developer...">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="WBlog">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/2025/05/10/tfjs-study5/" class="post-title-link" itemprop="url">tfjs-study5</a>
-        </h2>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              <span class="post-meta-item-text">发表于</span>
-              
-
-              <time title="创建时间：2025-05-10 14:23:22 / 修改时间：16:25:42" itemprop="dateCreated datePublished" datetime="2025-05-10T14:23:22+08:00">2025-05-10</time>
-            </span>
-
-          
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <h2 id="使用预训练模型进行语音识别"><a href="#使用预训练模型进行语音识别" class="headerlink" title="使用预训练模型进行语音识别"></a>使用预训练模型进行语音识别</h2><p>模型接受声音信息，输出分类信息<br>声音在计算机里是声谱图，因此也可以使用卷积神经网络进行识别</p>
-<p><img src="/../images/tfjs/65.png"></p>
-<p><img src="/../images/tfjs/66.png"></p>
-<p><img src="/../images/tfjs/67.png"></p>
-<p><img src="/../images/tfjs/68.png"></p>
-<p>script.js</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br></pre></td><td class="code"><pre><span class="line">import * as speechCommands from &#x27;@tensorflow-models/speech-commands&#x27;;</span><br><span class="line"></span><br><span class="line">const MODEL_PATH = &#x27;http://127.0.0.1:8080/speech&#x27;;</span><br><span class="line"></span><br><span class="line">window.onload = async () =&gt; &#123;</span><br><span class="line">    const recognizer = speechCommands.create(</span><br><span class="line">        &#x27;BROWSER_FFT&#x27;,</span><br><span class="line">        null,</span><br><span class="line">        MODEL_PATH + &#x27;/model.json&#x27;,</span><br><span class="line">        MODEL_PATH + &#x27;/metadata.json&#x27;</span><br><span class="line">    );</span><br><span class="line"></span><br><span class="line">    await recognizer.ensureModelLoaded();</span><br><span class="line"></span><br><span class="line">    const labels = recognizer.wordLabels().slice(2); //</span><br><span class="line">    const resultEl = document.querySelector(&#x27;#result&#x27;);</span><br><span class="line">    resultEl.innerHTML = labels.map(l =&gt; `</span><br><span class="line">        &lt;div&gt;$&#123;l&#125;&lt;/div&gt;</span><br><span class="line">    `).join(&#x27;&#x27;);</span><br><span class="line">    recognizer.listen(result =&gt; &#123; //会打开浏览器麦克风</span><br><span class="line">        const &#123; scores &#125; = result;</span><br><span class="line">        const maxValue = Math.max(...scores);</span><br><span class="line">        const index = scores.indexOf(maxValue) - 2;</span><br><span class="line">        resultEl.innerHTML = labels.map((l, i) =&gt; `</span><br><span class="line">        &lt;div style=&quot;background: $&#123;i === index &amp;&amp; &#x27;green&#x27;&#125;&quot;&gt;$&#123;l&#125;&lt;/div&gt;</span><br><span class="line">        `).join(&#x27;&#x27;);</span><br><span class="line">    &#125;, &#123;</span><br><span class="line">        overlapFactor: 0.3, //重叠</span><br><span class="line">        probabilityThreshold: 0.9 // 置信度</span><br><span class="line">    &#125;);</span><br><span class="line">&#125;;</span><br><span class="line"></span><br></pre></td></tr></table></figure>
-
-
-
-
-<p>index.html</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">&lt;script src=&quot;script.js&quot;&gt;&lt;/script&gt;</span><br><span class="line">&lt;style&gt;</span><br><span class="line">    #result&gt;div &#123;</span><br><span class="line">        float: left;</span><br><span class="line">        padding: 20px;</span><br><span class="line">    &#125;</span><br><span class="line">&lt;/style&gt;</span><br><span class="line">&lt;div id=&quot;result&quot;&gt;&lt;/div&gt;</span><br><span class="line"></span><br></pre></td></tr></table></figure>
-
-
-<h2 id="基于迁移学习的语音识别器：声控轮播图"><a href="#基于迁移学习的语音识别器：声控轮播图" class="headerlink" title="基于迁移学习的语音识别器：声控轮播图"></a>基于迁移学习的语音识别器：声控轮播图</h2><p>在浏览器中收集中文语音训练数据</p>
-<p>使用 speech commands （英文语音识别） 包进行迁移学习并预测 中文语音</p>
-<p>语音训练数据的保存和加载</p>
-<p>操作步骤</p>
-<p>使用 speech commands 包创建迁移学习器<br>编写前端界面准备收集语音数据<br>调用collectExample函数收集语音数据</p>
-<p><img src="/../images/tfjs/68.png"></p>
-<p>index.html</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">&lt;script src=&quot;script.js&quot;&gt;&lt;/script&gt;</span><br><span class="line">&lt;button onclick=&quot;collect(this)&quot;&gt;上一张&lt;/button&gt;</span><br><span class="line">&lt;button onclick=&quot;collect(this)&quot;&gt;下一张&lt;/button&gt;</span><br><span class="line">&lt;button onclick=&quot;collect(this)&quot;&gt;背景噪音&lt;/button&gt;</span><br><span class="line">&lt;button onclick=&quot;save()&quot;&gt;保存&lt;/button&gt;</span><br><span class="line">&lt;pre id=&quot;count&quot;&gt;&lt;/pre&gt;</span><br><span class="line">&lt;button onclick=&quot;train()&quot;&gt;训练&lt;/button&gt;</span><br><span class="line">&lt;br&gt;&lt;br&gt;</span><br><span class="line">监听开关：&lt;input type=&quot;checkbox&quot; onchange=&quot;toggle(this.checked)&quot;&gt;</span><br><span class="line"></span><br></pre></td></tr></table></figure>
-
-<p>script.js</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br></pre></td><td class="code"><pre><span class="line">import * as speechCommands from &#x27;@tensorflow-models/speech-commands&#x27;;</span><br><span class="line">import * as tfvis from &#x27;@tensorflow/tfjs-vis&#x27;;</span><br><span class="line"></span><br><span class="line">const MODEL_PATH = &#x27;http://127.0.0.1:8080&#x27;;</span><br><span class="line">let transferRecognizer;</span><br><span class="line"></span><br><span class="line">window.onload = async () =&gt; &#123;</span><br><span class="line">    const recognizer = speechCommands.create(</span><br><span class="line">        &#x27;BROWSER_FFT&#x27;,</span><br><span class="line">        null,</span><br><span class="line">        MODEL_PATH + &#x27;/speech/model.json&#x27;,</span><br><span class="line">        MODEL_PATH + &#x27;/speech/metadata.json&#x27;</span><br><span class="line">    );</span><br><span class="line">    await recognizer.ensureModelLoaded(); // 加载模型</span><br><span class="line">    transferRecognizer = recognizer.createTransfer(&#x27;轮播图&#x27;); // 创建一个训练器</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line">window.collect = async (btn) =&gt; &#123;</span><br><span class="line">    btn.disabled = true;</span><br><span class="line">    const label = btn.innerText;</span><br><span class="line">    await transferRecognizer.collectExample( //  收集样本</span><br><span class="line">        label === &#x27;背景噪音&#x27; ? &#x27;_background_noise_&#x27; : label</span><br><span class="line">    );</span><br><span class="line">    btn.disabled = false;</span><br><span class="line">    document.querySelector(&#x27;#count&#x27;).innerHTML = JSON.stringify(transferRecognizer.countExamples(), null, 2);</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line">window.train = async () =&gt; &#123;</span><br><span class="line">    await transferRecognizer.train(&#123;</span><br><span class="line">        epochs: 30,</span><br><span class="line">        callback: tfvis.show.fitCallbacks(</span><br><span class="line">            &#123; name: &#x27;训练效果&#x27; &#125;,</span><br><span class="line">            [&#x27;loss&#x27;, &#x27;acc&#x27;],</span><br><span class="line">            &#123; callbacks: [&#x27;onEpochEnd&#x27;] &#125;</span><br><span class="line">        )</span><br><span class="line">    &#125;);</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line">window.toggle = async (checked) =&gt; &#123;</span><br><span class="line">    if (checked) &#123;</span><br><span class="line">        await transferRecognizer.listen(result =&gt; &#123; // 监听</span><br><span class="line">            const &#123; scores &#125; = result;</span><br><span class="line">            const labels = transferRecognizer.wordLabels();</span><br><span class="line">            const index = scores.indexOf(Math.max(...scores));</span><br><span class="line">            console.log(labels[index]);</span><br><span class="line">        &#125;, &#123;</span><br><span class="line">            overlapFactor: 0,</span><br><span class="line">            probabilityThreshold: 0.75</span><br><span class="line">        &#125;);</span><br><span class="line">    &#125; else &#123;</span><br><span class="line">        transferRecognizer.stopListening();</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line">window.save = () =&gt; &#123;</span><br><span class="line">    const arrayBuffer = transferRecognizer.serializeExamples(); //把采集好的数据存下来</span><br><span class="line">    const blob = new Blob([arrayBuffer]);</span><br><span class="line">    const link = document.createElement(&#x27;a&#x27;);</span><br><span class="line">    link.href = window.URL.createObjectURL(blob);</span><br><span class="line">    link.download = &#x27;data.bin&#x27;;</span><br><span class="line">    link.click();</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
-
-<h2 id="轮播图"><a href="#轮播图" class="headerlink" title="轮播图"></a>轮播图</h2><p>index.html</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br></pre></td><td class="code"><pre><span class="line">&lt;script src=&quot;script.js&quot;&gt;&lt;/script&gt;</span><br><span class="line">监听开关：&lt;input type=&quot;checkbox&quot; onchange=&quot;toggle(this.checked)&quot;&gt;</span><br><span class="line"></span><br><span class="line">&lt;style&gt;</span><br><span class="line">    .slider &#123;</span><br><span class="line">        width: 600px;</span><br><span class="line">        overflow: hidden;</span><br><span class="line">        margin: 10px auto;</span><br><span class="line">    &#125;</span><br><span class="line">    .slider &gt; div&#123;</span><br><span class="line">        display: flex;</span><br><span class="line">        align-items: center;</span><br><span class="line">    &#125;</span><br><span class="line">&lt;/style&gt;</span><br><span class="line">&lt;div class=&quot;slider&quot;&gt;</span><br><span class="line">    &lt;div&gt;</span><br><span class="line">        &lt;img src=&quot;https://cdn.pixabay.com/photo/2019/10/29/15/57/vancouver-4587302__480.jpg&quot; alt=&quot;&quot; width=&quot;600&quot;&gt;</span><br><span class="line">        &lt;img src=&quot;https://cdn.pixabay.com/photo/2019/10/31/07/14/coffee-4591159__480.jpg&quot; alt=&quot;&quot; width=&quot;600&quot;&gt;</span><br><span class="line">        &lt;img src=&quot;https://cdn.pixabay.com/photo/2019/11/01/11/08/landscape-4593909__480.jpg&quot; alt=&quot;&quot; width=&quot;600&quot;&gt;</span><br><span class="line">        &lt;img src=&quot;https://cdn.pixabay.com/photo/2019/11/02/21/45/maple-leaf-4597501__480.jpg&quot; alt=&quot;&quot; width=&quot;600&quot;&gt;</span><br><span class="line">        &lt;img src=&quot;https://cdn.pixabay.com/photo/2019/11/02/03/13/in-xinjiang-4595560__480.jpg&quot; alt=&quot;&quot; width=&quot;600&quot;&gt;</span><br><span class="line">        &lt;img src=&quot;https://cdn.pixabay.com/photo/2019/11/01/22/45/reschensee-4595385__480.jpg&quot; alt=&quot;&quot; width=&quot;600&quot;&gt;</span><br><span class="line">    &lt;/div&gt;</span><br><span class="line">&lt;/div&gt;</span><br><span class="line"></span><br></pre></td></tr></table></figure>
-
-<p>script.js</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br></pre></td><td class="code"><pre><span class="line">import * as speechCommands from &#x27;@tensorflow-models/speech-commands&#x27;;</span><br><span class="line"></span><br><span class="line">const MODEL_PATH = &#x27;http://127.0.0.1:8080&#x27;;</span><br><span class="line">let transferRecognizer;</span><br><span class="line">let curIndex = 0;</span><br><span class="line"></span><br><span class="line">window.onload = async () =&gt; &#123;</span><br><span class="line">    const recognizer = speechCommands.create(</span><br><span class="line">        &#x27;BROWSER_FFT&#x27;,</span><br><span class="line">        null,</span><br><span class="line">        MODEL_PATH + &#x27;/speech/model.json&#x27;,</span><br><span class="line">        MODEL_PATH + &#x27;/speech/metadata.json&#x27;,</span><br><span class="line">    );</span><br><span class="line">    await recognizer.ensureModelLoaded();</span><br><span class="line">    transferRecognizer = recognizer.createTransfer(&#x27;轮播图&#x27;);</span><br><span class="line">    const res = await fetch(MODEL_PATH + &#x27;/slider/data.bin&#x27;);</span><br><span class="line">    const arrayBuffer = await res.arrayBuffer();</span><br><span class="line">    transferRecognizer.loadExamples(arrayBuffer);</span><br><span class="line">    await transferRecognizer.train(&#123; epochs: 30 &#125;);</span><br><span class="line">    console.log(&#x27;done&#x27;);</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line">window.toggle = async (checked) =&gt; &#123;</span><br><span class="line">    if (checked) &#123;</span><br><span class="line">        await transferRecognizer.listen(result =&gt; &#123;</span><br><span class="line">            const &#123; scores &#125; = result;</span><br><span class="line">            const labels = transferRecognizer.wordLabels();</span><br><span class="line">            const index = scores.indexOf(Math.max(...scores));</span><br><span class="line">            window.play(labels[index]);</span><br><span class="line">        &#125;, &#123;</span><br><span class="line">            overlapFactor: 0,</span><br><span class="line">            probabilityThreshold: 0.5</span><br><span class="line">        &#125;);</span><br><span class="line">    &#125; else &#123;</span><br><span class="line">        transferRecognizer.stopListening();</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line">window.play = (label) =&gt; &#123;</span><br><span class="line">    const div = document.querySelector(&#x27;.slider&gt;div&#x27;);</span><br><span class="line">    if (label === &#x27;上一张&#x27;) &#123;</span><br><span class="line">        if (curIndex === 0) &#123; return; &#125;</span><br><span class="line">        curIndex -= 1;</span><br><span class="line">    &#125; else &#123;</span><br><span class="line">        if (curIndex === document.querySelectorAll(&#x27;img&#x27;).length - 1) &#123; return; &#125;</span><br><span class="line">        curIndex += 1;</span><br><span class="line">    &#125;</span><br><span class="line">    div.style.transition = &quot;transform 1s&quot;</span><br><span class="line">    div.style.transform = `translateX(-$&#123;100 * curIndex&#125;%)`;</span><br><span class="line">&#125;;</span><br><span class="line"></span><br></pre></td></tr></table></figure>
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
 
   
   <nav class="pagination">
@@ -970,7 +1041,7 @@
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">93</span>
+          <span class="site-state-item-count">94</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>
@@ -979,7 +1050,7 @@
         <span class="site-state-item-name">分类</span>
       </div>
       <div class="site-state-item site-state-tags">
-        <span class="site-state-item-count">65</span>
+        <span class="site-state-item-count">66</span>
         <span class="site-state-item-name">标签</span>
       </div>
   </nav>

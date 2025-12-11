@@ -149,6 +149,145 @@
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="http://example.com/2024/12/13/vue3%20%E5%85%B1%E4%BA%AB%E6%95%B0%E6%8D%AE/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="wangzhiwei">
+      <meta itemprop="description" content="javascript nodejs web developer...">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="WBlog">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/2024/12/13/vue3%20%E5%85%B1%E4%BA%AB%E6%95%B0%E6%8D%AE/" class="post-title-link" itemprop="url">vue3 共享数据</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2024-12-13 13:55:14" itemprop="dateCreated datePublished" datetime="2024-12-13T13:55:14+08:00">2024-12-13</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-calendar-check-o"></i>
+                </span>
+                <span class="post-meta-item-text">更新于</span>
+                <time title="修改时间：2025-03-18 11:10:52" itemprop="dateModified" datetime="2025-03-18T11:10:52+08:00">2025-03-18</time>
+              </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/vue3/" itemprop="url" rel="index"><span itemprop="name">vue3</span></a>
+                </span>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <h1 id="vuex方案"><a href="#vuex方案" class="headerlink" title="vuex方案"></a>vuex方案</h1><p>安装<code>vuex@4.x</code></p>
+<p>两个重要变动：</p>
+<ul>
+<li>去掉了构造函数<code>Vuex</code>，而使用<code>createStore</code>创建仓库</li>
+<li>为了配合<code>composition api</code>，新增<code>useStore</code>函数获得仓库对象</li>
+</ul>
+<h1 id="global-state"><a href="#global-state" class="headerlink" title="global state"></a>global state</h1><p>由于<code>vue3</code>的响应式系统本身可以脱离组件而存在，因此可以充分利用这一点，轻松制造多个全局响应式数据</p>
+<p><img src="/../images/20201026171519.png"></p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// store/useLoginUser 提供当前登录用户的共享数据</span></span><br><span class="line"><span class="comment">// 以下代码仅供参考</span></span><br><span class="line"><span class="keyword">import</span> &#123; reactive, readonly &#125; <span class="keyword">from</span> <span class="string">&quot;vue&quot;</span>;</span><br><span class="line"><span class="keyword">import</span> * <span class="keyword">as</span> userServ <span class="keyword">from</span> <span class="string">&quot;../api/user&quot;</span>; <span class="comment">// 导入api模块</span></span><br><span class="line"><span class="comment">// 创建默认的全局单例响应式数据，仅供该模块内部使用</span></span><br><span class="line"><span class="keyword">const</span> state = <span class="title function_">reactive</span>(&#123; <span class="attr">user</span>: <span class="literal">null</span>, <span class="attr">loading</span>: <span class="literal">false</span> &#125;);</span><br><span class="line"><span class="comment">// 对外暴露的数据是只读的，不能直接修改</span></span><br><span class="line"><span class="comment">// 也可以进一步使用toRefs进行封装，从而避免解构或展开后响应式丢失</span></span><br><span class="line"><span class="keyword">export</span> <span class="keyword">const</span> loginUserStore = <span class="title function_">readonly</span>(state);</span><br><span class="line"></span><br><span class="line"><span class="comment">// 登录</span></span><br><span class="line"><span class="keyword">export</span> <span class="keyword">async</span> <span class="keyword">function</span> <span class="title function_">login</span>(<span class="params">loginId, loginPwd</span>) &#123;</span><br><span class="line">  state.<span class="property">loading</span> = <span class="literal">true</span>;</span><br><span class="line">  <span class="keyword">const</span> user = <span class="keyword">await</span> userServ.<span class="title function_">login</span>(loginId, loginPwd);</span><br><span class="line">  state.<span class="property">loginUser</span> = user;</span><br><span class="line">  state.<span class="property">loading</span> = <span class="literal">false</span>;</span><br><span class="line">&#125;</span><br><span class="line"><span class="comment">// 退出</span></span><br><span class="line"><span class="keyword">export</span> <span class="keyword">async</span> <span class="keyword">function</span> <span class="title function_">loginOut</span>(<span class="params"></span>) &#123;</span><br><span class="line">  state.<span class="property">loading</span> = <span class="literal">true</span>;</span><br><span class="line">  <span class="keyword">await</span> userServ.<span class="title function_">loginOut</span>();</span><br><span class="line">  state.<span class="property">loading</span> = <span class="literal">false</span>;</span><br><span class="line">  state.<span class="property">loginUser</span> = <span class="literal">null</span>;</span><br><span class="line">&#125;</span><br><span class="line"><span class="comment">// 恢复登录状态</span></span><br><span class="line"><span class="keyword">export</span> <span class="keyword">async</span> <span class="keyword">function</span> <span class="title function_">whoAmI</span>(<span class="params"></span>) &#123;</span><br><span class="line">  state.<span class="property">loading</span> = <span class="literal">true</span>;</span><br><span class="line">  <span class="keyword">const</span> user = <span class="keyword">await</span> userServ.<span class="title function_">whoAmI</span>();</span><br><span class="line">  state.<span class="property">loading</span> = <span class="literal">false</span>;</span><br><span class="line">  state.<span class="property">loginUser</span> = user;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+
+
+<h1 id="Provide-Inject"><a href="#Provide-Inject" class="headerlink" title="Provide&amp;Inject"></a>Provide&amp;Inject</h1><p>在<code>vue2</code>中，提供了<code>provide</code>和<code>inject</code>配置，可以让开发者在高层组件中注入数据，然后在后代组件中使用</p>
+<p><img src="/../images/20201026173949.png"></p>
+<p>除了兼容<code>vue2</code>的配置式注入，<code>vue3</code>在<code>composition api</code>中添加了<code>provide</code>和<code>inject</code>方法，可以在<code>setup</code>函数中注入和使用数据</p>
+<p><img src="/../images/20201026174039.png"></p>
+<p>考虑到有些数据需要在整个vue应用中使用，<code>vue3</code>还在应用实例中加入了<code>provide</code>方法，用于提供整个应用的共享数据</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="title function_">creaetApp</span>(<span class="title class_">App</span>)</span><br><span class="line">  .<span class="title function_">provide</span>(<span class="string">&quot;foo&quot;</span>, <span class="title function_">ref</span>(<span class="number">1</span>))</span><br><span class="line">  .<span class="title function_">provide</span>(<span class="string">&quot;bar&quot;</span>, <span class="title function_">ref</span>(<span class="number">2</span>))</span><br><span class="line">	.<span class="title function_">mount</span>(<span class="string">&quot;#app&quot;</span>);</span><br></pre></td></tr></table></figure>
+
+
+<p><img src="/../images/20201026174611.png"></p>
+<p>因此，我们可以利用这一点，在整个vue应用中提供共享数据</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// store/useLoginUser 提供当前登录用户的共享数据</span></span><br><span class="line"><span class="comment">// 以下代码仅供参考</span></span><br><span class="line"><span class="keyword">import</span> &#123; readonly, reactive, inject &#125; <span class="keyword">from</span> <span class="string">&quot;vue&quot;</span>;</span><br><span class="line"><span class="keyword">const</span> key = <span class="title class_">Symbol</span>(); <span class="comment">// Provide的key</span></span><br><span class="line"></span><br><span class="line"><span class="comment">// 在传入的vue应用实例中提供数据</span></span><br><span class="line"><span class="keyword">export</span> <span class="keyword">function</span> <span class="title function_">provideStore</span>(<span class="params">app</span>) &#123;</span><br><span class="line">  <span class="comment">// 创建默认的响应式数据</span></span><br><span class="line">  <span class="keyword">const</span> state = <span class="title function_">reactive</span>(&#123; <span class="attr">user</span>: <span class="literal">null</span>, <span class="attr">loading</span>: <span class="literal">false</span> &#125;);</span><br><span class="line">  <span class="comment">// 登录</span></span><br><span class="line">  <span class="keyword">async</span> <span class="keyword">function</span> <span class="title function_">login</span>(<span class="params">loginId, loginPwd</span>) &#123;</span><br><span class="line">    state.<span class="property">loading</span> = <span class="literal">true</span>;</span><br><span class="line">    <span class="keyword">const</span> user = <span class="keyword">await</span> userServ.<span class="title function_">login</span>(loginId, loginPwd);</span><br><span class="line">    state.<span class="property">loginUser</span> = user;</span><br><span class="line">    state.<span class="property">loading</span> = <span class="literal">false</span>;</span><br><span class="line">  &#125;</span><br><span class="line">  <span class="comment">// 退出</span></span><br><span class="line">  <span class="keyword">async</span> <span class="keyword">function</span> <span class="title function_">loginOut</span>(<span class="params"></span>) &#123;</span><br><span class="line">    state.<span class="property">loading</span> = <span class="literal">true</span>;</span><br><span class="line">    <span class="keyword">await</span> userServ.<span class="title function_">loginOut</span>();</span><br><span class="line">    state.<span class="property">loading</span> = <span class="literal">false</span>;</span><br><span class="line">    state.<span class="property">loginUser</span> = <span class="literal">null</span>;</span><br><span class="line">  &#125;</span><br><span class="line">  <span class="comment">// 恢复登录状态</span></span><br><span class="line">  <span class="keyword">async</span> <span class="keyword">function</span> <span class="title function_">whoAmI</span>(<span class="params"></span>) &#123;</span><br><span class="line">    state.<span class="property">loading</span> = <span class="literal">true</span>;</span><br><span class="line">    <span class="keyword">const</span> user = <span class="keyword">await</span> userServ.<span class="title function_">whoAmI</span>();</span><br><span class="line">    state.<span class="property">loading</span> = <span class="literal">false</span>;</span><br><span class="line">    state.<span class="property">loginUser</span> = user;</span><br><span class="line">  &#125;</span><br><span class="line">  <span class="comment">// 提供全局数据</span></span><br><span class="line">  app.<span class="title function_">provide</span>(key, &#123;</span><br><span class="line">    <span class="attr">state</span>: <span class="title function_">readonly</span>(state), <span class="comment">// 对外只读</span></span><br><span class="line">    login,</span><br><span class="line">    loginOut,</span><br><span class="line">    whoAmI,</span><br><span class="line">  &#125;);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">export</span> <span class="keyword">function</span> <span class="title function_">useStore</span>(<span class="params">defaultValue = <span class="literal">null</span></span>) &#123;</span><br><span class="line">  <span class="keyword">return</span> <span class="title function_">inject</span>(key, defaultValue);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">// store/index</span></span><br><span class="line"><span class="comment">// 应用所有store</span></span><br><span class="line"><span class="keyword">import</span> &#123; provideStore <span class="keyword">as</span> provideLoginUserStore &#125; <span class="keyword">from</span> <span class="string">&quot;./useLoginUser&quot;</span>;</span><br><span class="line"><span class="comment">// 继续导入其他共享数据模块...</span></span><br><span class="line"><span class="comment">// import &#123; provideStore as provideNewsStore &#125; from &quot;./useNews&quot;</span></span><br><span class="line"></span><br><span class="line"><span class="comment">// 提供统一的数据注入接口</span></span><br><span class="line"><span class="keyword">export</span> <span class="keyword">default</span> <span class="keyword">function</span> <span class="title function_">provideStore</span>(<span class="params">app</span>) &#123;</span><br><span class="line">  <span class="title function_">provideLoginUserStore</span>(app);</span><br><span class="line">  <span class="comment">// 继续注入其他共享数据</span></span><br><span class="line">  <span class="comment">// provideNewsStore(app);</span></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">// main.js</span></span><br><span class="line"><span class="keyword">import</span> &#123; createApp &#125; <span class="keyword">from</span> <span class="string">&quot;vue&quot;</span>;</span><br><span class="line"><span class="keyword">import</span> provideStore <span class="keyword">from</span> <span class="string">&quot;./store&quot;</span>;</span><br><span class="line"><span class="keyword">const</span> app = <span class="title function_">createApp</span>(<span class="title class_">App</span>);</span><br><span class="line"><span class="title function_">provideStore</span>(app);</span><br><span class="line">app.<span class="title function_">mount</span>(<span class="string">&quot;#app&quot;</span>);</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+
+
+<h1 id="对比"><a href="#对比" class="headerlink" title="对比"></a>对比</h1><table>
+<thead>
+<tr>
+<th></th>
+<th>vuex</th>
+<th>global state</th>
+<th>Provide&amp;Inject</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>组件数据共享</td>
+<td>✅</td>
+<td>✅</td>
+<td>✅</td>
+</tr>
+<tr>
+<td>可否脱离组件</td>
+<td>✅</td>
+<td>✅</td>
+<td>❌</td>
+</tr>
+<tr>
+<td>调试工具</td>
+<td>✅</td>
+<td>❌</td>
+<td>✅</td>
+</tr>
+<tr>
+<td>状态树</td>
+<td>✅</td>
+<td>自行决定</td>
+<td>自行决定</td>
+</tr>
+<tr>
+<td>量级</td>
+<td>重</td>
+<td>轻</td>
+<td>轻</td>
+</tr>
+</tbody></table>
+
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
     <link itemprop="mainEntityOfPage" href="http://example.com/2024/12/12/vue3/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -830,7 +969,7 @@
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">93</span>
+          <span class="site-state-item-count">94</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>
@@ -839,7 +978,7 @@
         <span class="site-state-item-name">分类</span>
       </div>
       <div class="site-state-item site-state-tags">
-        <span class="site-state-item-count">65</span>
+        <span class="site-state-item-count">66</span>
         <span class="site-state-item-name">标签</span>
       </div>
   </nav>

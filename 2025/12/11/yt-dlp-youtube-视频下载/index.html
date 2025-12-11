@@ -1,0 +1,486 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 7.3.0">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+<link rel="stylesheet" href="/lib/font-awesome/css/font-awesome.min.css">
+
+<script id="hexo-configurations">
+    var NexT = window.NexT || {};
+    var CONFIG = {"hostname":"example.com","root":"/","scheme":"Muse","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":false,"show_result":false,"style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":false,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}}};
+  </script>
+
+  <meta name="description" content="yt-dlp youtube 视频下载yt-dlp 是 youtube-dl 的一个活跃社区分支，修复速度快、支持的站点更多，且每天都会更新。下面给你一份 30 秒上手教程，以及如果你刚在用 docker-compose，也附带容器化用法。   安装   macOS（homebrew） 1brew install yt-dlp&#x2F;taps&#x2F;yt-dlp        # 官方源，永远最新 或升级 1">
+<meta property="og:type" content="article">
+<meta property="og:title" content="yt-dlp youtube 视频下载">
+<meta property="og:url" content="http://example.com/2025/12/11/yt-dlp-youtube-%E8%A7%86%E9%A2%91%E4%B8%8B%E8%BD%BD/index.html">
+<meta property="og:site_name" content="WBlog">
+<meta property="og:description" content="yt-dlp youtube 视频下载yt-dlp 是 youtube-dl 的一个活跃社区分支，修复速度快、支持的站点更多，且每天都会更新。下面给你一份 30 秒上手教程，以及如果你刚在用 docker-compose，也附带容器化用法。   安装   macOS（homebrew） 1brew install yt-dlp&#x2F;taps&#x2F;yt-dlp        # 官方源，永远最新 或升级 1">
+<meta property="og:locale" content="zh_CN">
+<meta property="article:published_time" content="2025-12-11T03:02:52.000Z">
+<meta property="article:modified_time" content="2025-12-11T03:29:02.812Z">
+<meta property="article:author" content="wangzhiwei">
+<meta property="article:tag" content="yt-dlp">
+<meta name="twitter:card" content="summary">
+
+<link rel="canonical" href="http://example.com/2025/12/11/yt-dlp-youtube-%E8%A7%86%E9%A2%91%E4%B8%8B%E8%BD%BD/">
+
+
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome : false,
+    isPost : true,
+    lang   : 'zh-CN'
+  };
+</script>
+
+  <title>yt-dlp youtube 视频下载 | WBlog</title>
+  
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div class="container use-motion">
+    <div class="headband"></div>
+
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏">
+      <span class="toggle-line toggle-line-first"></span>
+      <span class="toggle-line toggle-line-middle"></span>
+      <span class="toggle-line toggle-line-last"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <h1 class="site-title">WBlog</h1>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+      <p class="site-subtitle" itemprop="description">wangzhiwei blog</p>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+    </div>
+  </div>
+</div>
+
+
+
+
+<nav class="site-nav">
+  <ul id="menu" class="menu">
+        <li class="menu-item menu-item-home">
+
+    <a href="/" rel="section"><i class="fa fa-fw fa-home"></i>首页</a>
+
+  </li>
+        <li class="menu-item menu-item-archives">
+
+    <a href="/archives/" rel="section"><i class="fa fa-fw fa-archive"></i>归档</a>
+
+  </li>
+  </ul>
+</nav>
+
+
+
+
+</div>
+    </header>
+
+    
+  <div class="back-to-top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+
+
+    <main class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+
+          <div class="content post posts-expand">
+            
+
+    
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="http://example.com/2025/12/11/yt-dlp-youtube-%E8%A7%86%E9%A2%91%E4%B8%8B%E8%BD%BD/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="wangzhiwei">
+      <meta itemprop="description" content="javascript nodejs web developer...">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="WBlog">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          yt-dlp youtube 视频下载
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+              
+
+              <time title="创建时间：2025-12-11 11:02:52 / 修改时间：11:29:02" itemprop="dateCreated datePublished" datetime="2025-12-11T11:02:52+08:00">2025-12-11</time>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+        <h2 id="yt-dlp-youtube-视频下载"><a href="#yt-dlp-youtube-视频下载" class="headerlink" title="yt-dlp youtube 视频下载"></a>yt-dlp youtube 视频下载</h2><p><code>yt-dlp</code> 是 youtube-dl 的一个活跃社区分支，修复速度快、支持的站点更多，且每天都会更新。<br>下面给你一份 30 秒上手教程，以及如果你刚在用 docker-compose，也附带容器化用法。</p>
+<hr>
+<ol>
+<li>安装</li>
+</ol>
+<hr>
+<p>macOS（homebrew）</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">brew install yt-dlp/taps/yt-dlp        # 官方源，永远最新</span><br></pre></td></tr></table></figure>
+<p>或升级</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">brew upgrade yt-dlp</span><br></pre></td></tr></table></figure>
+
+<p>Linux（pip）</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">python3 -m pip install -U yt-dlp</span><br></pre></td></tr></table></figure>
+
+<p>Windows（scoop）</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">scoop install yt-dlp</span><br></pre></td></tr></table></figure>
+
+<hr>
+<ol start="2">
+<li>快速验证</li>
+</ol>
+<hr>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">yt-dlp --version        # 2023.* 或更高</span><br><span class="line">yt-dlp -F &quot;https://www.youtube.com/watch?v=dQw4w9WgXcQ&quot;</span><br></pre></td></tr></table></figure>
+<p>会列出所有可选清晰度，说明安装成功。</p>
+<hr>
+<ol start="3">
+<li>常用一行命令</li>
+</ol>
+<hr>
+<p>最佳画质音视频合一，保存到 ~&#x2F;Downloads</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">yt-dlp -P ~/Downloads -o &quot;%(title)s.%(ext)s&quot; 网址</span><br></pre></td></tr></table></figure>
+
+<p>只要音频（320 k MP3）</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">yt-dlp -x --audio-format mp3 --audio-quality 0 -P ~/Music 网址</span><br></pre></td></tr></table></figure>
+
+<p>整播单，独立文件夹，可断点续跑</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">yt-dlp -P ~/Videos:/MyPlaylist -o &quot;%(playlist_index)03d  %(title)s.%(ext)s&quot; \</span><br><span class="line">       --download-archive archive.txt 播单地址</span><br></pre></td></tr></table></figure>
+
+<p>限速 5 MB&#x2F;s、4 线程、断点续传</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">yt-dlp -r 5M -N 4 -c 网址</span><br></pre></td></tr></table></figure>
+
+<hr>
+<ol start="4">
+<li>容器化用法（可选）</li>
+</ol>
+<hr>
+<p>官方镜像（每晚构建）</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">docker run --rm -u $(id -u):$(id -g) \</span><br><span class="line">  -v &quot;$(pwd)&quot;:/workdir ghcr.io/yt-dlp/yt-dlp:latest \</span><br><span class="line">  -P /workdir -o &quot;%(title)s.%(ext)s&quot; 网址</span><br></pre></td></tr></table></figure>
+
+<p>docker-compose 示例</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">services:</span><br><span class="line">  ytdl:</span><br><span class="line">    image: ghcr.io/yt-dlp/yt-dlp:latest</span><br><span class="line">    volumes:</span><br><span class="line">      - ./downloads:/workdir</span><br><span class="line">    command: [&quot;-P&quot;, &quot;/workdir&quot;, &quot;-o&quot;, &quot;%(title)s.%(ext)s&quot;, &quot;网址&quot;]</span><br></pre></td></tr></table></figure>
+<p>然后</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">docker-compose run --rm ytdl</span><br></pre></td></tr></table></figure>
+
+<hr>
+<ol start="5">
+<li>常见坑</li>
+</ol>
+<hr>
+<ul>
+<li>“Unable to extract uploader id” → 版本太旧，升级即可。  </li>
+<li>“ERROR: Postprocessing: ffprobe not found” → 装 ffmpeg（<code>brew install ffmpeg</code>）。  </li>
+<li>下载慢 → 加 <code>-N 4</code> 或使用代理 <code>--proxy socks5://127.0.0.1:1080</code>。  </li>
+<li>遇到验证码&#x2F;地区限制 → 导出 cookies：<code>--cookies-from-browser chrome</code> 或 cookies.txt。</li>
+</ul>
+<hr>
+<ol start="6">
+<li>查看帮助</li>
+</ol>
+<hr>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">yt-dlp --help | less</span><br><span class="line">yt-dlp --list-extractors | grep -i twitch</span><br></pre></td></tr></table></figure>
+
+<p>换上网址就能下，祝使用愉快。</p>
+<p>yt-dlp -r 5M -N 4 -c “<a target="_blank" rel="noopener" href="https://www.youtube.com/watch?v=BcqPv3aR0lM">https://www.youtube.com/watch?v=BcqPv3aR0lM</a>“ 执行报错</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">yt-dlp -r 5M -N 4 -c &quot;https://www.youtube.com/watch?v=BcqPv3aR0lM &quot;</span><br><span class="line">[youtube] Extracting URL: https://www.youtube.com/watch?v=BcqPv3aR0lM </span><br><span class="line">[youtube] BcqPv3aR0lM: Downloading webpage</span><br><span class="line">WARNING: [youtube] Unable to download webpage: HTTP Error 429: Too Many Requests (caused by &lt;HTTPError 429: Too Many Requests&gt;)</span><br><span class="line">[youtube] BcqPv3aR0lM: Downloading initial data API JSON</span><br><span class="line">[youtube] BcqPv3aR0lM: Downloading tv client config</span><br><span class="line">[youtube] BcqPv3aR0lM: Downloading player a644926e-main</span><br><span class="line">[youtube] BcqPv3aR0lM: Downloading tv player API JSON</span><br><span class="line">[youtube] BcqPv3aR0lM: Downloading android sdkless player API JSON</span><br><span class="line">[youtube] BcqPv3aR0lM: Downloading web player API JSON</span><br><span class="line">WARNING: [youtube] No title found in player responses; falling back to title from initial data. Other metadata may also be missing</span><br><span class="line">ERROR: [youtube] BcqPv3aR0lM: Sign in to confirm you’re not a bot. Use --cookies-from-browser or --cookies for the authentication. See  https://github.com/yt-dlp/yt-dlp/wiki/FAQ#how-do-i-pass-cookies-to-yt-dlp   for how to manually pass cookies. Also see  https://github.com/yt-dlp/yt-dlp/wiki/Extractors#exporting-youtube-cookies   for tips on effectively exporting YouTube cookies</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+
+<p>YouTube 已经把你这台 IP 标记成“可疑流量”，所以：</p>
+<ol>
+<li>所有匿名请求都返回 429 &#x2F; “Sign in to confirm you’re not a bot”  </li>
+<li>yt-dlp 再换客户端（web&#x2F;tv&#x2F;android）也拿不到完整数据，只能强制你登录。</li>
+</ol>
+<p>要解决，就得让 yt-dlp“假装”你是浏览器里的已登录用户——把浏览器 Cookie 塞给它。下面给出最简三步，macOS 示例，其他系统同理。</p>
+<hr>
+<h2 id="①-安装浏览器导出插件（一次就行）"><a href="#①-安装浏览器导出插件（一次就行）" class="headerlink" title="① 安装浏览器导出插件（一次就行）"></a>① 安装浏览器导出插件（一次就行）</h2><p>Chrome&#x2F;Edge<br>• Get “Get cookies.txt LOCALLY” （<a target="_blank" rel="noopener" href="https://chrome.google.com/webstore/detail/get-cookiestxt-locally/cclelndahbckbenkjhflpdbgdldlbecc%EF%BC%89">https://chrome.google.com/webstore/detail/get-cookiestxt-locally/cclelndahbckbenkjhflpdbgdldlbecc）</a><br>• 打开 YouTube 并登录账号 → 点插件 → “Export as Netscape” → 保存为 <code>youtube.com_cookies.txt</code></p>
+<p>Firefox<br>• 装 “Export Cookies” （<a target="_blank" rel="noopener" href="https://addons.mozilla.org/firefox/addon/export-cookies-txt/%EF%BC%89">https://addons.mozilla.org/firefox/addon/export-cookies-txt/）</a> → 同样导出 Netscape 格式。</p>
+<hr>
+<h2 id="②-用-cookies-重新下载"><a href="#②-用-cookies-重新下载" class="headerlink" title="② 用 cookies 重新下载"></a>② 用 cookies 重新下载</h2><p>把刚才导出的文件放在当前目录，运行  </p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">yt-dlp --cookies youtube.com_cookies.txt -r 5M -N 4 -c &quot;https://www.youtube.com/watch?v=BcqPv3aR0lM&quot;</span><br></pre></td></tr></table></figure>
+<p>通常就能直接拿到 1080p&#x2F;720p 无需验证码。</p>
+<hr>
+<h2 id="③（可选）更懒的办法：直接读浏览器数据库"><a href="#③（可选）更懒的办法：直接读浏览器数据库" class="headerlink" title="③（可选）更懒的办法：直接读浏览器数据库"></a>③（可选）更懒的办法：直接读浏览器数据库</h2><p>如果你不想每次手动导出，可以让 yt-dlp 自己抽 Cookie（macOS 示例）  </p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">yt-dlp --cookies-from-browser chrome -r 5M -N 4 -c &quot;https://www.youtube.com/watch?v=BcqPv3aR0lM&quot;</span><br></pre></td></tr></table></figure>
+<p>• 会弹框要钥匙串权限，允许即可。<br>• 支持 chrome, chromium, firefox, safari, edge。</p>
+<hr>
+<h2 id="还报错？再加一层伪装"><a href="#还报错？再加一层伪装" class="headerlink" title="还报错？再加一层伪装"></a>还报错？再加一层伪装</h2><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">yt-dlp \</span><br><span class="line">  --cookies youtube.com_cookies.txt \</span><br><span class="line">  -r 5M -N 4 -c \</span><br><span class="line">  --user-agent &quot;Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36&quot; \</span><br><span class="line">  --proxy socks5://127.0.0.1:1080   # 如果你有代理</span><br><span class="line">  &quot;https://www.youtube.com/watch?v=BcqPv3aR0lM&quot;</span><br></pre></td></tr></table></figure>
+
+<hr>
+<h2 id="短期应急方案"><a href="#短期应急方案" class="headerlink" title="短期应急方案"></a>短期应急方案</h2><p>• 换个网络（手机热点、隔壁 Wi-Fi）往往就解除 429，可暂时不用 Cookie。<br>• 降低并发：把 <code>-N 4</code> 改成 <code>-N 1</code> 并加长间隔 <code>--sleep-requests 1 --sleep-interval 5</code>。</p>
+<hr>
+<h2 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h2><p>YouTube 429 ≠ yt-dlp 坏了，只是 IP&#x2F;账号被限。<br>“登录 + 塞 Cookie”是目前最稳的通用解法；导出一次后就能批量下。</p>
+<h2 id="yt-dlp-UI界面"><a href="#yt-dlp-UI界面" class="headerlink" title="yt-dlp + UI界面"></a>yt-dlp + UI界面</h2><p>Media Downloader（Qt 外壳，功能最全）<br>仓库  <a target="_blank" rel="noopener" href="https://github.com/mhogomchungu/media-downloader">https://github.com/mhogomchungu/media-downloader</a><br>特点<br>同时支持 yt-dlp、gallery-dl、aria2、wget…<br>内嵌“格式选择器”，可预览所有清晰度、帧率、码率。<br>自带“引擎管理”：一键更新 yt-dlp 可执行文件。<br>支持“订阅”——定时把播单增量拉到本地。<br>安装<br>Windows：Releases 里 MediaDownloader-Setup.exe<br>macOS：brew install –cask media-downloader<br>Linux：AppImage &#x2F; flatpak 都有。</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">yt-dlp --cookies-from-browser chrome -r 5M -N 4 -c yt-dlp -r 5M -N 4 -c &quot;https://www.bilibili.com/video/BV1u8mcBBEZT/?spm_id_from=333.1007.tianma.1-1-1.click&quot;</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+    </div>
+
+    
+    
+    
+
+      <footer class="post-footer">
+          <div class="post-tags">
+              <a href="/tags/yt-dlp/" rel="tag"># yt-dlp</a>
+          </div>
+
+        
+
+
+        
+    <div class="post-nav">
+      <div class="post-nav-item">
+    <a href="/2025/12/10/Dify-mcp-%E9%93%BE%E8%B7%AF%E6%89%93%E9%80%9A%E8%B0%83%E6%95%B4/" rel="prev" title="Dify mcp 链路打通调整">
+      <i class="fa fa-chevron-left"></i> Dify mcp 链路打通调整
+    </a></div>
+      <div class="post-nav-item"></div>
+    </div>
+      </footer>
+    
+  </article>
+  
+  
+  
+
+
+
+          </div>
+          
+
+<script>
+  window.addEventListener('tabs:register', () => {
+    let { activeClass } = CONFIG.comments;
+    if (CONFIG.comments.storage) {
+      activeClass = localStorage.getItem('comments_active') || activeClass;
+    }
+    if (activeClass) {
+      let activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      if (activeTab) {
+        activeTab.click();
+      }
+    }
+  });
+  if (CONFIG.comments.storage) {
+    window.addEventListener('tabs:click', event => {
+      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
+      let commentClass = event.target.classList[1];
+      localStorage.setItem('comments_active', commentClass);
+    });
+  }
+</script>
+
+        </div>
+          
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line toggle-line-first"></span>
+    <span class="toggle-line toggle-line-middle"></span>
+    <span class="toggle-line toggle-line-last"></span>
+  </div>
+
+  <aside class="sidebar">
+    <div class="sidebar-inner">
+
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#yt-dlp-youtube-%E8%A7%86%E9%A2%91%E4%B8%8B%E8%BD%BD"><span class="nav-number">1.</span> <span class="nav-text">yt-dlp youtube 视频下载</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E2%91%A0-%E5%AE%89%E8%A3%85%E6%B5%8F%E8%A7%88%E5%99%A8%E5%AF%BC%E5%87%BA%E6%8F%92%E4%BB%B6%EF%BC%88%E4%B8%80%E6%AC%A1%E5%B0%B1%E8%A1%8C%EF%BC%89"><span class="nav-number">2.</span> <span class="nav-text">① 安装浏览器导出插件（一次就行）</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E2%91%A1-%E7%94%A8-cookies-%E9%87%8D%E6%96%B0%E4%B8%8B%E8%BD%BD"><span class="nav-number">3.</span> <span class="nav-text">② 用 cookies 重新下载</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E2%91%A2%EF%BC%88%E5%8F%AF%E9%80%89%EF%BC%89%E6%9B%B4%E6%87%92%E7%9A%84%E5%8A%9E%E6%B3%95%EF%BC%9A%E7%9B%B4%E6%8E%A5%E8%AF%BB%E6%B5%8F%E8%A7%88%E5%99%A8%E6%95%B0%E6%8D%AE%E5%BA%93"><span class="nav-number">4.</span> <span class="nav-text">③（可选）更懒的办法：直接读浏览器数据库</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E8%BF%98%E6%8A%A5%E9%94%99%EF%BC%9F%E5%86%8D%E5%8A%A0%E4%B8%80%E5%B1%82%E4%BC%AA%E8%A3%85"><span class="nav-number">5.</span> <span class="nav-text">还报错？再加一层伪装</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E7%9F%AD%E6%9C%9F%E5%BA%94%E6%80%A5%E6%96%B9%E6%A1%88"><span class="nav-number">6.</span> <span class="nav-text">短期应急方案</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%80%BB%E7%BB%93"><span class="nav-number">7.</span> <span class="nav-text">总结</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#yt-dlp-UI%E7%95%8C%E9%9D%A2"><span class="nav-number">8.</span> <span class="nav-text">yt-dlp + UI界面</span></a></li></ol></div>
+      </div>
+      <!--/noindex-->
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+  <p class="site-author-name" itemprop="name">wangzhiwei</p>
+  <div class="site-description" itemprop="description">javascript nodejs web developer...</div>
+</div>
+<div class="site-state-wrap motion-element">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">94</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+        <span class="site-state-item-count">57</span>
+        <span class="site-state-item-name">分类</span>
+      </div>
+      <div class="site-state-item site-state-tags">
+        <span class="site-state-item-count">66</span>
+        <span class="site-state-item-name">标签</span>
+      </div>
+  </nav>
+</div>
+
+
+
+      </div>
+
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+    </main>
+
+    <footer class="footer">
+      <div class="footer-inner">
+        
+
+        
+
+<div class="copyright">
+  
+  &copy; 
+  <span itemprop="copyrightYear">2025</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">wangzhiwei</span>
+</div>
+  <div class="powered-by">由 <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> & <a href="https://muse.theme-next.org/" class="theme-link" rel="noopener" target="_blank">NexT.Muse</a> 强力驱动
+  </div>
+
+        
+
+
+
+
+
+
+
+
+      </div>
+    </footer>
+  </div>
+
+  
+  <script src="/lib/anime.min.js"></script>
+  <script src="/lib/velocity/velocity.min.js"></script>
+  <script src="/lib/velocity/velocity.ui.min.js"></script>
+
+<script src="/js/utils.js"></script>
+
+<script src="/js/motion.js"></script>
+
+
+<script src="/js/schemes/muse.js"></script>
+
+
+<script src="/js/next-boot.js"></script>
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  
+
+</body>
+</html>

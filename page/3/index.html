@@ -149,6 +149,79 @@
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="http://example.com/2025/04/11/%E5%89%8D%E7%AB%AF%E5%8F%91%E9%80%81SSE%E8%AF%B7%E6%B1%82%E5%AE%9E%E7%8E%B0GPT%E6%B5%81%E5%BC%8F%E8%BE%93%E5%87%BA/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="wangzhiwei">
+      <meta itemprop="description" content="javascript nodejs web developer...">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="WBlog">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/2025/04/11/%E5%89%8D%E7%AB%AF%E5%8F%91%E9%80%81SSE%E8%AF%B7%E6%B1%82%E5%AE%9E%E7%8E%B0GPT%E6%B5%81%E5%BC%8F%E8%BE%93%E5%87%BA/" class="post-title-link" itemprop="url">前端发送SSE请求实现GPT流式输出</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+              
+
+              <time title="创建时间：2025-04-11 10:26:31 / 修改时间：10:36:11" itemprop="dateCreated datePublished" datetime="2025-04-11T10:26:31+08:00">2025-04-11</time>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <h2 id="fetchEventSource"><a href="#fetchEventSource" class="headerlink" title="fetchEventSource"></a>fetchEventSource</h2><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br></pre></td><td class="code"><pre><span class="line">import &#123; fetchEventSource &#125; from &#x27;@microsoft/fetch-event-source&#x27;;</span><br><span class="line"></span><br><span class="line">async function startStream() &#123;</span><br><span class="line">  await fetchEventSource(&#x27;request url&#x27;, &#123;</span><br><span class="line">    method: &#x27;POST&#x27;,</span><br><span class="line">    headers: &#123;</span><br><span class="line">      &#x27;Content-Type&#x27;: &#x27;application/json&#x27;,</span><br><span class="line">      &#x27;Authorization&#x27;: &#x27;Bearer YOUR_TOKEN&#x27;,</span><br><span class="line">    &#125;,</span><br><span class="line">    body: JSON.stringify(&#123; query: &quot;Hello&quot; &#125;),</span><br><span class="line">    onopen(response) &#123;</span><br><span class="line">      // 连接成功时触发</span><br><span class="line">      if (response.ok) return;</span><br><span class="line">      throw new Error(&#x27;连接失败&#x27;);</span><br><span class="line">    &#125;,</span><br><span class="line">    onmessage(event) &#123;</span><br><span class="line">      // 接收服务器发送的每条事件</span><br><span class="line">      console.log(&#x27;收到数据:&#x27;, event.data);</span><br><span class="line">      // 请求完成</span><br><span class="line">      console.log(&#x27;请求结束标记&#x27;, data.done)</span><br><span class="line">    &#125;,</span><br><span class="line">    onclose() &#123;</span><br><span class="line">      // 连接关闭时触发</span><br><span class="line">      console.log(&#x27;连接终止&#x27;);</span><br><span class="line">    &#125;,</span><br><span class="line">    onerror(err) &#123;</span><br><span class="line">      // 错误处理（默认会抛出异常并自动重试）</span><br><span class="line">      console.error(&#x27;错误:&#x27;, err);</span><br><span class="line">      throw err; // 抛出错误会触发重试机制</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+
+
+
+<h2 id="rehypeRaw-支持-markdown-中含有-html-标签"><a href="#rehypeRaw-支持-markdown-中含有-html-标签" class="headerlink" title="rehypeRaw 支持 markdown 中含有 html 标签"></a>rehypeRaw 支持 markdown 中含有 html 标签</h2><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">import &#123; Avatar &#125; from &quot;antd&quot;</span><br><span class="line">import ReactMardown from &quot;react-markdown&quot;;</span><br><span class="line">import remarkGfm from &#x27;remark-gfm&#x27;</span><br><span class="line">import &#123; CopyToClipboard &#125; from &#x27;react-copy-to-clipboard&#x27;;</span><br><span class="line">import rehypeRaw from &#x27;rehype-raw&#x27;</span><br><span class="line"></span><br><span class="line">import &#123;</span><br><span class="line">    CopyOutlined,</span><br><span class="line">    SyncOutlined</span><br><span class="line">&#125; from &#x27;@ant-design/icons&#x27;;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">function ChatAnswer( &#123; item, onCopy &#125;: ChatAnswerProps ) &#123;</span><br><span class="line">    return (</span><br><span class="line">        &lt;div className=&quot;chat-answer&quot;&gt;</span><br><span class="line">            &lt;Avatar style=&#123;&#123; backgroundColor: &#x27;#2B65F7&#x27; &#125;&#125; size=&#123;40&#125;&gt;AI&lt;/Avatar&gt;</span><br><span class="line">            &lt;div className=&quot;chat-answer-content&quot; &gt;</span><br><span class="line">                &#123;</span><br><span class="line">                    !item.answer &amp;&amp;</span><br><span class="line">                    &lt;div className=&#x27;loading-box&#x27;&gt;</span><br><span class="line">                        &lt;SyncOutlined spin /&gt; 思考中...</span><br><span class="line">                    &lt;/div&gt;</span><br><span class="line">                &#125;</span><br><span class="line">                &lt;div style=&#123;&#123;paddingTop: 10&#125;&#125;&gt;</span><br><span class="line">                    &lt;ReactMardown remarkPlugins=&#123;[remarkGfm]&#125; rehypePlugins=&#123;[rehypeRaw]&#125;&gt;</span><br><span class="line">                        &#123;</span><br><span class="line">                            item.answer &amp;&amp;</span><br><span class="line">                            item.answer</span><br><span class="line">                        &#125;</span><br><span class="line">                    &lt;/ReactMardown&gt;</span><br><span class="line">                &lt;/div&gt;</span><br><span class="line">                &#123;</span><br><span class="line">                    item.answer &amp;&amp;</span><br><span class="line">                    &lt;CopyToClipboard text=&#123;item.answer&#125;</span><br><span class="line">                        onCopy=&#123;onCopy&#125;&gt;</span><br><span class="line">                        &lt;span className=&#x27;copy-btn&#x27;&gt;&lt;CopyOutlined /&gt; 复制&lt;/span&gt;</span><br><span class="line">                    &lt;/CopyToClipboard&gt;</span><br><span class="line">                &#125;</span><br><span class="line">            &lt;/div&gt;</span><br><span class="line">        &lt;/div&gt;</span><br><span class="line">    )</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">export default ChatAnswer</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+
+<h2 id="处理流式输出的标签"><a href="#处理流式输出的标签" class="headerlink" title="处理流式输出的标签"></a>处理流式输出的标签</h2><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">if (tep_mesg == &#x27;\u003cthink\u003e&#x27;) &#123;</span><br><span class="line">          tep_mesg = &quot;&lt;div class=&#x27;think&#x27;&gt;&quot;</span><br><span class="line">        &#125; else if (tep_mesg == &#x27;\u003c/think\u003e&#x27;) &#123;</span><br><span class="line">          tep_mesg = &quot;&lt;/div&gt;&quot;</span><br><span class="line">        &#125;</span><br></pre></td></tr></table></figure>
+
+<h2 id="具体参考代码"><a href="#具体参考代码" class="headerlink" title="具体参考代码"></a>具体参考代码</h2><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line"></span><br><span class="line">import &#123; PostHistoryAPI &#125; from &#x27;@/apis/chat&#x27;;</span><br><span class="line">import &#123; fetchEventSource &#125; from &#x27;@microsoft/fetch-event-source&#x27;;</span><br><span class="line">import hljs from &#x27;highlight.js&#x27;;</span><br><span class="line">export async function sendMessage(tagDefault: string, msg: string, list: any[], setList: any, messageApi: any, setDone: any, id: number) &#123;</span><br><span class="line"></span><br><span class="line">  setDone(false)</span><br><span class="line">  let answer = &#x27;&#x27;</span><br><span class="line">  const lastObj = &#123; ask: msg, answer: &#x27;&#x27; &#125;;</span><br><span class="line"></span><br><span class="line">  await fetchEventSource(&#x27;http://xxx/v1/chat/completions&#x27;, &#123;</span><br><span class="line">    method: &#x27;POST&#x27;,</span><br><span class="line">    headers: &#123;</span><br><span class="line">      &#x27;Content-Type&#x27;: &#x27;application/json&#x27;,</span><br><span class="line">      &#x27;Authorization&#x27;: &#x27;Bearer vllm&#x27;,</span><br><span class="line">    &#125;,</span><br><span class="line">    body: JSON.stringify(&#123;</span><br><span class="line">        &quot;model&quot;: tagDefault,</span><br><span class="line">        &quot;messages&quot;: [</span><br><span class="line">          &#123;&quot;role&quot;: &quot;user&quot;, &quot;content&quot;: msg&#125;</span><br><span class="line">        ],</span><br><span class="line">        &quot;stream&quot;: true</span><br><span class="line">      &#125;),</span><br><span class="line">    onmessage(event) &#123;</span><br><span class="line">      // 接收服务器发送的每条事件</span><br><span class="line">      console.log(&#x27;收到数据:&#x27;, event.data);</span><br><span class="line"></span><br><span class="line">      </span><br><span class="line">      </span><br><span class="line">      if (event.data &amp;&amp; event.data === &#x27;[DONE]&#x27;) &#123;</span><br><span class="line">        console.log(&#x27;请求完成&#x27;);</span><br><span class="line"></span><br><span class="line">        setDone(true)</span><br><span class="line">        //将数据插入到历史接口</span><br><span class="line">        PostHistoryAPI(&#123;</span><br><span class="line">            groupId: id,</span><br><span class="line">            ...lastObj</span><br><span class="line">        &#125;).then(res =&gt; &#123;</span><br><span class="line"></span><br><span class="line">            if (res.data.code !== 0) &#123;</span><br><span class="line">                messageApi.error(res.data.message)</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;)</span><br><span class="line">        hljs.highlightAll();</span><br><span class="line"></span><br><span class="line">      &#125; else &#123;</span><br><span class="line">        console.log(&#x27;收到数据:&#x27;, JSON.parse(event.data).choices[0].delta.content);</span><br><span class="line">        </span><br><span class="line">        let tep_mesg = JSON.parse(event.data).choices[0].delta.content;</span><br><span class="line">        if (tep_mesg == &#x27;\u003cthink\u003e&#x27;) &#123;</span><br><span class="line">          tep_mesg = &quot;&lt;div class=&#x27;think&#x27;&gt;&quot;</span><br><span class="line">        &#125; else if (tep_mesg == &#x27;\u003c/think\u003e&#x27;) &#123;</span><br><span class="line">          tep_mesg = &quot;&lt;/div&gt;&quot;</span><br><span class="line">        &#125;</span><br><span class="line">        </span><br><span class="line">        answer += tep_mesg</span><br><span class="line"></span><br><span class="line">        if (answer) &#123;</span><br><span class="line">            lastObj.answer = answer</span><br><span class="line">            setList([...list, lastObj])</span><br><span class="line">        &#125;</span><br><span class="line">      &#125;</span><br><span class="line">      // 请求完成</span><br><span class="line">    &#125;,</span><br><span class="line">    onclose() &#123;</span><br><span class="line">      // 连接关闭时触发</span><br><span class="line">      console.log(&#x27;连接终止&#x27;);</span><br><span class="line">    &#125;,</span><br><span class="line">    onerror(err) &#123;</span><br><span class="line">      // 错误处理（默认会抛出异常并自动重试）</span><br><span class="line">      console.error(&#x27;错误:&#x27;, err);</span><br><span class="line">      throw err; // 抛出错误会触发重试机制</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;);</span><br><span class="line">&#125;</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<h2 id="EventSource"><a href="#EventSource" class="headerlink" title="EventSource"></a>EventSource</h2><p>‘@microsoft&#x2F;fetch-event-source’ (之前用过pc兼容没问题，移动端兼容性好像不太好，当时是自己用原声js的 EventSource)</p>
+<p>EventSource<br><a target="_blank" rel="noopener" href="https://developer.mozilla.org/en-US/docs/Web/API/Server-sent_events/Using_server-sent_events">https://developer.mozilla.org/en-US/docs/Web/API/Server-sent_events/Using_server-sent_events</a></p>
+<p>参考地址：<br><a target="_blank" rel="noopener" href="https://juejin.cn/post/7476881372810313762">https://juejin.cn/post/7476881372810313762</a><br><a target="_blank" rel="noopener" href="https://www.npmjs.com/package/react-markdown">https://www.npmjs.com/package/react-markdown</a><br><a target="_blank" rel="noopener" href="https://www.npmjs.com/package/rehype-raw">https://www.npmjs.com/package/rehype-raw</a></p>
+
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
     <link itemprop="mainEntityOfPage" href="http://example.com/2025/04/10/LLama-factory-%E5%AE%9E%E9%AA%8C/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -795,70 +868,6 @@
   
   
 
-      
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="http://example.com/2025/03/28/paddlepaddle/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.gif">
-      <meta itemprop="name" content="wangzhiwei">
-      <meta itemprop="description" content="javascript nodejs web developer...">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="WBlog">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/2025/03/28/paddlepaddle/" class="post-title-link" itemprop="url">paddlepaddle</a>
-        </h2>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              <span class="post-meta-item-text">发表于</span>
-              
-
-              <time title="创建时间：2025-03-28 17:10:35 / 修改时间：17:41:36" itemprop="dateCreated datePublished" datetime="2025-03-28T17:10:35+08:00">2025-03-28</time>
-            </span>
-
-          
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <p><a target="_blank" rel="noopener" href="https://www.paddlepaddle.org.cn/install/quick?docurl=undefined">https://www.paddlepaddle.org.cn/install/quick?docurl=undefined</a></p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br></pre></td><td class="code"><pre><span class="line">安装</span><br><span class="line"></span><br><span class="line">conda create -n paddle3 python=3.8</span><br><span class="line"></span><br><span class="line">conda activate paddle3</span><br><span class="line"></span><br><span class="line">conda install paddlepaddle==3.0.0 -c paddle</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">验证安装</span><br><span class="line"></span><br><span class="line">python</span><br><span class="line"></span><br><span class="line">import paddle</span><br><span class="line">paddle.utils.run_check()</span><br><span class="line"></span><br><span class="line">打印</span><br><span class="line">/opt/anaconda3/envs/paddle3/lib/python3.8/site-packages/paddle/utils/cpp_extension/extension_utils.py:711: UserWarning: No ccache found. Please be aware that recompiling all source files may be required. You can download and install ccache from: https://github.com/ccache/ccache/blob/master/doc/INSTALL.md</span><br><span class="line">  warnings.warn(warning_message)</span><br><span class="line">&gt;&gt;&gt; paddle.utils.run_check()</span><br><span class="line">Running verify PaddlePaddle program ...</span><br><span class="line">I0328 17:09:40.513358 4041525312 pir_interpreter.cc:1541] New Executor is Running ...</span><br><span class="line">I0328 17:09:40.513667 4041525312 pir_interpreter.cc:1564] pir interpreter is running by multi-thread mode ...</span><br><span class="line">PaddlePaddle works well on 1 CPU.</span><br><span class="line">PaddlePaddle is installed successfully! Let&#x27;s start deep learning with PaddlePaddle now.</span><br><span class="line"></span><br></pre></td></tr></table></figure>
-
-
-<p>brew install ccache</p>
-<p>线性回归</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br></pre></td><td class="code"><pre><span class="line">import paddle</span><br><span class="line"></span><br><span class="line"># 定义一个计算费用的函数，根据行驶距离计算总费用</span><br><span class="line">def calculate_fee(distance_travelled):</span><br><span class="line">    &quot;&quot;&quot;</span><br><span class="line">    根据行驶距离计算总费用。</span><br><span class="line">    </span><br><span class="line">    参数:</span><br><span class="line">    distance_travelled -- 行驶距离</span><br><span class="line">    </span><br><span class="line">    返回:</span><br><span class="line">    总费用</span><br><span class="line">    &quot;&quot;&quot;</span><br><span class="line">    return 10 + distance_travelled * 2</span><br><span class="line"></span><br><span class="line"># 对于一组行驶距离，计算并打印相应的费用</span><br><span class="line">for x in [1.0, 3.0, 5.0, 10.0]:</span><br><span class="line">    print(calculate_fee(x))</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"># 线性回归demo</span><br><span class="line"></span><br><span class="line"># 将行驶距离和对应的费用转换为PaddlePaddle张量</span><br><span class="line">x_data = paddle.to_tensor([[1.0], [3.0], [5.0], [10.0]])</span><br><span class="line">y_data = paddle.to_tensor([[12.0], [16.0], [20.0], [30.0]])</span><br><span class="line"></span><br><span class="line"># 创建一个线性模型，用于拟合行驶距离和费用之间的关系</span><br><span class="line">linear = paddle.nn.Linear(in_features=1, out_features=1)</span><br><span class="line"></span><br><span class="line"># 获取线性模型的初始权重和偏置</span><br><span class="line">w_before_opt = linear.weight.numpy().item()</span><br><span class="line">b_before_opt = linear.bias.numpy().item()</span><br><span class="line">print(&quot;Initial w: %.2f, b: %.2f&quot; % (w_before_opt, b_before_opt))</span><br><span class="line"></span><br><span class="line"># 定义均方误差损失函数</span><br><span class="line">mes_loss = paddle.nn.MSELoss()</span><br><span class="line"></span><br><span class="line"># 创建随机梯度下降优化器</span><br><span class="line">sgd_optimizer = paddle.optimizer.SGD(learning_rate=0.001, parameters=linear.parameters())</span><br><span class="line"></span><br><span class="line"># 设置总训练轮数 可分别tiao换为10000, 20000, 50000</span><br><span class="line">total_epoch = 20000 </span><br><span class="line"></span><br><span class="line"># 开始训练过程</span><br><span class="line">for i in range(total_epoch):</span><br><span class="line">    # 使用线性模型进行预测</span><br><span class="line">    y_predict = linear(x_data)</span><br><span class="line">    # 计算预测值和真实值之间的损失</span><br><span class="line">    loss = mes_loss(y_predict, y_data)</span><br><span class="line">    # 反向传播计算梯度</span><br><span class="line">    loss.backward()</span><br><span class="line">    # 更新模型参数</span><br><span class="line">    sgd_optimizer.step()</span><br><span class="line">    # 清除梯度</span><br><span class="line">    sgd_optimizer.clear_gradients()</span><br><span class="line">    # 每1000轮打印一次训练信息</span><br><span class="line">    if i % 1000 == 0:</span><br><span class="line">        print(i, loss.numpy())</span><br><span class="line"></span><br><span class="line">print(&quot;Training finished, loss= &#123;&#125;&quot;.format(loss.numpy()))</span><br><span class="line"></span><br><span class="line"># 获取训练后的权重和偏置</span><br><span class="line">w_after_opt = linear.weight.numpy().item()</span><br><span class="line">b_after_opt = linear.bias.numpy().item()</span><br><span class="line">print(&quot;Initial w: %.2f, b: %.2f&quot; % (w_after_opt, b_after_opt))</span><br><span class="line"></span><br></pre></td></tr></table></figure>
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
 
   
   <nav class="pagination">
@@ -928,7 +937,7 @@
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">93</span>
+          <span class="site-state-item-count">94</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>
@@ -937,7 +946,7 @@
         <span class="site-state-item-name">分类</span>
       </div>
       <div class="site-state-item site-state-tags">
-        <span class="site-state-item-count">65</span>
+        <span class="site-state-item-count">66</span>
         <span class="site-state-item-name">标签</span>
       </div>
   </nav>
