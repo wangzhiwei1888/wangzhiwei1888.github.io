@@ -207,3 +207,147 @@ Linux：AppImage / flatpak 都有。
 yt-dlp --cookies-from-browser chrome -r 5M -N 4 -c yt-dlp -r 5M -N 4 -c "https://www.bilibili.com/video/BV1u8mcBBEZT/?spm_id_from=333.1007.tianma.1-1-1.click"
 
 ```
+
+
+## 高级配置用法，支持任务中断后继续
+```
+  yt-dlp \
+    --proxy http://127.0.0.1:1081 \
+    --ignore-errors --continue --no-overwrites \
+    --write-info-json --write-thumbnail --embed-metadata --embed-subs \
+    --sub-langs "zh.*,en.*,zh-CN,zh-TW,en" --compat-options no-live-chat \
+    --merge-output-format mp4 --remux-video mp4 \
+    --format "bv*[ext=mp4][height<=1080]+ba[ext=m4a]/b[ext=mp4][height<=1080]/bv+ba/b" \
+    --output "%(upload_date>%Y-%m-%d)s %(title)s [%(id)s].%(ext)s" \
+    --download-archive downloaded.txt \
+    --sleep-interval 3 --max-sleep-interval 13 \
+    https://www.youtube.com/@user-sbxsdsyy/playlists
+
+
+yt-dlp \
+  --cookies-from-browser chrome \
+  --proxy http://127.0.0.1:1081 \
+  --ignore-errors --continue --no-overwrites \
+  --write-info-json --write-thumbnail --embed-metadata --embed-subs \
+  --sub-langs "zh.*,en.*,zh-CN,zh-TW,en" --compat-options no-live-chat \
+  --merge-output-format mp4 --remux-video mp4 \
+  --format "bv*[ext=mp4][height<=1080]+ba[ext=m4a]/b[ext=mp4][height<=1080]/bv+ba/b" \
+  --output "%(upload_date>%Y-%m-%d)s %(title)s [%(id)s].%(ext)s" \
+  --download-archive downloaded.txt \
+  --sleep-interval 10 --max-sleep-interval 60 \
+  https://www.youtube.com/playlist\?list=PLR1ACzwrLF_3oaoAILcSc7vW6wHX2c1Xd
+
+
+
+yt-dlp \
+  --cookies-from-browser chrome \
+  --proxy http://127.0.0.1:1081 \
+  --ignore-errors --continue --no-overwrites \
+  --write-info-json --write-thumbnail --embed-metadata --embed-subs \
+  --sub-langs "zh.*,en.*,zh-CN,zh-TW,en" --compat-options no-live-chat \
+  --merge-output-format mp4 --remux-video mp4 \
+  --format "worst[ext=mp4]/22/18/bv[height<=480]+ba/b" \
+  --output "%(upload_date>%Y-%m-%d)s %(title)s [%(id)s].%(ext)s" \
+  --download-archive downloaded.txt \
+  --sleep-interval 10 --max-sleep-interval 60 \
+  https://www.youtube.com/playlist\?list=PLR1ACzwrLF_3oaoAILcSc7vW6wHX2c1Xd
+
+
+
+yt-dlp \
+  --cookies-from-browser chrome \
+  --ignore-errors --continue --no-overwrites \
+  --write-info-json --write-thumbnail --embed-metadata --embed-subs \
+  --sub-langs "zh.*,en.*,zh-CN,zh-TW,en" --compat-options no-live-chat \
+  --merge-output-format mp4 --remux-video mp4 \
+  --format "worst[ext=mp4]/22/18/bv[height<=480]+ba/b" \
+  --output "%(upload_date>%Y-%m-%d)s %(title)s [%(id)s].%(ext)s" \
+  --download-archive downloaded.txt \
+  --sleep-interval 10 --max-sleep-interval 60 \
+  https://www.youtube.com/playlist\?list=PLR1ACzwrLF_3oaoAILcSc7vW6wHX2c1Xd
+
+
+
+yt-dlp \
+  --ignore-errors --continue --no-overwrites \
+  --write-info-json --write-thumbnail --embed-metadata --embed-subs \
+  --sub-langs "zh.*,en.*,zh-CN,zh-TW,en" --compat-options no-live-chat \
+  --merge-output-format mp4 --remux-video mp4 \
+  --format "bv*[ext=mp4][height<=1080]+ba[ext=m4a]/b[ext=mp4][height<=1080]/bv+ba/b" \
+  --output "%(upload_date>%Y-%m-%d)s %(title)s [%(id)s].%(ext)s" \
+  --download-archive downloaded.txt \
+  --sleep-interval 3 --max-sleep-interval 13 \
+  https://www.youtube.com/playlist\?list=PLR1ACzwrLF_1hg5xjaX1mbOgPlmShcpjM
+
+
+
+yt-dlp \
+  --ignore-errors --continue --no-overwrites \
+  --write-info-json --write-thumbnail --embed-metadata --embed-subs \
+  --sub-langs "zh.*,en.*,zh-CN,zh-TW,en" --compat-options no-live-chat \
+  --merge-output-format mp4 --remux-video mp4 \
+  --format "bv*[ext=mp4][height<=1080]+ba[ext=m4a]/b[ext=mp4][height<=1080]/bv+ba/b" \
+  --output "%(upload_date>%Y-%m-%d)s %(title)s [%(id)s].%(ext)s" \
+  --download-archive downloaded.txt \
+  --sleep-interval 10 --max-sleep-interval 60 \
+  --playlist-reverse --playlist-start 1 --playlist-end 60 \
+  "https://www.youtube.com/playlist?list=PLR1ACzwrLF_3tmjscUfjGpawHRKze3pI7"
+
+
+
+
+
+
+
+查询有多少条数据
+yt-dlp --flat-playlist --print "%(playlist_index)s" \
+  "https://www.youtube.com/playlist\?list=PLR1ACzwrLF_3tmjscUfjGpawHRKze3pI7" | \
+tail -n1
+
+
+
+yt-dlp \
+  --ignore-errors --continue --no-overwrites \
+  --write-info-json --write-thumbnail --embed-metadata --embed-subs \
+  --sub-langs "zh.*,en.*,zh-CN,zh-TW,en" --compat-options no-live-chat \
+  --merge-output-format mp4 --remux-video mp4 \
+  --format "bv*[ext=mp4][height<=1080]+ba[ext=m4a]/b[ext=mp4][height<=1080]/bv+ba/b" \
+  --output "%(upload_date>%Y-%m-%d)s %(title)s [%(id)s].%(ext)s" \
+  --download-archive downloaded.txt \
+  --sleep-interval 3 --max-sleep-interval 13 \
+  --playlist-start 227 \
+  "https://www.youtube.com/playlist\?list=PLR1ACzwrLF_3tmjscUfjGpawHRKze3pI7"
+
+
+  yt-dlp --proxy http://127.0.0.1:1081 \
+       --flat-playlist \
+       --print "%(title)s | %(id)s | %(webpage_url)s" \
+       https://www.youtube.com/@user-sbxsdsyy/playlists
+       
+數學合集 | PLR1ACzwrLF_0LkIfD49gYWamb5chMpKZb | https://www.youtube.com/playlist?list=PLR1ACzwrLF_0LkIfD49gYWamb5chMpKZb
+記單詞 | PLR1ACzwrLF_0RhtAElUXqI1ZRC5KLUmze | https://www.youtube.com/playlist?list=PLR1ACzwrLF_0RhtAElUXqI1ZRC5KLUmze
+封神演義 | PLR1ACzwrLF_1dMwOPm7aOaoUr-RwUh0gI | https://www.youtube.com/playlist?list=PLR1ACzwrLF_1dMwOPm7aOaoUr-RwUh0gI
+紅樓夢 | PLR1ACzwrLF_2VpoCKy4h31uZtDGJrDMuU | https://www.youtube.com/playlist?list=PLR1ACzwrLF_2VpoCKy4h31uZtDGJrDMuU
+故宫小故事 | PLR1ACzwrLF_3H_UMEnDAxJozjU5xy_8Yr | https://www.youtube.com/playlist?list=PLR1ACzwrLF_3H_UMEnDAxJozjU5xy_8Yr
+中學歷史 | PLR1ACzwrLF_11MxvNZTDBtPs09RwzSZte | https://www.youtube.com/playlist?list=PLR1ACzwrLF_11MxvNZTDBtPs09RwzSZte
+物理化學實驗課 | PLR1ACzwrLF_0UFfMfuHN5Ok4HGHnAJICj | https://www.youtube.com/playlist?list=PLR1ACzwrLF_0UFfMfuHN5Ok4HGHnAJICj
+中學地理 | PLR1ACzwrLF_0-FvCBkURhCR-xtr06pR0H | https://www.youtube.com/playlist?list=PLR1ACzwrLF_0-FvCBkURhCR-xtr06pR0H
+中學英語 | PLR1ACzwrLF_3oaoAILcSc7vW6wHX2c1Xd | https://www.youtube.com/playlist?list=PLR1ACzwrLF_3oaoAILcSc7vW6wHX2c1Xd
+中學生物 | PLR1ACzwrLF_1woXE4M6WW39TUKWUtr31r | https://www.youtube.com/playlist?list=PLR1ACzwrLF_1woXE4M6WW39TUKWUtr31r
+小學數學 | PLR1ACzwrLF_3tmjscUfjGpawHRKze3pI7 | https://www.youtube.com/playlist?list=PLR1ACzwrLF_3tmjscUfjGpawHRKze3pI7
+文言文学习 | PLR1ACzwrLF_3Hghqe7ULVDjc9xvdiemuu | https://www.youtube.com/playlist?list=PLR1ACzwrLF_3Hghqe7ULVDjc9xvdiemuu
+初中数学 | PLR1ACzwrLF_1cGgv_lYjkzG3Qca-eA67v | https://www.youtube.com/playlist?list=PLR1ACzwrLF_1cGgv_lYjkzG3Qca-eA67v
+高中物理 | PLR1ACzwrLF_1W1nOT0-0WI51VsufIWO3C | https://www.youtube.com/playlist?list=PLR1ACzwrLF_1W1nOT0-0WI51VsufIWO3C
+高中化学 | PLR1ACzwrLF_3JEmrFtjdGYHIUtnWtiPCK | https://www.youtube.com/playlist?list=PLR1ACzwrLF_3JEmrFtjdGYHIUtnWtiPCK
+高中数学 | PLR1ACzwrLF_09MidJqluugHTHQCErNeSb | https://www.youtube.com/playlist?list=PLR1ACzwrLF_09MidJqluugHTHQCErNeSb
+高中語文 | PLR1ACzwrLF_2gwtuI6nYtYrj2id8VpSb2 | https://www.youtube.com/playlist?list=PLR1ACzwrLF_2gwtuI6nYtYrj2id8VpSb2
+小学奥数  奥林匹克数学竞赛 | PLR1ACzwrLF_3gjfp4EXD138c7pQ9AMhkR | https://www.youtube.com/playlist?list=PLR1ACzwrLF_3gjfp4EXD138c7pQ9AMhkR
+初中化学 | PLR1ACzwrLF_0qe4lqmCAagBIW3SZ4fF2i | https://www.youtube.com/playlist?list=PLR1ACzwrLF_0qe4lqmCAagBIW3SZ4fF2i
+初中物理 | PLR1ACzwrLF_3gUJQ701S7E_sapkYgjcHe | https://www.youtube.com/playlist?list=PLR1ACzwrLF_3gUJQ701S7E_sapkYgjcHe
+英語語法學習 | PLR1ACzwrLF_1hg5xjaX1mbOgPlmShcpjM | https://www.youtube.com/playlist?list=PLR1ACzwrLF_1hg5xjaX1mbOgPlmShcpjM
+趣味詩詞小故事 | PLR1ACzwrLF_0kAYMeYrjQUh6ETgFKBGXw | https://www.youtube.com/playlist?list=PLR1ACzwrLF_0kAYMeYrjQUh6ETgFKBGXw
+趣味文學小故事 | PLR1ACzwrLF_1A_KwQuNjHVUWhJsyJvf_4 | https://www.youtube.com/playlist?list=PLR1ACzwrLF_1A_KwQuNjHVUWhJsyJvf_4
+趣味唐詩小故事 | PLR1ACzwrLF_1wAMWccHzA_yRWeryWIzcg | https://www.youtube.com/playlist?list=PLR1ACzwrLF_1wAMWccHzA_yRWeryWIzcg
+
+
+```
