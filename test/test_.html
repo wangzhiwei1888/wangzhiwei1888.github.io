@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <script>
+
+    function curry(fn) {
+        return function curried(...args) {
+            
+            debugger
+            // 如果参数够了，直接执行
+            if (args.length >= fn.length) {
+                return fn.apply(this, args);
+            }
+            // 参数不够，返回新函数继续收集参数
+            return function(...nextArgs) {
+                return curried.apply(this, args.concat(nextArgs));
+            };
+        };
+    }
+
+    // 使用示例
+    function sum(a, b, c, d) {
+        return a + b + c + d;
+    }
+
+    const curriedSum = curry(sum);
+
+    // 多种调用方式
+    curriedSum(1)(2)(3)(4);      // 10
+
+
+    // API 请求配置
+    const request = curry((baseURL, endpoint, method, data) => 
+        fetch(`${baseURL}${endpoint}`, {
+            method,
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify(data)
+        })
+    );
+
+    const api = request('https://api.example.com');
+    const getUser = api('/users');
+    const createUser = getUser('POST');
+
+    // 使用
+    createUser({ name: '张三', age: 25 });
+
+    </script>
+</body>
+</html>
