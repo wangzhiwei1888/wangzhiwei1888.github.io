@@ -28,7 +28,7 @@
 <meta property="og:description" content="分类与回归分类 &#x3D; 预测”是什么”（类别）回归 &#x3D; 预测”是多少”（数值）    场景 分类问题（选标签） 回归问题（算数值）    房价 这房子贵&#x2F;便宜？（二分类） 这房子具体多少钱？580万   天气 明天晴&#x2F;雨？（分类） 明天温度多少度？26.5°C   股票 明天涨&#x2F;跌？（分类） 明天收盘价多少？158.3元   外卖 这单会超时&amp;#x2F">
 <meta property="og:locale" content="zh_CN">
 <meta property="article:published_time" content="2026-04-11T09:36:17.000Z">
-<meta property="article:modified_time" content="2026-04-11T12:55:18.944Z">
+<meta property="article:modified_time" content="2026-04-12T01:43:38.611Z">
 <meta property="article:author" content="wangzhiwei">
 <meta property="article:tag" content="db">
 <meta name="twitter:card" content="summary">
@@ -174,10 +174,16 @@
                 <i class="fa fa-calendar-o"></i>
               </span>
               <span class="post-meta-item-text">发表于</span>
-              
 
-              <time title="创建时间：2026-04-11 17:36:17 / 修改时间：20:55:18" itemprop="dateCreated datePublished" datetime="2026-04-11T17:36:17+08:00">2026-04-11</time>
+              <time title="创建时间：2026-04-11 17:36:17" itemprop="dateCreated datePublished" datetime="2026-04-11T17:36:17+08:00">2026-04-11</time>
             </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-calendar-check-o"></i>
+                </span>
+                <span class="post-meta-item-text">更新于</span>
+                <time title="修改时间：2026-04-12 09:43:38" itemprop="dateModified" datetime="2026-04-12T09:43:38+08:00">2026-04-12</time>
+              </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
                 <i class="fa fa-folder-o"></i>
@@ -1058,31 +1064,170 @@
 <p>惯性 &#x3D; 每篇文档到所属中心点的距离平方和<br>越小越好 → 同类文档越集中</p>
 <p>“评估K-Means预分类质量，我分三层：聚类层看轮廓系数和纯度，检索层看Recall@10是否下降超过5%，业务层对比端到端ROUGE-L分数。实际项目中，K&#x3D;1000时轮廓系数0.52，纯度78%，软分类召回96%，延迟从500ms降到5ms，最终答案BertScore只下降1.2%，**速度和</p>
 <p>Q8: 怎么做文本数据的向量化？（Scikit-learn 方式 vs Embedding）</p>
+<p>一、原句结构拆解</p>
+<p>“Scikit-learn 是我做【数据预处理、传统模型 baseline、超参调优、评估指标计算】的工具箱。<br>在大模型项目里，它负责【快、轻、可控】的部分，<br>和 LLM 的【强理解能力】形成【互补】。”</p>
+<p>二、逐部分详细展开</p>
+<ol>
+<li>数据预处理 —— 大模型前的”洗菜切菜”</li>
+</ol>
 <table>
 <thead>
 <tr>
-<th>方式</th>
-<th>工具</th>
-<th>特点</th>
+<th>具体工作</th>
+<th>Scikit-learn 工具</th>
+<th>为什么不用LLM做</th>
 </tr>
 </thead>
 <tbody><tr>
-<td><strong>传统</strong></td>
-<td><code>TfidfVectorizer</code>、<code>CountVectorizer</code></td>
-<td>基于词频，<strong>可解释、轻量、快</strong>，适合小数据或规则场景</td>
+<td>文本清洗标准化</td>
+<td><code>StandardScaler</code> 对Embedding向量归一化</td>
+<td>LLM不直接处理数值缩放</td>
 </tr>
 <tr>
-<td><strong>现代</strong></td>
-<td>OpenAI&#x2F;Qwen&#x2F;DeepSeek Embedding</td>
-<td>基于语义，<strong>理解能力强</strong>，适合 RAG</td>
+<td>缺失值处理</td>
+<td><code>SimpleImputer</code> 填均值&#x2F;中位数</td>
+<td>轻量，规则明确</td>
 </tr>
 <tr>
-<td>职位里的 RAG 用 Embedding，但 Scikit-learn 的 TF-IDF 可做关键词召回的多路补充。</td>
-<td></td>
-<td></td>
+<td>异常检测</td>
+<td><code>IsolationForest</code> 先筛掉脏数据</td>
+<td>比用LLM判断快1000倍</td>
+</tr>
+<tr>
+<td>维度压缩</td>
+<td><code>PCA</code> 768维→128维，省存储</td>
+<td>LLM不会帮你压缩向量</td>
 </tr>
 </tbody></table>
-<p>“Scikit-learn 是我做数据预处理、传统模型 baseline、超参调优、评估指标计算的工具箱。在大模型项目里，它负责快、轻、可控的部分，和 LLM 的强理解能力形成互补。”</p>
+<p>“用户上传的PDF文档，先StandardScaler标准化Embedding向量，再PCA降到128维存Milvus。这一步如果让LLM做，成本贵、速度慢，Scikit-learn几毫秒搞定。”</p>
+<ol start="2">
+<li>传统模型 baseline —— 快速验证思路</li>
+</ol>
+<table>
+<thead>
+<tr>
+<th>场景</th>
+<th>用Scikit-learn</th>
+<th>对比LLM</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>意图识别（10类）</td>
+<td><code>LogisticRegression</code> 2ms响应</td>
+<td>LLM 200ms+，贵</td>
+</tr>
+<tr>
+<td>内容安全初筛</td>
+<td><code>RandomForest</code> 判断有害&#x2F;无害</td>
+<td>LLM做二分类浪费</td>
+</tr>
+<tr>
+<td>文档分类（预分类）</td>
+<td><code>K-Means</code> 百万文档秒级聚类</td>
+<td>LLM无法批量聚类</td>
+</tr>
+</tbody></table>
+<p>“先跑个RandomForest baseline，5分钟知道这条路能不能走通。如果传统模型F1能到0.85，就没必要上LLM；如果只有0.6，再上LLM做精排。”</p>
+<ol start="3">
+<li>超参调优 —— 科学找最佳配置</li>
+</ol>
+<table>
+<thead>
+<tr>
+<th>工具</th>
+<th>用途</th>
+<th>大模型场景</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><code>GridSearchCV</code></td>
+<td>找<code>K-Means</code>最佳K值</td>
+<td>影响检索速度和召回</td>
+</tr>
+<tr>
+<td><code>RandomizedSearchCV</code></td>
+<td>快速试<code>RandomForest</code>参数</td>
+<td>意图识别模型调优</td>
+</tr>
+<tr>
+<td><code>cross_val_score</code></td>
+<td>评估<code>PCA</code>保留多少维</td>
+<td>平衡压缩率和信息损失</td>
+</tr>
+</tbody></table>
+<p>“用GridSearchCV找PCA的n_components，从[64,128,256,512]里选，交叉验证看哪个ROUGE-L不下降。比人工试省80%时间。”</p>
+<ol start="4">
+<li>评估指标计算 —— 量化生成质量</li>
+</ol>
+<table>
+<thead>
+<tr>
+<th>指标</th>
+<th>Scikit-learn&#x2F;相关库</th>
+<th>用途</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><code>accuracy</code>, <code>precision</code>, <code>recall</code>, <code>f1</code></td>
+<td><code>sklearn.metrics</code></td>
+<td>意图识别、内容安全二分类</td>
+</tr>
+<tr>
+<td><code>roc_auc_score</code></td>
+<td><code>sklearn.metrics</code></td>
+<td>不平衡数据评估（有害内容检测）</td>
+</tr>
+<tr>
+<td><code>mean_squared_error</code></td>
+<td><code>sklearn.metrics</code></td>
+<td>答案相关性打分回归</td>
+</tr>
+<tr>
+<td><code>BLEU</code>, <code>ROUGE</code></td>
+<td><code>nltk</code>, <code>rouge</code></td>
+<td>生成答案质量（配合LLM评估）</td>
+</tr>
+<tr>
+<td><code>silhouette_score</code></td>
+<td><code>sklearn.metrics</code></td>
+<td>K-Means聚类质量</td>
+</tr>
+</tbody></table>
+<p>“LLM生成的答案好不好，不能只看BLEU（字面匹配），还要我用BertScore算语义相似。但BertScore之前的传统指标基线，全是Scikit-learn算的。”</p>
+<p>三、”快、轻、可控” vs “强理解能力”</p>
+<table>
+<thead>
+<tr>
+<th>维度</th>
+<th>Scikit-learn（传统ML）</th>
+<th>LLM（大模型）</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><strong>快</strong></td>
+<td>毫秒级响应，<code>predict</code>直接矩阵运算</td>
+<td>秒级，要调API或本地推理</td>
+</tr>
+<tr>
+<td><strong>轻</strong></td>
+<td>模型几MB，CPU跑，内存占用小</td>
+<td>模型几GB到几十GB，要GPU</td>
+</tr>
+<tr>
+<td><strong>可控</strong></td>
+<td>规则明确，<code>coef_</code>看特征权重，可解释</td>
+<td>黑盒，为什么这样答说不清</td>
+</tr>
+<tr>
+<td><strong>强理解</strong></td>
+<td>弱，只能学统计规律</td>
+<td>强，懂语义、推理、上下文</td>
+</tr>
+</tbody></table>
+<p>互补场景图解：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br></pre></td><td class="code"><pre><span class="line">用户提问：&quot;2024年Q3营收多少？&quot;</span><br><span class="line">        │</span><br><span class="line">        ▼</span><br><span class="line">┌─────────────────┐</span><br><span class="line">│  Scikit-learn   │  ← 快、轻、可控</span><br><span class="line">│  Intent分类器   │     2ms判断是&quot;财务查询&quot;</span><br><span class="line">│  (LogisticRegression) │</span><br><span class="line">└─────────────────┘</span><br><span class="line">        │</span><br><span class="line">        ▼</span><br><span class="line">┌─────────────────┐</span><br><span class="line">│  Scikit-learn   │  ← 快、轻、可控  </span><br><span class="line">│  K-Means预分类  │     5ms定位&quot;财报类&quot;文档</span><br><span class="line">└─────────────────┘</span><br><span class="line">        │</span><br><span class="line">        ▼</span><br><span class="line">┌─────────────────┐</span><br><span class="line">│  Scikit-learn   │  ← 快、轻、可控</span><br><span class="line">│  PCA降维后的    │     10ms向量检索Top-10</span><br><span class="line">│  Milvus向量检索  │</span><br><span class="line">└─────────────────┘</span><br><span class="line">        │</span><br><span class="line">        ▼</span><br><span class="line">┌─────────────────┐</span><br><span class="line">│      LLM        │  ← 强理解能力</span><br><span class="line">│  阅读理解+生成  │     500ms精读文档，生成答案</span><br><span class="line">│  &quot;2024年Q3营收100亿，同比增长20%&quot;</span><br><span class="line">└─────────────────┘</span><br><span class="line">        │</span><br><span class="line">        ▼</span><br><span class="line">┌─────────────────┐</span><br><span class="line">│  Scikit-learn   │  ← 快、轻、可控</span><br><span class="line">│  ROUGE/BertScore│     评估答案质量，反馈迭代</span><br><span class="line">│  评估指标计算    │</span><br><span class="line">└─────────────────┘</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+<p>总延迟：2+5+10+500 &#x3D; 517ms，其中LLM占96%，Scikit-learn占4%但决定了找什么给LLM读。</p>
+<p>四、面试展开版本（3种长度）<br>“Scikit-learn 在我的RAG项目里有四个角色：一是数据预处理，用StandardScaler和PCA把768维Embedding降到128维，省83%存储；二是快速baseline，用RandomForest做意图识别，2ms响应比LLM快100倍；三是超参调优，用GridSearchCV找K-Means最佳K值，平衡速度和召回；四是评估指标，算ROUGE、F1量化生成质量。它负责快、轻、可控的部分，和LLM的强理解能力形成互补，比如先K-Means预分类5ms定位文档，再让LLM精读生成，总延迟从纯LLM的5秒降到500毫秒。”</p>
 
     </div>
 
