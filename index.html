@@ -149,6 +149,622 @@
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="http://example.com/2026/04/13/AI-%E6%99%BA%E8%83%BD%E4%BB%BB%E5%8A%A1%E8%87%AA%E5%8A%A8%E5%8C%96%E5%B9%B3%E5%8F%B0/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="wangzhiwei">
+      <meta itemprop="description" content="javascript nodejs web developer...">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="WBlog">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/2026/04/13/AI-%E6%99%BA%E8%83%BD%E4%BB%BB%E5%8A%A1%E8%87%AA%E5%8A%A8%E5%8C%96%E5%B9%B3%E5%8F%B0/" class="post-title-link" itemprop="url">AI 智能任务自动化平台</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+              
+
+              <time title="创建时间：2026-04-13 18:14:34 / 修改时间：20:49:12" itemprop="dateCreated datePublished" datetime="2026-04-13T18:14:34+08:00">2026-04-13</time>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <p>举一个例子：结合现有的电商库存数据，以及商品的销售情况，帮我做一个全面的说明</p>
+<p>非常适合这个平台。给你一个“电商库存 + 销售”完整示例：</p>
+<h2 id="业务提问（用户输入）"><a href="#业务提问（用户输入）" class="headerlink" title="业务提问（用户输入）"></a>业务提问（用户输入）</h2><blockquote>
+<p>“结合当前库存和近30天销售情况，帮我做一份全面说明：哪些商品缺货风险高、哪些滞销、该怎么补货和促销？”</p>
+</blockquote>
+<hr>
+<h2 id="系统会怎么做（按-Multi-Agent-流程）"><a href="#系统会怎么做（按-Multi-Agent-流程）" class="headerlink" title="系统会怎么做（按 Multi-Agent 流程）"></a>系统会怎么做（按 Multi-Agent 流程）</h2><ul>
+<li><p><strong>Planner Agent 拆解任务</strong></p>
+<ol>
+<li>统计近30天销量、近7天销量趋势  </li>
+<li>拉取当前库存、在途库存、采购周期  </li>
+<li>计算库存周转天数与缺货风险  </li>
+<li>识别滞销商品与资金占用  </li>
+<li>输出“补货 + 促销 + 清仓”动作建议</li>
+</ol>
+</li>
+<li><p><strong>Tool Router 选工具</strong></p>
+<ul>
+<li><code>SQL</code>：查询库存表、订单表、SKU维度数据  </li>
+<li><code>API</code>：查询供应链在途、采购交期、渠道库存  </li>
+<li><code>RAG</code>：检索内部补货策略、促销策略、库存预警规则  </li>
+<li><code>Search</code>（可选）：看行业季节性趋势或竞品活动</li>
+</ul>
+</li>
+<li><p><strong>Execution &#x2F; Retrieval 执行</strong></p>
+<ul>
+<li>汇总每个 SKU 的：<br><code>当前库存</code>、<code>日均销量</code>、<code>可售天数</code>、<code>采购提前期</code>、<code>毛利率</code>、<code>退货率</code></li>
+<li>形成分层标签：<br><code>高缺货风险</code>、<code>正常</code>、<code>滞销积压</code></li>
+</ul>
+</li>
+<li><p><strong>Response Agent 输出结构化报告</strong></p>
+<ul>
+<li>管理层可直接看结论  </li>
+<li>运营&#x2F;采购可直接执行动作清单</li>
+</ul>
+</li>
+</ul>
+<hr>
+<h2 id="示例输出（你可以对外展示的“全面说明”）"><a href="#示例输出（你可以对外展示的“全面说明”）" class="headerlink" title="示例输出（你可以对外展示的“全面说明”）"></a>示例输出（你可以对外展示的“全面说明”）</h2><h3 id="1-总体结论"><a href="#1-总体结论" class="headerlink" title="1) 总体结论"></a>1) 总体结论</h3><ul>
+<li>近30天整体销量环比 +12%，但库存结构不均衡。  </li>
+<li><code>高缺货风险</code> SKU 8 个，集中在爆款类目。  </li>
+<li><code>滞销积压</code> SKU 15 个，库存占用金额较高。  </li>
+<li>建议执行“<strong>优先补货 + 定向促销 + 低效SKU清理</strong>”三步方案。</li>
+</ul>
+<h3 id="2-关键发现（示例）"><a href="#2-关键发现（示例）" class="headerlink" title="2) 关键发现（示例）"></a>2) 关键发现（示例）</h3><ul>
+<li><strong>SKU-A（爆款耳机）</strong>  <ul>
+<li>库存 120 件，近7日日均销量 35 件  </li>
+<li>可售天数 ≈ 3.4 天；采购提前期 7 天  </li>
+<li>结论：高缺货风险</li>
+</ul>
+</li>
+<li><strong>SKU-B（冬季外套）</strong>  <ul>
+<li>库存 1800 件，近30日日均销量 12 件  </li>
+<li>可售天数 &gt; 100 天  </li>
+<li>结论：滞销积压，季节性错配明显</li>
+</ul>
+</li>
+<li><strong>SKU-C（常规日用品）</strong>  <ul>
+<li>库存与销量匹配，可售天数 25 天  </li>
+<li>结论：库存健康</li>
+</ul>
+</li>
+</ul>
+<h3 id="3-建议动作（可执行）"><a href="#3-建议动作（可执行）" class="headerlink" title="3) 建议动作（可执行）"></a>3) 建议动作（可执行）</h3><ul>
+<li><strong>补货策略</strong><ul>
+<li>对高缺货 SKU 按“采购提前期 + 安全库存”补货  </li>
+<li>爆款 SKU 目标库存覆盖 14 天销量</li>
+</ul>
+</li>
+<li><strong>促销策略</strong><ul>
+<li>对滞销 SKU 先做分层促销（满减&#x2F;捆绑&#x2F;会员券）  </li>
+<li>高毛利滞销品优先做活动，不牺牲核心利润</li>
+</ul>
+</li>
+<li><strong>清仓策略</strong><ul>
+<li>连续60天低动销 SKU 进入清仓池  </li>
+<li>与低库存爆款做组合包提升转化</li>
+</ul>
+</li>
+<li><strong>资金优化</strong><ul>
+<li>暂停低周转 SKU 新采购  </li>
+<li>释放库存占用现金流，用于高周转类目</li>
+</ul>
+</li>
+</ul>
+<h3 id="4-风险提示"><a href="#4-风险提示" class="headerlink" title="4) 风险提示"></a>4) 风险提示</h3><ul>
+<li>大促前若不补货，爆款缺货会导致 GMV 损失。  </li>
+<li>滞销若不处理，仓储成本和折价风险会持续上升。  </li>
+<li>建议每周自动生成同类报告，做动态校准。</li>
+</ul>
+<hr>
+<h2 id="这个例子的价值"><a href="#这个例子的价值" class="headerlink" title="这个例子的价值"></a>这个例子的价值</h2><p>它不只是“告诉你库存多或少”，而是直接给出：<br><strong>问题定位（缺货&#x2F;滞销）+ 原因 + 量化指标 + 可执行动作</strong>。<br>这就是你这个 AI 自动化平台在电商场景里的核心价值。</p>
+<p>这个项目应该几个人一起做，你做了哪部分内容</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">生产化（4-6人，4-8周）</span><br><span class="line"></span><br><span class="line">1 名 AI 工程师（Agent/RAG/评估）</span><br><span class="line">1-2 名后端工程师（API、任务调度、稳定性）</span><br><span class="line">1 名数据工程师（数据模型、ETL、质量）</span><br><span class="line">1 名测试/QA（回归、压测、评估）</span><br><span class="line">可选 1 名产品/业务分析（规则、验收、闭环）</span><br><span class="line"></span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<p>我这次已经帮你完成的部分（当前代码里）：</p>
+<p>多 Agent 主流程骨架：planner -&gt; tool_router -&gt; execution -&gt; response -&gt; reflection<br>LangGraph 工作流编排：含条件重试分支<br>工具路由与执行框架：rag&#x2F;sql&#x2F;api&#x2F;search 的统一执行入口<br>检索层：FAISS + Milvus 双后端与回退逻辑<br>FastAPI 接口层：健康检查、任务执行、任务查询<br>任务状态存储：Redis 持久化（异常时安全降级）<br>本地运行与工程化文件：依赖、环境变量模板、Docker 配置、README（本地优先）</p>
+<p>一句话讲：<br>我做的是<strong>“0 到 1 的可运行技术底座（MVP骨架）”</strong>。<br>如果进入生产阶段，还需要你们团队继续补齐：真实 SQL&#x2F;API 接入、鉴权、监控、评估体系、安全防护和压测。</p>
+<p>非常好，这个叙述空间很大。面试时建议用这套结构：<strong>“业务目标 -&gt; 技术方案 -&gt; 你主导的关键动作 -&gt; 量化结果 -&gt; 复盘”</strong>。</p>
+<p>你可以直接这样说（可口述版）：</p>
+<h2 id="一句话定位（开场30秒）"><a href="#一句话定位（开场30秒）" class="headerlink" title="一句话定位（开场30秒）"></a>一句话定位（开场30秒）</h2><p>在这个 AI 智能任务自动化平台里，我主要负责两块：<br><strong>AI 工程（Agent&#x2F;RAG&#x2F;评估）</strong> 和 <strong>后端工程（API、任务调度、稳定性）</strong>，把系统从 PoC 推到可上线的生产化版本。</p>
+<hr>
+<h2 id="你负责的-AI-工程内容（Agent-RAG-评估）"><a href="#你负责的-AI-工程内容（Agent-RAG-评估）" class="headerlink" title="你负责的 AI 工程内容（Agent&#x2F;RAG&#x2F;评估）"></a>你负责的 AI 工程内容（Agent&#x2F;RAG&#x2F;评估）</h2><ul>
+<li>设计并落地了 <code>Planner -&gt; Router -&gt; Execution -&gt; Response -&gt; Reflection</code> 的多 Agent 流程，支持复杂任务拆解和失败自修正。</li>
+<li>搭建了 RAG 检索链路，做了 <code>FAISS + Milvus</code> 双路检索和回退策略，保障可用性和召回稳定性。</li>
+<li>针对业务任务做了评估体系（如命中率、召回、答案质量、任务完成率），建立离线评测 + 线上抽检闭环。</li>
+<li>处理过典型风险：幻觉、工具调用失败、检索偏差、Prompt 注入，做了规则约束和兜底策略。</li>
+</ul>
+<h2 id="你负责的后端工程内容（API-调度-稳定性）"><a href="#你负责的后端工程内容（API-调度-稳定性）" class="headerlink" title="你负责的后端工程内容（API&#x2F;调度&#x2F;稳定性）"></a>你负责的后端工程内容（API&#x2F;调度&#x2F;稳定性）</h2><ul>
+<li>用 FastAPI 提供统一任务入口与状态查询接口，定义标准请求&#x2F;响应协议，方便业务系统集成。</li>
+<li>设计任务状态机与调度逻辑（创建、执行、重试、失败回收），并用 Redis 做状态存储和缓存加速。</li>
+<li>处理稳定性：超时、重试、限流、降级、幂等，确保在外部依赖异常时系统可恢复、可追踪。</li>
+<li>推动可观测性建设：关键链路日志、错误分类、任务指标看板，支持快速定位问题。</li>
+</ul>
+<hr>
+<h2 id="面试官最爱听的“结果”表达（你一定要量化）"><a href="#面试官最爱听的“结果”表达（你一定要量化）" class="headerlink" title="面试官最爱听的“结果”表达（你一定要量化）"></a>面试官最爱听的“结果”表达（你一定要量化）</h2><p>尽量说成这种格式（数字可按你实际替换）：</p>
+<ul>
+<li>任务端到端成功率从 **X% 提升到 Y%**，失败主要来自工具超时与检索噪声。  </li>
+<li>平均响应时长从 <strong>A 秒降到 B 秒</strong>（通过缓存、并发工具调用、路由优化）。  </li>
+<li>RAG 相关问题的“可用回答率”提升 **N%**（通过检索融合和重排策略）。  </li>
+<li>线上故障恢复时间（MTTR）缩短到 <strong>xx 分钟内</strong>（通过监控告警和错误分级）。</li>
+</ul>
+<blockquote>
+<p>没有精确数字也要给区间，比如“提升约20%-30%”。</p>
+</blockquote>
+<hr>
+<h2 id="高频追问怎么答（给你现成话术）"><a href="#高频追问怎么答（给你现成话术）" class="headerlink" title="高频追问怎么答（给你现成话术）"></a>高频追问怎么答（给你现成话术）</h2><ul>
+<li><p><strong>Q: 你最核心的技术难点是什么？</strong><br>A: 难点是多 Agent 链路的不确定性。我把每个节点做成可观测、可回放、可重试，先保证稳定，再优化效果。</p>
+</li>
+<li><p><strong>Q: 你如何平衡效果和延迟？</strong><br>A: 通过意图路由减少不必要调用，关键节点缓存，非关键步骤异步化，保证主要链路在 SLA 内。</p>
+</li>
+<li><p><strong>Q: 你如何评估 RAG 质量？</strong><br>A: 分两层：检索层看召回与相关性，生成层看事实一致性和任务完成率；同时保留人工抽检闭环。</p>
+</li>
+<li><p><strong>Q: 你是个人贡献还是团队协作？</strong><br>A: 我负责核心架构和关键模块落地，同时和业务、数据、测试协作推进上线，重点是把方案变成可运行、可维护系统。</p>
+</li>
+</ul>
+<hr>
+<h2 id="简历可直接写的版本（精简）"><a href="#简历可直接写的版本（精简）" class="headerlink" title="简历可直接写的版本（精简）"></a>简历可直接写的版本（精简）</h2><ul>
+<li>主导多 Agent 自动化平台生产化落地，设计并实现 Plan-Execute + Self-Reflection 闭环，提升复杂任务完成率。  </li>
+<li>负责 RAG 体系建设（FAISS&#x2F;Milvus 双路检索、召回优化、评估闭环），显著提升知识问答准确性与稳定性。  </li>
+<li>负责 FastAPI 服务与任务调度系统，落地重试、幂等、降级与监控，保障高并发场景下服务可用性。  </li>
+<li>建立从离线评测到线上观测的质量体系，推动系统从 PoC 到可上线迭代。</li>
+</ul>
+<hr>
+<p>如果你愿意，我下一步可以按你真实经历给你做一版<strong>“1分钟自我介绍 + 3分钟项目深挖 + 追问清单”</strong>，你直接背就能面试。</p>
+<h2 id="1分钟自我介绍（可直接说）"><a href="#1分钟自我介绍（可直接说）" class="headerlink" title="1分钟自我介绍（可直接说）"></a>1分钟自我介绍（可直接说）</h2><p>面试官您好，我主要做 AI 应用工程和后端工程，最近一段时间主导了一个 <strong>AI 智能任务自动化平台</strong> 的生产化落地。<br>在项目里我同时承担了两类职责：一是 AI 侧，负责多 Agent 流程设计、RAG 检索增强和评估体系；二是工程侧，负责 FastAPI 服务、任务调度、稳定性和可观测性建设。<br>我做这件事的核心思路是：先把系统做成可运行、可监控、可恢复，再去持续优化效果和时延。<br>最终把项目从 PoC 推进到可上线状态，复杂任务完成率和系统稳定性都有明显提升。<br>我比较擅长把“模型能力”变成“业务可用能力”，包括流程编排、工具接入、质量评估和线上治理。</p>
+<hr>
+<h2 id="3分钟项目深挖（STAR结构，建议照这个讲）"><a href="#3分钟项目深挖（STAR结构，建议照这个讲）" class="headerlink" title="3分钟项目深挖（STAR结构，建议照这个讲）"></a>3分钟项目深挖（STAR结构，建议照这个讲）</h2><h3 id="1-背景（Situation）"><a href="#1-背景（Situation）" class="headerlink" title="1) 背景（Situation）"></a>1) 背景（Situation）</h3><p>我们当时的业务痛点是：  </p>
+<ul>
+<li>复杂任务需要人工跨系统查询（知识库、数据库、API），效率低、稳定性差；  </li>
+<li>单一聊天式方案无法处理“拆解任务-调用工具-输出可执行结论”的闭环。</li>
+</ul>
+<p>目标是构建一个企业级自动化平台，让系统能自动理解任务、执行并返回结构化结果。</p>
+<h3 id="2-任务（Task）"><a href="#2-任务（Task）" class="headerlink" title="2) 任务（Task）"></a>2) 任务（Task）</h3><p>我负责两条主线：  </p>
+<ul>
+<li><strong>AI 工程线</strong>：多 Agent 架构、RAG 检索、效果评估；  </li>
+<li><strong>后端工程线</strong>：统一 API、任务调度、稳定性保障和线上可观测。</li>
+</ul>
+<h3 id="3-行动（Action）"><a href="#3-行动（Action）" class="headerlink" title="3) 行动（Action）"></a>3) 行动（Action）</h3><p>我做了 4 件关键事：</p>
+<ul>
+<li><p><strong>多 Agent 闭环设计</strong><br>设计了 <code>Planner -&gt; Tool Router -&gt; Execution -&gt; Response -&gt; Reflection</code>。<br>Planner 负责拆解任务，Router 按意图选工具，Reflection 负责失败重试和自修正。</p>
+</li>
+<li><p><strong>RAG 与工具体系建设</strong><br>做了 <code>FAISS + Milvus</code> 双路检索和回退；把 SQL&#x2F;API&#x2F;Search 统一成工具执行层。<br>重点解决检索噪声和工具失败问题，保证“有结果可返回”。</p>
+</li>
+<li><p><strong>后端调度与稳定性治理</strong><br>用 FastAPI 提供统一入口，定义标准任务协议；<br>用 Redis 做任务状态管理；<br>加了超时、重试、幂等、降级机制，避免链路某点失败导致整体崩溃。</p>
+</li>
+<li><p><strong>评估与观测闭环</strong><br>建立了离线评估 + 线上监控：看任务完成率、回答有效性、时延、错误类型。<br>每次迭代通过指标驱动优化，而不是凭感觉调 Prompt。</p>
+</li>
+</ul>
+<h3 id="4-结果（Result）"><a href="#4-结果（Result）" class="headerlink" title="4) 结果（Result）"></a>4) 结果（Result）</h3><p>你可以按真实情况替换数字，建议这样说：  </p>
+<ul>
+<li>复杂任务完成率提升（例如提升 20%+）；  </li>
+<li>平均响应时长下降（例如下降 30%）；  </li>
+<li>工具调用失败导致的任务中断显著减少；  </li>
+<li>系统从 PoC 到可上线，支持业务系统稳定接入。</li>
+</ul>
+<h3 id="5-复盘（可加分）"><a href="#5-复盘（可加分）" class="headerlink" title="5) 复盘（可加分）"></a>5) 复盘（可加分）</h3><p>如果重做一次，我会更早引入：  </p>
+<ul>
+<li>标准化评测数据集和自动回归；  </li>
+<li>更细粒度的工具权限和安全策略；  </li>
+<li>多租户隔离与成本治理（Token&#x2F;调用成本）。</li>
+</ul>
+<hr>
+<h2 id="追问清单（高频-标准回答思路）"><a href="#追问清单（高频-标准回答思路）" class="headerlink" title="追问清单（高频 + 标准回答思路）"></a>追问清单（高频 + 标准回答思路）</h2><h3 id="技术架构类"><a href="#技术架构类" class="headerlink" title="技术架构类"></a>技术架构类</h3><ul>
+<li><p><strong>为什么用多 Agent，不用一个大 Prompt？</strong><br>任务有明确阶段，拆分后可控性、可观测性和可维护性更好。</p>
+</li>
+<li><p><strong>为什么要 Reflection Loop？</strong><br>线上最常见失败是外部依赖超时&#x2F;检索失配，反思重试能显著提升成功率。</p>
+</li>
+<li><p><strong>Router 怎么做的？</strong><br>先规则&#x2F;关键词实现稳定路由，再逐步引入意图分类模型做精细化。</p>
+</li>
+</ul>
+<h3 id="RAG-类"><a href="#RAG-类" class="headerlink" title="RAG 类"></a>RAG 类</h3><ul>
+<li><p><strong>如何提升检索质量？</strong><br>分层优化：召回（向量&#x2F;关键词）+ 重排（相关性）+ 上下文压缩（降噪）。</p>
+</li>
+<li><p><strong>FAISS 和 Milvus 怎么选？</strong><br>本地&#x2F;轻量选 FAISS，生产分布式和运维能力选 Milvus，并保留回退能力。</p>
+</li>
+<li><p><strong>如何处理幻觉？</strong><br>强制回答引用检索证据；无证据时输出“不确定”并建议补充查询。</p>
+</li>
+</ul>
+<h3 id="后端稳定性类"><a href="#后端稳定性类" class="headerlink" title="后端稳定性类"></a>后端稳定性类</h3><ul>
+<li><p><strong>任务幂等怎么做？</strong><br>用 <code>task_id</code> 做唯一键，重复请求直接返回已有状态或最新结果。</p>
+</li>
+<li><p><strong>怎么保证高可用？</strong><br>超时、重试、熔断、降级 + 状态持久化 + 监控告警。</p>
+</li>
+<li><p><strong>如何排障？</strong><br>通过 trace_id 贯穿日志，定位是路由、工具、模型还是存储问题。</p>
+</li>
+</ul>
+<h3 id="评估与业务价值类"><a href="#评估与业务价值类" class="headerlink" title="评估与业务价值类"></a>评估与业务价值类</h3><ul>
+<li><p><strong>怎么证明这个系统有价值？</strong><br>用业务指标：人效提升、处理时长下降、任务完成率提升、故障恢复时间缩短。</p>
+</li>
+<li><p><strong>评估体系怎么搭？</strong><br>离线看准确性&#x2F;召回，线上看任务完成率、时延、失败类型与用户反馈。</p>
+</li>
+</ul>
+<hr>
+<h2 id="最后给你一个“万能收尾句”"><a href="#最后给你一个“万能收尾句”" class="headerlink" title="最后给你一个“万能收尾句”"></a>最后给你一个“万能收尾句”</h2><p>这个项目最大的挑战不是把模型接进来，而是把它变成一个<strong>可用、可控、可运营</strong>的系统；我在里面承担的是从架构到落地、从效果到稳定性的闭环责任。</p>
+<hr>
+<p>如果你要，我可以下一条直接给你一版：<br><strong>“按面试官提问方式的模拟问答（10问10答）”</strong>，你照着练一遍就能上场。</p>
+<h3 id="1-你这个项目的核心价值是什么？"><a href="#1-你这个项目的核心价值是什么？" class="headerlink" title="1. 你这个项目的核心价值是什么？"></a>1. 你这个项目的核心价值是什么？</h3><p><strong>答：</strong>核心价值是把“问答”升级成“任务执行”。用户给一个复杂需求后，系统会自动拆解、调用多工具、融合结果并给出可执行输出，而不是只返回一段文本。对业务来说，直接提升处理效率和稳定性。</p>
+<h3 id="2-你为什么要用-Multi-Agent，而不是一个大模型直接回答？"><a href="#2-你为什么要用-Multi-Agent，而不是一个大模型直接回答？" class="headerlink" title="2. 你为什么要用 Multi-Agent，而不是一个大模型直接回答？"></a>2. 你为什么要用 Multi-Agent，而不是一个大模型直接回答？</h3><p><strong>答：</strong>复杂任务天然分阶段：规划、路由、执行、汇总。Multi-Agent 的好处是可控、可观测、易调优。比如路由错了只改 Router，检索不准只优化 RAG，不会牵一发而动全身。</p>
+<h3 id="3-你在这个项目里具体负责什么？"><a href="#3-你在这个项目里具体负责什么？" class="headerlink" title="3. 你在这个项目里具体负责什么？"></a>3. 你在这个项目里具体负责什么？</h3><p><strong>答：</strong>我负责两条线：  </p>
+<ol>
+<li>AI 工程：Agent 流程、RAG 检索、评估机制；  </li>
+<li>后端工程：FastAPI 接口、任务调度、状态管理和稳定性治理。<br>简单说就是从算法能力到上线服务的闭环交付。</li>
+</ol>
+<h3 id="4-说一下你设计的任务流程。"><a href="#4-说一下你设计的任务流程。" class="headerlink" title="4. 说一下你设计的任务流程。"></a>4. 说一下你设计的任务流程。</h3><p><strong>答：</strong>流程是 <code>Planner -&gt; Tool Router -&gt; Execution -&gt; Response -&gt; Reflection</code>。<br>Planner 拆任务，Router 选工具（RAG&#x2F;SQL&#x2F;API&#x2F;Search），Execution 执行工具，Response 结构化输出，Reflection 失败时做自修正和重试，最终保证任务可完成。</p>
+<h3 id="5-RAG-是怎么做的？为什么用-FAISS-Milvus？"><a href="#5-RAG-是怎么做的？为什么用-FAISS-Milvus？" class="headerlink" title="5. RAG 是怎么做的？为什么用 FAISS + Milvus？"></a>5. RAG 是怎么做的？为什么用 FAISS + Milvus？</h3><p><strong>答：</strong>我做的是双路检索。FAISS 适合本地和轻量场景，Milvus 适合生产规模和集中管理。系统支持按配置切换，并在 Milvus 异常时自动回退 FAISS，保证服务可用性。</p>
+<h3 id="6-你怎么处理失败和不稳定问题？"><a href="#6-你怎么处理失败和不稳定问题？" class="headerlink" title="6. 你怎么处理失败和不稳定问题？"></a>6. 你怎么处理失败和不稳定问题？</h3><p><strong>答：</strong>重点做了三层：  </p>
+<ul>
+<li>调用层：超时、重试、异常捕获；  </li>
+<li>流程层：Reflection Loop 自动纠偏重跑；  </li>
+<li>服务层：Redis 状态持久化、接口降级。<br>目标是“部分组件失败不等于整链路失败”。</li>
+</ul>
+<h3 id="7-你怎么衡量系统效果？"><a href="#7-你怎么衡量系统效果？" class="headerlink" title="7. 你怎么衡量系统效果？"></a>7. 你怎么衡量系统效果？</h3><p><strong>答：</strong>我会分离线和线上两类指标：  </p>
+<ul>
+<li>离线：检索命中率、召回、答案质量；  </li>
+<li>线上：任务完成率、平均时延、失败类型、重试成功率。<br>通过这些指标做迭代，而不是只看主观反馈。</li>
+</ul>
+<h3 id="8-你们系统最大的技术挑战是什么？"><a href="#8-你们系统最大的技术挑战是什么？" class="headerlink" title="8. 你们系统最大的技术挑战是什么？"></a>8. 你们系统最大的技术挑战是什么？</h3><p><strong>答：</strong>最大挑战是不确定性治理：模型输出不稳定、外部工具偶发失败、数据质量波动。我做法是把每一步标准化和可观测化，先保障可用性和可恢复，再优化智能效果。</p>
+<h3 id="9-如果让你再做一版，你会优先优化什么？"><a href="#9-如果让你再做一版，你会优先优化什么？" class="headerlink" title="9. 如果让你再做一版，你会优先优化什么？"></a>9. 如果让你再做一版，你会优先优化什么？</h3><p><strong>答：</strong>三点：  </p>
+<ol>
+<li>更完善的自动评测集和回归流程；  </li>
+<li>工具权限和安全策略（Prompt Injection 防护）；  </li>
+<li>并发调度和成本治理（延迟、Token、调用成本平衡）。</li>
+</ol>
+<h3 id="10-这个项目怎么体现你的“生产化能力”？"><a href="#10-这个项目怎么体现你的“生产化能力”？" class="headerlink" title="10. 这个项目怎么体现你的“生产化能力”？"></a>10. 这个项目怎么体现你的“生产化能力”？</h3><p><strong>答：</strong>我不仅做了 Agent 逻辑，还把它做成可运行服务：统一 API、状态管理、重试降级、可监控。面向生产最重要的是稳定交付和持续迭代能力，这部分是我主导落地的。</p>
+<hr>
+<p><code>FAISS + Milvus</code> 双路检索和回退的说明；</p>
+<p>好的，我用大白话重新解释一遍：</p>
+<hr>
+<h2 id="这个架构是什么？"><a href="#这个架构是什么？" class="headerlink" title="这个架构是什么？"></a>这个架构是什么？</h2><p>想象你要在一个<strong>巨型图书馆</strong>里找一本书：</p>
+<table>
+<thead>
+<tr>
+<th>组件</th>
+<th>比喻</th>
+<th>作用</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><strong>FAISS</strong></td>
+<td>超级速算大脑</td>
+<td>算得快，但只管”哪本书最像”，不管书放哪儿</td>
+</tr>
+<tr>
+<td><strong>Milvus</strong></td>
+<td>图书管理员团队</td>
+<td>管书架位置、借书记录、分类标签，还能多人同时服务</td>
+</tr>
+<tr>
+<td><strong>回退机制</strong></td>
+<td>找不到时的备用方案</td>
+<td>如果按索引找不到，就一本本翻（慢但准）</td>
+</tr>
+</tbody></table>
+<hr>
+<h2 id="优点（好处）"><a href="#优点（好处）" class="headerlink" title="优点（好处）"></a>优点（好处）</h2><h3 id="1-又快又稳"><a href="#1-又快又稳" class="headerlink" title="1. 又快又稳"></a>1. <strong>又快又稳</strong></h3><ul>
+<li>FAISS 算得快（尤其是用显卡），Milvus 管得好</li>
+<li>万一索引”漏搜”了，自动切换到<strong>暴力搜索</strong>保证不丢结果</li>
+</ul>
+<h3 id="2-能处理复杂查询"><a href="#2-能处理复杂查询" class="headerlink" title="2. 能处理复杂查询"></a>2. <strong>能处理复杂查询</strong></h3><ul>
+<li>比如：”找<strong>2024年出版</strong>的、<strong>科幻类</strong>的、<strong>内容像《三体》</strong>的书”</li>
+<li>普通方案在这种”又过滤又向量搜索”的场景下容易漏结果，这个架构有专门的<strong>双队列技巧</strong>防止漏掉</li>
+</ul>
+<h3 id="3-企业级靠谱"><a href="#3-企业级靠谱" class="headerlink" title="3. 企业级靠谱"></a>3. <strong>企业级靠谱</strong></h3><ul>
+<li>数据不会丢，机器坏了能恢复，能同时服务很多人</li>
+</ul>
+<hr>
+<h2 id="缺点（坏处）"><a href="#缺点（坏处）" class="headerlink" title="缺点（坏处）"></a>缺点（坏处）</h2><h3 id="1-太重了"><a href="#1-太重了" class="headerlink" title="1. 太重了"></a>1. <strong>太重了</strong></h3><ul>
+<li>就像为了送个快递，动用了一整个物流公司</li>
+<li>小公司或数据不多时，<strong>杀鸡用牛刀</strong></li>
+</ul>
+<h3 id="2-调起来麻烦"><a href="#2-调起来麻烦" class="headerlink" title="2. 调起来麻烦"></a>2. <strong>调起来麻烦</strong></h3><ul>
+<li>两个系统要一起调，参数一大堆</li>
+<li>出了问题，要排查是”算得慢”还是”管得慢”</li>
+</ul>
+<h3 id="3-有时候反而变慢"><a href="#3-有时候反而变慢" class="headerlink" title="3. 有时候反而变慢"></a>3. <strong>有时候反而变慢</strong></h3><ul>
+<li>为了保证不丢结果，宁愿慢一点也不敢快错</li>
+<li>极端情况下（比如要过滤掉95%的数据），只能一本本翻，<strong>快不起来</strong></li>
+</ul>
+<hr>
+<h2 id="一句话总结"><a href="#一句话总结" class="headerlink" title="一句话总结"></a>一句话总结</h2><blockquote>
+<p><strong>数据量大（上亿条）+ 查询复杂（又要过滤又要相似搜索）+ 不能丢结果</strong> → 用这个架构合适<br><strong>数据不多（几百万条）+ 查询简单</strong> → 别折腾，用简单的方案就行</p>
+</blockquote>
+<p>就像买交通工具：<strong>运货多、路况复杂</strong>才需要大货车；<strong>平时通勤</strong>骑单车就够了。</p>
+<p>FAISS 和 Milvus 是把相同的数据存储了两份吗</p>
+<p>好问题！不是存两份数据，而是<strong>分工合作存一份数据</strong>。</p>
+<hr>
+<h2 id="数据到底存哪儿？"><a href="#数据到底存哪儿？" class="headerlink" title="数据到底存哪儿？"></a>数据到底存哪儿？</h2><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">┌─────────────────────────────────────────┐</span><br><span class="line">│           Milvus（管理层）               │</span><br><span class="line">│  ┌─────────────────────────────────┐    │</span><br><span class="line">│  │      原始向量数据（存在磁盘）      │    │</span><br><span class="line">│  │    （比如：1000万条512维向量）     │    │</span><br><span class="line">│  └─────────────────────────────────┘    │</span><br><span class="line">│              ↓ 加载到内存                │</span><br><span class="line">│  ┌─────────────────────────────────┐    │</span><br><span class="line">│  │   FAISS索引（HNSW/IVF等结构）    │    │</span><br><span class="line">│  │   （只存&quot;怎么快速找&quot;，不存原始数据）  │    │</span><br><span class="line">│  └─────────────────────────────────┘    │</span><br><span class="line">└─────────────────────────────────────────┘</span><br></pre></td></tr></table></figure>
+
+<hr>
+<h2 id="打个比方：图书馆-again"><a href="#打个比方：图书馆-again" class="headerlink" title="打个比方：图书馆 again"></a>打个比方：图书馆 again</h2><table>
+<thead>
+<tr>
+<th>东西</th>
+<th>存在哪儿</th>
+<th>类比</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><strong>原始向量</strong></td>
+<td>Milvus 的磁盘&#x2F;对象存储</td>
+<td>书库里的<strong>实体书</strong></td>
+</tr>
+<tr>
+<td><strong>FAISS索引</strong></td>
+<td>内存中的加速结构</td>
+<td>书库门口的<strong>检索卡片</strong>（只记位置和关键词）</td>
+</tr>
+</tbody></table>
+<p><strong>索引不是数据的副本</strong>，而是**数据的”地图”**：</p>
+<ul>
+<li>地图告诉你”第3排第5列可能有你要的书”</li>
+<li>但地图本身不是书，找到位置后还得回去拿书</li>
+</ul>
+<hr>
+<h2 id="所以空间怎么算？"><a href="#所以空间怎么算？" class="headerlink" title="所以空间怎么算？"></a>所以空间怎么算？</h2><table>
+<thead>
+<tr>
+<th>组件</th>
+<th>占用空间</th>
+<th>说明</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>原始向量</td>
+<td>大（主要开销）</td>
+<td>必须存，查询结果要返回</td>
+</tr>
+<tr>
+<td>FAISS索引</td>
+<td>额外10%~100%</td>
+<td>HNSW索引通常占向量大小的50%-100%</td>
+</tr>
+<tr>
+<td>元数据</td>
+<td>小</td>
+<td>标签、ID、时间等</td>
+</tr>
+</tbody></table>
+<p><strong>总空间 ≈ 原始数据 + 索引开销</strong>，不是简单的×2</p>
+<hr>
+<h2 id="一个细节：Milvus-的”分层存储”"><a href="#一个细节：Milvus-的”分层存储”" class="headerlink" title="一个细节：Milvus 的”分层存储”"></a>一个细节：Milvus 的”分层存储”</h2><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">热数据（常用）→ 内存 + FAISS索引</span><br><span class="line">    ↓</span><br><span class="line">温数据（偶尔用）→ 本地磁盘</span><br><span class="line">    ↓</span><br><span class="line">冷数据（备份）→ 对象存储（S3/MinIO）</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>查询时：FAISS 在内存里快速定位 → Milvus 去磁盘&#x2F;对象存储取原始向量</li>
+<li>原始向量<strong>只有一份</strong>，只是根据访问频率放在不同速度的介质上</li>
+</ul>
+<hr>
+<h2 id="一句话总结-1"><a href="#一句话总结-1" class="headerlink" title="一句话总结"></a>一句话总结</h2><blockquote>
+<p><strong>原始数据只存一份在 Milvus，FAISS 只存”怎么找”的索引结构</strong>。<br>就像图书馆的<strong>书只买一套</strong>，但<strong>检索卡片可以做多套</strong>（作者索引、分类索引、关键词索引…），方便从不同角度快速查找。</p>
+</blockquote>
+<p>好，用大白话解释 <strong>暴力搜索</strong>：</p>
+<hr>
+<h2 id="暴力搜索-笨办法，但最准"><a href="#暴力搜索-笨办法，但最准" class="headerlink" title="暴力搜索 &#x3D; 笨办法，但最准"></a>暴力搜索 &#x3D; 笨办法，但最准</h2><p>想象你在一个<strong>巨大的停车场</strong>找一辆<strong>红色的特斯拉</strong>：</p>
+<table>
+<thead>
+<tr>
+<th>搜索方式</th>
+<th>怎么做</th>
+<th>特点</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><strong>索引搜索（聪明办法）</strong></td>
+<td>先看”红色车区地图”，直奔C区</td>
+<td>快，但可能漏掉（地图没更新）</td>
+</tr>
+<tr>
+<td><strong>暴力搜索（笨办法）</strong></td>
+<td>一辆一辆看，直到找到为止</td>
+<td>慢，但<strong>绝对不会漏</strong></td>
+</tr>
+</tbody></table>
+<hr>
+<h2 id="在向量搜索里"><a href="#在向量搜索里" class="headerlink" title="在向量搜索里"></a>在向量搜索里</h2><p><strong>暴力搜索</strong>就是：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">有 100万条向量，找最相似的 Top 10</span><br><span class="line"></span><br><span class="line">暴力搜索做法：</span><br><span class="line">  拿查询向量，跟这100万条一一计算相似度</span><br><span class="line">  算完100万次，排序，取前10</span><br><span class="line">  </span><br><span class="line">时间复杂度：O(N) — 数据量越大，越慢</span><br></pre></td></tr></table></figure>
+
+<p><strong>对比索引搜索（如HNSW）：</strong></p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">只探索&quot;可能相关&quot;的一小部分（比如1000条）</span><br><span class="line">时间复杂度：O(log N) — 数据量大也不怕</span><br></pre></td></tr></table></figure>
+
+<hr>
+<h2 id="为什么还需要暴力搜索？"><a href="#为什么还需要暴力搜索？" class="headerlink" title="为什么还需要暴力搜索？"></a>为什么还需要暴力搜索？</h2><p>虽然慢，但有两个<strong>救命场景</strong>：</p>
+<table>
+<thead>
+<tr>
+<th>场景</th>
+<th>为什么用暴力搜索</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><strong>过滤太狠</strong></td>
+<td>比如”找红色特斯拉，且车牌尾号是88”——符合条件的只剩100辆，直接暴力搜比翻索引还快</td>
+</tr>
+<tr>
+<td><strong>索引失效</strong></td>
+<td>高维数据、特殊分布导致索引”瞎指路”，不如不用</td>
+</tr>
+<tr>
+<td><strong>验证结果</strong></td>
+<td>怀疑索引漏了，用暴力搜对比，确保100%召回</td>
+</tr>
+</tbody></table>
+<hr>
+<h2 id="一句话"><a href="#一句话" class="headerlink" title="一句话"></a>一句话</h2><blockquote>
+<p><strong>暴力搜索 &#x3D; 穷举法</strong>，慢但准，是<strong>最后的保底手段</strong>。<br>平时用索引偷懒，关键时刻（数据太少或要求太严）就老老实实全算一遍。</p>
+</blockquote>
+
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="http://example.com/2026/04/13/%E4%BC%81%E4%B8%9A%E7%9F%A5%E8%AF%86%E6%99%BA%E8%83%BD%E9%97%AE%E7%AD%94%E5%B9%B3%E5%8F%B0/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="wangzhiwei">
+      <meta itemprop="description" content="javascript nodejs web developer...">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="WBlog">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/2026/04/13/%E4%BC%81%E4%B8%9A%E7%9F%A5%E8%AF%86%E6%99%BA%E8%83%BD%E9%97%AE%E7%AD%94%E5%B9%B3%E5%8F%B0/" class="post-title-link" itemprop="url">企业知识智能问答平台</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+              
+
+              <time title="创建时间：2026-04-13 17:13:52 / 修改时间：17:14:23" itemprop="dateCreated datePublished" datetime="2026-04-13T17:13:52+08:00">2026-04-13</time>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <p>可以这样准备：<strong>一套 2 分钟项目介绍 + 一套“可落地的数据规模口径” + 高频追问题库</strong>。面试官最看重的是“你是否真的做过、做到了什么、遇到什么坑、如何权衡”。</p>
+<h2 id="1-2-分钟自我介绍模板（可直接背）"><a href="#1-2-分钟自我介绍模板（可直接背）" class="headerlink" title="1) 2 分钟自我介绍模板（可直接背）"></a>1) 2 分钟自我介绍模板（可直接背）</h2><p>“我做的是企业知识智能问答平台，核心是 RAG。<br>技术上用 Python + FastAPI 搭服务，LangChain 编排链路，文档侧支持 PDF&#x2F;Word&#x2F;Markdown 的解析和分块；检索侧做了向量检索（FAISS）和关键词检索两路召回，再用 RRF 融合，最后加 Cross-Encoder rerank 提升相关性。<br>模型接入上支持 OpenAI 兼容接口，也能走本地 Ollama。<br>为了降低幻觉，我做了 self-reflection：先让模型回答，再让评审提示词打分，低置信度自动重写重试。<br>这个项目的价值是把企业内部分散文档变成可问可答系统，回答可追溯到来源片段，且在召回质量和答案稳定性上有持续优化空间。”</p>
+<hr>
+<h2 id="2-数据规模怎么说（重点：真实、区间化、可解释）"><a href="#2-数据规模怎么说（重点：真实、区间化、可解释）" class="headerlink" title="2) 数据规模怎么说（重点：真实、区间化、可解释）"></a>2) 数据规模怎么说（重点：真实、区间化、可解释）</h2><p>你可以用“<strong>当前落地规模 + 预留扩展规模</strong>”说法，避免拍脑袋。</p>
+<h3 id="推荐口径（示例）"><a href="#推荐口径（示例）" class="headerlink" title="推荐口径（示例）"></a>推荐口径（示例）</h3><ul>
+<li>文档规模：<code>300~1000</code> 份（PDF&#x2F;Word&#x2F;Markdown 混合）</li>
+<li>原始文本量：<code>几十万到几百万</code> 中文字符</li>
+<li>分块后 chunk：<code>5k~30k</code>（取决于 chunk_size&#x2F;overlap）</li>
+<li>向量维度：与 embedding 模型一致（例如 768 &#x2F; 1024 &#x2F; 1536，按你实际模型说）</li>
+<li>检索延迟：<ul>
+<li>召回（向量+关键词）通常 <code>几十毫秒~几百毫秒</code></li>
+<li>若开 rerank 和反思，端到端可能 <code>1~5s</code>（本地模型更慢）</li>
+</ul>
+</li>
+</ul>
+<h3 id="如果怕被追问“你怎么估的？”"><a href="#如果怕被追问“你怎么估的？”" class="headerlink" title="如果怕被追问“你怎么估的？”"></a>如果怕被追问“你怎么估的？”</h3><p>你就说：</p>
+<ul>
+<li>“按平均每份文档 N 页、每页 N 字、chunk_size&#x3D;500 overlap&#x3D;80 估算 chunk 数；上线后用 ingest 统计值校准。”</li>
+</ul>
+<hr>
+<h2 id="3-成果表达（量化模板）"><a href="#3-成果表达（量化模板）" class="headerlink" title="3) 成果表达（量化模板）"></a>3) 成果表达（量化模板）</h2><p>你可以用这种结构回答：</p>
+<ul>
+<li>“回答相关性主观评测明显提升，特别是专业术语问题。”</li>
+<li>“开启多路召回+rerank 后，Top-1 命中率相对纯向量检索有提升（可说 10%~20% 量级，前提是你确实测过）。 ”</li>
+<li>“self-reflection 对长问句和边界问题稳定性有帮助，减少明显幻觉。”</li>
+</ul>
+<blockquote>
+<p>建议：如果没有严谨离线评测，别报特别具体小数点，给区间+评测方法更可信。</p>
+</blockquote>
+<hr>
+<h2 id="4-面试高频追问（及答题思路）"><a href="#4-面试高频追问（及答题思路）" class="headerlink" title="4) 面试高频追问（及答题思路）"></a>4) 面试高频追问（及答题思路）</h2><h3 id="Q1-为什么要“向量-关键词”两路召回？"><a href="#Q1-为什么要“向量-关键词”两路召回？" class="headerlink" title="Q1: 为什么要“向量 + 关键词”两路召回？"></a>Q1: 为什么要“向量 + 关键词”两路召回？</h3><ul>
+<li>语义检索擅长“同义表达”，关键词擅长“精确术语&#x2F;编号&#x2F;制度条款”。</li>
+<li>两路互补，RRF 融合能提升召回覆盖率。</li>
+</ul>
+<h3 id="Q2-为什么还要-rerank？"><a href="#Q2-为什么还要-rerank？" class="headerlink" title="Q2: 为什么还要 rerank？"></a>Q2: 为什么还要 rerank？</h3><ul>
+<li>召回阶段追求“召回全”，会带来噪音；</li>
+<li>rerank 做精排，把最相关片段顶上来，减少无关上下文污染生成。</li>
+</ul>
+<h3 id="Q3-self-reflection-的收益和代价？"><a href="#Q3-self-reflection-的收益和代价？" class="headerlink" title="Q3: self-reflection 的收益和代价？"></a>Q3: self-reflection 的收益和代价？</h3><ul>
+<li>收益：低置信度答案可自动修正，降低“看起来很自信但错”的风险；</li>
+<li>代价：多一次或多次 LLM 调用，时延和成本增加；</li>
+<li>策略：仅在低分触发，控制重试次数。</li>
+</ul>
+<h3 id="Q4-你怎么控制幻觉？"><a href="#Q4-你怎么控制幻觉？" class="headerlink" title="Q4: 你怎么控制幻觉？"></a>Q4: 你怎么控制幻觉？</h3><ul>
+<li>严格提示词“只基于上下文回答”；</li>
+<li>上下文不足时明确说“无法确定”；</li>
+<li>返回 sources，做到可追溯；</li>
+<li>反思机制兜底。</li>
+</ul>
+<h3 id="Q5-为什么用-FAISS，不直接上-Milvus-ES？"><a href="#Q5-为什么用-FAISS，不直接上-Milvus-ES？" class="headerlink" title="Q5: 为什么用 FAISS，不直接上 Milvus&#x2F;ES？"></a>Q5: 为什么用 FAISS，不直接上 Milvus&#x2F;ES？</h3><ul>
+<li>本地&#x2F;中小规模 MVP，FAISS 部署轻、迭代快；</li>
+<li>规模上来后可平滑迁移 Milvus（向量）+ ES（关键词），架构已解耦。</li>
+</ul>
+<h3 id="Q6-Elasticsearch-在你项目里怎么接？"><a href="#Q6-Elasticsearch-在你项目里怎么接？" class="headerlink" title="Q6: Elasticsearch 在你项目里怎么接？"></a>Q6: Elasticsearch 在你项目里怎么接？</h3><ul>
+<li>关键词路抽象成接口，当前用 BM25 本地实现；</li>
+<li>上 ES 后只替换 keyword retriever，不影响后面的融合、rerank、生成链路。</li>
+</ul>
+<h3 id="Q7-线上最常见问题？"><a href="#Q7-线上最常见问题？" class="headerlink" title="Q7: 线上最常见问题？"></a>Q7: 线上最常见问题？</h3><ul>
+<li>首次模型下载慢（embedding&#x2F;rerank）；</li>
+<li>CPU 模式时延高；</li>
+<li>文档解析质量参差（尤其扫描 PDF）；</li>
+<li>解决：缓存模型、异步预热、OCR、离线评测和监控。</li>
+</ul>
+<hr>
+<h2 id="5-你可以这样“显得很懂工程”"><a href="#5-你可以这样“显得很懂工程”" class="headerlink" title="5) 你可以这样“显得很懂工程”"></a>5) 你可以这样“显得很懂工程”</h2><p>面试时主动补一句：</p>
+<ul>
+<li>“我做了可观测性：在 query 的关键阶段打日志（检索、重排、LLM、反思），便于定位是召回慢还是模型慢。”</li>
+<li>“把 CPU 密集任务放线程池，避免阻塞事件循环导致接口假死。”</li>
+<li>“Embedding 模型切换后会重建索引，避免维度不一致问题。”</li>
+</ul>
+<hr>
+<h2 id="6-一套“面试可复述”的项目亮点（30秒）"><a href="#6-一套“面试可复述”的项目亮点（30秒）" class="headerlink" title="6) 一套“面试可复述”的项目亮点（30秒）"></a>6) 一套“面试可复述”的项目亮点（30秒）</h2><p>“这个项目不是只搭了个 demo，而是做了企业可用的关键点：多源文档入库、混合检索、重排、自反思、可追溯来源，以及性能&#x2F;可观测性的工程优化。它能在回答质量和稳定性之间做可配置权衡。”</p>
+<hr>
+<p>如果你愿意，我下一步可以给你一份<strong>“按你的实际项目代码定制的面试问答稿（含10个问题+标准答案）”</strong>，你直接背就行。</p>
+
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
     <link itemprop="mainEntityOfPage" href="http://example.com/2026/04/13/%E9%87%91%E8%9E%8D%E6%95%B0%E6%8D%AE%E6%99%BA%E8%83%BD%E5%88%86%E6%9E%90%E5%B9%B3%E5%8F%B0/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -2671,182 +3287,10 @@
   
   
 
-      
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="http://example.com/2025/12/08/dify-X-App-Passport-%E4%B8%AD-end-user-id-%E6%89%93%E9%80%9A%E5%A4%A7%E6%A8%A1%E5%9E%8B%E8%AE%BF%E9%97%AE%E9%93%BE%E8%B7%AF/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.gif">
-      <meta itemprop="name" content="wangzhiwei">
-      <meta itemprop="description" content="javascript nodejs web developer...">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="WBlog">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/2025/12/08/dify-X-App-Passport-%E4%B8%AD-end-user-id-%E6%89%93%E9%80%9A%E5%A4%A7%E6%A8%A1%E5%9E%8B%E8%AE%BF%E9%97%AE%E9%93%BE%E8%B7%AF/" class="post-title-link" itemprop="url">dify X-App-Passport 中 end_user_id 打通大模型访问链路</a>
-        </h2>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              <span class="post-meta-item-text">发表于</span>
-              
-
-              <time title="创建时间：2025-12-08 11:43:19 / 修改时间：11:50:29" itemprop="dateCreated datePublished" datetime="2025-12-08T11:43:19+08:00">2025-12-08</time>
-            </span>
-
-          
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <h2 id="dify-X-App-Passport-中-end-user-id-打通大模型访问链路"><a href="#dify-X-App-Passport-中-end-user-id-打通大模型访问链路" class="headerlink" title="dify X-App-Passport 中 end_user_id 打通大模型访问链路"></a>dify X-App-Passport 中 end_user_id 打通大模型访问链路</h2><p>前端解密用到了 jose ，需要对X-App-Passport ，进行解密，解密需要在 https环境下，否则揭秘方法会报错。</p>
-<p>dify应用，调用dify 自己的 chat 接口，会传递 X-App-Passport ，</p>
-<p><img src="/../images/dify01.jpeg"></p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">useEffect(() =&gt; &#123;</span><br><span class="line">    if (iframeLoaded) &#123;</span><br><span class="line">      setTimeout(async() =&gt; &#123;        </span><br><span class="line">        const passport = localStorage.getItem(&#x27;passport-&#x27; + chatId) || &#x27;&#x27;;</span><br><span class="line">        console.log(passport);</span><br><span class="line"></span><br><span class="line">        if (passport) &#123;</span><br><span class="line">          const secret = new TextEncoder().encode(&#x27;sk-xxxxxxxxxxx&#x27;);</span><br><span class="line">          // 验签</span><br><span class="line">          try &#123;</span><br><span class="line">            const &#123; payload &#125; = await jose.jwtVerify(passport, secret, &#123;</span><br><span class="line">              algorithms: [&#x27;HS256&#x27;],</span><br><span class="line">            &#125;);</span><br><span class="line">            // console.log(payload);</span><br><span class="line">            // alert(JSON.stringify(payload));</span><br><span class="line"></span><br><span class="line">            const userStr = localStorage.getItem(&#x27;user&#x27;);</span><br><span class="line">            const user = userStr ? JSON.parse(userStr) : &#123;&#125;;</span><br><span class="line"></span><br><span class="line">            setEndUserId(user.user_uuid as string, payload.end_user_id as string)</span><br><span class="line">            .then((res) =&gt; &#123;</span><br><span class="line">              console.log(&#x27;set end user id success&#x27;, res);</span><br><span class="line">            &#125;)</span><br><span class="line">            .catch((err) =&gt; &#123;</span><br><span class="line">              console.error(&#x27;set end user id failed&#x27;, err);</span><br><span class="line">            &#125;);</span><br><span class="line"></span><br><span class="line">          &#125; catch (e) &#123;</span><br><span class="line">            console.error(&#x27;invalid&#x27;, e);</span><br><span class="line">          &#125;</span><br><span class="line"></span><br><span class="line">        &#125;</span><br><span class="line">        </span><br><span class="line">      &#125;, 1000)</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;, [iframeLoaded]);</span><br><span class="line"></span><br></pre></td></tr></table></figure>
-
-
-<p>X-App-Passport 解析后含有以下内容</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">&#123;</span><br><span class="line">    iss: &#x27;d1b66a51-b4ef-45ef-b3bf-7b5813c86261&#x27;, </span><br><span class="line">    sub: &#x27;Web API Passport&#x27;, </span><br><span class="line">    app_id: &#x27;d1b66a51-b4ef-45ef-b3bf-7b5813c86261&#x27;, </span><br><span class="line">    app_code: &#x27;j0xH9mK60ZS5mI70&#x27;, </span><br><span class="line">    end_user_id: &#x27;239b5e72-7cfd-4a25-930d-de68a3f41764&#x27;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<p>重点关注end_user_id，dify会将其发送给大模型的请求体中。抓包可以看到如下信息</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">POST /v1/chat/completions HTTP/1.1</span><br><span class="line">Host: 192.168.0.209:8080</span><br><span class="line">User-Agent: python-requests/2.32.5</span><br><span class="line">Accept-Encoding: gzip, deflate</span><br><span class="line">Accept: */*</span><br><span class="line">Connection: keep-alive</span><br><span class="line">Content-Type: application/json</span><br><span class="line">Accept-Charset: utf-8</span><br><span class="line">Authorization: Bearer vllm</span><br><span class="line">Content-Length: 227</span><br><span class="line"></span><br><span class="line">&#123;&quot;model&quot;: &quot;Qwen3-14B&quot;, &quot;stream&quot;: true, &quot;temperature&quot;: 0.7, &quot;messages&quot;: [&#123;&quot;role&quot;: &quot;user&quot;, &quot;content&quot;: &quot;85f7cfff-90fe-4248-b41a-f60c56d8efb3&quot;&#125;, &#123;&quot;role&quot;: &quot;user&quot;, &quot;content&quot;: &quot;a\n\n&quot;&#125;], &quot;user&quot;: &quot;85f7cfff-90fe-4248-b41a-f60c56d8efb3&quot;&#125;</span><br></pre></td></tr></table></figure>
-
-
-<p>X-App-Passport 内容格式如下，我们可以通过拆分下面的字符串，获取中间部分</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJkMWI2NmE1MS1iNGVmLTQ1ZWYtYjNiZi03YjU4MTNjODYyNjEiLCJzdWIiOiJXZWIgQVBJIFBhc3Nwb3J0IiwiYXBwX2lkIjoiZDFiNjZhNTEtYjRlZi00NWVmLWIzYmYtN2I1ODEzYzg2MjYxIiwiYXBwX2NvZGUiOiJqMHhIOW1LNjBaUzVtSTcwIiwiZW5kX3VzZXJfaWQiOiIyMzliNWU3Mi03Y2ZkLTRhMjUtOTMwZC1kZTY4YTNmNDE3NjQifQ.eb0j1nJaPXvB5ZFLLlopQu-PwkvAHSvWlqnaaG2d6ms</span><br></pre></td></tr></table></figure>
-
-
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line">// 1. 把 URL-safe 字符 (- _) 换回标准 (+ /)</span><br><span class="line">const urlSafe = &#x27;eyJpc3MiOiJkMWI2NmE1MS1iNGVmLTQ1ZWYtYjNiZi03YjU4MTNjODYyNjEiLCJzdWIiOiJXZWIgQVBJIFBhc3Nwb3J0IiwiYXBwX2lkIjoiZDFiNjZhNTEtYjRlZi00NWVmLWIzYmYtN2I1ODEzYzg2MjYxIiwiYXBwX2NvZGUiOiJqMHhIOW1LNjBaUzVtSTcwIiwiZW5kX3VzZXJfaWQiOiIyMzliNWU3Mi03Y2ZkLTRhMjUtOTMwZC1kZTY4YTNmNDE3NjQifQ&#x27;;</span><br><span class="line">const standard = urlSafe.replace(/-/g, &#x27;+&#x27;).replace(/_/g, &#x27;/&#x27;);</span><br><span class="line"></span><br><span class="line">// 2. 解码</span><br><span class="line">const jsonStr = decodeURIComponent(</span><br><span class="line">  Array.prototype.map.call(</span><br><span class="line">    atob(standard),</span><br><span class="line">    c =&gt; &#x27;%&#x27; + (&#x27;00&#x27; + c.charCodeAt(0).toString(16)).slice(-2)</span><br><span class="line">  ).join(&#x27;&#x27;)</span><br><span class="line">);</span><br><span class="line"></span><br><span class="line">console.log(jsonStr);</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">&#123;</span><br><span class="line">  &quot;iss&quot;: &quot;d1b66a51-b4ef-45ef-b3bf-7b5813c86261&quot;,</span><br><span class="line">  &quot;sub&quot;: &quot;Web API Passport&quot;,</span><br><span class="line">  &quot;app_id&quot;: &quot;d1b66a51-b4ef-45ef-b3bf-7b5813c86261&quot;,</span><br><span class="line">  &quot;app_code&quot;: &quot;j0xH9mK60ZS5mI70&quot;,</span><br><span class="line">  &quot;end_user_id&quot;: &quot;239b5e72-7cfd-4a25-930d-de68a3f41764&quot;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-
-<p>拓展对字符进行base64加密</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line">// 加密：普通字符串 → Base64</span><br><span class="line">function base64Encode(str) &#123;</span><br><span class="line">  return btoa(</span><br><span class="line">    encodeURIComponent(str)</span><br><span class="line">      .replace(/%([0-9A-F]&#123;2&#125;)/g, (_, p1) =&gt;</span><br><span class="line">        String.fromCharCode(&#x27;0x&#x27; + p1)</span><br><span class="line">      )</span><br><span class="line">  );</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">/* ---- 用例 ---- */</span><br><span class="line">const json = JSON.stringify(&#123;</span><br><span class="line">  iss: &quot;d1b66a51-b4ef-45ef-b3bf-7b5813c86261&quot;,</span><br><span class="line">  sub: &quot;Web API Passport&quot;,</span><br><span class="line">  app_id: &quot;d1b66a51-b4ef-45ef-b3bf-7b5813c86261&quot;,</span><br><span class="line">  app_code: &quot;j0xH9mK60ZS5mI70&quot;,</span><br><span class="line">  end_user_id: &quot;239b5e72-7cfd-4a25-930d-de68a3f41764&quot;</span><br><span class="line">&#125;);</span><br><span class="line"></span><br><span class="line">console.log(base64Encode(json));</span><br><span class="line">// 输出：</span><br><span class="line">// eyJpc3MiOiJkMWI2NmE1MS1iNGVmLTQ1ZWYtYjNiZi03YjU4MTNjODYyNjEiLCJzdWIiOiJXZWIgQVBJIFBhc3Nwb3J0IiwiYXBwX2lkIjoiZDFiNjZhNTEtYjRlZi00NWVmLWIzYmYtN2I1ODEzYzg2MjYxIiwiYXBwX2NvZGUiOiJqMHhIOW1LNjBaUzVtSTcwIiwiZW5kX3VzZXJfaWQiOiIyMzliNWU3Mi03Y2ZkLTRhMjUtOTMwZC1kZTY4YTNmNDE3NjQifQ</span><br><span class="line"></span><br></pre></td></tr></table></figure>
-
-
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
-      
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="http://example.com/2025/11/25/nodejs-mcp-study/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.gif">
-      <meta itemprop="name" content="wangzhiwei">
-      <meta itemprop="description" content="javascript nodejs web developer...">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="WBlog">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/2025/11/25/nodejs-mcp-study/" class="post-title-link" itemprop="url">nodejs mcp study</a>
-        </h2>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              <span class="post-meta-item-text">发表于</span>
-              
-
-              <time title="创建时间：2025-11-25 17:54:01 / 修改时间：18:06:24" itemprop="dateCreated datePublished" datetime="2025-11-25T17:54:01+08:00">2025-11-25</time>
-            </span>
-
-          
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <h2 id="nodejs-mcp"><a href="#nodejs-mcp" class="headerlink" title="nodejs mcp"></a>nodejs mcp</h2><p>package.json</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line">&#123;</span><br><span class="line">  &quot;name&quot;: &quot;nodejs-mcp-server&quot;,</span><br><span class="line">  &quot;version&quot;: &quot;1.0.0&quot;,</span><br><span class="line">  &quot;main&quot;: &quot;server.js&quot;,</span><br><span class="line">  &quot;scripts&quot;: &#123;</span><br><span class="line">    &quot;test&quot;: &quot;echo \&quot;Error: no test specified\&quot; &amp;&amp; exit 1&quot;,</span><br><span class="line">    &quot;start&quot;: &quot;node server.js&quot;</span><br><span class="line">  &#125;,</span><br><span class="line">  &quot;keywords&quot;: [],</span><br><span class="line">  &quot;author&quot;: &quot;&quot;,</span><br><span class="line">  &quot;license&quot;: &quot;ISC&quot;,</span><br><span class="line">  &quot;description&quot;: &quot;&quot;,</span><br><span class="line">  &quot;dependencies&quot;: &#123;</span><br><span class="line">    &quot;@modelcontextprotocol/sdk&quot;: &quot;^1.22.0&quot;,</span><br><span class="line">    &quot;express&quot;: &quot;^5.1.0&quot;,</span><br><span class="line">    &quot;zod&quot;: &quot;^3.24.1&quot;</span><br><span class="line">  &#125;,</span><br><span class="line">  &quot;type&quot;: &quot;module&quot;</span><br><span class="line">&#125;</span><br><span class="line"></span><br></pre></td></tr></table></figure>
-
-<p>以文件的形式提供mcp服务<br>server.js</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br></pre></td><td class="code"><pre><span class="line">import &#123; McpServer, ResourceTemplate &#125; from &#x27;@modelcontextprotocol/sdk/server/mcp.js&#x27;;</span><br><span class="line">import &#123; StdioServerTransport &#125; from &#x27;@modelcontextprotocol/sdk/server/stdio.js&#x27;;</span><br><span class="line">import * as z from &#x27;zod&#x27;;</span><br><span class="line"></span><br><span class="line">const server = new McpServer(&#123;</span><br><span class="line">    name: &#x27;demo-server&#x27;,</span><br><span class="line">    version: &#x27;1.0.0&#x27;</span><br><span class="line">&#125;);</span><br><span class="line"></span><br><span class="line">// 工具1：笑话（修复版）</span><br><span class="line">server.registerTool(</span><br><span class="line">    &#x27;tell_weird_joke&#x27;,</span><br><span class="line">    &#123;</span><br><span class="line">        title: &#x27;Tell Weird Joke&#x27;,</span><br><span class="line">        description: &#x27;Generate a weird joke about a specified topic&#x27;,</span><br><span class="line">        inputSchema: z.object(&#123;  // 修复：必须使用 z.object()</span><br><span class="line">            topic: z.string().describe(&#x27;The topic of the joke&#x27;)</span><br><span class="line">        &#125;)</span><br><span class="line">    &#125;,</span><br><span class="line">    async (&#123; topic &#125;) =&gt; &#123;</span><br><span class="line">        return &#123;</span><br><span class="line">            content: [&#123; type: &#x27;text&#x27;, text: `The weirdest joke about $&#123;topic&#125; is... hahaha!` &#125;],</span><br><span class="line">        &#125;;</span><br><span class="line">    &#125;</span><br><span class="line">);</span><br><span class="line"></span><br><span class="line">// 工具2：加法（修复版）</span><br><span class="line">server.registerTool(</span><br><span class="line">    &#x27;add&#x27;,</span><br><span class="line">    &#123;</span><br><span class="line">        title: &#x27;Addition Tool&#x27;,</span><br><span class="line">        description: &#x27;Add two numbers&#x27;,</span><br><span class="line">        inputSchema: z.object(&#123;  // 修复：必须使用 z.object()</span><br><span class="line">            a: z.number(),</span><br><span class="line">            b: z.number()</span><br><span class="line">        &#125;)</span><br><span class="line">    &#125;,</span><br><span class="line">    async (&#123; a, b &#125;) =&gt; &#123;</span><br><span class="line">        return &#123;</span><br><span class="line">            content: [&#123; type: &#x27;text&#x27;, text: `Result: $&#123;a + b&#125;` &#125;],</span><br><span class="line">        &#125;;</span><br><span class="line">    &#125;</span><br><span class="line">);</span><br><span class="line"></span><br><span class="line">// 资源：问候</span><br><span class="line">server.registerResource(</span><br><span class="line">    &#x27;greeting&#x27;,</span><br><span class="line">    new ResourceTemplate(&#x27;greeting://&#123;name&#125;&#x27;, &#123; list: undefined &#125;),</span><br><span class="line">    &#123; title: &#x27;Greeting Resource&#x27;, description: &#x27;Dynamic greeting generator&#x27; &#125;,</span><br><span class="line">    async (uri, &#123; name &#125;) =&gt; (&#123;</span><br><span class="line">        contents: [&#123; uri: uri.href, text: `Hello, $&#123;name&#125;!` &#125;]</span><br><span class="line">    &#125;)</span><br><span class="line">);</span><br><span class="line"></span><br><span class="line">// 启动</span><br><span class="line">async function main() &#123;</span><br><span class="line">    const transport = new StdioServerTransport();</span><br><span class="line">    await server.connect(transport);</span><br><span class="line">    console.error(&#x27;✅ MCP 服务器已启动&#x27;);</span><br><span class="line">&#125;</span><br><span class="line">main().catch(console.error);</span><br><span class="line"></span><br></pre></td></tr></table></figure>
-
-
-
-<h2 id="运行"><a href="#运行" class="headerlink" title="运行"></a>运行</h2><p>npx @modelcontextprotocol&#x2F;inspector nodejs server.js</p>
-<p><img src="/../images/mcp001.png"></p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">&quot;tell_weird_joke&quot;: &#123;</span><br><span class="line">      &quot;isActive&quot;: true,</span><br><span class="line">      &quot;name&quot;: &quot;tell_weird_joke&quot;,</span><br><span class="line">      &quot;type&quot;: &quot;stdio&quot;,</span><br><span class="line">      &quot;command&quot;: &quot;node&quot;,</span><br><span class="line">      &quot;args&quot;: [</span><br><span class="line">        &quot;/Users/wangzhiwei/work/ai-getway-study/nodejs-mcp-server/server.js&quot;</span><br><span class="line">      ],</span><br><span class="line">      &quot;installSource&quot;: &quot;unknown&quot;</span><br><span class="line">    &#125;,</span><br></pre></td></tr></table></figure>
-
-
-<p>以http端点的形式提供 mcp 服务<br>server2.js </p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br><span class="line">100</span><br><span class="line">101</span><br></pre></td><td class="code"><pre><span class="line">import &#123; McpServer, ResourceTemplate &#125; from &#x27;@modelcontextprotocol/sdk/server/mcp.js&#x27;;</span><br><span class="line">import &#123; StreamableHTTPServerTransport &#125; from &#x27;@modelcontextprotocol/sdk/server/streamableHttp.js&#x27;;</span><br><span class="line">import express from &#x27;express&#x27;;</span><br><span class="line">import * as z from &#x27;zod&#x27;;</span><br><span class="line"></span><br><span class="line">// 1. 创建 MCP 服务器（保持不变）</span><br><span class="line">const server = new McpServer(&#123;</span><br><span class="line">    name: &#x27;demo-server&#x27;,</span><br><span class="line">    version: &#x27;1.0.0&#x27;</span><br><span class="line">&#125;);</span><br><span class="line"></span><br><span class="line">// 2. 注册所有工具和资源（保持不变）</span><br><span class="line">server.registerTool(</span><br><span class="line">    &#x27;tell_weird_joke&#x27;,</span><br><span class="line">    &#123;</span><br><span class="line">        title: &#x27;Tell Weird Joke&#x27;,</span><br><span class="line">        description: &#x27;Generate a weird joke about a specified topic&#x27;,</span><br><span class="line">        inputSchema: z.object(&#123;</span><br><span class="line">            topic: z.string().describe(&#x27;The topic of the joke&#x27;)</span><br><span class="line">        &#125;)</span><br><span class="line">    &#125;,</span><br><span class="line">    async (&#123; topic &#125;) =&gt; &#123;</span><br><span class="line">        return &#123;</span><br><span class="line">            content: [&#123; type: &#x27;text&#x27;, text: `The weirdest joke about $&#123;topic&#125; is... hahaha!` &#125;],</span><br><span class="line">        &#125;;</span><br><span class="line">    &#125;</span><br><span class="line">);</span><br><span class="line"></span><br><span class="line">server.registerTool(</span><br><span class="line">    &#x27;add&#x27;,</span><br><span class="line">    &#123;</span><br><span class="line">        title: &#x27;Addition Tool&#x27;,</span><br><span class="line">        description: &#x27;Add two numbers&#x27;,</span><br><span class="line">        inputSchema: z.object(&#123;</span><br><span class="line">            a: z.number(),</span><br><span class="line">            b: z.number()</span><br><span class="line">        &#125;)</span><br><span class="line">    &#125;,</span><br><span class="line">    async (&#123; a, b &#125;) =&gt; &#123;</span><br><span class="line">        return &#123;</span><br><span class="line">            content: [&#123; type: &#x27;text&#x27;, text: `Result: $&#123;a + b&#125;` &#125;],</span><br><span class="line">        &#125;;</span><br><span class="line">    &#125;</span><br><span class="line">);</span><br><span class="line"></span><br><span class="line">server.registerResource(</span><br><span class="line">    &#x27;greeting&#x27;,</span><br><span class="line">    new ResourceTemplate(&#x27;greeting://&#123;name&#125;&#x27;, &#123; list: undefined &#125;),</span><br><span class="line">    &#123; title: &#x27;Greeting Resource&#x27;, description: &#x27;Dynamic greeting generator&#x27; &#125;,</span><br><span class="line">    async (uri, &#123; name &#125;) =&gt; (&#123;</span><br><span class="line">        contents: [&#123; uri: uri.href, text: `Hello, $&#123;name&#125;!` &#125;]</span><br><span class="line">    &#125;)</span><br><span class="line">);</span><br><span class="line"></span><br><span class="line">// 3. 创建 Express 应用</span><br><span class="line">const app = express();</span><br><span class="line">app.use(express.json());</span><br><span class="line"></span><br><span class="line">// 4. 添加健康检查端点（可选）</span><br><span class="line">app.get(&#x27;/health&#x27;, (req, res) =&gt; &#123;</span><br><span class="line">    res.json(&#123; status: &#x27;ok&#x27;, timestamp: new Date().toISOString() &#125;);</span><br><span class="line">&#125;);</span><br><span class="line"></span><br><span class="line">// 5. 核心 MCP HTTP 端点</span><br><span class="line">app.post(&#x27;/mcp&#x27;, async (req, res) =&gt; &#123;</span><br><span class="line">    // 每个请求创建独立 transport 实例（避免请求 ID 冲突）</span><br><span class="line">    const transport = new StreamableHTTPServerTransport(&#123;</span><br><span class="line">        sessionIdGenerator: undefined,</span><br><span class="line">        enableJsonResponse: true // 启用 JSON 响应格式</span><br><span class="line">    &#125;);</span><br><span class="line"></span><br><span class="line">    // 请求结束时清理资源</span><br><span class="line">    res.on(&#x27;close&#x27;, () =&gt; &#123;</span><br><span class="line">        transport.close();</span><br><span class="line">    &#125;);</span><br><span class="line"></span><br><span class="line">    try &#123;</span><br><span class="line">        // 将 transport 连接到 MCP 服务器</span><br><span class="line">        await server.connect(transport);</span><br><span class="line">        </span><br><span class="line">        // 处理请求并返回响应</span><br><span class="line">        await transport.handleRequest(req, res, req.body);</span><br><span class="line">    &#125; catch (error) &#123;</span><br><span class="line">        console.error(&#x27;❌ MCP request error:&#x27;, error);</span><br><span class="line">        if (!res.headersSent) &#123;</span><br><span class="line">            res.status(500).json(&#123; error: &#x27;Internal server error&#x27; &#125;);</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;);</span><br><span class="line"></span><br><span class="line">// 6. 启动 HTTP 服务器</span><br><span class="line">const port = parseInt(process.env.PORT || &#x27;3000&#x27;);</span><br><span class="line">app.listen(port, () =&gt; &#123;</span><br><span class="line">    console.log(`🚀 MCP HTTP Server running at http://localhost:$&#123;port&#125;`);</span><br><span class="line">    console.log(`📡 MCP endpoint: http://localhost:$&#123;port&#125;/mcp`);</span><br><span class="line">    console.log(`🏥 Health check: http://localhost:$&#123;port&#125;/health`);</span><br><span class="line">&#125;).on(&#x27;error&#x27;, error =&gt; &#123;</span><br><span class="line">    console.error(&#x27;❌ Server error:&#x27;, error);</span><br><span class="line">    process.exit(1);</span><br><span class="line">&#125;);</span><br><span class="line"></span><br></pre></td></tr></table></figure>
-
-<h2 id="运行-1"><a href="#运行-1" class="headerlink" title="运行"></a>运行</h2><p>node server2.js</p>
-<h2 id="测试"><a href="#测试" class="headerlink" title="测试"></a>测试</h2><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">curl http://localhost:3000/health</span><br><span class="line">&#123;&quot;status&quot;:&quot;ok&quot;,&quot;timestamp&quot;:&quot;2025-11-25T10:00:07.470Z&quot;&#125;%</span><br></pre></td></tr></table></figure>
-
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">curl -X POST http://localhost:3000/mcp \</span><br><span class="line">  -H &quot;Content-Type: application/json&quot; \</span><br><span class="line">  -d &#x27;&#123;&quot;jsonrpc&quot;:&quot;2.0&quot;,&quot;id&quot;:1,&quot;method&quot;:&quot;tools/list&quot;,&quot;params&quot;:&#123;&#125;&#125;&#x27;</span><br><span class="line">&#123;&quot;jsonrpc&quot;:&quot;2.0&quot;,&quot;error&quot;:&#123;&quot;code&quot;:-32000,&quot;message&quot;:&quot;Not Acceptable: Client must accept both application/json and text/event-stream&quot;&#125;,&quot;id&quot;:null&#125;%</span><br><span class="line"></span><br></pre></td></tr></table></figure>
-
-
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">curl -X POST http://localhost:3000/mcp \</span><br><span class="line">  -H &quot;Content-Type: application/json&quot; \</span><br><span class="line">  -H &quot;Accept: application/json, text/event-stream&quot; \</span><br><span class="line">  -d &#x27;&#123;&quot;jsonrpc&quot;:&quot;2.0&quot;,&quot;id&quot;:1,&quot;method&quot;:&quot;tools/list&quot;,&quot;params&quot;:&#123;&#125;&#125;&#x27;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">  &#123;&quot;result&quot;:&#123;&quot;tools&quot;:[&#123;&quot;name&quot;:&quot;tell_weird_joke&quot;,&quot;title&quot;:&quot;Tell Weird Joke&quot;,&quot;description&quot;:&quot;Generate a weird joke about a specified topic&quot;,&quot;inputSchema&quot;:&#123;&quot;type&quot;:&quot;object&quot;,&quot;properties&quot;:&#123;&quot;topic&quot;:&#123;&quot;type&quot;:&quot;string&quot;,&quot;description&quot;:&quot;The topic of the joke&quot;&#125;&#125;,&quot;required&quot;:[&quot;topic&quot;],&quot;additionalProperties&quot;:false,&quot;$schema&quot;:&quot;http://json-schema.org/draft-07/schema#&quot;&#125;&#125;,&#123;&quot;name&quot;:&quot;add&quot;,&quot;title&quot;:&quot;Addition Tool&quot;,&quot;description&quot;:&quot;Add two numbers&quot;,&quot;inputSchema&quot;:&#123;&quot;type&quot;:&quot;object&quot;,&quot;properties&quot;:&#123;&quot;a&quot;:&#123;&quot;type&quot;:&quot;number&quot;&#125;,&quot;b&quot;:&#123;&quot;type&quot;:&quot;number&quot;&#125;&#125;,&quot;required&quot;:[&quot;a&quot;,&quot;b&quot;],&quot;additionalProperties&quot;:false,&quot;$schema&quot;:&quot;http://json-schema.org/draft-07/schema#&quot;&#125;&#125;]&#125;,&quot;jsonrpc&quot;:&quot;2.0&quot;,&quot;id&quot;:1&#125;%</span><br><span class="line"></span><br></pre></td></tr></table></figure>
-
-
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">curl -X POST http://localhost:3000/mcp \</span><br><span class="line">  -H &quot;Content-Type: application/json&quot; \</span><br><span class="line">  -H &quot;Accept: application/json, text/event-stream&quot; \</span><br><span class="line">  -d &#x27;&#123;&quot;jsonrpc&quot;:&quot;2.0&quot;,&quot;id&quot;:2,&quot;method&quot;:&quot;tools/call&quot;,&quot;params&quot;:&#123;&quot;name&quot;:&quot;add&quot;,&quot;arguments&quot;:&#123;&quot;a&quot;:5,&quot;b&quot;:3&#125;&#125;&#125;&#x27;</span><br><span class="line"></span><br><span class="line">  &#123;&quot;result&quot;:&#123;&quot;content&quot;:[&#123;&quot;type&quot;:&quot;text&quot;,&quot;text&quot;:&quot;Result: 8&quot;&#125;]&#125;,&quot;jsonrpc&quot;:&quot;2.0&quot;,&quot;id&quot;:2&#125;%</span><br></pre></td></tr></table></figure>
-
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">curl -X POST http://localhost:3000/mcp \</span><br><span class="line">  -H &quot;Content-Type: application/json&quot; \</span><br><span class="line">  -H &quot;Accept: application/json, text/event-stream&quot; \</span><br><span class="line">  -d &#x27;&#123;&quot;jsonrpc&quot;:&quot;2.0&quot;,&quot;id&quot;:3,&quot;method&quot;:&quot;tools/call&quot;,&quot;params&quot;:&#123;&quot;name&quot;:&quot;tell_weird_joke&quot;,&quot;arguments&quot;:&#123;&quot;topic&quot;:&quot;programming&quot;&#125;&#125;&#125;&#x27;</span><br><span class="line"></span><br><span class="line">&#123;&quot;result&quot;:&#123;&quot;content&quot;:[&#123;&quot;type&quot;:&quot;text&quot;,&quot;text&quot;:&quot;The weirdest joke about programming is... hahaha!&quot;&#125;]&#125;,&quot;jsonrpc&quot;:&quot;2.0&quot;,&quot;id&quot;:3&#125;%</span><br></pre></td></tr></table></figure>
-
-
-
-
-<h2 id="参考文档"><a href="#参考文档" class="headerlink" title="参考文档"></a>参考文档</h2><p><a target="_blank" rel="noopener" href="https://github.com/modelcontextprotocol/typescript-sdk">https://github.com/modelcontextprotocol/typescript-sdk</a></p>
-
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
 
   
   <nav class="pagination">
-    <span class="page-number current">1</span><a class="page-number" href="/page/2/">2</a><span class="space">&hellip;</span><a class="page-number" href="/page/10/">10</a><a class="extend next" rel="next" href="/page/2/"><i class="fa fa-angle-right" aria-label="下一页"></i></a>
+    <span class="page-number current">1</span><a class="page-number" href="/page/2/">2</a><span class="space">&hellip;</span><a class="page-number" href="/page/11/">11</a><a class="extend next" rel="next" href="/page/2/"><i class="fa fa-angle-right" aria-label="下一页"></i></a>
   </nav>
 
 
@@ -2912,7 +3356,7 @@
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">100</span>
+          <span class="site-state-item-count">102</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>

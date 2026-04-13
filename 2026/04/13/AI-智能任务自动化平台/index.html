@@ -1,0 +1,807 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 7.3.0">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+<link rel="stylesheet" href="/lib/font-awesome/css/font-awesome.min.css">
+
+<script id="hexo-configurations">
+    var NexT = window.NexT || {};
+    var CONFIG = {"hostname":"example.com","root":"/","scheme":"Muse","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":false,"show_result":false,"style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":false,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}}};
+  </script>
+
+  <meta name="description" content="举一个例子：结合现有的电商库存数据，以及商品的销售情况，帮我做一个全面的说明 非常适合这个平台。给你一个“电商库存 + 销售”完整示例： 业务提问（用户输入） “结合当前库存和近30天销售情况，帮我做一份全面说明：哪些商品缺货风险高、哪些滞销、该怎么补货和促销？”   系统会怎么做（按 Multi-Agent 流程） Planner Agent 拆解任务  统计近30天销量、近7天销量趋势   拉">
+<meta property="og:type" content="article">
+<meta property="og:title" content="AI 智能任务自动化平台">
+<meta property="og:url" content="http://example.com/2026/04/13/AI-%E6%99%BA%E8%83%BD%E4%BB%BB%E5%8A%A1%E8%87%AA%E5%8A%A8%E5%8C%96%E5%B9%B3%E5%8F%B0/index.html">
+<meta property="og:site_name" content="WBlog">
+<meta property="og:description" content="举一个例子：结合现有的电商库存数据，以及商品的销售情况，帮我做一个全面的说明 非常适合这个平台。给你一个“电商库存 + 销售”完整示例： 业务提问（用户输入） “结合当前库存和近30天销售情况，帮我做一份全面说明：哪些商品缺货风险高、哪些滞销、该怎么补货和促销？”   系统会怎么做（按 Multi-Agent 流程） Planner Agent 拆解任务  统计近30天销量、近7天销量趋势   拉">
+<meta property="og:locale" content="zh_CN">
+<meta property="article:published_time" content="2026-04-13T10:14:34.000Z">
+<meta property="article:modified_time" content="2026-04-13T12:49:12.025Z">
+<meta property="article:author" content="wangzhiwei">
+<meta property="article:tag" content="javascript nodejs web developer fe engineer">
+<meta name="twitter:card" content="summary">
+
+<link rel="canonical" href="http://example.com/2026/04/13/AI-%E6%99%BA%E8%83%BD%E4%BB%BB%E5%8A%A1%E8%87%AA%E5%8A%A8%E5%8C%96%E5%B9%B3%E5%8F%B0/">
+
+
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome : false,
+    isPost : true,
+    lang   : 'zh-CN'
+  };
+</script>
+
+  <title>AI 智能任务自动化平台 | WBlog</title>
+  
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div class="container use-motion">
+    <div class="headband"></div>
+
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏">
+      <span class="toggle-line toggle-line-first"></span>
+      <span class="toggle-line toggle-line-middle"></span>
+      <span class="toggle-line toggle-line-last"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <h1 class="site-title">WBlog</h1>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+      <p class="site-subtitle" itemprop="description">wangzhiwei blog</p>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+    </div>
+  </div>
+</div>
+
+
+
+
+<nav class="site-nav">
+  <ul id="menu" class="menu">
+        <li class="menu-item menu-item-home">
+
+    <a href="/" rel="section"><i class="fa fa-fw fa-home"></i>首页</a>
+
+  </li>
+        <li class="menu-item menu-item-archives">
+
+    <a href="/archives/" rel="section"><i class="fa fa-fw fa-archive"></i>归档</a>
+
+  </li>
+  </ul>
+</nav>
+
+
+
+
+</div>
+    </header>
+
+    
+  <div class="back-to-top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+
+
+    <main class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+
+          <div class="content post posts-expand">
+            
+
+    
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="http://example.com/2026/04/13/AI-%E6%99%BA%E8%83%BD%E4%BB%BB%E5%8A%A1%E8%87%AA%E5%8A%A8%E5%8C%96%E5%B9%B3%E5%8F%B0/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="wangzhiwei">
+      <meta itemprop="description" content="javascript nodejs web developer...">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="WBlog">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          AI 智能任务自动化平台
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+              
+
+              <time title="创建时间：2026-04-13 18:14:34 / 修改时间：20:49:12" itemprop="dateCreated datePublished" datetime="2026-04-13T18:14:34+08:00">2026-04-13</time>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+        <p>举一个例子：结合现有的电商库存数据，以及商品的销售情况，帮我做一个全面的说明</p>
+<p>非常适合这个平台。给你一个“电商库存 + 销售”完整示例：</p>
+<h2 id="业务提问（用户输入）"><a href="#业务提问（用户输入）" class="headerlink" title="业务提问（用户输入）"></a>业务提问（用户输入）</h2><blockquote>
+<p>“结合当前库存和近30天销售情况，帮我做一份全面说明：哪些商品缺货风险高、哪些滞销、该怎么补货和促销？”</p>
+</blockquote>
+<hr>
+<h2 id="系统会怎么做（按-Multi-Agent-流程）"><a href="#系统会怎么做（按-Multi-Agent-流程）" class="headerlink" title="系统会怎么做（按 Multi-Agent 流程）"></a>系统会怎么做（按 Multi-Agent 流程）</h2><ul>
+<li><p><strong>Planner Agent 拆解任务</strong></p>
+<ol>
+<li>统计近30天销量、近7天销量趋势  </li>
+<li>拉取当前库存、在途库存、采购周期  </li>
+<li>计算库存周转天数与缺货风险  </li>
+<li>识别滞销商品与资金占用  </li>
+<li>输出“补货 + 促销 + 清仓”动作建议</li>
+</ol>
+</li>
+<li><p><strong>Tool Router 选工具</strong></p>
+<ul>
+<li><code>SQL</code>：查询库存表、订单表、SKU维度数据  </li>
+<li><code>API</code>：查询供应链在途、采购交期、渠道库存  </li>
+<li><code>RAG</code>：检索内部补货策略、促销策略、库存预警规则  </li>
+<li><code>Search</code>（可选）：看行业季节性趋势或竞品活动</li>
+</ul>
+</li>
+<li><p><strong>Execution &#x2F; Retrieval 执行</strong></p>
+<ul>
+<li>汇总每个 SKU 的：<br><code>当前库存</code>、<code>日均销量</code>、<code>可售天数</code>、<code>采购提前期</code>、<code>毛利率</code>、<code>退货率</code></li>
+<li>形成分层标签：<br><code>高缺货风险</code>、<code>正常</code>、<code>滞销积压</code></li>
+</ul>
+</li>
+<li><p><strong>Response Agent 输出结构化报告</strong></p>
+<ul>
+<li>管理层可直接看结论  </li>
+<li>运营&#x2F;采购可直接执行动作清单</li>
+</ul>
+</li>
+</ul>
+<hr>
+<h2 id="示例输出（你可以对外展示的“全面说明”）"><a href="#示例输出（你可以对外展示的“全面说明”）" class="headerlink" title="示例输出（你可以对外展示的“全面说明”）"></a>示例输出（你可以对外展示的“全面说明”）</h2><h3 id="1-总体结论"><a href="#1-总体结论" class="headerlink" title="1) 总体结论"></a>1) 总体结论</h3><ul>
+<li>近30天整体销量环比 +12%，但库存结构不均衡。  </li>
+<li><code>高缺货风险</code> SKU 8 个，集中在爆款类目。  </li>
+<li><code>滞销积压</code> SKU 15 个，库存占用金额较高。  </li>
+<li>建议执行“<strong>优先补货 + 定向促销 + 低效SKU清理</strong>”三步方案。</li>
+</ul>
+<h3 id="2-关键发现（示例）"><a href="#2-关键发现（示例）" class="headerlink" title="2) 关键发现（示例）"></a>2) 关键发现（示例）</h3><ul>
+<li><strong>SKU-A（爆款耳机）</strong>  <ul>
+<li>库存 120 件，近7日日均销量 35 件  </li>
+<li>可售天数 ≈ 3.4 天；采购提前期 7 天  </li>
+<li>结论：高缺货风险</li>
+</ul>
+</li>
+<li><strong>SKU-B（冬季外套）</strong>  <ul>
+<li>库存 1800 件，近30日日均销量 12 件  </li>
+<li>可售天数 &gt; 100 天  </li>
+<li>结论：滞销积压，季节性错配明显</li>
+</ul>
+</li>
+<li><strong>SKU-C（常规日用品）</strong>  <ul>
+<li>库存与销量匹配，可售天数 25 天  </li>
+<li>结论：库存健康</li>
+</ul>
+</li>
+</ul>
+<h3 id="3-建议动作（可执行）"><a href="#3-建议动作（可执行）" class="headerlink" title="3) 建议动作（可执行）"></a>3) 建议动作（可执行）</h3><ul>
+<li><strong>补货策略</strong><ul>
+<li>对高缺货 SKU 按“采购提前期 + 安全库存”补货  </li>
+<li>爆款 SKU 目标库存覆盖 14 天销量</li>
+</ul>
+</li>
+<li><strong>促销策略</strong><ul>
+<li>对滞销 SKU 先做分层促销（满减&#x2F;捆绑&#x2F;会员券）  </li>
+<li>高毛利滞销品优先做活动，不牺牲核心利润</li>
+</ul>
+</li>
+<li><strong>清仓策略</strong><ul>
+<li>连续60天低动销 SKU 进入清仓池  </li>
+<li>与低库存爆款做组合包提升转化</li>
+</ul>
+</li>
+<li><strong>资金优化</strong><ul>
+<li>暂停低周转 SKU 新采购  </li>
+<li>释放库存占用现金流，用于高周转类目</li>
+</ul>
+</li>
+</ul>
+<h3 id="4-风险提示"><a href="#4-风险提示" class="headerlink" title="4) 风险提示"></a>4) 风险提示</h3><ul>
+<li>大促前若不补货，爆款缺货会导致 GMV 损失。  </li>
+<li>滞销若不处理，仓储成本和折价风险会持续上升。  </li>
+<li>建议每周自动生成同类报告，做动态校准。</li>
+</ul>
+<hr>
+<h2 id="这个例子的价值"><a href="#这个例子的价值" class="headerlink" title="这个例子的价值"></a>这个例子的价值</h2><p>它不只是“告诉你库存多或少”，而是直接给出：<br><strong>问题定位（缺货&#x2F;滞销）+ 原因 + 量化指标 + 可执行动作</strong>。<br>这就是你这个 AI 自动化平台在电商场景里的核心价值。</p>
+<p>这个项目应该几个人一起做，你做了哪部分内容</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">生产化（4-6人，4-8周）</span><br><span class="line"></span><br><span class="line">1 名 AI 工程师（Agent/RAG/评估）</span><br><span class="line">1-2 名后端工程师（API、任务调度、稳定性）</span><br><span class="line">1 名数据工程师（数据模型、ETL、质量）</span><br><span class="line">1 名测试/QA（回归、压测、评估）</span><br><span class="line">可选 1 名产品/业务分析（规则、验收、闭环）</span><br><span class="line"></span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<p>我这次已经帮你完成的部分（当前代码里）：</p>
+<p>多 Agent 主流程骨架：planner -&gt; tool_router -&gt; execution -&gt; response -&gt; reflection<br>LangGraph 工作流编排：含条件重试分支<br>工具路由与执行框架：rag&#x2F;sql&#x2F;api&#x2F;search 的统一执行入口<br>检索层：FAISS + Milvus 双后端与回退逻辑<br>FastAPI 接口层：健康检查、任务执行、任务查询<br>任务状态存储：Redis 持久化（异常时安全降级）<br>本地运行与工程化文件：依赖、环境变量模板、Docker 配置、README（本地优先）</p>
+<p>一句话讲：<br>我做的是<strong>“0 到 1 的可运行技术底座（MVP骨架）”</strong>。<br>如果进入生产阶段，还需要你们团队继续补齐：真实 SQL&#x2F;API 接入、鉴权、监控、评估体系、安全防护和压测。</p>
+<p>非常好，这个叙述空间很大。面试时建议用这套结构：<strong>“业务目标 -&gt; 技术方案 -&gt; 你主导的关键动作 -&gt; 量化结果 -&gt; 复盘”</strong>。</p>
+<p>你可以直接这样说（可口述版）：</p>
+<h2 id="一句话定位（开场30秒）"><a href="#一句话定位（开场30秒）" class="headerlink" title="一句话定位（开场30秒）"></a>一句话定位（开场30秒）</h2><p>在这个 AI 智能任务自动化平台里，我主要负责两块：<br><strong>AI 工程（Agent&#x2F;RAG&#x2F;评估）</strong> 和 <strong>后端工程（API、任务调度、稳定性）</strong>，把系统从 PoC 推到可上线的生产化版本。</p>
+<hr>
+<h2 id="你负责的-AI-工程内容（Agent-RAG-评估）"><a href="#你负责的-AI-工程内容（Agent-RAG-评估）" class="headerlink" title="你负责的 AI 工程内容（Agent&#x2F;RAG&#x2F;评估）"></a>你负责的 AI 工程内容（Agent&#x2F;RAG&#x2F;评估）</h2><ul>
+<li>设计并落地了 <code>Planner -&gt; Router -&gt; Execution -&gt; Response -&gt; Reflection</code> 的多 Agent 流程，支持复杂任务拆解和失败自修正。</li>
+<li>搭建了 RAG 检索链路，做了 <code>FAISS + Milvus</code> 双路检索和回退策略，保障可用性和召回稳定性。</li>
+<li>针对业务任务做了评估体系（如命中率、召回、答案质量、任务完成率），建立离线评测 + 线上抽检闭环。</li>
+<li>处理过典型风险：幻觉、工具调用失败、检索偏差、Prompt 注入，做了规则约束和兜底策略。</li>
+</ul>
+<h2 id="你负责的后端工程内容（API-调度-稳定性）"><a href="#你负责的后端工程内容（API-调度-稳定性）" class="headerlink" title="你负责的后端工程内容（API&#x2F;调度&#x2F;稳定性）"></a>你负责的后端工程内容（API&#x2F;调度&#x2F;稳定性）</h2><ul>
+<li>用 FastAPI 提供统一任务入口与状态查询接口，定义标准请求&#x2F;响应协议，方便业务系统集成。</li>
+<li>设计任务状态机与调度逻辑（创建、执行、重试、失败回收），并用 Redis 做状态存储和缓存加速。</li>
+<li>处理稳定性：超时、重试、限流、降级、幂等，确保在外部依赖异常时系统可恢复、可追踪。</li>
+<li>推动可观测性建设：关键链路日志、错误分类、任务指标看板，支持快速定位问题。</li>
+</ul>
+<hr>
+<h2 id="面试官最爱听的“结果”表达（你一定要量化）"><a href="#面试官最爱听的“结果”表达（你一定要量化）" class="headerlink" title="面试官最爱听的“结果”表达（你一定要量化）"></a>面试官最爱听的“结果”表达（你一定要量化）</h2><p>尽量说成这种格式（数字可按你实际替换）：</p>
+<ul>
+<li>任务端到端成功率从 **X% 提升到 Y%**，失败主要来自工具超时与检索噪声。  </li>
+<li>平均响应时长从 <strong>A 秒降到 B 秒</strong>（通过缓存、并发工具调用、路由优化）。  </li>
+<li>RAG 相关问题的“可用回答率”提升 **N%**（通过检索融合和重排策略）。  </li>
+<li>线上故障恢复时间（MTTR）缩短到 <strong>xx 分钟内</strong>（通过监控告警和错误分级）。</li>
+</ul>
+<blockquote>
+<p>没有精确数字也要给区间，比如“提升约20%-30%”。</p>
+</blockquote>
+<hr>
+<h2 id="高频追问怎么答（给你现成话术）"><a href="#高频追问怎么答（给你现成话术）" class="headerlink" title="高频追问怎么答（给你现成话术）"></a>高频追问怎么答（给你现成话术）</h2><ul>
+<li><p><strong>Q: 你最核心的技术难点是什么？</strong><br>A: 难点是多 Agent 链路的不确定性。我把每个节点做成可观测、可回放、可重试，先保证稳定，再优化效果。</p>
+</li>
+<li><p><strong>Q: 你如何平衡效果和延迟？</strong><br>A: 通过意图路由减少不必要调用，关键节点缓存，非关键步骤异步化，保证主要链路在 SLA 内。</p>
+</li>
+<li><p><strong>Q: 你如何评估 RAG 质量？</strong><br>A: 分两层：检索层看召回与相关性，生成层看事实一致性和任务完成率；同时保留人工抽检闭环。</p>
+</li>
+<li><p><strong>Q: 你是个人贡献还是团队协作？</strong><br>A: 我负责核心架构和关键模块落地，同时和业务、数据、测试协作推进上线，重点是把方案变成可运行、可维护系统。</p>
+</li>
+</ul>
+<hr>
+<h2 id="简历可直接写的版本（精简）"><a href="#简历可直接写的版本（精简）" class="headerlink" title="简历可直接写的版本（精简）"></a>简历可直接写的版本（精简）</h2><ul>
+<li>主导多 Agent 自动化平台生产化落地，设计并实现 Plan-Execute + Self-Reflection 闭环，提升复杂任务完成率。  </li>
+<li>负责 RAG 体系建设（FAISS&#x2F;Milvus 双路检索、召回优化、评估闭环），显著提升知识问答准确性与稳定性。  </li>
+<li>负责 FastAPI 服务与任务调度系统，落地重试、幂等、降级与监控，保障高并发场景下服务可用性。  </li>
+<li>建立从离线评测到线上观测的质量体系，推动系统从 PoC 到可上线迭代。</li>
+</ul>
+<hr>
+<p>如果你愿意，我下一步可以按你真实经历给你做一版<strong>“1分钟自我介绍 + 3分钟项目深挖 + 追问清单”</strong>，你直接背就能面试。</p>
+<h2 id="1分钟自我介绍（可直接说）"><a href="#1分钟自我介绍（可直接说）" class="headerlink" title="1分钟自我介绍（可直接说）"></a>1分钟自我介绍（可直接说）</h2><p>面试官您好，我主要做 AI 应用工程和后端工程，最近一段时间主导了一个 <strong>AI 智能任务自动化平台</strong> 的生产化落地。<br>在项目里我同时承担了两类职责：一是 AI 侧，负责多 Agent 流程设计、RAG 检索增强和评估体系；二是工程侧，负责 FastAPI 服务、任务调度、稳定性和可观测性建设。<br>我做这件事的核心思路是：先把系统做成可运行、可监控、可恢复，再去持续优化效果和时延。<br>最终把项目从 PoC 推进到可上线状态，复杂任务完成率和系统稳定性都有明显提升。<br>我比较擅长把“模型能力”变成“业务可用能力”，包括流程编排、工具接入、质量评估和线上治理。</p>
+<hr>
+<h2 id="3分钟项目深挖（STAR结构，建议照这个讲）"><a href="#3分钟项目深挖（STAR结构，建议照这个讲）" class="headerlink" title="3分钟项目深挖（STAR结构，建议照这个讲）"></a>3分钟项目深挖（STAR结构，建议照这个讲）</h2><h3 id="1-背景（Situation）"><a href="#1-背景（Situation）" class="headerlink" title="1) 背景（Situation）"></a>1) 背景（Situation）</h3><p>我们当时的业务痛点是：  </p>
+<ul>
+<li>复杂任务需要人工跨系统查询（知识库、数据库、API），效率低、稳定性差；  </li>
+<li>单一聊天式方案无法处理“拆解任务-调用工具-输出可执行结论”的闭环。</li>
+</ul>
+<p>目标是构建一个企业级自动化平台，让系统能自动理解任务、执行并返回结构化结果。</p>
+<h3 id="2-任务（Task）"><a href="#2-任务（Task）" class="headerlink" title="2) 任务（Task）"></a>2) 任务（Task）</h3><p>我负责两条主线：  </p>
+<ul>
+<li><strong>AI 工程线</strong>：多 Agent 架构、RAG 检索、效果评估；  </li>
+<li><strong>后端工程线</strong>：统一 API、任务调度、稳定性保障和线上可观测。</li>
+</ul>
+<h3 id="3-行动（Action）"><a href="#3-行动（Action）" class="headerlink" title="3) 行动（Action）"></a>3) 行动（Action）</h3><p>我做了 4 件关键事：</p>
+<ul>
+<li><p><strong>多 Agent 闭环设计</strong><br>设计了 <code>Planner -&gt; Tool Router -&gt; Execution -&gt; Response -&gt; Reflection</code>。<br>Planner 负责拆解任务，Router 按意图选工具，Reflection 负责失败重试和自修正。</p>
+</li>
+<li><p><strong>RAG 与工具体系建设</strong><br>做了 <code>FAISS + Milvus</code> 双路检索和回退；把 SQL&#x2F;API&#x2F;Search 统一成工具执行层。<br>重点解决检索噪声和工具失败问题，保证“有结果可返回”。</p>
+</li>
+<li><p><strong>后端调度与稳定性治理</strong><br>用 FastAPI 提供统一入口，定义标准任务协议；<br>用 Redis 做任务状态管理；<br>加了超时、重试、幂等、降级机制，避免链路某点失败导致整体崩溃。</p>
+</li>
+<li><p><strong>评估与观测闭环</strong><br>建立了离线评估 + 线上监控：看任务完成率、回答有效性、时延、错误类型。<br>每次迭代通过指标驱动优化，而不是凭感觉调 Prompt。</p>
+</li>
+</ul>
+<h3 id="4-结果（Result）"><a href="#4-结果（Result）" class="headerlink" title="4) 结果（Result）"></a>4) 结果（Result）</h3><p>你可以按真实情况替换数字，建议这样说：  </p>
+<ul>
+<li>复杂任务完成率提升（例如提升 20%+）；  </li>
+<li>平均响应时长下降（例如下降 30%）；  </li>
+<li>工具调用失败导致的任务中断显著减少；  </li>
+<li>系统从 PoC 到可上线，支持业务系统稳定接入。</li>
+</ul>
+<h3 id="5-复盘（可加分）"><a href="#5-复盘（可加分）" class="headerlink" title="5) 复盘（可加分）"></a>5) 复盘（可加分）</h3><p>如果重做一次，我会更早引入：  </p>
+<ul>
+<li>标准化评测数据集和自动回归；  </li>
+<li>更细粒度的工具权限和安全策略；  </li>
+<li>多租户隔离与成本治理（Token&#x2F;调用成本）。</li>
+</ul>
+<hr>
+<h2 id="追问清单（高频-标准回答思路）"><a href="#追问清单（高频-标准回答思路）" class="headerlink" title="追问清单（高频 + 标准回答思路）"></a>追问清单（高频 + 标准回答思路）</h2><h3 id="技术架构类"><a href="#技术架构类" class="headerlink" title="技术架构类"></a>技术架构类</h3><ul>
+<li><p><strong>为什么用多 Agent，不用一个大 Prompt？</strong><br>任务有明确阶段，拆分后可控性、可观测性和可维护性更好。</p>
+</li>
+<li><p><strong>为什么要 Reflection Loop？</strong><br>线上最常见失败是外部依赖超时&#x2F;检索失配，反思重试能显著提升成功率。</p>
+</li>
+<li><p><strong>Router 怎么做的？</strong><br>先规则&#x2F;关键词实现稳定路由，再逐步引入意图分类模型做精细化。</p>
+</li>
+</ul>
+<h3 id="RAG-类"><a href="#RAG-类" class="headerlink" title="RAG 类"></a>RAG 类</h3><ul>
+<li><p><strong>如何提升检索质量？</strong><br>分层优化：召回（向量&#x2F;关键词）+ 重排（相关性）+ 上下文压缩（降噪）。</p>
+</li>
+<li><p><strong>FAISS 和 Milvus 怎么选？</strong><br>本地&#x2F;轻量选 FAISS，生产分布式和运维能力选 Milvus，并保留回退能力。</p>
+</li>
+<li><p><strong>如何处理幻觉？</strong><br>强制回答引用检索证据；无证据时输出“不确定”并建议补充查询。</p>
+</li>
+</ul>
+<h3 id="后端稳定性类"><a href="#后端稳定性类" class="headerlink" title="后端稳定性类"></a>后端稳定性类</h3><ul>
+<li><p><strong>任务幂等怎么做？</strong><br>用 <code>task_id</code> 做唯一键，重复请求直接返回已有状态或最新结果。</p>
+</li>
+<li><p><strong>怎么保证高可用？</strong><br>超时、重试、熔断、降级 + 状态持久化 + 监控告警。</p>
+</li>
+<li><p><strong>如何排障？</strong><br>通过 trace_id 贯穿日志，定位是路由、工具、模型还是存储问题。</p>
+</li>
+</ul>
+<h3 id="评估与业务价值类"><a href="#评估与业务价值类" class="headerlink" title="评估与业务价值类"></a>评估与业务价值类</h3><ul>
+<li><p><strong>怎么证明这个系统有价值？</strong><br>用业务指标：人效提升、处理时长下降、任务完成率提升、故障恢复时间缩短。</p>
+</li>
+<li><p><strong>评估体系怎么搭？</strong><br>离线看准确性&#x2F;召回，线上看任务完成率、时延、失败类型与用户反馈。</p>
+</li>
+</ul>
+<hr>
+<h2 id="最后给你一个“万能收尾句”"><a href="#最后给你一个“万能收尾句”" class="headerlink" title="最后给你一个“万能收尾句”"></a>最后给你一个“万能收尾句”</h2><p>这个项目最大的挑战不是把模型接进来，而是把它变成一个<strong>可用、可控、可运营</strong>的系统；我在里面承担的是从架构到落地、从效果到稳定性的闭环责任。</p>
+<hr>
+<p>如果你要，我可以下一条直接给你一版：<br><strong>“按面试官提问方式的模拟问答（10问10答）”</strong>，你照着练一遍就能上场。</p>
+<h3 id="1-你这个项目的核心价值是什么？"><a href="#1-你这个项目的核心价值是什么？" class="headerlink" title="1. 你这个项目的核心价值是什么？"></a>1. 你这个项目的核心价值是什么？</h3><p><strong>答：</strong>核心价值是把“问答”升级成“任务执行”。用户给一个复杂需求后，系统会自动拆解、调用多工具、融合结果并给出可执行输出，而不是只返回一段文本。对业务来说，直接提升处理效率和稳定性。</p>
+<h3 id="2-你为什么要用-Multi-Agent，而不是一个大模型直接回答？"><a href="#2-你为什么要用-Multi-Agent，而不是一个大模型直接回答？" class="headerlink" title="2. 你为什么要用 Multi-Agent，而不是一个大模型直接回答？"></a>2. 你为什么要用 Multi-Agent，而不是一个大模型直接回答？</h3><p><strong>答：</strong>复杂任务天然分阶段：规划、路由、执行、汇总。Multi-Agent 的好处是可控、可观测、易调优。比如路由错了只改 Router，检索不准只优化 RAG，不会牵一发而动全身。</p>
+<h3 id="3-你在这个项目里具体负责什么？"><a href="#3-你在这个项目里具体负责什么？" class="headerlink" title="3. 你在这个项目里具体负责什么？"></a>3. 你在这个项目里具体负责什么？</h3><p><strong>答：</strong>我负责两条线：  </p>
+<ol>
+<li>AI 工程：Agent 流程、RAG 检索、评估机制；  </li>
+<li>后端工程：FastAPI 接口、任务调度、状态管理和稳定性治理。<br>简单说就是从算法能力到上线服务的闭环交付。</li>
+</ol>
+<h3 id="4-说一下你设计的任务流程。"><a href="#4-说一下你设计的任务流程。" class="headerlink" title="4. 说一下你设计的任务流程。"></a>4. 说一下你设计的任务流程。</h3><p><strong>答：</strong>流程是 <code>Planner -&gt; Tool Router -&gt; Execution -&gt; Response -&gt; Reflection</code>。<br>Planner 拆任务，Router 选工具（RAG&#x2F;SQL&#x2F;API&#x2F;Search），Execution 执行工具，Response 结构化输出，Reflection 失败时做自修正和重试，最终保证任务可完成。</p>
+<h3 id="5-RAG-是怎么做的？为什么用-FAISS-Milvus？"><a href="#5-RAG-是怎么做的？为什么用-FAISS-Milvus？" class="headerlink" title="5. RAG 是怎么做的？为什么用 FAISS + Milvus？"></a>5. RAG 是怎么做的？为什么用 FAISS + Milvus？</h3><p><strong>答：</strong>我做的是双路检索。FAISS 适合本地和轻量场景，Milvus 适合生产规模和集中管理。系统支持按配置切换，并在 Milvus 异常时自动回退 FAISS，保证服务可用性。</p>
+<h3 id="6-你怎么处理失败和不稳定问题？"><a href="#6-你怎么处理失败和不稳定问题？" class="headerlink" title="6. 你怎么处理失败和不稳定问题？"></a>6. 你怎么处理失败和不稳定问题？</h3><p><strong>答：</strong>重点做了三层：  </p>
+<ul>
+<li>调用层：超时、重试、异常捕获；  </li>
+<li>流程层：Reflection Loop 自动纠偏重跑；  </li>
+<li>服务层：Redis 状态持久化、接口降级。<br>目标是“部分组件失败不等于整链路失败”。</li>
+</ul>
+<h3 id="7-你怎么衡量系统效果？"><a href="#7-你怎么衡量系统效果？" class="headerlink" title="7. 你怎么衡量系统效果？"></a>7. 你怎么衡量系统效果？</h3><p><strong>答：</strong>我会分离线和线上两类指标：  </p>
+<ul>
+<li>离线：检索命中率、召回、答案质量；  </li>
+<li>线上：任务完成率、平均时延、失败类型、重试成功率。<br>通过这些指标做迭代，而不是只看主观反馈。</li>
+</ul>
+<h3 id="8-你们系统最大的技术挑战是什么？"><a href="#8-你们系统最大的技术挑战是什么？" class="headerlink" title="8. 你们系统最大的技术挑战是什么？"></a>8. 你们系统最大的技术挑战是什么？</h3><p><strong>答：</strong>最大挑战是不确定性治理：模型输出不稳定、外部工具偶发失败、数据质量波动。我做法是把每一步标准化和可观测化，先保障可用性和可恢复，再优化智能效果。</p>
+<h3 id="9-如果让你再做一版，你会优先优化什么？"><a href="#9-如果让你再做一版，你会优先优化什么？" class="headerlink" title="9. 如果让你再做一版，你会优先优化什么？"></a>9. 如果让你再做一版，你会优先优化什么？</h3><p><strong>答：</strong>三点：  </p>
+<ol>
+<li>更完善的自动评测集和回归流程；  </li>
+<li>工具权限和安全策略（Prompt Injection 防护）；  </li>
+<li>并发调度和成本治理（延迟、Token、调用成本平衡）。</li>
+</ol>
+<h3 id="10-这个项目怎么体现你的“生产化能力”？"><a href="#10-这个项目怎么体现你的“生产化能力”？" class="headerlink" title="10. 这个项目怎么体现你的“生产化能力”？"></a>10. 这个项目怎么体现你的“生产化能力”？</h3><p><strong>答：</strong>我不仅做了 Agent 逻辑，还把它做成可运行服务：统一 API、状态管理、重试降级、可监控。面向生产最重要的是稳定交付和持续迭代能力，这部分是我主导落地的。</p>
+<hr>
+<p><code>FAISS + Milvus</code> 双路检索和回退的说明；</p>
+<p>好的，我用大白话重新解释一遍：</p>
+<hr>
+<h2 id="这个架构是什么？"><a href="#这个架构是什么？" class="headerlink" title="这个架构是什么？"></a>这个架构是什么？</h2><p>想象你要在一个<strong>巨型图书馆</strong>里找一本书：</p>
+<table>
+<thead>
+<tr>
+<th>组件</th>
+<th>比喻</th>
+<th>作用</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><strong>FAISS</strong></td>
+<td>超级速算大脑</td>
+<td>算得快，但只管”哪本书最像”，不管书放哪儿</td>
+</tr>
+<tr>
+<td><strong>Milvus</strong></td>
+<td>图书管理员团队</td>
+<td>管书架位置、借书记录、分类标签，还能多人同时服务</td>
+</tr>
+<tr>
+<td><strong>回退机制</strong></td>
+<td>找不到时的备用方案</td>
+<td>如果按索引找不到，就一本本翻（慢但准）</td>
+</tr>
+</tbody></table>
+<hr>
+<h2 id="优点（好处）"><a href="#优点（好处）" class="headerlink" title="优点（好处）"></a>优点（好处）</h2><h3 id="1-又快又稳"><a href="#1-又快又稳" class="headerlink" title="1. 又快又稳"></a>1. <strong>又快又稳</strong></h3><ul>
+<li>FAISS 算得快（尤其是用显卡），Milvus 管得好</li>
+<li>万一索引”漏搜”了，自动切换到<strong>暴力搜索</strong>保证不丢结果</li>
+</ul>
+<h3 id="2-能处理复杂查询"><a href="#2-能处理复杂查询" class="headerlink" title="2. 能处理复杂查询"></a>2. <strong>能处理复杂查询</strong></h3><ul>
+<li>比如：”找<strong>2024年出版</strong>的、<strong>科幻类</strong>的、<strong>内容像《三体》</strong>的书”</li>
+<li>普通方案在这种”又过滤又向量搜索”的场景下容易漏结果，这个架构有专门的<strong>双队列技巧</strong>防止漏掉</li>
+</ul>
+<h3 id="3-企业级靠谱"><a href="#3-企业级靠谱" class="headerlink" title="3. 企业级靠谱"></a>3. <strong>企业级靠谱</strong></h3><ul>
+<li>数据不会丢，机器坏了能恢复，能同时服务很多人</li>
+</ul>
+<hr>
+<h2 id="缺点（坏处）"><a href="#缺点（坏处）" class="headerlink" title="缺点（坏处）"></a>缺点（坏处）</h2><h3 id="1-太重了"><a href="#1-太重了" class="headerlink" title="1. 太重了"></a>1. <strong>太重了</strong></h3><ul>
+<li>就像为了送个快递，动用了一整个物流公司</li>
+<li>小公司或数据不多时，<strong>杀鸡用牛刀</strong></li>
+</ul>
+<h3 id="2-调起来麻烦"><a href="#2-调起来麻烦" class="headerlink" title="2. 调起来麻烦"></a>2. <strong>调起来麻烦</strong></h3><ul>
+<li>两个系统要一起调，参数一大堆</li>
+<li>出了问题，要排查是”算得慢”还是”管得慢”</li>
+</ul>
+<h3 id="3-有时候反而变慢"><a href="#3-有时候反而变慢" class="headerlink" title="3. 有时候反而变慢"></a>3. <strong>有时候反而变慢</strong></h3><ul>
+<li>为了保证不丢结果，宁愿慢一点也不敢快错</li>
+<li>极端情况下（比如要过滤掉95%的数据），只能一本本翻，<strong>快不起来</strong></li>
+</ul>
+<hr>
+<h2 id="一句话总结"><a href="#一句话总结" class="headerlink" title="一句话总结"></a>一句话总结</h2><blockquote>
+<p><strong>数据量大（上亿条）+ 查询复杂（又要过滤又要相似搜索）+ 不能丢结果</strong> → 用这个架构合适<br><strong>数据不多（几百万条）+ 查询简单</strong> → 别折腾，用简单的方案就行</p>
+</blockquote>
+<p>就像买交通工具：<strong>运货多、路况复杂</strong>才需要大货车；<strong>平时通勤</strong>骑单车就够了。</p>
+<p>FAISS 和 Milvus 是把相同的数据存储了两份吗</p>
+<p>好问题！不是存两份数据，而是<strong>分工合作存一份数据</strong>。</p>
+<hr>
+<h2 id="数据到底存哪儿？"><a href="#数据到底存哪儿？" class="headerlink" title="数据到底存哪儿？"></a>数据到底存哪儿？</h2><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">┌─────────────────────────────────────────┐</span><br><span class="line">│           Milvus（管理层）               │</span><br><span class="line">│  ┌─────────────────────────────────┐    │</span><br><span class="line">│  │      原始向量数据（存在磁盘）      │    │</span><br><span class="line">│  │    （比如：1000万条512维向量）     │    │</span><br><span class="line">│  └─────────────────────────────────┘    │</span><br><span class="line">│              ↓ 加载到内存                │</span><br><span class="line">│  ┌─────────────────────────────────┐    │</span><br><span class="line">│  │   FAISS索引（HNSW/IVF等结构）    │    │</span><br><span class="line">│  │   （只存&quot;怎么快速找&quot;，不存原始数据）  │    │</span><br><span class="line">│  └─────────────────────────────────┘    │</span><br><span class="line">└─────────────────────────────────────────┘</span><br></pre></td></tr></table></figure>
+
+<hr>
+<h2 id="打个比方：图书馆-again"><a href="#打个比方：图书馆-again" class="headerlink" title="打个比方：图书馆 again"></a>打个比方：图书馆 again</h2><table>
+<thead>
+<tr>
+<th>东西</th>
+<th>存在哪儿</th>
+<th>类比</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><strong>原始向量</strong></td>
+<td>Milvus 的磁盘&#x2F;对象存储</td>
+<td>书库里的<strong>实体书</strong></td>
+</tr>
+<tr>
+<td><strong>FAISS索引</strong></td>
+<td>内存中的加速结构</td>
+<td>书库门口的<strong>检索卡片</strong>（只记位置和关键词）</td>
+</tr>
+</tbody></table>
+<p><strong>索引不是数据的副本</strong>，而是**数据的”地图”**：</p>
+<ul>
+<li>地图告诉你”第3排第5列可能有你要的书”</li>
+<li>但地图本身不是书，找到位置后还得回去拿书</li>
+</ul>
+<hr>
+<h2 id="所以空间怎么算？"><a href="#所以空间怎么算？" class="headerlink" title="所以空间怎么算？"></a>所以空间怎么算？</h2><table>
+<thead>
+<tr>
+<th>组件</th>
+<th>占用空间</th>
+<th>说明</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>原始向量</td>
+<td>大（主要开销）</td>
+<td>必须存，查询结果要返回</td>
+</tr>
+<tr>
+<td>FAISS索引</td>
+<td>额外10%~100%</td>
+<td>HNSW索引通常占向量大小的50%-100%</td>
+</tr>
+<tr>
+<td>元数据</td>
+<td>小</td>
+<td>标签、ID、时间等</td>
+</tr>
+</tbody></table>
+<p><strong>总空间 ≈ 原始数据 + 索引开销</strong>，不是简单的×2</p>
+<hr>
+<h2 id="一个细节：Milvus-的”分层存储”"><a href="#一个细节：Milvus-的”分层存储”" class="headerlink" title="一个细节：Milvus 的”分层存储”"></a>一个细节：Milvus 的”分层存储”</h2><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">热数据（常用）→ 内存 + FAISS索引</span><br><span class="line">    ↓</span><br><span class="line">温数据（偶尔用）→ 本地磁盘</span><br><span class="line">    ↓</span><br><span class="line">冷数据（备份）→ 对象存储（S3/MinIO）</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>查询时：FAISS 在内存里快速定位 → Milvus 去磁盘&#x2F;对象存储取原始向量</li>
+<li>原始向量<strong>只有一份</strong>，只是根据访问频率放在不同速度的介质上</li>
+</ul>
+<hr>
+<h2 id="一句话总结-1"><a href="#一句话总结-1" class="headerlink" title="一句话总结"></a>一句话总结</h2><blockquote>
+<p><strong>原始数据只存一份在 Milvus，FAISS 只存”怎么找”的索引结构</strong>。<br>就像图书馆的<strong>书只买一套</strong>，但<strong>检索卡片可以做多套</strong>（作者索引、分类索引、关键词索引…），方便从不同角度快速查找。</p>
+</blockquote>
+<p>好，用大白话解释 <strong>暴力搜索</strong>：</p>
+<hr>
+<h2 id="暴力搜索-笨办法，但最准"><a href="#暴力搜索-笨办法，但最准" class="headerlink" title="暴力搜索 &#x3D; 笨办法，但最准"></a>暴力搜索 &#x3D; 笨办法，但最准</h2><p>想象你在一个<strong>巨大的停车场</strong>找一辆<strong>红色的特斯拉</strong>：</p>
+<table>
+<thead>
+<tr>
+<th>搜索方式</th>
+<th>怎么做</th>
+<th>特点</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><strong>索引搜索（聪明办法）</strong></td>
+<td>先看”红色车区地图”，直奔C区</td>
+<td>快，但可能漏掉（地图没更新）</td>
+</tr>
+<tr>
+<td><strong>暴力搜索（笨办法）</strong></td>
+<td>一辆一辆看，直到找到为止</td>
+<td>慢，但<strong>绝对不会漏</strong></td>
+</tr>
+</tbody></table>
+<hr>
+<h2 id="在向量搜索里"><a href="#在向量搜索里" class="headerlink" title="在向量搜索里"></a>在向量搜索里</h2><p><strong>暴力搜索</strong>就是：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">有 100万条向量，找最相似的 Top 10</span><br><span class="line"></span><br><span class="line">暴力搜索做法：</span><br><span class="line">  拿查询向量，跟这100万条一一计算相似度</span><br><span class="line">  算完100万次，排序，取前10</span><br><span class="line">  </span><br><span class="line">时间复杂度：O(N) — 数据量越大，越慢</span><br></pre></td></tr></table></figure>
+
+<p><strong>对比索引搜索（如HNSW）：</strong></p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">只探索&quot;可能相关&quot;的一小部分（比如1000条）</span><br><span class="line">时间复杂度：O(log N) — 数据量大也不怕</span><br></pre></td></tr></table></figure>
+
+<hr>
+<h2 id="为什么还需要暴力搜索？"><a href="#为什么还需要暴力搜索？" class="headerlink" title="为什么还需要暴力搜索？"></a>为什么还需要暴力搜索？</h2><p>虽然慢，但有两个<strong>救命场景</strong>：</p>
+<table>
+<thead>
+<tr>
+<th>场景</th>
+<th>为什么用暴力搜索</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><strong>过滤太狠</strong></td>
+<td>比如”找红色特斯拉，且车牌尾号是88”——符合条件的只剩100辆，直接暴力搜比翻索引还快</td>
+</tr>
+<tr>
+<td><strong>索引失效</strong></td>
+<td>高维数据、特殊分布导致索引”瞎指路”，不如不用</td>
+</tr>
+<tr>
+<td><strong>验证结果</strong></td>
+<td>怀疑索引漏了，用暴力搜对比，确保100%召回</td>
+</tr>
+</tbody></table>
+<hr>
+<h2 id="一句话"><a href="#一句话" class="headerlink" title="一句话"></a>一句话</h2><blockquote>
+<p><strong>暴力搜索 &#x3D; 穷举法</strong>，慢但准，是<strong>最后的保底手段</strong>。<br>平时用索引偷懒，关键时刻（数据太少或要求太严）就老老实实全算一遍。</p>
+</blockquote>
+
+    </div>
+
+    
+    
+    
+
+      <footer class="post-footer">
+
+        
+
+
+        
+    <div class="post-nav">
+      <div class="post-nav-item">
+    <a href="/2026/04/13/%E4%BC%81%E4%B8%9A%E7%9F%A5%E8%AF%86%E6%99%BA%E8%83%BD%E9%97%AE%E7%AD%94%E5%B9%B3%E5%8F%B0/" rel="prev" title="企业知识智能问答平台">
+      <i class="fa fa-chevron-left"></i> 企业知识智能问答平台
+    </a></div>
+      <div class="post-nav-item"></div>
+    </div>
+      </footer>
+    
+  </article>
+  
+  
+  
+
+
+
+          </div>
+          
+
+<script>
+  window.addEventListener('tabs:register', () => {
+    let { activeClass } = CONFIG.comments;
+    if (CONFIG.comments.storage) {
+      activeClass = localStorage.getItem('comments_active') || activeClass;
+    }
+    if (activeClass) {
+      let activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      if (activeTab) {
+        activeTab.click();
+      }
+    }
+  });
+  if (CONFIG.comments.storage) {
+    window.addEventListener('tabs:click', event => {
+      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
+      let commentClass = event.target.classList[1];
+      localStorage.setItem('comments_active', commentClass);
+    });
+  }
+</script>
+
+        </div>
+          
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line toggle-line-first"></span>
+    <span class="toggle-line toggle-line-middle"></span>
+    <span class="toggle-line toggle-line-last"></span>
+  </div>
+
+  <aside class="sidebar">
+    <div class="sidebar-inner">
+
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%B8%9A%E5%8A%A1%E6%8F%90%E9%97%AE%EF%BC%88%E7%94%A8%E6%88%B7%E8%BE%93%E5%85%A5%EF%BC%89"><span class="nav-number">1.</span> <span class="nav-text">业务提问（用户输入）</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E7%B3%BB%E7%BB%9F%E4%BC%9A%E6%80%8E%E4%B9%88%E5%81%9A%EF%BC%88%E6%8C%89-Multi-Agent-%E6%B5%81%E7%A8%8B%EF%BC%89"><span class="nav-number">2.</span> <span class="nav-text">系统会怎么做（按 Multi-Agent 流程）</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E7%A4%BA%E4%BE%8B%E8%BE%93%E5%87%BA%EF%BC%88%E4%BD%A0%E5%8F%AF%E4%BB%A5%E5%AF%B9%E5%A4%96%E5%B1%95%E7%A4%BA%E7%9A%84%E2%80%9C%E5%85%A8%E9%9D%A2%E8%AF%B4%E6%98%8E%E2%80%9D%EF%BC%89"><span class="nav-number">3.</span> <span class="nav-text">示例输出（你可以对外展示的“全面说明”）</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#1-%E6%80%BB%E4%BD%93%E7%BB%93%E8%AE%BA"><span class="nav-number">3.1.</span> <span class="nav-text">1) 总体结论</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2-%E5%85%B3%E9%94%AE%E5%8F%91%E7%8E%B0%EF%BC%88%E7%A4%BA%E4%BE%8B%EF%BC%89"><span class="nav-number">3.2.</span> <span class="nav-text">2) 关键发现（示例）</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#3-%E5%BB%BA%E8%AE%AE%E5%8A%A8%E4%BD%9C%EF%BC%88%E5%8F%AF%E6%89%A7%E8%A1%8C%EF%BC%89"><span class="nav-number">3.3.</span> <span class="nav-text">3) 建议动作（可执行）</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#4-%E9%A3%8E%E9%99%A9%E6%8F%90%E7%A4%BA"><span class="nav-number">3.4.</span> <span class="nav-text">4) 风险提示</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E8%BF%99%E4%B8%AA%E4%BE%8B%E5%AD%90%E7%9A%84%E4%BB%B7%E5%80%BC"><span class="nav-number">4.</span> <span class="nav-text">这个例子的价值</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%B8%80%E5%8F%A5%E8%AF%9D%E5%AE%9A%E4%BD%8D%EF%BC%88%E5%BC%80%E5%9C%BA30%E7%A7%92%EF%BC%89"><span class="nav-number">5.</span> <span class="nav-text">一句话定位（开场30秒）</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%BD%A0%E8%B4%9F%E8%B4%A3%E7%9A%84-AI-%E5%B7%A5%E7%A8%8B%E5%86%85%E5%AE%B9%EF%BC%88Agent-RAG-%E8%AF%84%E4%BC%B0%EF%BC%89"><span class="nav-number">6.</span> <span class="nav-text">你负责的 AI 工程内容（Agent&#x2F;RAG&#x2F;评估）</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%BD%A0%E8%B4%9F%E8%B4%A3%E7%9A%84%E5%90%8E%E7%AB%AF%E5%B7%A5%E7%A8%8B%E5%86%85%E5%AE%B9%EF%BC%88API-%E8%B0%83%E5%BA%A6-%E7%A8%B3%E5%AE%9A%E6%80%A7%EF%BC%89"><span class="nav-number">7.</span> <span class="nav-text">你负责的后端工程内容（API&#x2F;调度&#x2F;稳定性）</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E9%9D%A2%E8%AF%95%E5%AE%98%E6%9C%80%E7%88%B1%E5%90%AC%E7%9A%84%E2%80%9C%E7%BB%93%E6%9E%9C%E2%80%9D%E8%A1%A8%E8%BE%BE%EF%BC%88%E4%BD%A0%E4%B8%80%E5%AE%9A%E8%A6%81%E9%87%8F%E5%8C%96%EF%BC%89"><span class="nav-number">8.</span> <span class="nav-text">面试官最爱听的“结果”表达（你一定要量化）</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E9%AB%98%E9%A2%91%E8%BF%BD%E9%97%AE%E6%80%8E%E4%B9%88%E7%AD%94%EF%BC%88%E7%BB%99%E4%BD%A0%E7%8E%B0%E6%88%90%E8%AF%9D%E6%9C%AF%EF%BC%89"><span class="nav-number">9.</span> <span class="nav-text">高频追问怎么答（给你现成话术）</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E7%AE%80%E5%8E%86%E5%8F%AF%E7%9B%B4%E6%8E%A5%E5%86%99%E7%9A%84%E7%89%88%E6%9C%AC%EF%BC%88%E7%B2%BE%E7%AE%80%EF%BC%89"><span class="nav-number">10.</span> <span class="nav-text">简历可直接写的版本（精简）</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#1%E5%88%86%E9%92%9F%E8%87%AA%E6%88%91%E4%BB%8B%E7%BB%8D%EF%BC%88%E5%8F%AF%E7%9B%B4%E6%8E%A5%E8%AF%B4%EF%BC%89"><span class="nav-number">11.</span> <span class="nav-text">1分钟自我介绍（可直接说）</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#3%E5%88%86%E9%92%9F%E9%A1%B9%E7%9B%AE%E6%B7%B1%E6%8C%96%EF%BC%88STAR%E7%BB%93%E6%9E%84%EF%BC%8C%E5%BB%BA%E8%AE%AE%E7%85%A7%E8%BF%99%E4%B8%AA%E8%AE%B2%EF%BC%89"><span class="nav-number">12.</span> <span class="nav-text">3分钟项目深挖（STAR结构，建议照这个讲）</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#1-%E8%83%8C%E6%99%AF%EF%BC%88Situation%EF%BC%89"><span class="nav-number">12.1.</span> <span class="nav-text">1) 背景（Situation）</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2-%E4%BB%BB%E5%8A%A1%EF%BC%88Task%EF%BC%89"><span class="nav-number">12.2.</span> <span class="nav-text">2) 任务（Task）</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#3-%E8%A1%8C%E5%8A%A8%EF%BC%88Action%EF%BC%89"><span class="nav-number">12.3.</span> <span class="nav-text">3) 行动（Action）</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#4-%E7%BB%93%E6%9E%9C%EF%BC%88Result%EF%BC%89"><span class="nav-number">12.4.</span> <span class="nav-text">4) 结果（Result）</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#5-%E5%A4%8D%E7%9B%98%EF%BC%88%E5%8F%AF%E5%8A%A0%E5%88%86%EF%BC%89"><span class="nav-number">12.5.</span> <span class="nav-text">5) 复盘（可加分）</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E8%BF%BD%E9%97%AE%E6%B8%85%E5%8D%95%EF%BC%88%E9%AB%98%E9%A2%91-%E6%A0%87%E5%87%86%E5%9B%9E%E7%AD%94%E6%80%9D%E8%B7%AF%EF%BC%89"><span class="nav-number">13.</span> <span class="nav-text">追问清单（高频 + 标准回答思路）</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%8A%80%E6%9C%AF%E6%9E%B6%E6%9E%84%E7%B1%BB"><span class="nav-number">13.1.</span> <span class="nav-text">技术架构类</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#RAG-%E7%B1%BB"><span class="nav-number">13.2.</span> <span class="nav-text">RAG 类</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%90%8E%E7%AB%AF%E7%A8%B3%E5%AE%9A%E6%80%A7%E7%B1%BB"><span class="nav-number">13.3.</span> <span class="nav-text">后端稳定性类</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E8%AF%84%E4%BC%B0%E4%B8%8E%E4%B8%9A%E5%8A%A1%E4%BB%B7%E5%80%BC%E7%B1%BB"><span class="nav-number">13.4.</span> <span class="nav-text">评估与业务价值类</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%9C%80%E5%90%8E%E7%BB%99%E4%BD%A0%E4%B8%80%E4%B8%AA%E2%80%9C%E4%B8%87%E8%83%BD%E6%94%B6%E5%B0%BE%E5%8F%A5%E2%80%9D"><span class="nav-number">14.</span> <span class="nav-text">最后给你一个“万能收尾句”</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#1-%E4%BD%A0%E8%BF%99%E4%B8%AA%E9%A1%B9%E7%9B%AE%E7%9A%84%E6%A0%B8%E5%BF%83%E4%BB%B7%E5%80%BC%E6%98%AF%E4%BB%80%E4%B9%88%EF%BC%9F"><span class="nav-number">14.1.</span> <span class="nav-text">1. 你这个项目的核心价值是什么？</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2-%E4%BD%A0%E4%B8%BA%E4%BB%80%E4%B9%88%E8%A6%81%E7%94%A8-Multi-Agent%EF%BC%8C%E8%80%8C%E4%B8%8D%E6%98%AF%E4%B8%80%E4%B8%AA%E5%A4%A7%E6%A8%A1%E5%9E%8B%E7%9B%B4%E6%8E%A5%E5%9B%9E%E7%AD%94%EF%BC%9F"><span class="nav-number">14.2.</span> <span class="nav-text">2. 你为什么要用 Multi-Agent，而不是一个大模型直接回答？</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#3-%E4%BD%A0%E5%9C%A8%E8%BF%99%E4%B8%AA%E9%A1%B9%E7%9B%AE%E9%87%8C%E5%85%B7%E4%BD%93%E8%B4%9F%E8%B4%A3%E4%BB%80%E4%B9%88%EF%BC%9F"><span class="nav-number">14.3.</span> <span class="nav-text">3. 你在这个项目里具体负责什么？</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#4-%E8%AF%B4%E4%B8%80%E4%B8%8B%E4%BD%A0%E8%AE%BE%E8%AE%A1%E7%9A%84%E4%BB%BB%E5%8A%A1%E6%B5%81%E7%A8%8B%E3%80%82"><span class="nav-number">14.4.</span> <span class="nav-text">4. 说一下你设计的任务流程。</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#5-RAG-%E6%98%AF%E6%80%8E%E4%B9%88%E5%81%9A%E7%9A%84%EF%BC%9F%E4%B8%BA%E4%BB%80%E4%B9%88%E7%94%A8-FAISS-Milvus%EF%BC%9F"><span class="nav-number">14.5.</span> <span class="nav-text">5. RAG 是怎么做的？为什么用 FAISS + Milvus？</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#6-%E4%BD%A0%E6%80%8E%E4%B9%88%E5%A4%84%E7%90%86%E5%A4%B1%E8%B4%A5%E5%92%8C%E4%B8%8D%E7%A8%B3%E5%AE%9A%E9%97%AE%E9%A2%98%EF%BC%9F"><span class="nav-number">14.6.</span> <span class="nav-text">6. 你怎么处理失败和不稳定问题？</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#7-%E4%BD%A0%E6%80%8E%E4%B9%88%E8%A1%A1%E9%87%8F%E7%B3%BB%E7%BB%9F%E6%95%88%E6%9E%9C%EF%BC%9F"><span class="nav-number">14.7.</span> <span class="nav-text">7. 你怎么衡量系统效果？</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#8-%E4%BD%A0%E4%BB%AC%E7%B3%BB%E7%BB%9F%E6%9C%80%E5%A4%A7%E7%9A%84%E6%8A%80%E6%9C%AF%E6%8C%91%E6%88%98%E6%98%AF%E4%BB%80%E4%B9%88%EF%BC%9F"><span class="nav-number">14.8.</span> <span class="nav-text">8. 你们系统最大的技术挑战是什么？</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#9-%E5%A6%82%E6%9E%9C%E8%AE%A9%E4%BD%A0%E5%86%8D%E5%81%9A%E4%B8%80%E7%89%88%EF%BC%8C%E4%BD%A0%E4%BC%9A%E4%BC%98%E5%85%88%E4%BC%98%E5%8C%96%E4%BB%80%E4%B9%88%EF%BC%9F"><span class="nav-number">14.9.</span> <span class="nav-text">9. 如果让你再做一版，你会优先优化什么？</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#10-%E8%BF%99%E4%B8%AA%E9%A1%B9%E7%9B%AE%E6%80%8E%E4%B9%88%E4%BD%93%E7%8E%B0%E4%BD%A0%E7%9A%84%E2%80%9C%E7%94%9F%E4%BA%A7%E5%8C%96%E8%83%BD%E5%8A%9B%E2%80%9D%EF%BC%9F"><span class="nav-number">14.10.</span> <span class="nav-text">10. 这个项目怎么体现你的“生产化能力”？</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E8%BF%99%E4%B8%AA%E6%9E%B6%E6%9E%84%E6%98%AF%E4%BB%80%E4%B9%88%EF%BC%9F"><span class="nav-number">15.</span> <span class="nav-text">这个架构是什么？</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%BC%98%E7%82%B9%EF%BC%88%E5%A5%BD%E5%A4%84%EF%BC%89"><span class="nav-number">16.</span> <span class="nav-text">优点（好处）</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#1-%E5%8F%88%E5%BF%AB%E5%8F%88%E7%A8%B3"><span class="nav-number">16.1.</span> <span class="nav-text">1. 又快又稳</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2-%E8%83%BD%E5%A4%84%E7%90%86%E5%A4%8D%E6%9D%82%E6%9F%A5%E8%AF%A2"><span class="nav-number">16.2.</span> <span class="nav-text">2. 能处理复杂查询</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#3-%E4%BC%81%E4%B8%9A%E7%BA%A7%E9%9D%A0%E8%B0%B1"><span class="nav-number">16.3.</span> <span class="nav-text">3. 企业级靠谱</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E7%BC%BA%E7%82%B9%EF%BC%88%E5%9D%8F%E5%A4%84%EF%BC%89"><span class="nav-number">17.</span> <span class="nav-text">缺点（坏处）</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#1-%E5%A4%AA%E9%87%8D%E4%BA%86"><span class="nav-number">17.1.</span> <span class="nav-text">1. 太重了</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2-%E8%B0%83%E8%B5%B7%E6%9D%A5%E9%BA%BB%E7%83%A6"><span class="nav-number">17.2.</span> <span class="nav-text">2. 调起来麻烦</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#3-%E6%9C%89%E6%97%B6%E5%80%99%E5%8F%8D%E8%80%8C%E5%8F%98%E6%85%A2"><span class="nav-number">17.3.</span> <span class="nav-text">3. 有时候反而变慢</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%B8%80%E5%8F%A5%E8%AF%9D%E6%80%BB%E7%BB%93"><span class="nav-number">18.</span> <span class="nav-text">一句话总结</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%95%B0%E6%8D%AE%E5%88%B0%E5%BA%95%E5%AD%98%E5%93%AA%E5%84%BF%EF%BC%9F"><span class="nav-number">19.</span> <span class="nav-text">数据到底存哪儿？</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%89%93%E4%B8%AA%E6%AF%94%E6%96%B9%EF%BC%9A%E5%9B%BE%E4%B9%A6%E9%A6%86-again"><span class="nav-number">20.</span> <span class="nav-text">打个比方：图书馆 again</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%89%80%E4%BB%A5%E7%A9%BA%E9%97%B4%E6%80%8E%E4%B9%88%E7%AE%97%EF%BC%9F"><span class="nav-number">21.</span> <span class="nav-text">所以空间怎么算？</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%B8%80%E4%B8%AA%E7%BB%86%E8%8A%82%EF%BC%9AMilvus-%E7%9A%84%E2%80%9D%E5%88%86%E5%B1%82%E5%AD%98%E5%82%A8%E2%80%9D"><span class="nav-number">22.</span> <span class="nav-text">一个细节：Milvus 的”分层存储”</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%B8%80%E5%8F%A5%E8%AF%9D%E6%80%BB%E7%BB%93-1"><span class="nav-number">23.</span> <span class="nav-text">一句话总结</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%9A%B4%E5%8A%9B%E6%90%9C%E7%B4%A2-%E7%AC%A8%E5%8A%9E%E6%B3%95%EF%BC%8C%E4%BD%86%E6%9C%80%E5%87%86"><span class="nav-number">24.</span> <span class="nav-text">暴力搜索 &#x3D; 笨办法，但最准</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%9C%A8%E5%90%91%E9%87%8F%E6%90%9C%E7%B4%A2%E9%87%8C"><span class="nav-number">25.</span> <span class="nav-text">在向量搜索里</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%B8%BA%E4%BB%80%E4%B9%88%E8%BF%98%E9%9C%80%E8%A6%81%E6%9A%B4%E5%8A%9B%E6%90%9C%E7%B4%A2%EF%BC%9F"><span class="nav-number">26.</span> <span class="nav-text">为什么还需要暴力搜索？</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%B8%80%E5%8F%A5%E8%AF%9D"><span class="nav-number">27.</span> <span class="nav-text">一句话</span></a></li></ol></div>
+      </div>
+      <!--/noindex-->
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+  <p class="site-author-name" itemprop="name">wangzhiwei</p>
+  <div class="site-description" itemprop="description">javascript nodejs web developer...</div>
+</div>
+<div class="site-state-wrap motion-element">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">102</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+        <span class="site-state-item-count">62</span>
+        <span class="site-state-item-name">分类</span>
+      </div>
+      <div class="site-state-item site-state-tags">
+        <span class="site-state-item-count">68</span>
+        <span class="site-state-item-name">标签</span>
+      </div>
+  </nav>
+</div>
+
+
+
+      </div>
+
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+    </main>
+
+    <footer class="footer">
+      <div class="footer-inner">
+        
+
+        
+
+<div class="copyright">
+  
+  &copy; 
+  <span itemprop="copyrightYear">2026</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">wangzhiwei</span>
+</div>
+  <div class="powered-by">由 <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> & <a href="https://muse.theme-next.org/" class="theme-link" rel="noopener" target="_blank">NexT.Muse</a> 强力驱动
+  </div>
+
+        
+
+
+
+
+
+
+
+
+      </div>
+    </footer>
+  </div>
+
+  
+  <script src="/lib/anime.min.js"></script>
+  <script src="/lib/velocity/velocity.min.js"></script>
+  <script src="/lib/velocity/velocity.ui.min.js"></script>
+
+<script src="/js/utils.js"></script>
+
+<script src="/js/motion.js"></script>
+
+
+<script src="/js/schemes/muse.js"></script>
+
+
+<script src="/js/next-boot.js"></script>
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  
+
+</body>
+</html>
