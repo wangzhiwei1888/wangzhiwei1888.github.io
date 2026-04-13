@@ -1,0 +1,595 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 7.3.0">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+<link rel="stylesheet" href="/lib/font-awesome/css/font-awesome.min.css">
+
+<script id="hexo-configurations">
+    var NexT = window.NexT || {};
+    var CONFIG = {"hostname":"example.com","root":"/","scheme":"Muse","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":false,"show_result":false,"style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":false,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}}};
+  </script>
+
+  <meta name="description" content="Q1: 什么是 MLOps？和 DevOps 有什么区别？DevOps 是让代码从开发到上线自动化（CI&#x2F;CD）。MLOps 是让机器学习模型从实验到生产自动化，额外要管数据、模型版本、效果监控。     DevOps MLOps    版本控制 代码（Git） 代码 + 数据 + 模型权重   测试 单元测试、集成测试 模型效果测试（精度、延迟）   部署 二进制&#x2F;容器 模型">
+<meta property="og:type" content="article">
+<meta property="og:title" content="MLOps">
+<meta property="og:url" content="http://example.com/2026/04/12/MLOps/index.html">
+<meta property="og:site_name" content="WBlog">
+<meta property="og:description" content="Q1: 什么是 MLOps？和 DevOps 有什么区别？DevOps 是让代码从开发到上线自动化（CI&#x2F;CD）。MLOps 是让机器学习模型从实验到生产自动化，额外要管数据、模型版本、效果监控。     DevOps MLOps    版本控制 代码（Git） 代码 + 数据 + 模型权重   测试 单元测试、集成测试 模型效果测试（精度、延迟）   部署 二进制&#x2F;容器 模型">
+<meta property="og:locale" content="zh_CN">
+<meta property="article:published_time" content="2026-04-12T02:41:27.000Z">
+<meta property="article:modified_time" content="2026-04-12T02:57:57.323Z">
+<meta property="article:author" content="wangzhiwei">
+<meta property="article:tag" content="MLOps">
+<meta name="twitter:card" content="summary">
+
+<link rel="canonical" href="http://example.com/2026/04/12/MLOps/">
+
+
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome : false,
+    isPost : true,
+    lang   : 'zh-CN'
+  };
+</script>
+
+  <title>MLOps | WBlog</title>
+  
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div class="container use-motion">
+    <div class="headband"></div>
+
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏">
+      <span class="toggle-line toggle-line-first"></span>
+      <span class="toggle-line toggle-line-middle"></span>
+      <span class="toggle-line toggle-line-last"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <h1 class="site-title">WBlog</h1>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+      <p class="site-subtitle" itemprop="description">wangzhiwei blog</p>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+    </div>
+  </div>
+</div>
+
+
+
+
+<nav class="site-nav">
+  <ul id="menu" class="menu">
+        <li class="menu-item menu-item-home">
+
+    <a href="/" rel="section"><i class="fa fa-fw fa-home"></i>首页</a>
+
+  </li>
+        <li class="menu-item menu-item-archives">
+
+    <a href="/archives/" rel="section"><i class="fa fa-fw fa-archive"></i>归档</a>
+
+  </li>
+  </ul>
+</nav>
+
+
+
+
+</div>
+    </header>
+
+    
+  <div class="back-to-top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+
+
+    <main class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+
+          <div class="content post posts-expand">
+            
+
+    
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="http://example.com/2026/04/12/MLOps/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="wangzhiwei">
+      <meta itemprop="description" content="javascript nodejs web developer...">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="WBlog">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          MLOps
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+              
+
+              <time title="创建时间：2026-04-12 10:41:27 / 修改时间：10:57:57" itemprop="dateCreated datePublished" datetime="2026-04-12T10:41:27+08:00">2026-04-12</time>
+            </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/MLOps/" itemprop="url" rel="index"><span itemprop="name">MLOps</span></a>
+                </span>
+                  ，
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/MLOps/Ai-Agent/" itemprop="url" rel="index"><span itemprop="name">Ai Agent</span></a>
+                </span>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+        <h2 id="Q1-什么是-MLOps？和-DevOps-有什么区别？"><a href="#Q1-什么是-MLOps？和-DevOps-有什么区别？" class="headerlink" title="Q1: 什么是 MLOps？和 DevOps 有什么区别？"></a>Q1: 什么是 MLOps？和 DevOps 有什么区别？</h2><p>DevOps 是让代码从开发到上线自动化（CI&#x2F;CD）。<br>MLOps 是让机器学习模型从实验到生产自动化，额外要管数据、模型版本、效果监控。</p>
+<table>
+<thead>
+<tr>
+<th></th>
+<th>DevOps</th>
+<th>MLOps</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>版本控制</td>
+<td>代码（Git）</td>
+<td>代码 + <strong>数据</strong> + <strong>模型权重</strong></td>
+</tr>
+<tr>
+<td>测试</td>
+<td>单元测试、集成测试</td>
+<td><strong>模型效果测试</strong>（精度、延迟）</td>
+</tr>
+<tr>
+<td>部署</td>
+<td>二进制&#x2F;容器</td>
+<td><strong>模型文件</strong> + 推理服务</td>
+</tr>
+<tr>
+<td>监控</td>
+<td>系统指标（CPU&#x2F;内存）</td>
+<td><strong>数据漂移</strong>、<strong>模型效果衰减</strong></td>
+</tr>
+<tr>
+<td>回滚</td>
+<td>代码回滚</td>
+<td><strong>模型版本回滚</strong></td>
+</tr>
+</tbody></table>
+<p>Q3: 用过哪些 MLOps 工具？分别管什么？</p>
+<p>“我的MLOps栈是轻量级：MLflow管实验，DVC管数据，Docker+FastAPI管部署，Prometheus+Grafana管监控。没有重基础设施，但覆盖了模型全生命周期。”</p>
+<p>Q4: 模型版本怎么管理？上线后发现有问题怎么办？</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">模型注册表（Model Registry）：</span><br><span class="line">- v1.0.0：2024-01-15，K=1000，F1=0.85，标签&quot;production&quot;</span><br><span class="line">- v1.1.0：2024-03-20，K=1500，F1=0.87，标签&quot;staging&quot;</span><br><span class="line">- v2.0.0：2024-06-01，K=2000，F1=0.89，标签&quot;experiment&quot;</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"># 1. 监控告警：ROUGE-L下降超过10%</span><br><span class="line">if current_rouge &lt; baseline_rouge * 0.9:</span><br><span class="line">    send_alert(&quot;模型效果衰减&quot;)</span><br><span class="line"></span><br><span class="line"># 2. 自动回滚（蓝绿部署）</span><br><span class="line"># 流量从v2.0.0切回v1.0.0，5秒内完成</span><br><span class="line"></span><br><span class="line"># 3. 人工介入：检查数据漂移、定位bad case</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+
+<p>Q5: RAG&#x2F;Agent 场景题（结合你的项目）RAG 系统怎么做 MLOps？和传统 ML 有什么不同？</p>
+<table>
+<thead>
+<tr>
+<th>传统 ML</th>
+<th>RAG 系统</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>模型权重固定，数据在线流入</td>
+<td><strong>知识库动态更新</strong>，文档增删改</td>
+</tr>
+<tr>
+<td>主要监控模型效果</td>
+<td>还要监控<strong>检索质量</strong>、<strong>生成质量</strong></td>
+</tr>
+<tr>
+<td>重训练 &#x3D; 重新跑实验</td>
+<td>重训练 &#x3D; <strong>重新切分文档</strong>、<strong>重新Embedding</strong>、<strong>重建向量索引</strong></td>
+</tr>
+</tbody></table>
+<p>你的 RAG MLOps 流水线：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br></pre></td><td class="code"><pre><span class="line">每日凌晨：</span><br><span class="line">  │</span><br><span class="line">  ▼</span><br><span class="line">┌─────────────────┐</span><br><span class="line">│ 1. 数据更新     │  ← 新文档入库，旧文档过期</span><br><span class="line">│    (DVC版本)    │</span><br><span class="line">└─────────────────┘</span><br><span class="line">  │</span><br><span class="line">  ▼</span><br><span class="line">┌─────────────────┐</span><br><span class="line">│ 2. 重新切分+Embedding │  ← LangChain处理，产出新向量</span><br><span class="line">│    (MLflow记录参数)  │</span><br><span class="line">└─────────────────┘</span><br><span class="line">  │</span><br><span class="line">  ▼</span><br><span class="line">┌─────────────────┐</span><br><span class="line">│ 3. K-Means重新训练  │  ← Scikit-learn，找最佳K</span><br><span class="line">│    (GridSearchCV)  │</span><br><span class="line">└─────────────────┘</span><br><span class="line">  │</span><br><span class="line">  ▼</span><br><span class="line">┌─────────────────┐</span><br><span class="line">│ 4. 重建Milvus索引   │  ← 新分区替换旧分区（蓝绿）</span><br><span class="line">│    (Docker部署)    │</span><br><span class="line">└─────────────────┘</span><br><span class="line">  │</span><br><span class="line">  ▼</span><br><span class="line">┌─────────────────┐</span><br><span class="line">│ 5. A/B测试        │  ← 10%流量切新索引，对比ROUGE-L</span><br><span class="line">│    (FastAPI路由)  │</span><br><span class="line">└─────────────────┘</span><br><span class="line">  │</span><br><span class="line">  ▼</span><br><span class="line">┌─────────────────┐</span><br><span class="line">│ 6. 全量上线/回滚   │  ← 效果达标则全切，否则回滚</span><br><span class="line">└─────────────────┘</span><br><span class="line"></span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<p>Q6: 怎么监控 Agent 系统的效果？不是单一指标能衡量的</p>
+<p>分层监控</p>
+<table>
+<thead>
+<tr>
+<th>层级</th>
+<th>指标</th>
+<th>工具</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><strong>任务完成率</strong></td>
+<td>用户任务是否走到最后一步</td>
+<td>业务埋点</td>
+</tr>
+<tr>
+<td><strong>Agent决策</strong></td>
+<td>Planner是否正确拆解意图</td>
+<td>人工标注 + 自动规则</td>
+</tr>
+<tr>
+<td><strong>检索质量</strong></td>
+<td>召回文档的相关性</td>
+<td>ROUGE-L、人工抽样</td>
+</tr>
+<tr>
+<td><strong>生成质量</strong></td>
+<td>答案准确性、幻觉率</td>
+<td>BertScore、LLM-as-Judge</td>
+</tr>
+<tr>
+<td><strong>系统性能</strong></td>
+<td>延迟、成本、错误率</td>
+<td>Prometheus</td>
+</tr>
+</tbody></table>
+<p>Q7: 数据漂移（Data Drift）在 RAG 里怎么发现？</p>
+<p>传统 ML： 输入特征分布变了（比如房价模型里，平均房价从100万涨到200万）。</p>
+<table>
+<thead>
+<tr>
+<th>漂移类型</th>
+<th>表现</th>
+<th>检测方法</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><strong>查询漂移</strong></td>
+<td>用户问题主题变了（从”财务”变”技术”）</td>
+<td>K-Means中心点偏移检测</td>
+</tr>
+<tr>
+<td><strong>文档漂移</strong></td>
+<td>知识库内容过时（政策更新）</td>
+<td>文档时间戳监控 + 效果下降</td>
+</tr>
+<tr>
+<td><strong>检索漂移</strong></td>
+<td>相似度分数分布变了</td>
+<td>平均相似度监控</td>
+</tr>
+</tbody></table>
+<p>Q8: 如果让你从零搭建 MLOps 平台，优先级是什么？</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line">第1周：可复现实验</span><br><span class="line">  - MLflow记录超参和指标</span><br><span class="line">  - 代码+数据版本控制（Git+DVC）</span><br><span class="line"></span><br><span class="line">第2-4周：自动化部署</span><br><span class="line">  - Docker打包模型</span><br><span class="line">  - FastAPI服务 + 健康检查</span><br><span class="line">  - 蓝绿部署（零停机）</span><br><span class="line"></span><br><span class="line">第2-3月：监控告警</span><br><span class="line">  - Prometheus+Grafana看延迟/错误率</span><br><span class="line">  - 效果监控（ROUGE-L趋势图）</span><br><span class="line">  - 数据漂移检测</span><br><span class="line"></span><br><span class="line">第3-6月：高级功能</span><br><span class="line">  - 自动重训练流水线（Airflow）</span><br><span class="line">  - A/B测试框架</span><br><span class="line">  - 模型解释性（SHAP）</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<p>关键原则： 先让”能跑”变”可靠”，再追求”全自动”。</p>
+<p>Q9: 小团队（2-3人）做 MLOps，怎么取舍？</p>
+<table>
+<thead>
+<tr>
+<th>必做（高ROI）</th>
+<th>可砍（低ROI）</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>实验记录（MLflow）</td>
+<td>复杂的Kubeflow流水线</td>
+</tr>
+<tr>
+<td>Docker部署</td>
+<td>Kubernetes编排（先用Docker Compose）</td>
+</tr>
+<tr>
+<td>基础监控（Prometheus）</td>
+<td>实时特征平台</td>
+</tr>
+<tr>
+<td>模型版本注册</td>
+<td>自动重训练（先手动触发）</td>
+</tr>
+</tbody></table>
+<p>“小团队用精益MLOps：MLflow+Docker+Prometheus三件套覆盖80%需求，等团队大了再上Kubeflow。关键是可复现和可回滚，其他可以慢慢补。”</p>
+<p>Prometheus监控指标设计<br>“我的RAG监控系统分四层：基础设施层看GPU显存防OOM，服务层分阶段看延迟定位瓶颈，模型层用ROUGE-L和幻觉率监控效果，业务层盯成本和用户满意度。关键设计是Agent状态机埋点，每个LangGraph节点的进入次数、耗时、成功率都有指标，死循环或频繁自我修正能立即发现。告警用多层级：延迟&#x2F;错误率critical立即电话，效果下降warning工单跟进。”</p>
+<p>RAG系统的自动重训练触发策略</p>
+<p>一、为什么要自动重训练？</p>
+<table>
+<thead>
+<tr>
+<th>问题</th>
+<th>后果</th>
+<th>例子</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>知识库更新了（新政策&#x2F;新产品）</td>
+<td>检索到旧答案，用户拿到过期信息</td>
+<td>“2024年税率”查到2023年数据</td>
+</tr>
+<tr>
+<td>查询分布变了（用户问新话题）</td>
+<td>K-Means预分类失效，找不到文档</td>
+<td>原来问”财务”多，现在问”AI”多</td>
+</tr>
+<tr>
+<td>文档质量下降（爬虫抓错&#x2F;格式乱）</td>
+<td>噪声文档污染检索结果</td>
+<td>PDF解析失败，内容变成乱码</td>
+</tr>
+<tr>
+<td>模型效果衰减</td>
+<td>ROUGE-L逐渐下降，用户投诉增多</td>
+<td>从0.75降到0.55，没人知道</td>
+</tr>
+</tbody></table>
+<p>二、触发策略分类</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line">触发条件</span><br><span class="line">    │</span><br><span class="line">    ├── 时间驱动（Time-based）     ← 兜底，定期刷新</span><br><span class="line">    │      └── 每周日凌晨2点</span><br><span class="line">    │</span><br><span class="line">    ├── 数据驱动（Data-based）     ← 知识库变了</span><br><span class="line">    │      ├── 文档新增/删除/修改超过阈值</span><br><span class="line">    │      └── 文档内容漂移检测</span><br><span class="line">    │</span><br><span class="line">    ├── 效果驱动（Performance-based） ← 质量下降了</span><br><span class="line">    │      ├── 检索Recall@10下降</span><br><span class="line">    │      ├── 生成ROUGE-L下降</span><br><span class="line">    │      └── 用户反馈差评率上升</span><br><span class="line">    │</span><br><span class="line">    └── 异常驱动（Anomaly-based）   ← 出事了</span><br><span class="line">           ├── 大量检索无结果</span><br><span class="line">           ├── Agent死循环激增</span><br><span class="line">           └── 成本异常暴涨</span><br></pre></td></tr></table></figure>
+
+<p>“我的RAG自动重训练分四层触发：时间兜底每周刷新，数据驱动检测文档变化，效果驱动监控ROUGE-L和Recall下降，异常驱动响应事故。核心设计是A&#x2F;B测试+渐进上线：新版本先给10%流量，观察30分钟错误率和延迟，达标再扩到50%、100%，任何一步失败自动回滚。紧急情况下一键暂停+立即回滚，人只审批不操作，系统自治但可控。”</p>
+
+    </div>
+
+    
+    
+    
+
+      <footer class="post-footer">
+          <div class="post-tags">
+              <a href="/tags/MLOps/" rel="tag"># MLOps</a>
+          </div>
+
+        
+
+
+        
+    <div class="post-nav">
+      <div class="post-nav-item">
+    <a href="/2026/04/11/scikit-learn/" rel="prev" title="scikit-learn">
+      <i class="fa fa-chevron-left"></i> scikit-learn
+    </a></div>
+      <div class="post-nav-item">
+    <a href="/2026/04/12/python/" rel="next" title="python">
+      python <i class="fa fa-chevron-right"></i>
+    </a></div>
+    </div>
+      </footer>
+    
+  </article>
+  
+  
+  
+
+
+
+          </div>
+          
+
+<script>
+  window.addEventListener('tabs:register', () => {
+    let { activeClass } = CONFIG.comments;
+    if (CONFIG.comments.storage) {
+      activeClass = localStorage.getItem('comments_active') || activeClass;
+    }
+    if (activeClass) {
+      let activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      if (activeTab) {
+        activeTab.click();
+      }
+    }
+  });
+  if (CONFIG.comments.storage) {
+    window.addEventListener('tabs:click', event => {
+      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
+      let commentClass = event.target.classList[1];
+      localStorage.setItem('comments_active', commentClass);
+    });
+  }
+</script>
+
+        </div>
+          
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line toggle-line-first"></span>
+    <span class="toggle-line toggle-line-middle"></span>
+    <span class="toggle-line toggle-line-last"></span>
+  </div>
+
+  <aside class="sidebar">
+    <div class="sidebar-inner">
+
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#Q1-%E4%BB%80%E4%B9%88%E6%98%AF-MLOps%EF%BC%9F%E5%92%8C-DevOps-%E6%9C%89%E4%BB%80%E4%B9%88%E5%8C%BA%E5%88%AB%EF%BC%9F"><span class="nav-number">1.</span> <span class="nav-text">Q1: 什么是 MLOps？和 DevOps 有什么区别？</span></a></li></ol></div>
+      </div>
+      <!--/noindex-->
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+  <p class="site-author-name" itemprop="name">wangzhiwei</p>
+  <div class="site-description" itemprop="description">javascript nodejs web developer...</div>
+</div>
+<div class="site-state-wrap motion-element">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">100</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+        <span class="site-state-item-count">62</span>
+        <span class="site-state-item-name">分类</span>
+      </div>
+      <div class="site-state-item site-state-tags">
+        <span class="site-state-item-count">68</span>
+        <span class="site-state-item-name">标签</span>
+      </div>
+  </nav>
+</div>
+
+
+
+      </div>
+
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+    </main>
+
+    <footer class="footer">
+      <div class="footer-inner">
+        
+
+        
+
+<div class="copyright">
+  
+  &copy; 
+  <span itemprop="copyrightYear">2026</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">wangzhiwei</span>
+</div>
+  <div class="powered-by">由 <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> & <a href="https://muse.theme-next.org/" class="theme-link" rel="noopener" target="_blank">NexT.Muse</a> 强力驱动
+  </div>
+
+        
+
+
+
+
+
+
+
+
+      </div>
+    </footer>
+  </div>
+
+  
+  <script src="/lib/anime.min.js"></script>
+  <script src="/lib/velocity/velocity.min.js"></script>
+  <script src="/lib/velocity/velocity.ui.min.js"></script>
+
+<script src="/js/utils.js"></script>
+
+<script src="/js/motion.js"></script>
+
+
+<script src="/js/schemes/muse.js"></script>
+
+
+<script src="/js/next-boot.js"></script>
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  
+
+</body>
+</html>

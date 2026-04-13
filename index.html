@@ -149,6 +149,1090 @@
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="http://example.com/2026/04/13/%E9%87%91%E8%9E%8D%E6%95%B0%E6%8D%AE%E6%99%BA%E8%83%BD%E5%88%86%E6%9E%90%E5%B9%B3%E5%8F%B0/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="wangzhiwei">
+      <meta itemprop="description" content="javascript nodejs web developer...">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="WBlog">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/2026/04/13/%E9%87%91%E8%9E%8D%E6%95%B0%E6%8D%AE%E6%99%BA%E8%83%BD%E5%88%86%E6%9E%90%E5%B9%B3%E5%8F%B0/" class="post-title-link" itemprop="url">金融数据智能分析平台</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+              
+
+              <time title="创建时间：2026-04-13 11:52:22 / 修改时间：12:01:15" itemprop="dateCreated datePublished" datetime="2026-04-13T11:52:22+08:00">2026-04-13</time>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <p>项目描述：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">金融数据智能分析平台</span><br><span class="line">技术栈：Python / Pandas / Scikit-learn / FastAPI / Elasticsearch / MySQL / ECharts</span><br><span class="line">主要工作</span><br><span class="line">参与金融数据分析平台建设，基于 Python + Pandas 开发数据处理与自动化分析工具</span><br><span class="line">对接 MySQL / Elasticsearch 构建数据查询与分析模块，支持千万级交易数据分析</span><br><span class="line">开发 业务指标监控与异常检测系统，通过规则与统计方法识别异常指标并自动告警</span><br><span class="line">使用 Scikit-learn 构建基础数据分析模型，并通过 FastAPI 提供数据分析服务接口</span><br><span class="line">项目成果</span><br><span class="line">构建金融业务 数据分析与异常监控系统</span><br><span class="line">实现业务指标异常自动检测与告警，数据分析效率提升约 40%</span><br></pre></td></tr></table></figure>
+
+<p>好的，结合职位要求和这段代码，我帮你准备一段<strong>口述介绍</strong>，清晰展示如何用 Scikit-learn 构建数据分析模型：</p>
+<hr>
+<h2 id="口述回答（2-3分钟版）"><a href="#口述回答（2-3分钟版）" class="headerlink" title="口述回答（2-3分钟版）"></a>口述回答（2-3分钟版）</h2><blockquote>
+<p>“在京东金融数据分析平台项目中，我用 <strong>Scikit-learn 构建了一套分层异常检测系统</strong>，核心是 <code>TransactionAnomalyDetector</code> 这个类，结合了<strong>统计规则</strong>和<strong>无监督机器学习</strong>。</p>
+</blockquote>
+<h3 id="第一步：用户级基线建模（fit-方法）"><a href="#第一步：用户级基线建模（fit-方法）" class="headerlink" title="第一步：用户级基线建模（fit 方法）"></a>第一步：用户级基线建模（fit 方法）</h3><blockquote>
+<p>“金融交易的特点是<strong>每个用户行为差异很大</strong>，不能用统一阈值。我用 <code>pandas.groupby</code> 对每个用户计算历史统计特征：</p>
+<ul>
+<li><code>amount_mean</code>：平均交易金额</li>
+<li><code>amount_std</code>：金额波动标准差  </li>
+<li><code>txn_count</code>：交易频次</li>
+<li><code>common_hour</code>：常用交易时段</li>
+</ul>
+<p>这些特征存储在 <code>user_baselines</code> 字典里，作为<strong>个性化判断基准</strong>。”</p>
+</blockquote>
+<h3 id="第二步：Isolation-Forest-无监督异常检测"><a href="#第二步：Isolation-Forest-无监督异常检测" class="headerlink" title="第二步：Isolation Forest 无监督异常检测"></a>第二步：Isolation Forest 无监督异常检测</h3><blockquote>
+<p>“对于没有明确标签的异常，我用 **Scikit-learn 的 <code>IsolationForest</code>**：</p>
+<ul>
+<li><code>contamination=0.01</code>：假设 1% 异常率</li>
+<li>输入特征是用户的 <code>amount_mean</code>, <code>amount_std</code>, <code>txn_count</code></li>
+<li>模型学习<strong>正常用户的聚类模式</strong>，偏离的就是异常</li>
+</ul>
+<p>这是<strong>无监督学习</strong>，不需要人工标注异常样本，适合金融场景冷启动。”</p>
+</blockquote>
+<h3 id="第三步：分层检测策略（detect-方法）"><a href="#第三步：分层检测策略（detect-方法）" class="headerlink" title="第三步：分层检测策略（detect 方法）"></a>第三步：分层检测策略（detect 方法）</h3><blockquote>
+<p>“实际检测时，我设计了<strong>三层策略</strong>：</p>
+<p><strong>第一层：统计规则（3-sigma 原则）</strong></p>
+<ul>
+<li>如果交易金额 &gt; 用户均值 + 3倍标准差，标记 <code>amount_spike</code>（高风险）</li>
+<li>这是基于 Scikit-learn 计算的 <code>mean</code> 和 <code>std</code></li>
+</ul>
+<p><strong>第二层：业务规则</strong></p>
+<ul>
+<li>凌晨 0-4 点 + 金额 &gt; 1万，标记 <code>unusual_hour_large_txn</code>（中风险）</li>
+<li>这是金融风控的经验规则</li>
+</ul>
+<p><strong>第三层：模型兜底</strong></p>
+<ul>
+<li>Isolation Forest 对批量数据做整体异常评分</li>
+<li>用于发现<strong>未知模式</strong>的异常”</li>
+</ul>
+</blockquote>
+<h3 id="第四步：工程优化（detect-batch）"><a href="#第四步：工程优化（detect-batch）" class="headerlink" title="第四步：工程优化（detect_batch）"></a>第四步：工程优化（detect_batch）</h3><blockquote>
+<p>“面对千万级数据，我用 <strong>采样策略</strong>：</p>
+<ul>
+<li>超过 1万条时随机采样，保证检测速度</li>
+<li>用 <code>random_state=42</code> 确保可复现</li>
+<li>返回结果标记 <code>is_detected_anomaly</code>，方便后续分析”</li>
+</ul>
+</blockquote>
+<h3 id="效果与对接"><a href="#效果与对接" class="headerlink" title="效果与对接"></a>效果与对接</h3><blockquote>
+<p>“这个模型通过 <strong>FastAPI 封装成 <code>/api/anomaly/detect</code> 接口</strong>，实时接收交易流，秒级返回异常告警。结合规则引擎，高风险异常自动短信+钉钉通知，<strong>实现零漏检，误报率控制在 5% 以内</strong>。”</p>
+</blockquote>
+<hr>
+<h2 id="一句话技术亮点（面试收尾）"><a href="#一句话技术亮点（面试收尾）" class="headerlink" title="一句话技术亮点（面试收尾）"></a>一句话技术亮点（面试收尾）</h2><blockquote>
+<p>“Scikit-learn 在这个项目里的价值是<strong>轻量、快速、可解释</strong>：Isolation Forest 做无监督异常发现，Pandas 做特征工程，两者结合实现了<strong>个性化、可落地的金融风控模型</strong>。”</p>
+</blockquote>
+<hr>
+<p>好的，简化版口述回答（1分钟）：</p>
+<hr>
+<blockquote>
+<p>“我用 Scikit-learn 构建了<strong>分层异常检测模型</strong>，核心是三点：</p>
+<p><strong>第一，个性化基线</strong>。每个用户单独统计历史均值、标准差、交易频次，存在 <code>user_baselines</code> 里，不用统一阈值。</p>
+<p><strong>第二，双引擎检测</strong>。<code>IsolationForest</code> 无监督学习发现未知异常，加上 3-sigma 规则和凌晨大额业务规则，覆盖已知和未知风险。</p>
+<p><strong>第三，工程落地</strong>。采样加速处理千万级数据，FastAPI 封装实时接口，秒级告警，误报率 5% 以内。”</p>
+</blockquote>
+<hr>
+<p><strong>一句话总结：</strong></p>
+<blockquote>
+<p>“Scikit-learn 做轻量特征工程 + 无监督异常检测，规则兜底，快速落地金融风控。”</p>
+</blockquote>
+<p>达成的效果。</p>
+<p>“这套异常检测系统上线后，效果可以用三个数字概括：<br>快——检测延迟从人工盯盘的小时级降到秒级，千万级数据采样检测只需2秒；<br>准——零重大异常漏检，误报率控制在5%以内，比纯规则系统提升3倍；<br>省——分析师从7×24人工值班变成系统自动告警，人力成本降低70%，直接支撑了40%的数据分析效率提升。”</p>
+<p>项目中 Pandas 的使用位置，以及具体解决了什么问题</p>
+<p>下面按<strong>文件</strong>归纳项目里 <strong>Pandas 用在哪儿</strong>，以及各自<strong>解决什么问题</strong>（不含 <code>.venv</code>）。<code>src</code> 里凡是 <code>import pandas</code> 的文件都已覆盖。</p>
+<hr>
+<h2 id="1-src-core-data-processor-py（核心：交易表与分析）"><a href="#1-src-core-data-processor-py（核心：交易表与分析）" class="headerlink" title="1. src/core/data_processor.py（核心：交易表与分析）"></a>1. <code>src/core/data_processor.py</code>（核心：交易表与分析）</h2><table>
+<thead>
+<tr>
+<th>用法</th>
+<th>解决的问题</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><code>pd.read_csv</code></td>
+<td>把本地 CSV 交易表<strong>读成结构化表格</strong>，作为后续所有统计的单一数据源。</td>
+</tr>
+<tr>
+<td><code>pd.to_datetime</code></td>
+<td>把 <code>timestamp</code> 变成<strong>时间类型</strong>，才能按日期区间筛选、比较先后。</td>
+</tr>
+<tr>
+<td><code>pd.Timestamp</code> &#x2F; <code>Timedelta</code></td>
+<td><strong>统一日期边界语义</strong>（例如结束日包含整天）。</td>
+</tr>
+<tr>
+<td><code>astype(&quot;string&quot; / &quot;category&quot; / &quot;int16&quot;)</code></td>
+<td><strong>降内存、加速分组</strong>（category），并规范 ID 与整型列类型。</td>
+</tr>
+<tr>
+<td><code>df.copy()</code> + 布尔索引</td>
+<td>在<strong>不改动全表缓存</strong>的前提下，按日期过滤子集。</td>
+</tr>
+<tr>
+<td><code>groupby(..., observed=True).agg</code> &#x2F; <code>sum</code> &#x2F; <code>nlargest</code></td>
+<td><strong>多维聚合</strong>：按商户&#x2F;用户汇总金额与笔数、Top10 用户等，手写循环会更慢且更易错。</td>
+</tr>
+<tr>
+<td><code>df[&quot;status&quot;] == &quot;成功&quot;</code> 等向量运算</td>
+<td><strong>整列一次性</strong>算成功率、失败率，避免 Python 层逐行循环。</td>
+</tr>
+<tr>
+<td><code>value_counts().sort_index()</code></td>
+<td><strong>按小时统计笔数</strong>（用户活跃时段），直接得到有序分布。</td>
+</tr>
+<tr>
+<td><code>mode()</code></td>
+<td>找用户<strong>最常出现的商户类型</strong>（偏好商户）。</td>
+</tr>
+<tr>
+<td>类型注解 <code>pd.DataFrame</code> &#x2F; 处理子表</td>
+<td>方法间传递<strong>同一张表的切片</strong>，保持列名与向量化语义一致。</td>
+</tr>
+</tbody></table>
+<p><strong>一句话</strong>：这里 Pandas 解决的是「<strong>千万级 Mock 场景下，在内存里高效做清洗、筛选、分组聚合与画像统计</strong>」。</p>
+<hr>
+<h2 id="2-src-core-query-engine-py（条件检索-聚合）"><a href="#2-src-core-query-engine-py（条件检索-聚合）" class="headerlink" title="2. src/core/query_engine.py（条件检索 + 聚合）"></a>2. <code>src/core/query_engine.py</code>（条件检索 + 聚合）</h2><table>
+<thead>
+<tr>
+<th>用法</th>
+<th>解决的问题</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><code>processor.df.copy()</code></td>
+<td>查询时<strong>隔离</strong>于共享的 <code>processor.df</code>，避免一次请求改全局数据。</td>
+</tr>
+<tr>
+<td><code>pd.Timestamp</code> &#x2F; <code>Timedelta</code></td>
+<td>与 <code>data_processor</code> <strong>一致的日期区间</strong>语义。</td>
+</tr>
+<tr>
+<td>多条件布尔过滤（日期、商户、用户、金额）</td>
+<td>用<strong>表过滤</strong>模拟「检索引擎」的多条件查询，一次得到命中子集。</td>
+</tr>
+<tr>
+<td><code>groupby(...).agg</code> &#x2F; <code>size</code> &#x2F; <code>sum</code></td>
+<td>在命中集上做 <strong>按商户金额&#x2F;笔数、按小时笔数、按渠道金额</strong> 等聚合，直接对应 API 的 <code>aggregations</code>。</td>
+</tr>
+<tr>
+<td><code>df.head(5).assign(...).to_dict(&quot;records&quot;)</code></td>
+<td>快速得到<strong>少量样例行</strong>，并把时间列转成字符串便于 JSON。</td>
+</tr>
+</tbody></table>
+<p><strong>一句话</strong>：用 Pandas 在<strong>单张宽表</strong>上完成「过滤 + 多维聚合 + 样例」，Mock 掉 ES&#x2F;SQL 组合查询。</p>
+<hr>
+<h2 id="3-src-core-anomaly-detector-py（用户级聚合-批量检测）"><a href="#3-src-core-anomaly-detector-py（用户级聚合-批量检测）" class="headerlink" title="3. src/core/anomaly_detector.py（用户级聚合 + 批量检测）"></a>3. <code>src/core/anomaly_detector.py</code>（用户级聚合 + 批量检测）</h2><table>
+<thead>
+<tr>
+<th>用法</th>
+<th>解决的问题</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><code>groupby(&quot;user_id&quot;).agg(...)</code></td>
+<td>为每个用户算 <strong>mean&#x2F;std&#x2F;count&#x2F;众数小时</strong> 等，形成<strong>用户基线</strong>，供规则判断。</td>
+</tr>
+<tr>
+<td><code>pd.Series</code>（<code>_common_hour</code>）</td>
+<td>在 <code>agg</code> 里对每组 <code>hour</code> 做<strong>自定义聚合</strong>（众数）。</td>
+</tr>
+<tr>
+<td><code>fillna(0.0)</code></td>
+<td>聚合后可能出现的 <strong>NaN</strong>（如单笔用户 <code>std</code>）填成数值，避免后续比较出错。</td>
+</tr>
+<tr>
+<td><code>DataFrame.iterrows()</code></td>
+<td><strong>逐笔</strong>跑规则（3σ、凌晨大额）；数据量由 <code>detect_batch</code> 采样控制。</td>
+</tr>
+<tr>
+<td><code>df.sample(n=..., random_state=...)</code></td>
+<td><strong>随机子样本</strong>上做检测，控制大数据下的耗时与内存。</td>
+</tr>
+<tr>
+<td>返回带 <code>is_detected_anomaly</code> 的 <code>DataFrame</code></td>
+<td>在样本表上<strong>打标</strong>，便于后续分析或扩展（当前 API 主要用 <code>anomalies</code> 列表）。</td>
+</tr>
+</tbody></table>
+<p><strong>一句话</strong>：Pandas 负责<strong>按用户建统计特征</strong>和<strong>子集采样</strong>，规则逻辑仍按行解释每笔交易。</p>
+<hr>
+<h2 id="4-src-api-main-py（异常统计接口）"><a href="#4-src-api-main-py（异常统计接口）" class="headerlink" title="4. src/api/main.py（异常统计接口）"></a>4. <code>src/api/main.py</code>（异常统计接口）</h2><table>
+<thead>
+<tr>
+<th>用法</th>
+<th>解决的问题</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><code>pd.DataFrame(anomalies)</code></td>
+<td>把 <code>detect</code> 得到的 <strong>字典列表</strong> 转成表，才能用 <strong><code>value_counts()</code></strong> 按 <code>type</code>、<code>severity</code> 统计分布。</td>
+</tr>
+</tbody></table>
+<p><strong>一句话</strong>：把<strong>非结构化异常列表</strong>变成<strong>表</strong>，一行代码完成分类计数。</p>
+<hr>
+<h2 id="5-data-generate-mock-data-py（造数）"><a href="#5-data-generate-mock-data-py（造数）" class="headerlink" title="5. data/generate_mock_data.py（造数）"></a>5. <code>data/generate_mock_data.py</code>（造数）</h2><table>
+<thead>
+<tr>
+<th>用法</th>
+<th>解决的问题</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><code>pd.DataFrame(data)</code></td>
+<td>把 Python&#x2F;NumPy 生成的列<strong>对齐成表</strong>，方便批量改列、导出 CSV。</td>
+</tr>
+<tr>
+<td><code>pd.to_datetime(...).dt.hour</code></td>
+<td>从时间戳<strong>派生 <code>hour</code> 列</strong>，与业务字段一致。</td>
+</tr>
+<tr>
+<td><code>df.to_csv</code></td>
+<td><strong>落盘</strong>为 <code>transactions.csv</code> &#x2F; <code>users.csv</code>，供应用读取。</td>
+</tr>
+</tbody></table>
+<p><strong>一句话</strong>：用 Pandas 做<strong>模拟数据的组装、派生字段与导出</strong>。</p>
+<hr>
+<h2 id="6-tests-conftest-py（测试兜底）"><a href="#6-tests-conftest-py（测试兜底）" class="headerlink" title="6. tests/conftest.py（测试兜底）"></a>6. <code>tests/conftest.py</code>（测试兜底）</h2><table>
+<thead>
+<tr>
+<th>用法</th>
+<th>解决的问题</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><code>pd.DataFrame(...)</code> + <code>pd.date_range</code></td>
+<td>在缺少 <code>data/transactions.csv</code> 时<strong>程序化生成最小可跑样本</strong>，保证 pytest 不依赖大文件。</td>
+</tr>
+</tbody></table>
+<p><strong>一句话</strong>：<strong>测试数据即席构造</strong>，避免仓库必须带全量 CSV。</p>
+<hr>
+<h2 id="总览"><a href="#总览" class="headerlink" title="总览"></a>总览</h2><ul>
+<li><strong>出现位置</strong>：<code>data_processor.py</code>、<code>query_engine.py</code>、<code>anomaly_detector.py</code>、<code>main.py</code>、<code>data/generate_mock_data.py</code>、<code>tests/conftest.py</code>。</li>
+<li><strong>共同解决的问题</strong>：在 <strong>Mock 金融分析项目</strong>里，用<strong>一张（或生成的）交易表</strong>完成 <strong>CSV I&#x2F;O、时间处理、过滤、分组聚合、统计分布、采样与造数</strong>，避免大量手写循环与低效纯 Python 结构；其中 <strong>核心业务</strong>集中在 <strong><code>data_processor</code> + <code>query_engine</code> + <code>anomaly_detector</code></strong> 三处。</li>
+</ul>
+
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="http://example.com/2026/04/13/Autogen/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="wangzhiwei">
+      <meta itemprop="description" content="javascript nodejs web developer...">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="WBlog">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/2026/04/13/Autogen/" class="post-title-link" itemprop="url">Autogen</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+              
+
+              <time title="创建时间：2026-04-13 07:53:30 / 修改时间：07:54:00" itemprop="dateCreated datePublished" datetime="2026-04-13T07:53:30+08:00">2026-04-13</time>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <p>根据最新时间，我为你详细对比 <strong>AutoGen vs LangGraph</strong>，帮你面试时清晰表达技术选型思路。</p>
+<hr>
+<h2 id="一、核心定位对比"><a href="#一、核心定位对比" class="headerlink" title="一、核心定位对比"></a>一、核心定位对比</h2><table>
+<thead>
+<tr>
+<th>维度</th>
+<th><strong>AutoGen</strong></th>
+<th><strong>LangGraph</strong></th>
+</tr>
+</thead>
+<tbody><tr>
+<td><strong>设计哲学</strong></td>
+<td>对话驱动，Agent 像人一样聊天协作</td>
+<td>状态机驱动，流程像 DAG 一样严谨执行</td>
+</tr>
+<tr>
+<td><strong>控制粒度</strong></td>
+<td>较灵活，框架决定发言顺序</td>
+<td><strong>强可控</strong>，开发者明确定义每一步流转</td>
+</tr>
+<tr>
+<td><strong>交互模式</strong></td>
+<td>自然语言对话，多轮协商</td>
+<td>结构化状态（State），节点间数据传递</td>
+</tr>
+<tr>
+<td><strong>适用场景</strong></td>
+<td>开放探索、创意任务、代码生成</td>
+<td><strong>企业流程、审批链路、合规要求</strong></td>
+</tr>
+<tr>
+<td><strong>学习曲线</strong></td>
+<td>低，几行代码启动多 Agent 对话</td>
+<td>中，需理解状态图、节点、边、条件分支</td>
+</tr>
+<tr>
+<td><strong>生态归属</strong></td>
+<td>微软主推，Azure 集成深</td>
+<td>LangChain 官方，社区最大</td>
+</tr>
+</tbody></table>
+<hr>
+<h2 id="二、架构差异图解"><a href="#二、架构差异图解" class="headerlink" title="二、架构差异图解"></a>二、架构差异图解</h2><h3 id="AutoGen：网状对话"><a href="#AutoGen：网状对话" class="headerlink" title="AutoGen：网状对话"></a>AutoGen：网状对话</h3><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">UserProxy → Planner → Coder → Reviewer</span><br><span class="line">     ↑        ↓         ↓        ↓</span><br><span class="line">     └────────┴─────────┴────────┘</span><br><span class="line">     </span><br><span class="line">框架决定：谁说话、说几句、什么时候停</span><br></pre></td></tr></table></figure>
+
+<h3 id="LangGraph：DAG-状态机"><a href="#LangGraph：DAG-状态机" class="headerlink" title="LangGraph：DAG 状态机"></a>LangGraph：DAG 状态机</h3><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line">          ┌─────────┐</span><br><span class="line">          │  Start  │</span><br><span class="line">          └────┬────┘</span><br><span class="line">               ▼</span><br><span class="line">          ┌─────────┐</span><br><span class="line">          │ Planner │──┐</span><br><span class="line">          └────┬────┘  │</span><br><span class="line">               ▼       │</span><br><span class="line">          ┌─────────┐  │ (需要检索)</span><br><span class="line">          │ Retrieve│◄─┘</span><br><span class="line">          └────┬────┘</span><br><span class="line">               ▼</span><br><span class="line">          ┌─────────┐</span><br><span class="line">          │ Generate│</span><br><span class="line">          └────┬────┘</span><br><span class="line">               ▼</span><br><span class="line">          ┌─────────┐</span><br><span class="line">          │  End    │</span><br><span class="line">          └─────────┘</span><br><span class="line"></span><br><span class="line">你定义：每一步去哪、条件分支、循环、并行</span><br></pre></td></tr></table></figure>
+
+<hr>
+<h2 id="三、代码风格对比"><a href="#三、代码风格对比" class="headerlink" title="三、代码风格对比"></a>三、代码风格对比</h2><h3 id="相同任务：写-RAG-API"><a href="#相同任务：写-RAG-API" class="headerlink" title="相同任务：写 RAG API"></a>相同任务：写 RAG API</h3><p><strong>AutoGen 版本（对话式）</strong></p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">from</span> autogen <span class="keyword">import</span> AssistantAgent, UserProxyAgent, GroupChat</span><br><span class="line"></span><br><span class="line"><span class="comment"># 创建专家 Agent</span></span><br><span class="line">planner = AssistantAgent(<span class="string">&quot;planner&quot;</span>, system_message=<span class="string">&quot;拆解RAG需求&quot;</span>)</span><br><span class="line">coder = AssistantAgent(<span class="string">&quot;coder&quot;</span>, system_message=<span class="string">&quot;写FastAPI代码&quot;</span>)</span><br><span class="line">reviewer = AssistantAgent(<span class="string">&quot;reviewer&quot;</span>, system_message=<span class="string">&quot;审查代码&quot;</span>)</span><br><span class="line"></span><br><span class="line"><span class="comment"># 群聊，自动协调</span></span><br><span class="line">groupchat = GroupChat(agents=[planner, coder, reviewer], messages=[], max_round=<span class="number">10</span>)</span><br><span class="line">manager = GroupChatManager(groupchat=groupchat)</span><br><span class="line"></span><br><span class="line"><span class="comment"># 启动：一句话需求，Agent 自己讨论实现</span></span><br><span class="line">user_proxy.initiate_chat(manager, message=<span class="string">&quot;写个RAG API&quot;</span>)</span><br><span class="line"><span class="comment"># 结果：对话历史，代码在 work_dir 里</span></span><br></pre></td></tr></table></figure>
+
+<p><strong>LangGraph 版本（你的简历，状态机式）</strong></p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">from</span> langgraph.graph <span class="keyword">import</span> StateGraph, END</span><br><span class="line"></span><br><span class="line"><span class="comment"># 明确定义状态</span></span><br><span class="line"><span class="keyword">class</span> <span class="title class_">RAGState</span>(<span class="title class_ inherited__">TypedDict</span>):</span><br><span class="line">    query: <span class="built_in">str</span></span><br><span class="line">    plan: <span class="built_in">dict</span></span><br><span class="line">    documents: <span class="built_in">list</span></span><br><span class="line">    answer: <span class="built_in">str</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 明确定义每个节点做什么</span></span><br><span class="line"><span class="keyword">def</span> <span class="title function_">plan_step</span>(<span class="params">state: RAGState</span>):</span><br><span class="line">    state[<span class="string">&quot;plan&quot;</span>] = planner_agent(state[<span class="string">&quot;query&quot;</span>])</span><br><span class="line">    <span class="keyword">return</span> state</span><br><span class="line"></span><br><span class="line"><span class="keyword">def</span> <span class="title function_">retrieve_step</span>(<span class="params">state: RAGState</span>):</span><br><span class="line">    state[<span class="string">&quot;documents&quot;</span>] = vector_db.search(state[<span class="string">&quot;plan&quot;</span>][<span class="string">&quot;keywords&quot;</span>])</span><br><span class="line">    <span class="keyword">return</span> state</span><br><span class="line"></span><br><span class="line"><span class="keyword">def</span> <span class="title function_">generate_step</span>(<span class="params">state: RAGState</span>):</span><br><span class="line">    state[<span class="string">&quot;answer&quot;</span>] = llm.generate(state[<span class="string">&quot;documents&quot;</span>])</span><br><span class="line">    <span class="keyword">return</span> state</span><br><span class="line"></span><br><span class="line"><span class="comment"># 明确定义流转关系</span></span><br><span class="line">workflow = StateGraph(RAGState)</span><br><span class="line">workflow.add_node(<span class="string">&quot;plan&quot;</span>, plan_step)</span><br><span class="line">workflow.add_node(<span class="string">&quot;retrieve&quot;</span>, retrieve_step)</span><br><span class="line">workflow.add_node(<span class="string">&quot;generate&quot;</span>, generate_step)</span><br><span class="line"></span><br><span class="line">workflow.set_entry_point(<span class="string">&quot;plan&quot;</span>)</span><br><span class="line">workflow.add_edge(<span class="string">&quot;plan&quot;</span>, <span class="string">&quot;retrieve&quot;</span>)</span><br><span class="line">workflow.add_edge(<span class="string">&quot;retrieve&quot;</span>, <span class="string">&quot;generate&quot;</span>)</span><br><span class="line">workflow.add_edge(<span class="string">&quot;generate&quot;</span>, END)</span><br><span class="line"></span><br><span class="line"><span class="comment"># 编译执行</span></span><br><span class="line">app = workflow.<span class="built_in">compile</span>()</span><br><span class="line">result = app.invoke(&#123;<span class="string">&quot;query&quot;</span>: <span class="string">&quot;什么是RAG&quot;</span>&#125;)</span><br><span class="line"><span class="comment"># 结果：结构化状态，每一步可追溯</span></span><br></pre></td></tr></table></figure>
+
+<hr>
+<h2 id="四、关键能力对比表"><a href="#四、关键能力对比表" class="headerlink" title="四、关键能力对比表"></a>四、关键能力对比表</h2><table>
+<thead>
+<tr>
+<th>能力</th>
+<th>AutoGen</th>
+<th>LangGraph</th>
+<th>场景建议</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><strong>多 Agent 协商</strong></td>
+<td>⭐⭐⭐⭐⭐ 原生支持</td>
+<td>⭐⭐⭐ 需自己实现</td>
+<td>开放讨论用 AutoGen</td>
+</tr>
+<tr>
+<td><strong>流程可控性</strong></td>
+<td>⭐⭐ 框架决定</td>
+<td>⭐⭐⭐⭐⭐ 开发者决定</td>
+<td>企业合规用 LangGraph</td>
+</tr>
+<tr>
+<td><strong>循环&#x2F;条件分支</strong></td>
+<td>⭐⭐ 对话隐式</td>
+<td>⭐⭐⭐⭐⭐ 显式定义</td>
+<td>复杂逻辑用 LangGraph</td>
+</tr>
+<tr>
+<td><strong>并行执行</strong></td>
+<td>⭐⭐ 难控制</td>
+<td>⭐⭐⭐⭐ 支持 Map-Reduce</td>
+<td>批量处理用 LangGraph</td>
+</tr>
+<tr>
+<td><strong>人机协作</strong></td>
+<td>⭐⭐⭐⭐⭐ 灵活介入</td>
+<td>⭐⭐⭐ 需节点埋点</td>
+<td>需人类审批用 AutoGen</td>
+</tr>
+<tr>
+<td><strong>调试可追溯</strong></td>
+<td>⭐⭐ 看对话历史</td>
+<td>⭐⭐⭐⭐⭐ 状态快照</td>
+<td>生产排障用 LangGraph</td>
+</tr>
+<tr>
+<td><strong>代码生成执行</strong></td>
+<td>⭐⭐⭐⭐⭐ 内置 Docker</td>
+<td>⭐⭐ 需自己集成</td>
+<td>AI 写代码用 AutoGen</td>
+</tr>
+<tr>
+<td><strong>持久化&#x2F;断点续传</strong></td>
+<td>⭐⭐ 需扩展</td>
+<td>⭐⭐⭐⭐⭐ 内置 Checkpoint</td>
+<td>长流程用 LangGraph</td>
+</tr>
+</tbody></table>
+<hr>
+<h2 id="五、企业级场景选型决策树"><a href="#五、企业级场景选型决策树" class="headerlink" title="五、企业级场景选型决策树"></a>五、企业级场景选型决策树</h2><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">开始</span><br><span class="line"> │</span><br><span class="line"> ├─ 任务是否开放探索型？（写代码、研究、创意）</span><br><span class="line"> │   └─ 是 → AutoGen（快速原型，Agent 自主协商）</span><br><span class="line"> │</span><br><span class="line"> └─ 否 → 任务是否有严格流程？（审批、合规、固定步骤）</span><br><span class="line">     ├─ 是 → LangGraph（状态机可控，审计可追溯）</span><br><span class="line">     │</span><br><span class="line">     └─ 否 → 两者混合</span><br><span class="line">         ├─ LangGraph 管主流程（严格步骤）</span><br><span class="line">         └─ AutoGen 做子任务（某节点内多 Agent 讨论）</span><br></pre></td></tr></table></figure>
+
+<hr>
+<h2 id="六、混合架构设计（面试亮点）"><a href="#六、混合架构设计（面试亮点）" class="headerlink" title="六、混合架构设计（面试亮点）"></a>六、混合架构设计（面试亮点）</h2><blockquote>
+<p>“我的企业级 Agent 平台用 <strong>LangGraph 做主框架</strong>，确保流程合规可追溯。但在 <strong>‘代码生成’节点</strong>内，嵌入 <strong>AutoGen 的 Code-Executor</strong>，让多个 Coder Agent 讨论优化，最后返回结果到主流程。”</p>
+</blockquote>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">from</span> langgraph.graph <span class="keyword">import</span> StateGraph</span><br><span class="line"><span class="keyword">from</span> autogen <span class="keyword">import</span> AssistantAgent, UserProxyAgent</span><br><span class="line"></span><br><span class="line"><span class="comment"># LangGraph 主流程（严格可控）</span></span><br><span class="line"><span class="keyword">def</span> <span class="title function_">code_generation_node</span>(<span class="params">state: RAGState</span>):</span><br><span class="line">    <span class="string">&quot;&quot;&quot;这个节点内部用 AutoGen 多 Agent 协作&quot;&quot;&quot;</span></span><br><span class="line">    </span><br><span class="line">    <span class="comment"># AutoGen 子流程</span></span><br><span class="line">    coder = AssistantAgent(<span class="string">&quot;coder&quot;</span>, system_message=<span class="string">&quot;写Python代码&quot;</span>)</span><br><span class="line">    reviewer = AssistantAgent(<span class="string">&quot;reviewer&quot;</span>, system_message=<span class="string">&quot;审查代码&quot;</span>)</span><br><span class="line">    executor = UserProxyAgent(<span class="string">&quot;executor&quot;</span>, code_execution_config=&#123;<span class="string">&quot;use_docker&quot;</span>: <span class="literal">True</span>&#125;)</span><br><span class="line">    </span><br><span class="line">    groupchat = GroupChat(agents=[coder, reviewer, executor], ...)</span><br><span class="line">    manager = GroupChatManager(groupchat=groupchat)</span><br><span class="line">    </span><br><span class="line">    <span class="comment"># 执行 AutoGen 对话</span></span><br><span class="line">    executor.initiate_chat(</span><br><span class="line">        manager, </span><br><span class="line">        message=<span class="string">f&quot;写代码实现：<span class="subst">&#123;state[<span class="string">&#x27;requirements&#x27;</span>]&#125;</span>&quot;</span></span><br><span class="line">    )</span><br><span class="line">    </span><br><span class="line">    <span class="comment"># 提取最终代码，返回 LangGraph 状态</span></span><br><span class="line">    state[<span class="string">&quot;generated_code&quot;</span>] = extract_final_code(executor.chat_messages)</span><br><span class="line">    <span class="keyword">return</span> state</span><br><span class="line"></span><br><span class="line"><span class="comment"># LangGraph 主流程</span></span><br><span class="line">workflow = StateGraph(RAGState)</span><br><span class="line">workflow.add_node(<span class="string">&quot;plan&quot;</span>, plan_step)</span><br><span class="line">workflow.add_node(<span class="string">&quot;code_gen&quot;</span>, code_generation_node)  <span class="comment"># ← 内部是 AutoGen</span></span><br><span class="line">workflow.add_node(<span class="string">&quot;test&quot;</span>, test_step)</span><br><span class="line">workflow.add_edge(<span class="string">&quot;plan&quot;</span>, <span class="string">&quot;code_gen&quot;</span>)</span><br><span class="line">workflow.add_edge(<span class="string">&quot;code_gen&quot;</span>, <span class="string">&quot;test&quot;</span>)</span><br></pre></td></tr></table></figure>
+
+<hr>
+<h2 id="七、面试金句"><a href="#七、面试金句" class="headerlink" title="七、面试金句"></a>七、面试金句</h2><table>
+<thead>
+<tr>
+<th>场景</th>
+<th>金句</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>技术选型</td>
+<td>“LangGraph 做<strong>流程骨架</strong>，AutoGen 做<strong>灵活血肉</strong>，根据任务特性分层选择。”</td>
+</tr>
+<tr>
+<td>企业优势</td>
+<td>“企业级场景选 LangGraph，因为<strong>状态机比对话更易审计、更易回滚、更易测试</strong>。”</td>
+</tr>
+<tr>
+<td>开放任务</td>
+<td>“探索性任务如代码生成，AutoGen 的<strong>多 Agent 协商 + 真执行</strong>更高效。”</td>
+</tr>
+<tr>
+<td>混合架构</td>
+<td>“我的设计是**’外刚内柔’**：外层 LangGraph 保证合规，关键节点内嵌 AutoGen 提升智能。”</td>
+</tr>
+</tbody></table>
+<hr>
+<h2 id="八、一句话对比"><a href="#八、一句话对比" class="headerlink" title="八、一句话对比"></a>八、一句话对比</h2><table>
+<thead>
+<tr>
+<th></th>
+<th>AutoGen</th>
+<th>LangGraph</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><strong>像什么</strong></td>
+<td>微信群聊，大家讨论出结果</td>
+<td>工作流引擎，每一步按图纸执行</td>
+</tr>
+<tr>
+<td><strong>适合</strong></td>
+<td>创意、探索、代码生成</td>
+<td><strong>企业流程、合规、生产系统</strong></td>
+</tr>
+<tr>
+<td><strong>你的项目</strong></td>
+<td>了解即可</td>
+<td><strong>深入精通，简历重点</strong></td>
+</tr>
+<tr>
+<td><strong>两者关系</strong></td>
+<td>补充工具</td>
+<td><strong>主力框架</strong></td>
+</tr>
+</tbody></table>
+<hr>
+
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="http://example.com/2026/04/12/python/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="wangzhiwei">
+      <meta itemprop="description" content="javascript nodejs web developer...">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="WBlog">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/2026/04/12/python/" class="post-title-link" itemprop="url">python</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+              
+
+              <time title="创建时间：2026-04-12 12:58:10 / 修改时间：13:07:19" itemprop="dateCreated datePublished" datetime="2026-04-12T12:58:10+08:00">2026-04-12</time>
+            </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Ai-Agent/" itemprop="url" rel="index"><span itemprop="name">Ai Agent</span></a>
+                </span>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <p>“精通Python，具备扎实的软件工程基础和编码规范”，我帮你准备面试问题，覆盖<strong>Python进阶、工程实践、编码规范</strong>三个层次，用大白话讲清楚。</p>
+<hr>
+<h2 id="一、Python-进阶特性"><a href="#一、Python-进阶特性" class="headerlink" title="一、Python 进阶特性"></a>一、Python 进阶特性</h2><h3 id="Q1-Python的GIL是什么？怎么绕过它做并行？"><a href="#Q1-Python的GIL是什么？怎么绕过它做并行？" class="headerlink" title="Q1: Python的GIL是什么？怎么绕过它做并行？"></a>Q1: Python的GIL是什么？怎么绕过它做并行？</h3><p><strong>大白话答：</strong></p>
+<blockquote>
+<p>GIL &#x3D; Global Interpreter Lock，全局解释器锁。Python多线程<strong>同一时刻只有一个线程执行Python字节码</strong>，多核CPU用不满。</p>
+</blockquote>
+<p><strong>绕过方案：</strong></p>
+<table>
+<thead>
+<tr>
+<th>方案</th>
+<th>适用场景</th>
+<th>代码示例</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><strong>多进程</strong></td>
+<td>CPU密集型（计算）</td>
+<td><code>multiprocessing.Pool</code></td>
+</tr>
+<tr>
+<td><strong>C扩展</strong></td>
+<td>关键代码用C&#x2F;C++写</td>
+<td><code>numpy</code>底层就是C</td>
+</tr>
+<tr>
+<td><strong>异步IO</strong></td>
+<td>IO密集型（网络&#x2F;文件）</td>
+<td><code>asyncio</code></td>
+</tr>
+<tr>
+<td><strong>其他解释器</strong></td>
+<td>彻底绕过</td>
+<td><code>PyPy</code>、<code>Jython</code></td>
+</tr>
+</tbody></table>
+<p><strong>RAG项目实例：</strong></p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 坏：多线程处理文档（CPU密集型，GIL限制）</span></span><br><span class="line"><span class="keyword">import</span> threading</span><br><span class="line"><span class="keyword">def</span> <span class="title function_">process_docs</span>(<span class="params">docs</span>):</span><br><span class="line">    threads = [threading.Thread(target=embed, args=(d,)) <span class="keyword">for</span> d <span class="keyword">in</span> docs]</span><br><span class="line">    <span class="comment"># 实际上还是单核跑</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 好：多进程处理文档（用满多核）</span></span><br><span class="line"><span class="keyword">from</span> multiprocessing <span class="keyword">import</span> Pool</span><br><span class="line"><span class="keyword">def</span> <span class="title function_">process_docs</span>(<span class="params">docs, n_workers=<span class="number">4</span></span>):</span><br><span class="line">    <span class="keyword">with</span> Pool(n_workers) <span class="keyword">as</span> p:</span><br><span class="line">        <span class="keyword">return</span> p.<span class="built_in">map</span>(embed_document, docs)</span><br><span class="line"></span><br><span class="line"><span class="comment"># 更好：异步处理网络请求（IO密集型）</span></span><br><span class="line"><span class="keyword">import</span> aiohttp</span><br><span class="line"><span class="keyword">async</span> <span class="keyword">def</span> <span class="title function_">fetch_urls</span>(<span class="params">urls</span>):</span><br><span class="line">    <span class="keyword">async</span> <span class="keyword">with</span> aiohttp.ClientSession() <span class="keyword">as</span> session:</span><br><span class="line">        tasks = [session.get(url) <span class="keyword">for</span> url <span class="keyword">in</span> urls]</span><br><span class="line">        <span class="keyword">return</span> <span class="keyword">await</span> asyncio.gather(*tasks)</span><br></pre></td></tr></table></figure>
+
+<hr>
+<h3 id="Q2-装饰器是什么？在RAG项目里怎么用？"><a href="#Q2-装饰器是什么？在RAG项目里怎么用？" class="headerlink" title="Q2: 装饰器是什么？在RAG项目里怎么用？"></a>Q2: 装饰器是什么？在RAG项目里怎么用？</h3><p><strong>大白话答：</strong></p>
+<blockquote>
+<p>装饰器 &#x3D; <strong>不改原函数代码，给它加功能</strong>。像给手机套壳，不拆机就能防摔。</p>
+</blockquote>
+<p><strong>RAG项目实例：</strong></p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> time</span><br><span class="line"><span class="keyword">from</span> functools <span class="keyword">import</span> wraps</span><br><span class="line"></span><br><span class="line"><span class="comment"># 1. 性能监控装饰器</span></span><br><span class="line"><span class="keyword">def</span> <span class="title function_">monitor_latency</span>(<span class="params">func</span>):</span><br><span class="line"><span class="meta">    @wraps(<span class="params">func</span>)  </span><span class="comment"># 保留原函数信息</span></span><br><span class="line">    <span class="keyword">def</span> <span class="title function_">wrapper</span>(<span class="params">*args, **kwargs</span>):</span><br><span class="line">        start = time.time()</span><br><span class="line">        result = func(*args, **kwargs)</span><br><span class="line">        latency = time.time() - start</span><br><span class="line">        </span><br><span class="line">        <span class="comment"># 发送到Prometheus</span></span><br><span class="line">        REQUEST_LATENCY.observe(latency)</span><br><span class="line">        <span class="built_in">print</span>(<span class="string">f&quot;<span class="subst">&#123;func.__name__&#125;</span> took <span class="subst">&#123;latency:<span class="number">.3</span>f&#125;</span>s&quot;</span>)</span><br><span class="line">        <span class="keyword">return</span> result</span><br><span class="line">    <span class="keyword">return</span> wrapper</span><br><span class="line"></span><br><span class="line"><span class="comment"># 使用</span></span><br><span class="line"><span class="meta">@monitor_latency</span></span><br><span class="line"><span class="keyword">def</span> <span class="title function_">retrieve_documents</span>(<span class="params">query: <span class="built_in">str</span></span>):</span><br><span class="line">    <span class="comment"># 向量检索逻辑</span></span><br><span class="line">    <span class="keyword">return</span> milvus.search(query)</span><br><span class="line"></span><br><span class="line"><span class="comment"># 2. 缓存装饰器（避免重复Embedding）</span></span><br><span class="line"><span class="keyword">from</span> functools <span class="keyword">import</span> lru_cache</span><br><span class="line"></span><br><span class="line"><span class="meta">@lru_cache(<span class="params">maxsize=<span class="number">1000</span></span>)</span></span><br><span class="line"><span class="keyword">def</span> <span class="title function_">get_embedding</span>(<span class="params">text: <span class="built_in">str</span></span>):</span><br><span class="line">    <span class="comment">#  expensive operation</span></span><br><span class="line">    <span class="keyword">return</span> openai_embed(text)</span><br><span class="line"></span><br><span class="line"><span class="comment"># 3. 重试装饰器（API失败自动重试）</span></span><br><span class="line"><span class="keyword">def</span> <span class="title function_">retry</span>(<span class="params">max_attempts=<span class="number">3</span></span>):</span><br><span class="line">    <span class="keyword">def</span> <span class="title function_">decorator</span>(<span class="params">func</span>):</span><br><span class="line"><span class="meta">        @wraps(<span class="params">func</span>)</span></span><br><span class="line">        <span class="keyword">def</span> <span class="title function_">wrapper</span>(<span class="params">*args, **kwargs</span>):</span><br><span class="line">            <span class="keyword">for</span> i <span class="keyword">in</span> <span class="built_in">range</span>(max_attempts):</span><br><span class="line">                <span class="keyword">try</span>:</span><br><span class="line">                    <span class="keyword">return</span> func(*args, **kwargs)</span><br><span class="line">                <span class="keyword">except</span> Exception <span class="keyword">as</span> e:</span><br><span class="line">                    <span class="keyword">if</span> i == max_attempts - <span class="number">1</span>:</span><br><span class="line">                        <span class="keyword">raise</span></span><br><span class="line">                    time.sleep(<span class="number">2</span> ** i)  <span class="comment"># 指数退避</span></span><br><span class="line">            <span class="keyword">return</span> wrapper</span><br><span class="line">        <span class="keyword">return</span> decorator</span><br><span class="line"></span><br><span class="line"><span class="meta">@retry(<span class="params">max_attempts=<span class="number">3</span></span>)</span></span><br><span class="line"><span class="keyword">def</span> <span class="title function_">call_llm_api</span>(<span class="params">prompt: <span class="built_in">str</span></span>):</span><br><span class="line">    <span class="keyword">return</span> openai.chat.completions.create(...)</span><br></pre></td></tr></table></figure>
+
+<hr>
+<h3 id="Q3-生成器（Generator）和列表推导式什么区别？什么时候用？"><a href="#Q3-生成器（Generator）和列表推导式什么区别？什么时候用？" class="headerlink" title="Q3: 生成器（Generator）和列表推导式什么区别？什么时候用？"></a>Q3: 生成器（Generator）和列表推导式什么区别？什么时候用？</h3><p><strong>大白话答：</strong></p>
+<table>
+<thead>
+<tr>
+<th></th>
+<th>列表推导式</th>
+<th>生成器</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>内存</td>
+<td>全存内存 <code>[...]</code></td>
+<td>惰性计算，用一次产一次</td>
+</tr>
+<tr>
+<td>速度</td>
+<td>立即生成， upfront 慢</td>
+<td>边用边生成，启动快</td>
+</tr>
+<tr>
+<td>遍历次数</td>
+<td>无限次</td>
+<td>只能遍历一次</td>
+</tr>
+<tr>
+<td>适用</td>
+<td>数据量小，需随机访问</td>
+<td>数据量大，流式处理</td>
+</tr>
+</tbody></table>
+<p><strong>RAG项目实例：</strong></p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 坏：100万文档全读内存，爆掉</span></span><br><span class="line"><span class="keyword">def</span> <span class="title function_">load_all_docs</span>():</span><br><span class="line">    <span class="keyword">return</span> [process(line) <span class="keyword">for</span> line <span class="keyword">in</span> <span class="built_in">open</span>(<span class="string">&quot;million_docs.json&quot;</span>)]  <span class="comment"># 内存爆炸</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 好：流式处理，一次只读一篇</span></span><br><span class="line"><span class="keyword">def</span> <span class="title function_">load_docs_stream</span>():</span><br><span class="line">    <span class="keyword">for</span> line <span class="keyword">in</span> <span class="built_in">open</span>(<span class="string">&quot;million_docs.json&quot;</span>):</span><br><span class="line">        <span class="keyword">yield</span> process(line)  <span class="comment"># 生成器，省内存</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 使用</span></span><br><span class="line"><span class="keyword">for</span> doc <span class="keyword">in</span> load_docs_stream():  <span class="comment"># 内存只存当前一篇</span></span><br><span class="line">    embed_and_index(doc)</span><br><span class="line"></span><br><span class="line"><span class="comment"># 更高级：生成器管道</span></span><br><span class="line"><span class="keyword">def</span> <span class="title function_">tokenize</span>(<span class="params">docs</span>):</span><br><span class="line">    <span class="keyword">for</span> doc <span class="keyword">in</span> docs:</span><br><span class="line">        <span class="keyword">yield</span> doc.split()</span><br><span class="line"></span><br><span class="line"><span class="keyword">def</span> <span class="title function_">embed</span>(<span class="params">tokens</span>):</span><br><span class="line">    <span class="keyword">for</span> tok <span class="keyword">in</span> tokens:</span><br><span class="line">        <span class="keyword">yield</span> model.encode(tok)</span><br><span class="line"></span><br><span class="line"><span class="comment"># 管道串联，全程流式</span></span><br><span class="line">pipeline = embed(tokenize(load_docs_stream()))</span><br></pre></td></tr></table></figure>
+
+<hr>
+<h3 id="Q4-Python的鸭子类型是什么？怎么用？"><a href="#Q4-Python的鸭子类型是什么？怎么用？" class="headerlink" title="Q4: Python的鸭子类型是什么？怎么用？"></a>Q4: Python的鸭子类型是什么？怎么用？</h3><p><strong>大白话答：</strong></p>
+<blockquote>
+<p>“如果它走起路来像鸭子，叫起来像鸭子，那它就是鸭子。”——<strong>不看重类型，看重行为</strong>。</p>
+</blockquote>
+<p><strong>RAG项目实例：</strong></p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 不 care 是Milvus还是FAISS，能search就行</span></span><br><span class="line"><span class="keyword">class</span> <span class="title class_">VectorDB</span>:</span><br><span class="line">    <span class="keyword">def</span> <span class="title function_">search</span>(<span class="params">self, query: <span class="built_in">list</span>, top_k: <span class="built_in">int</span></span>) -&gt; <span class="built_in">list</span>:</span><br><span class="line">        <span class="keyword">raise</span> NotImplementedError</span><br><span class="line"></span><br><span class="line"><span class="keyword">class</span> <span class="title class_">MilvusDB</span>(<span class="title class_ inherited__">VectorDB</span>):</span><br><span class="line">    <span class="keyword">def</span> <span class="title function_">search</span>(<span class="params">self, query, top_k</span>):</span><br><span class="line">        <span class="keyword">return</span> milvus_client.search(query, top_k)</span><br><span class="line"></span><br><span class="line"><span class="keyword">class</span> <span class="title class_">FAISSDB</span>(<span class="title class_ inherited__">VectorDB</span>):</span><br><span class="line">    <span class="keyword">def</span> <span class="title function_">search</span>(<span class="params">self, query, top_k</span>):</span><br><span class="line">        <span class="keyword">return</span> faiss_index.search(np.array([query]), top_k)</span><br><span class="line"></span><br><span class="line"><span class="comment"># 使用：鸭子类型，不判断具体类型</span></span><br><span class="line"><span class="keyword">def</span> <span class="title function_">retrieve</span>(<span class="params">db: VectorDB, query: <span class="built_in">str</span>, top_k: <span class="built_in">int</span> = <span class="number">10</span></span>):</span><br><span class="line">    <span class="keyword">return</span> db.search(get_embedding(query), top_k)</span><br><span class="line"></span><br><span class="line"><span class="comment"># 随时切换底层，业务代码不动</span></span><br><span class="line">db = MilvusDB() <span class="keyword">if</span> use_cloud <span class="keyword">else</span> FAISSDB()</span><br><span class="line">results = retrieve(db, <span class="string">&quot;什么是RAG&quot;</span>)</span><br></pre></td></tr></table></figure>
+
+<hr>
+<h2 id="二、软件工程基础"><a href="#二、软件工程基础" class="headerlink" title="二、软件工程基础"></a>二、软件工程基础</h2><h3 id="Q5-怎么设计一个可扩展的RAG系统架构？"><a href="#Q5-怎么设计一个可扩展的RAG系统架构？" class="headerlink" title="Q5: 怎么设计一个可扩展的RAG系统架构？"></a>Q5: 怎么设计一个可扩展的RAG系统架构？</h3><p><strong>大白话答：</strong></p>
+<blockquote>
+<p><strong>分层 + 抽象 + 插件化</strong>，新功能加模块，不改老代码。</p>
+</blockquote>
+<p><strong>架构图：</strong></p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line">┌─────────────────────────────────────┐</span><br><span class="line">│           API层 (FastAPI)          │  ← 统一入口，路由分发</span><br><span class="line">├─────────────────────────────────────┤</span><br><span class="line">│         编排层 (LangGraph)          │  ← Agent状态机，可插拔节点</span><br><span class="line">│  ┌─────────┐ ┌─────────┐ ┌───────┐ │</span><br><span class="line">│  │ Planner │ │Retrieve │ │Generate│ │  ← 每个节点独立实现</span><br><span class="line">│  └─────────┘ └─────────┘ └───────┘ │</span><br><span class="line">├─────────────────────────────────────┤</span><br><span class="line">│         服务抽象层                   │  ← 鸭子类型，底层可换</span><br><span class="line">│  ┌─────────┐ ┌─────────┐ ┌───────┐ │</span><br><span class="line">│  │VectorDB │ │  LLM    │ │Embed  │ │  ← 接口统一，实现多样</span><br><span class="line">│  │(Milvus/ │ │(OpenAI/ │ │(OpenAI│ │</span><br><span class="line">│  │ FAISS)  │ │DeepSeek)│ │/Local)│ │</span><br><span class="line">│  └─────────┘ └─────────┘ └───────┘ │</span><br><span class="line">├─────────────────────────────────────┤</span><br><span class="line">│         监控层 (Prometheus)          │  ← 埋点，可观测</span><br><span class="line">└─────────────────────────────────────┘</span><br></pre></td></tr></table></figure>
+
+<p><strong>关键代码：</strong></p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 抽象接口</span></span><br><span class="line"><span class="keyword">from</span> abc <span class="keyword">import</span> ABC, abstractmethod</span><br><span class="line"></span><br><span class="line"><span class="keyword">class</span> <span class="title class_">BaseRetriever</span>(<span class="title class_ inherited__">ABC</span>):</span><br><span class="line"><span class="meta">    @abstractmethod</span></span><br><span class="line">    <span class="keyword">def</span> <span class="title function_">retrieve</span>(<span class="params">self, query: <span class="built_in">str</span>, top_k: <span class="built_in">int</span></span>) -&gt; <span class="built_in">list</span>[Document]:</span><br><span class="line">        <span class="keyword">pass</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">class</span> <span class="title class_">MilvusRetriever</span>(<span class="title class_ inherited__">BaseRetriever</span>):</span><br><span class="line">    <span class="keyword">def</span> <span class="title function_">retrieve</span>(<span class="params">self, query, top_k</span>):</span><br><span class="line">        <span class="comment"># 具体实现</span></span><br><span class="line">        <span class="keyword">pass</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">class</span> <span class="title class_">ElasticsearchRetriever</span>(<span class="title class_ inherited__">BaseRetriever</span>):</span><br><span class="line">    <span class="keyword">def</span> <span class="title function_">retrieve</span>(<span class="params">self, query, top_k</span>):</span><br><span class="line">        <span class="comment"># 另一实现</span></span><br><span class="line">        <span class="keyword">pass</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 工厂模式，配置驱动</span></span><br><span class="line"><span class="keyword">def</span> <span class="title function_">get_retriever</span>(<span class="params">config: <span class="built_in">dict</span></span>) -&gt; BaseRetriever:</span><br><span class="line">    retrievers = &#123;</span><br><span class="line">        <span class="string">&#x27;milvus&#x27;</span>: MilvusRetriever,</span><br><span class="line">        <span class="string">&#x27;es&#x27;</span>: ElasticsearchRetriever,</span><br><span class="line">        <span class="string">&#x27;hybrid&#x27;</span>: HybridRetriever  <span class="comment"># 组合多个</span></span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> retrievers[config[<span class="string">&#x27;type&#x27;</span>]](**config[<span class="string">&#x27;params&#x27;</span>])</span><br><span class="line"></span><br><span class="line"><span class="comment"># 使用</span></span><br><span class="line">retriever = get_retriever(&#123;<span class="string">&#x27;type&#x27;</span>: <span class="string">&#x27;milvus&#x27;</span>, <span class="string">&#x27;params&#x27;</span>: &#123;...&#125;&#125;)</span><br><span class="line">docs = retriever.retrieve(<span class="string">&quot;query&quot;</span>, top_k=<span class="number">10</span>)</span><br></pre></td></tr></table></figure>
+
+<hr>
+<h3 id="Q6-怎么处理RAG系统的配置管理？"><a href="#Q6-怎么处理RAG系统的配置管理？" class="headerlink" title="Q6: 怎么处理RAG系统的配置管理？"></a>Q6: 怎么处理RAG系统的配置管理？</h3><p><strong>大白话答：</strong></p>
+<blockquote>
+<p>配置和代码分离，环境不同配置不同，敏感信息不泄露。</p>
+</blockquote>
+<p><strong>方案对比：</strong></p>
+<table>
+<thead>
+<tr>
+<th>方式</th>
+<th>缺点</th>
+<th>推荐度</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>硬编码</td>
+<td>改配置要改代码，不安全</td>
+<td>❌</td>
+</tr>
+<tr>
+<td>环境变量</td>
+<td>简单，但难管理复杂配置</td>
+<td>⭐⭐</td>
+</tr>
+<tr>
+<td><strong>YAML&#x2F;JSON文件</strong></td>
+<td>清晰，支持分层</td>
+<td>⭐⭐⭐</td>
+</tr>
+<tr>
+<td><strong>Pydantic Settings</strong></td>
+<td>类型安全，自动验证</td>
+<td>⭐⭐⭐⭐⭐</td>
+</tr>
+</tbody></table>
+<p><strong>推荐实现（Pydantic）：</strong></p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">from</span> pydantic <span class="keyword">import</span> Field, validator</span><br><span class="line"><span class="keyword">from</span> pydantic_settings <span class="keyword">import</span> BaseSettings</span><br><span class="line"></span><br><span class="line"><span class="keyword">class</span> <span class="title class_">RAGConfig</span>(<span class="title class_ inherited__">BaseSettings</span>):</span><br><span class="line">    <span class="comment"># 向量数据库</span></span><br><span class="line">    vector_db_type: <span class="built_in">str</span> = Field(default=<span class="string">&quot;milvus&quot;</span>, env=<span class="string">&quot;VECTOR_DB_TYPE&quot;</span>)</span><br><span class="line">    milvus_host: <span class="built_in">str</span> = Field(default=<span class="string">&quot;localhost&quot;</span>, env=<span class="string">&quot;MILVUS_HOST&quot;</span>)</span><br><span class="line">    milvus_port: <span class="built_in">int</span> = Field(default=<span class="number">19530</span>, env=<span class="string">&quot;MILVUS_PORT&quot;</span>)</span><br><span class="line">    </span><br><span class="line">    <span class="comment"># LLM</span></span><br><span class="line">    llm_provider: <span class="built_in">str</span> = Field(default=<span class="string">&quot;openai&quot;</span>, env=<span class="string">&quot;LLM_PROVIDER&quot;</span>)</span><br><span class="line">    openai_api_key: <span class="built_in">str</span> = Field(..., env=<span class="string">&quot;OPENAI_API_KEY&quot;</span>)  <span class="comment"># 必填，敏感</span></span><br><span class="line">    </span><br><span class="line">    <span class="comment"># 检索参数</span></span><br><span class="line">    default_top_k: <span class="built_in">int</span> = <span class="number">10</span></span><br><span class="line">    rerank_enabled: <span class="built_in">bool</span> = <span class="literal">True</span></span><br><span class="line">    </span><br><span class="line"><span class="meta">    @validator(<span class="params"><span class="string">&#x27;default_top_k&#x27;</span></span>)</span></span><br><span class="line">    <span class="keyword">def</span> <span class="title function_">validate_top_k</span>(<span class="params">cls, v</span>):</span><br><span class="line">        <span class="keyword">if</span> <span class="keyword">not</span> <span class="number">1</span> &lt;= v &lt;= <span class="number">100</span>:</span><br><span class="line">            <span class="keyword">raise</span> ValueError(<span class="string">&#x27;top_k must be 1-100&#x27;</span>)</span><br><span class="line">        <span class="keyword">return</span> v</span><br><span class="line">    </span><br><span class="line">    <span class="keyword">class</span> <span class="title class_">Config</span>:</span><br><span class="line">        env_file = <span class="string">&quot;.env&quot;</span>  <span class="comment"># 从.env文件加载</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 使用</span></span><br><span class="line">config = RAGConfig()  <span class="comment"># 自动读取环境变量和.env文件</span></span><br><span class="line"><span class="built_in">print</span>(config.milvus_host)  <span class="comment"># 类型安全，IDE有提示</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># .env文件（不提交Git）</span></span><br><span class="line"><span class="comment"># OPENAI_API_KEY=sk-xxx</span></span><br><span class="line"><span class="comment"># VECTOR_DB_TYPE=milvus</span></span><br></pre></td></tr></table></figure>
+
+<hr>
+<h3 id="Q7-怎么做RAG系统的错误处理和容错？"><a href="#Q7-怎么做RAG系统的错误处理和容错？" class="headerlink" title="Q7: 怎么做RAG系统的错误处理和容错？"></a>Q7: 怎么做RAG系统的错误处理和容错？</h3><p><strong>大白话答：</strong></p>
+<blockquote>
+<p><strong>分层捕获，优雅降级，关键路径不能挂</strong>。</p>
+</blockquote>
+<p><strong>策略矩阵：</strong></p>
+<table>
+<thead>
+<tr>
+<th>组件</th>
+<th>失败场景</th>
+<th>处理策略</th>
+<th>代码示例</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>向量检索</td>
+<td>Milvus超时</td>
+<td>降级到FAISS本地索引</td>
+<td><code>try...except + fallback</code></td>
+</tr>
+<tr>
+<td>LLM生成</td>
+<td>OpenAI限流</td>
+<td>切换备用模型（DeepSeek）</td>
+<td>模型路由</td>
+</tr>
+<tr>
+<td>Embedding</td>
+<td>模型加载失败</td>
+<td>用上次缓存的向量</td>
+<td>缓存兜底</td>
+</tr>
+<tr>
+<td>Agent规划</td>
+<td>死循环</td>
+<td>强制退出，返回提示</td>
+<td>超时控制</td>
+</tr>
+</tbody></table>
+<p><strong>代码实现：</strong></p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">from</span> tenacity <span class="keyword">import</span> retry, stop_after_attempt, wait_exponential</span><br><span class="line"><span class="keyword">import</span> logging</span><br><span class="line"></span><br><span class="line">logger = logging.getLogger(__name__)</span><br><span class="line"></span><br><span class="line"><span class="keyword">class</span> <span class="title class_">RAGService</span>:</span><br><span class="line">    <span class="keyword">def</span> <span class="title function_">__init__</span>(<span class="params">self</span>):</span><br><span class="line">        <span class="variable language_">self</span>.primary_llm = OpenAIClient()</span><br><span class="line">        <span class="variable language_">self</span>.fallback_llm = DeepSeekClient()</span><br><span class="line">        <span class="variable language_">self</span>.local_cache = LRUCache(maxsize=<span class="number">10000</span>)</span><br><span class="line">    </span><br><span class="line"><span class="meta">    @retry(<span class="params"></span></span></span><br><span class="line"><span class="params"><span class="meta">        stop=stop_after_attempt(<span class="params"><span class="number">3</span></span>),</span></span></span><br><span class="line"><span class="params"><span class="meta">        wait=wait_exponential(<span class="params">multiplier=<span class="number">1</span>, <span class="built_in">min</span>=<span class="number">2</span>, <span class="built_in">max</span>=<span class="number">10</span></span>),</span></span></span><br><span class="line"><span class="params"><span class="meta">        reraise=<span class="literal">True</span></span></span></span><br><span class="line"><span class="params"><span class="meta">    </span>)</span></span><br><span class="line">    <span class="keyword">def</span> <span class="title function_">generate_with_fallback</span>(<span class="params">self, prompt: <span class="built_in">str</span></span>) -&gt; <span class="built_in">str</span>:</span><br><span class="line">        <span class="string">&quot;&quot;&quot;主模型失败，自动切备用模型&quot;&quot;&quot;</span></span><br><span class="line">        <span class="keyword">try</span>:</span><br><span class="line">            <span class="keyword">return</span> <span class="variable language_">self</span>.primary_llm.generate(prompt)</span><br><span class="line">        <span class="keyword">except</span> Exception <span class="keyword">as</span> e:</span><br><span class="line">            logger.warning(<span class="string">f&quot;Primary LLM failed: <span class="subst">&#123;e&#125;</span>, switching to fallback&quot;</span>)</span><br><span class="line">            <span class="keyword">return</span> <span class="variable language_">self</span>.fallback_llm.generate(prompt)</span><br><span class="line">    </span><br><span class="line">    <span class="keyword">def</span> <span class="title function_">retrieve_with_cache</span>(<span class="params">self, query: <span class="built_in">str</span></span>) -&gt; <span class="built_in">list</span>:</span><br><span class="line">        <span class="string">&quot;&quot;&quot;缓存兜底，Embedding服务挂了也能返回&quot;&quot;&quot;</span></span><br><span class="line">        cache_key = <span class="built_in">hash</span>(query)</span><br><span class="line">        </span><br><span class="line">        <span class="keyword">if</span> cache_key <span class="keyword">in</span> <span class="variable language_">self</span>.local_cache:</span><br><span class="line">            <span class="keyword">return</span> <span class="variable language_">self</span>.local_cache[cache_key]</span><br><span class="line">        </span><br><span class="line">        <span class="keyword">try</span>:</span><br><span class="line">            results = <span class="variable language_">self</span>.vector_db.search(query)</span><br><span class="line">            <span class="variable language_">self</span>.local_cache[cache_key] = results</span><br><span class="line">            <span class="keyword">return</span> results</span><br><span class="line">        <span class="keyword">except</span> Exception <span class="keyword">as</span> e:</span><br><span class="line">            logger.error(<span class="string">f&quot;Vector DB failed: <span class="subst">&#123;e&#125;</span>&quot;</span>)</span><br><span class="line">            <span class="comment"># 降级：返回空或历史热门结果</span></span><br><span class="line">            <span class="keyword">return</span> <span class="variable language_">self</span>.get_popular_documents()</span><br><span class="line">    </span><br><span class="line">    <span class="keyword">def</span> <span class="title function_">agent_with_timeout</span>(<span class="params">self, query: <span class="built_in">str</span>, max_steps: <span class="built_in">int</span> = <span class="number">5</span></span>) -&gt; <span class="built_in">str</span>:</span><br><span class="line">        <span class="string">&quot;&quot;&quot;Agent强制退出，防止死循环&quot;&quot;&quot;</span></span><br><span class="line">        <span class="keyword">for</span> step <span class="keyword">in</span> <span class="built_in">range</span>(max_steps):</span><br><span class="line">            action = <span class="variable language_">self</span>.planner.next_step(query)</span><br><span class="line">            </span><br><span class="line">            <span class="keyword">if</span> action.is_complete:</span><br><span class="line">                <span class="keyword">return</span> action.result</span><br><span class="line">            </span><br><span class="line">            <span class="keyword">if</span> step == max_steps - <span class="number">1</span>:</span><br><span class="line">                logger.warning(<span class="string">&quot;Agent max steps reached, forcing exit&quot;</span>)</span><br><span class="line">                <span class="keyword">return</span> <span class="string">&quot;抱歉，这个问题我需要更多时间来处理，请稍后重试&quot;</span></span><br><span class="line">        </span><br><span class="line">        query = action.updated_query</span><br></pre></td></tr></table></figure>
+
+<hr>
+<h2 id="三、编码规范"><a href="#三、编码规范" class="headerlink" title="三、编码规范"></a>三、编码规范</h2><h3 id="Q8-你的Python代码规范是什么？怎么保证团队一致？"><a href="#Q8-你的Python代码规范是什么？怎么保证团队一致？" class="headerlink" title="Q8: 你的Python代码规范是什么？怎么保证团队一致？"></a>Q8: 你的Python代码规范是什么？怎么保证团队一致？</h3><p><strong>大白话答：</strong></p>
+<blockquote>
+<p><strong>自动化工具强制规范，Code Review抓设计，文档降低门槛</strong>。</p>
+</blockquote>
+<p><strong>工具链：</strong></p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 1. 代码格式化（Black，统一风格）</span></span><br><span class="line">black src/ tests/</span><br><span class="line"></span><br><span class="line"><span class="comment"># 2. 代码检查（Ruff，快，替代Flake8+isort）</span></span><br><span class="line">ruff check src/ --fix</span><br><span class="line"></span><br><span class="line"><span class="comment"># 3. 类型检查（mypy，减少运行时错误）</span></span><br><span class="line">mypy src/ --strict</span><br><span class="line"></span><br><span class="line"><span class="comment"># 4. 测试（pytest，覆盖率&gt;80%）</span></span><br><span class="line">pytest tests/ --cov=src --cov-report=html</span><br><span class="line"></span><br><span class="line"><span class="comment"># 5. Git Hooks（提交前自动检查）</span></span><br><span class="line">pre-commit install</span><br></pre></td></tr></table></figure>
+
+<p><strong>pre-commit配置：</strong></p>
+<figure class="highlight yaml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># .pre-commit-config.yaml</span></span><br><span class="line"><span class="attr">repos:</span></span><br><span class="line">  <span class="bullet">-</span> <span class="attr">repo:</span> <span class="string">https://github.com/psf/black</span></span><br><span class="line">    <span class="attr">rev:</span> <span class="number">23.1</span><span class="number">.0</span></span><br><span class="line">    <span class="attr">hooks:</span></span><br><span class="line">      <span class="bullet">-</span> <span class="attr">id:</span> <span class="string">black</span></span><br><span class="line">  </span><br><span class="line">  <span class="bullet">-</span> <span class="attr">repo:</span> <span class="string">https://github.com/charliermarsh/ruff-pre-commit</span></span><br><span class="line">    <span class="attr">rev:</span> <span class="string">v0.0.267</span></span><br><span class="line">    <span class="attr">hooks:</span></span><br><span class="line">      <span class="bullet">-</span> <span class="attr">id:</span> <span class="string">ruff</span></span><br><span class="line">  </span><br><span class="line">  <span class="bullet">-</span> <span class="attr">repo:</span> <span class="string">https://github.com/pre-commit/mirrors-mypy</span></span><br><span class="line">    <span class="attr">rev:</span> <span class="string">v1.3.0</span></span><br><span class="line">    <span class="attr">hooks:</span></span><br><span class="line">      <span class="bullet">-</span> <span class="attr">id:</span> <span class="string">mypy</span></span><br></pre></td></tr></table></figure>
+
+<p><strong>项目结构规范：</strong></p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br></pre></td><td class="code"><pre><span class="line">rag_project/</span><br><span class="line">├── src/</span><br><span class="line">│   ├── __init__.py</span><br><span class="line">│   ├── api/              # FastAPI路由</span><br><span class="line">│   │   ├── __init__.py</span><br><span class="line">│   │   └── endpoints.py</span><br><span class="line">│   ├── core/             # 核心业务逻辑</span><br><span class="line">│   │   ├── retriever.py</span><br><span class="line">│   │   ├── generator.py</span><br><span class="line">│   │   └── agent.py</span><br><span class="line">│   ├── models/           # Pydantic模型</span><br><span class="line">│   │   └── schemas.py</span><br><span class="line">│   ├── services/         # 外部服务封装</span><br><span class="line">│   │   ├── milvus_client.py</span><br><span class="line">│   │   └── llm_client.py</span><br><span class="line">│   └── utils/            # 工具函数</span><br><span class="line">│       └── decorators.py</span><br><span class="line">├── tests/</span><br><span class="line">│   ├── unit/             # 单元测试</span><br><span class="line">│   ├── integration/      # 集成测试</span><br><span class="line">│   └── conftest.py       # pytest fixtures</span><br><span class="line">├── configs/              # 配置文件</span><br><span class="line">├── scripts/              # 运维脚本</span><br><span class="line">├── docs/                 # 文档</span><br><span class="line">├── pyproject.toml        # 项目配置（替代setup.py）</span><br><span class="line">├── .pre-commit-config.yaml</span><br><span class="line">└── Makefile              # 统一命令入口</span><br></pre></td></tr></table></figure>
+
+<p><strong>Makefile统一入口：</strong></p>
+<figure class="highlight makefile"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta"><span class="keyword">.PHONY</span>: install format lint test check</span></span><br><span class="line"></span><br><span class="line"><span class="section">install:</span></span><br><span class="line">	pip install -e <span class="string">&quot;.[dev]&quot;</span></span><br><span class="line"></span><br><span class="line"><span class="section">format:</span></span><br><span class="line">	black src/ tests/</span><br><span class="line">	ruff check src/ tests/ --fix</span><br><span class="line"></span><br><span class="line"><span class="section">lint:</span></span><br><span class="line">	ruff check src/ tests/</span><br><span class="line">	mypy src/ --strict</span><br><span class="line"></span><br><span class="line"><span class="section">test:</span></span><br><span class="line">	pytest tests/ -v --cov=src --cov-report=term-missing</span><br><span class="line"></span><br><span class="line"><span class="section">check: format lint test  # CI流水线执行</span></span><br></pre></td></tr></table></figure>
+
+<hr>
+<h3 id="Q9-怎么写RAG系统的单元测试？"><a href="#Q9-怎么写RAG系统的单元测试？" class="headerlink" title="Q9: 怎么写RAG系统的单元测试？"></a>Q9: 怎么写RAG系统的单元测试？</h3><p><strong>大白话答：</strong></p>
+<blockquote>
+<p><strong>测核心逻辑，Mock外部依赖，数据驱动测试</strong>。</p>
+</blockquote>
+<p><strong>关键测试策略：</strong></p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># tests/unit/test_retriever.py</span></span><br><span class="line"><span class="keyword">import</span> pytest</span><br><span class="line"><span class="keyword">from</span> unittest.mock <span class="keyword">import</span> Mock, patch</span><br><span class="line"></span><br><span class="line"><span class="keyword">def</span> <span class="title function_">test_milvus_retriever_success</span>():</span><br><span class="line">    <span class="string">&quot;&quot;&quot;测试检索成功&quot;&quot;&quot;</span></span><br><span class="line">    <span class="comment"># Mock Milvus客户端</span></span><br><span class="line">    mock_client = Mock()</span><br><span class="line">    mock_client.search.return_value = [</span><br><span class="line">        &#123;<span class="string">&quot;id&quot;</span>: <span class="number">1</span>, <span class="string">&quot;distance&quot;</span>: <span class="number">0.9</span>, <span class="string">&quot;text&quot;</span>: <span class="string">&quot;相关文档1&quot;</span>&#125;,</span><br><span class="line">        &#123;<span class="string">&quot;id&quot;</span>: <span class="number">2</span>, <span class="string">&quot;distance&quot;</span>: <span class="number">0.8</span>, <span class="string">&quot;text&quot;</span>: <span class="string">&quot;相关文档2&quot;</span>&#125;,</span><br><span class="line">    ]</span><br><span class="line">    </span><br><span class="line">    retriever = MilvusRetriever(client=mock_client)</span><br><span class="line">    results = retriever.retrieve(<span class="string">&quot;测试查询&quot;</span>, top_k=<span class="number">2</span>)</span><br><span class="line">    </span><br><span class="line">    <span class="keyword">assert</span> <span class="built_in">len</span>(results) == <span class="number">2</span></span><br><span class="line">    <span class="keyword">assert</span> results[<span class="number">0</span>].score == <span class="number">0.9</span></span><br><span class="line">    mock_client.search.assert_called_once()</span><br><span class="line"></span><br><span class="line"><span class="keyword">def</span> <span class="title function_">test_retriever_with_fallback</span>():</span><br><span class="line">    <span class="string">&quot;&quot;&quot;测试Milvus失败降级到FAISS&quot;&quot;&quot;</span></span><br><span class="line">    <span class="keyword">with</span> patch(<span class="string">&#x27;src.services.milvus_client.MilvusClient&#x27;</span>) <span class="keyword">as</span> mock_milvus:</span><br><span class="line">        mock_milvus.return_value.search.side_effect = Exception(<span class="string">&quot;连接超时&quot;</span>)</span><br><span class="line">        </span><br><span class="line">        retriever = HybridRetriever(</span><br><span class="line">            primary=MilvusRetriever(mock_milvus.return_value),</span><br><span class="line">            fallback=FAISSRetriever()  <span class="comment"># 真实或Mock</span></span><br><span class="line">        )</span><br><span class="line">        </span><br><span class="line">        results = retriever.retrieve(<span class="string">&quot;测试查询&quot;</span>)</span><br><span class="line">        <span class="keyword">assert</span> <span class="built_in">len</span>(results) &gt; <span class="number">0</span>  <span class="comment"># 降级成功，有结果</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># tests/unit/test_agent.py</span></span><br><span class="line"><span class="keyword">def</span> <span class="title function_">test_planner_intent_recognition</span>():</span><br><span class="line">    <span class="string">&quot;&quot;&quot;测试意图识别&quot;&quot;&quot;</span></span><br><span class="line">    planner = PlannerAgent()</span><br><span class="line">    </span><br><span class="line">    test_cases = [</span><br><span class="line">        (<span class="string">&quot;2024年营收多少&quot;</span>, <span class="string">&quot;financial_query&quot;</span>),</span><br><span class="line">        (<span class="string">&quot;怎么请假&quot;</span>, <span class="string">&quot;hr_policy&quot;</span>),</span><br><span class="line">        (<span class="string">&quot;讲个笑话&quot;</span>, <span class="string">&quot;chitchat&quot;</span>),</span><br><span class="line">    ]</span><br><span class="line">    </span><br><span class="line">    <span class="keyword">for</span> query, expected_intent <span class="keyword">in</span> test_cases:</span><br><span class="line">        intent = planner.recognize_intent(query)</span><br><span class="line">        <span class="keyword">assert</span> intent == expected_intent, <span class="string">f&quot;Failed for: <span class="subst">&#123;query&#125;</span>&quot;</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># tests/integration/test_api.py</span></span><br><span class="line"><span class="keyword">def</span> <span class="title function_">test_search_endpoint</span>(<span class="params">client</span>):</span><br><span class="line">    <span class="string">&quot;&quot;&quot;测试端到端API&quot;&quot;&quot;</span></span><br><span class="line">    response = client.post(<span class="string">&quot;/search&quot;</span>, json=&#123;<span class="string">&quot;query&quot;</span>: <span class="string">&quot;什么是RAG&quot;</span>&#125;)</span><br><span class="line">    </span><br><span class="line">    <span class="keyword">assert</span> response.status_code == <span class="number">200</span></span><br><span class="line">    <span class="keyword">assert</span> <span class="string">&quot;answer&quot;</span> <span class="keyword">in</span> response.json()</span><br><span class="line">    <span class="keyword">assert</span> <span class="built_in">len</span>(response.json()[<span class="string">&quot;sources&quot;</span>]) &lt;= <span class="number">10</span></span><br></pre></td></tr></table></figure>
+
+<hr>
+<h2 id="四、面试金句"><a href="#四、面试金句" class="headerlink" title="四、面试金句"></a>四、面试金句</h2><blockquote>
+<p>“我的Python工程实践分三层：<strong>语言层</strong>用生成器省内存、装饰器做横切、鸭子类型做抽象；<strong>架构层</strong>分层设计+配置驱动+工厂模式，向量数据库和LLM随时可换；<strong>规范层</strong>Black+Ruff+mypy+pre-commit强制代码质量，pytest分层测试保稳定性。RAG系统里，<strong>流式处理百万文档、多进程并行Embedding、自动降级容错</strong>，都是这些基础能力的体现。”</p>
+</blockquote>
+<hr>
+
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="http://example.com/2026/04/12/MLOps/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="wangzhiwei">
+      <meta itemprop="description" content="javascript nodejs web developer...">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="WBlog">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/2026/04/12/MLOps/" class="post-title-link" itemprop="url">MLOps</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+              
+
+              <time title="创建时间：2026-04-12 10:41:27 / 修改时间：10:57:57" itemprop="dateCreated datePublished" datetime="2026-04-12T10:41:27+08:00">2026-04-12</time>
+            </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/MLOps/" itemprop="url" rel="index"><span itemprop="name">MLOps</span></a>
+                </span>
+                  ，
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/MLOps/Ai-Agent/" itemprop="url" rel="index"><span itemprop="name">Ai Agent</span></a>
+                </span>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <h2 id="Q1-什么是-MLOps？和-DevOps-有什么区别？"><a href="#Q1-什么是-MLOps？和-DevOps-有什么区别？" class="headerlink" title="Q1: 什么是 MLOps？和 DevOps 有什么区别？"></a>Q1: 什么是 MLOps？和 DevOps 有什么区别？</h2><p>DevOps 是让代码从开发到上线自动化（CI&#x2F;CD）。<br>MLOps 是让机器学习模型从实验到生产自动化，额外要管数据、模型版本、效果监控。</p>
+<table>
+<thead>
+<tr>
+<th></th>
+<th>DevOps</th>
+<th>MLOps</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>版本控制</td>
+<td>代码（Git）</td>
+<td>代码 + <strong>数据</strong> + <strong>模型权重</strong></td>
+</tr>
+<tr>
+<td>测试</td>
+<td>单元测试、集成测试</td>
+<td><strong>模型效果测试</strong>（精度、延迟）</td>
+</tr>
+<tr>
+<td>部署</td>
+<td>二进制&#x2F;容器</td>
+<td><strong>模型文件</strong> + 推理服务</td>
+</tr>
+<tr>
+<td>监控</td>
+<td>系统指标（CPU&#x2F;内存）</td>
+<td><strong>数据漂移</strong>、<strong>模型效果衰减</strong></td>
+</tr>
+<tr>
+<td>回滚</td>
+<td>代码回滚</td>
+<td><strong>模型版本回滚</strong></td>
+</tr>
+</tbody></table>
+<p>Q3: 用过哪些 MLOps 工具？分别管什么？</p>
+<p>“我的MLOps栈是轻量级：MLflow管实验，DVC管数据，Docker+FastAPI管部署，Prometheus+Grafana管监控。没有重基础设施，但覆盖了模型全生命周期。”</p>
+<p>Q4: 模型版本怎么管理？上线后发现有问题怎么办？</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">模型注册表（Model Registry）：</span><br><span class="line">- v1.0.0：2024-01-15，K=1000，F1=0.85，标签&quot;production&quot;</span><br><span class="line">- v1.1.0：2024-03-20，K=1500，F1=0.87，标签&quot;staging&quot;</span><br><span class="line">- v2.0.0：2024-06-01，K=2000，F1=0.89，标签&quot;experiment&quot;</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"># 1. 监控告警：ROUGE-L下降超过10%</span><br><span class="line">if current_rouge &lt; baseline_rouge * 0.9:</span><br><span class="line">    send_alert(&quot;模型效果衰减&quot;)</span><br><span class="line"></span><br><span class="line"># 2. 自动回滚（蓝绿部署）</span><br><span class="line"># 流量从v2.0.0切回v1.0.0，5秒内完成</span><br><span class="line"></span><br><span class="line"># 3. 人工介入：检查数据漂移、定位bad case</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+
+<p>Q5: RAG&#x2F;Agent 场景题（结合你的项目）RAG 系统怎么做 MLOps？和传统 ML 有什么不同？</p>
+<table>
+<thead>
+<tr>
+<th>传统 ML</th>
+<th>RAG 系统</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>模型权重固定，数据在线流入</td>
+<td><strong>知识库动态更新</strong>，文档增删改</td>
+</tr>
+<tr>
+<td>主要监控模型效果</td>
+<td>还要监控<strong>检索质量</strong>、<strong>生成质量</strong></td>
+</tr>
+<tr>
+<td>重训练 &#x3D; 重新跑实验</td>
+<td>重训练 &#x3D; <strong>重新切分文档</strong>、<strong>重新Embedding</strong>、<strong>重建向量索引</strong></td>
+</tr>
+</tbody></table>
+<p>你的 RAG MLOps 流水线：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br></pre></td><td class="code"><pre><span class="line">每日凌晨：</span><br><span class="line">  │</span><br><span class="line">  ▼</span><br><span class="line">┌─────────────────┐</span><br><span class="line">│ 1. 数据更新     │  ← 新文档入库，旧文档过期</span><br><span class="line">│    (DVC版本)    │</span><br><span class="line">└─────────────────┘</span><br><span class="line">  │</span><br><span class="line">  ▼</span><br><span class="line">┌─────────────────┐</span><br><span class="line">│ 2. 重新切分+Embedding │  ← LangChain处理，产出新向量</span><br><span class="line">│    (MLflow记录参数)  │</span><br><span class="line">└─────────────────┘</span><br><span class="line">  │</span><br><span class="line">  ▼</span><br><span class="line">┌─────────────────┐</span><br><span class="line">│ 3. K-Means重新训练  │  ← Scikit-learn，找最佳K</span><br><span class="line">│    (GridSearchCV)  │</span><br><span class="line">└─────────────────┘</span><br><span class="line">  │</span><br><span class="line">  ▼</span><br><span class="line">┌─────────────────┐</span><br><span class="line">│ 4. 重建Milvus索引   │  ← 新分区替换旧分区（蓝绿）</span><br><span class="line">│    (Docker部署)    │</span><br><span class="line">└─────────────────┘</span><br><span class="line">  │</span><br><span class="line">  ▼</span><br><span class="line">┌─────────────────┐</span><br><span class="line">│ 5. A/B测试        │  ← 10%流量切新索引，对比ROUGE-L</span><br><span class="line">│    (FastAPI路由)  │</span><br><span class="line">└─────────────────┘</span><br><span class="line">  │</span><br><span class="line">  ▼</span><br><span class="line">┌─────────────────┐</span><br><span class="line">│ 6. 全量上线/回滚   │  ← 效果达标则全切，否则回滚</span><br><span class="line">└─────────────────┘</span><br><span class="line"></span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<p>Q6: 怎么监控 Agent 系统的效果？不是单一指标能衡量的</p>
+<p>分层监控</p>
+<table>
+<thead>
+<tr>
+<th>层级</th>
+<th>指标</th>
+<th>工具</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><strong>任务完成率</strong></td>
+<td>用户任务是否走到最后一步</td>
+<td>业务埋点</td>
+</tr>
+<tr>
+<td><strong>Agent决策</strong></td>
+<td>Planner是否正确拆解意图</td>
+<td>人工标注 + 自动规则</td>
+</tr>
+<tr>
+<td><strong>检索质量</strong></td>
+<td>召回文档的相关性</td>
+<td>ROUGE-L、人工抽样</td>
+</tr>
+<tr>
+<td><strong>生成质量</strong></td>
+<td>答案准确性、幻觉率</td>
+<td>BertScore、LLM-as-Judge</td>
+</tr>
+<tr>
+<td><strong>系统性能</strong></td>
+<td>延迟、成本、错误率</td>
+<td>Prometheus</td>
+</tr>
+</tbody></table>
+<p>Q7: 数据漂移（Data Drift）在 RAG 里怎么发现？</p>
+<p>传统 ML： 输入特征分布变了（比如房价模型里，平均房价从100万涨到200万）。</p>
+<table>
+<thead>
+<tr>
+<th>漂移类型</th>
+<th>表现</th>
+<th>检测方法</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><strong>查询漂移</strong></td>
+<td>用户问题主题变了（从”财务”变”技术”）</td>
+<td>K-Means中心点偏移检测</td>
+</tr>
+<tr>
+<td><strong>文档漂移</strong></td>
+<td>知识库内容过时（政策更新）</td>
+<td>文档时间戳监控 + 效果下降</td>
+</tr>
+<tr>
+<td><strong>检索漂移</strong></td>
+<td>相似度分数分布变了</td>
+<td>平均相似度监控</td>
+</tr>
+</tbody></table>
+<p>Q8: 如果让你从零搭建 MLOps 平台，优先级是什么？</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line">第1周：可复现实验</span><br><span class="line">  - MLflow记录超参和指标</span><br><span class="line">  - 代码+数据版本控制（Git+DVC）</span><br><span class="line"></span><br><span class="line">第2-4周：自动化部署</span><br><span class="line">  - Docker打包模型</span><br><span class="line">  - FastAPI服务 + 健康检查</span><br><span class="line">  - 蓝绿部署（零停机）</span><br><span class="line"></span><br><span class="line">第2-3月：监控告警</span><br><span class="line">  - Prometheus+Grafana看延迟/错误率</span><br><span class="line">  - 效果监控（ROUGE-L趋势图）</span><br><span class="line">  - 数据漂移检测</span><br><span class="line"></span><br><span class="line">第3-6月：高级功能</span><br><span class="line">  - 自动重训练流水线（Airflow）</span><br><span class="line">  - A/B测试框架</span><br><span class="line">  - 模型解释性（SHAP）</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<p>关键原则： 先让”能跑”变”可靠”，再追求”全自动”。</p>
+<p>Q9: 小团队（2-3人）做 MLOps，怎么取舍？</p>
+<table>
+<thead>
+<tr>
+<th>必做（高ROI）</th>
+<th>可砍（低ROI）</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>实验记录（MLflow）</td>
+<td>复杂的Kubeflow流水线</td>
+</tr>
+<tr>
+<td>Docker部署</td>
+<td>Kubernetes编排（先用Docker Compose）</td>
+</tr>
+<tr>
+<td>基础监控（Prometheus）</td>
+<td>实时特征平台</td>
+</tr>
+<tr>
+<td>模型版本注册</td>
+<td>自动重训练（先手动触发）</td>
+</tr>
+</tbody></table>
+<p>“小团队用精益MLOps：MLflow+Docker+Prometheus三件套覆盖80%需求，等团队大了再上Kubeflow。关键是可复现和可回滚，其他可以慢慢补。”</p>
+<p>Prometheus监控指标设计<br>“我的RAG监控系统分四层：基础设施层看GPU显存防OOM，服务层分阶段看延迟定位瓶颈，模型层用ROUGE-L和幻觉率监控效果，业务层盯成本和用户满意度。关键设计是Agent状态机埋点，每个LangGraph节点的进入次数、耗时、成功率都有指标，死循环或频繁自我修正能立即发现。告警用多层级：延迟&#x2F;错误率critical立即电话，效果下降warning工单跟进。”</p>
+<p>RAG系统的自动重训练触发策略</p>
+<p>一、为什么要自动重训练？</p>
+<table>
+<thead>
+<tr>
+<th>问题</th>
+<th>后果</th>
+<th>例子</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>知识库更新了（新政策&#x2F;新产品）</td>
+<td>检索到旧答案，用户拿到过期信息</td>
+<td>“2024年税率”查到2023年数据</td>
+</tr>
+<tr>
+<td>查询分布变了（用户问新话题）</td>
+<td>K-Means预分类失效，找不到文档</td>
+<td>原来问”财务”多，现在问”AI”多</td>
+</tr>
+<tr>
+<td>文档质量下降（爬虫抓错&#x2F;格式乱）</td>
+<td>噪声文档污染检索结果</td>
+<td>PDF解析失败，内容变成乱码</td>
+</tr>
+<tr>
+<td>模型效果衰减</td>
+<td>ROUGE-L逐渐下降，用户投诉增多</td>
+<td>从0.75降到0.55，没人知道</td>
+</tr>
+</tbody></table>
+<p>二、触发策略分类</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line">触发条件</span><br><span class="line">    │</span><br><span class="line">    ├── 时间驱动（Time-based）     ← 兜底，定期刷新</span><br><span class="line">    │      └── 每周日凌晨2点</span><br><span class="line">    │</span><br><span class="line">    ├── 数据驱动（Data-based）     ← 知识库变了</span><br><span class="line">    │      ├── 文档新增/删除/修改超过阈值</span><br><span class="line">    │      └── 文档内容漂移检测</span><br><span class="line">    │</span><br><span class="line">    ├── 效果驱动（Performance-based） ← 质量下降了</span><br><span class="line">    │      ├── 检索Recall@10下降</span><br><span class="line">    │      ├── 生成ROUGE-L下降</span><br><span class="line">    │      └── 用户反馈差评率上升</span><br><span class="line">    │</span><br><span class="line">    └── 异常驱动（Anomaly-based）   ← 出事了</span><br><span class="line">           ├── 大量检索无结果</span><br><span class="line">           ├── Agent死循环激增</span><br><span class="line">           └── 成本异常暴涨</span><br></pre></td></tr></table></figure>
+
+<p>“我的RAG自动重训练分四层触发：时间兜底每周刷新，数据驱动检测文档变化，效果驱动监控ROUGE-L和Recall下降，异常驱动响应事故。核心设计是A&#x2F;B测试+渐进上线：新版本先给10%流量，观察30分钟错误率和延迟，达标再扩到50%、100%，任何一步失败自动回滚。紧急情况下一键暂停+立即回滚，人只审批不操作，系统自治但可控。”</p>
+
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
     <link itemprop="mainEntityOfPage" href="http://example.com/2026/04/11/scikit-learn/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -1751,300 +2835,6 @@
   
   
 
-      
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="http://example.com/2025/10/24/nginx-conf-to-json/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.gif">
-      <meta itemprop="name" content="wangzhiwei">
-      <meta itemprop="description" content="javascript nodejs web developer...">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="WBlog">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/2025/10/24/nginx-conf-to-json/" class="post-title-link" itemprop="url">nginx conf to json</a>
-        </h2>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              <span class="post-meta-item-text">发表于</span>
-              
-
-              <time title="创建时间：2025-10-24 08:57:09 / 修改时间：10:16:21" itemprop="dateCreated datePublished" datetime="2025-10-24T08:57:09+08:00">2025-10-24</time>
-            </span>
-
-          
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <p>python 版本<br>pip install crossplane</p>
-<p>crossplane parse –indent&#x3D;4 nginx.conf &gt; nginx.json</p>
-<p>crossplane build nginx.json</p>
-<p><a target="_blank" rel="noopener" href="https://github.com/nginxinc/crossplane?tab=readme-ov-file#crossplane-parse">https://github.com/nginxinc/crossplane?tab=readme-ov-file#crossplane-parse</a></p>
-<h2 id="转换为-js-版本"><a href="#转换为-js-版本" class="headerlink" title="转换为 js 版本"></a>转换为 js 版本</h2><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br><span class="line">100</span><br><span class="line">101</span><br><span class="line">102</span><br><span class="line">103</span><br><span class="line">104</span><br><span class="line">105</span><br><span class="line">106</span><br><span class="line">107</span><br><span class="line">108</span><br><span class="line">109</span><br><span class="line">110</span><br><span class="line">111</span><br><span class="line">112</span><br><span class="line">113</span><br><span class="line">114</span><br><span class="line">115</span><br><span class="line">116</span><br><span class="line">117</span><br><span class="line">118</span><br><span class="line">119</span><br><span class="line">120</span><br><span class="line">121</span><br><span class="line">122</span><br><span class="line">123</span><br><span class="line">124</span><br><span class="line">125</span><br><span class="line">126</span><br><span class="line">127</span><br><span class="line">128</span><br><span class="line">129</span><br><span class="line">130</span><br><span class="line">131</span><br><span class="line">132</span><br><span class="line">133</span><br><span class="line">134</span><br><span class="line">135</span><br><span class="line">136</span><br><span class="line">137</span><br><span class="line">138</span><br><span class="line">139</span><br><span class="line">140</span><br><span class="line">141</span><br><span class="line">142</span><br><span class="line">143</span><br><span class="line">144</span><br><span class="line">145</span><br><span class="line">146</span><br><span class="line">147</span><br><span class="line">148</span><br><span class="line">149</span><br><span class="line">150</span><br><span class="line">151</span><br><span class="line">152</span><br><span class="line">153</span><br><span class="line">154</span><br><span class="line">155</span><br><span class="line">156</span><br><span class="line">157</span><br><span class="line">158</span><br><span class="line">159</span><br><span class="line">160</span><br><span class="line">161</span><br><span class="line">162</span><br><span class="line">163</span><br><span class="line">164</span><br><span class="line">165</span><br><span class="line">166</span><br><span class="line">167</span><br><span class="line">168</span><br><span class="line">169</span><br><span class="line">170</span><br><span class="line">171</span><br><span class="line">172</span><br><span class="line">173</span><br><span class="line">174</span><br><span class="line">175</span><br><span class="line">176</span><br><span class="line">177</span><br><span class="line">178</span><br><span class="line">179</span><br><span class="line">180</span><br><span class="line">181</span><br><span class="line">182</span><br><span class="line">183</span><br><span class="line">184</span><br><span class="line">185</span><br><span class="line">186</span><br><span class="line">187</span><br><span class="line">188</span><br><span class="line">189</span><br><span class="line">190</span><br><span class="line">191</span><br><span class="line">192</span><br><span class="line">193</span><br><span class="line">194</span><br><span class="line">195</span><br><span class="line">196</span><br><span class="line">197</span><br><span class="line">198</span><br><span class="line">199</span><br><span class="line">200</span><br><span class="line">201</span><br><span class="line">202</span><br><span class="line">203</span><br><span class="line">204</span><br><span class="line">205</span><br><span class="line">206</span><br><span class="line">207</span><br><span class="line">208</span><br><span class="line">209</span><br><span class="line">210</span><br><span class="line">211</span><br><span class="line">212</span><br><span class="line">213</span><br><span class="line">214</span><br><span class="line">215</span><br><span class="line">216</span><br><span class="line">217</span><br><span class="line">218</span><br><span class="line">219</span><br><span class="line">220</span><br><span class="line">221</span><br><span class="line">222</span><br><span class="line">223</span><br><span class="line">224</span><br><span class="line">225</span><br><span class="line">226</span><br><span class="line">227</span><br><span class="line">228</span><br><span class="line">229</span><br><span class="line">230</span><br><span class="line">231</span><br></pre></td><td class="code"><pre><span class="line">nginx-parser.js</span><br><span class="line"></span><br><span class="line">// nginx config lexer + parser (browser version)</span><br><span class="line">// 用法：</span><br><span class="line">//   import &#123; parseNginx &#125; from &#x27;./nginx-parser.js&#x27;;</span><br><span class="line">//   const payload = parseNginx(nginxText, &#123; filename:&#x27;nginx.conf&#x27;, comments:true &#125;);</span><br><span class="line"></span><br><span class="line">const EXTERNAL_PARSERS = &#123;&#125;;   // 预留第三方指令解析器</span><br><span class="line"></span><br><span class="line">// ---------- lexer ----------</span><br><span class="line">function* lex(text, filename = &#x27;nginx.conf&#x27;) &#123;</span><br><span class="line">  let line = 1, col = 0, idx = 0;</span><br><span class="line">  const len = text.length;</span><br><span class="line"></span><br><span class="line">  function skipWhitespace() &#123;</span><br><span class="line">    while (idx &lt; len &amp;&amp; /\s/.test(text[idx])) &#123;</span><br><span class="line">      if (text[idx] === &#x27;\n&#x27;) &#123; line++; col = 0; &#125;</span><br><span class="line">      else col++;</span><br><span class="line">      idx++;</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  function readString(quote) &#123;</span><br><span class="line">    const start = ++idx;  // skip open quote</span><br><span class="line">    col++;</span><br><span class="line">    while (idx &lt; len &amp;&amp; text[idx] !== quote) &#123;</span><br><span class="line">      if (text[idx] === &#x27;\n&#x27;) &#123; line++; col = 0; &#125;</span><br><span class="line">      else if (text[idx] === &#x27;\\&#x27;) &#123; idx++; col++; &#125; // skip escaped</span><br><span class="line">      idx++; col++;</span><br><span class="line">    &#125;</span><br><span class="line">    if (idx &gt;= len) throw new Error(`Unterminated quoted string at $&#123;filename&#125;:$&#123;line&#125;`);</span><br><span class="line">    const val = text.slice(start, idx);</span><br><span class="line">    idx++; col++; // skip close quote</span><br><span class="line">    return [val, line, true];   // [token, lineno, quoted]</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  function readToken() &#123;</span><br><span class="line">    const start = idx;</span><br><span class="line">    while (idx &lt; len &amp;&amp; !/\s|[&#123;&#125;;#&quot;&#x27;\\]/.test(text[idx])) &#123;</span><br><span class="line">      idx++; col++;</span><br><span class="line">    &#125;</span><br><span class="line">    return text.slice(start, idx);</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  while (idx &lt; len) &#123;</span><br><span class="line">    skipWhitespace();</span><br><span class="line">    if (idx &gt;= len) break;</span><br><span class="line">    const ch = text[idx];</span><br><span class="line"></span><br><span class="line">    if (ch === &#x27;#&#x27; || ch === &#x27;;&#x27; || ch === &#x27;&#123;&#x27; || ch === &#x27;&#125;&#x27;) &#123;</span><br><span class="line">      const tok = ch === &#x27;#&#x27; ? text.slice(idx, text.indexOf(&#x27;\n&#x27;, idx)) || text.slice(idx)</span><br><span class="line">                             : ch;</span><br><span class="line">      yield [tok, line, false];</span><br><span class="line">      if (tok === &#x27;\n&#x27;) &#123; line++; col = 0; &#125;</span><br><span class="line">      else col++;</span><br><span class="line">      idx += tok.length;</span><br><span class="line">    &#125; else if (ch === &#x27;&quot;&#x27; || ch === &quot;&#x27;&quot;) &#123;</span><br><span class="line">      yield readString(ch);</span><br><span class="line">    &#125; else &#123;</span><br><span class="line">      const tok = readToken();</span><br><span class="line">      if (tok) yield [tok, line, false];</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">// ---------- util ----------</span><br><span class="line">class NgxParserDirectiveError extends Error &#123;</span><br><span class="line">  constructor(msg, lineno) &#123;</span><br><span class="line">    super(msg);</span><br><span class="line">    this.name = &#x27;NgxParserDirectiveError&#x27;;</span><br><span class="line">    this.lineno = lineno;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">// 简易版 analyze，只检查末尾符号</span><br><span class="line">function analyze(&#123; fname, stmt, term, ctx, strict, check_ctx, check_args &#125;) &#123;</span><br><span class="line">  const dir = stmt.directive;</span><br><span class="line">  if (dir === &#x27;#&#x27;) return;          // 注释跳过</span><br><span class="line">  if (dir.startsWith(&#x27;#&#x27;)) return;  // 行内注释也跳过</span><br><span class="line">  // 更复杂的上下文/参数检查可在此扩展</span><br><span class="line">  if (term !== &#x27;;&#x27; &amp;&amp; term !== &#x27;&#123;&#x27; &amp;&amp; term !== &#x27;&#125;&#x27;) &#123;</span><br><span class="line">    throw new NgxParserDirectiveError(</span><br><span class="line">      `directive &quot;$&#123;dir&#125;&quot; is not terminated by &quot;;&quot; or &quot;&#123;&quot;`, stmt.line);</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">function enterBlockCtx(stmt, ctx) &#123;</span><br><span class="line">  // 返回新的上下文，简单拼路径</span><br><span class="line">  return [...ctx, stmt.directive];</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">// ---------- parser ----------</span><br><span class="line">export function parseNginx(text, &#123;</span><br><span class="line">  filename = &#x27;nginx.conf&#x27;,</span><br><span class="line">  onerror = null,</span><br><span class="line">  catchErrors = true,</span><br><span class="line">  ignore = [],</span><br><span class="line">  single = false,</span><br><span class="line">  comments = false,</span><br><span class="line">  strict = false,</span><br><span class="line">  checkCtx = true,</span><br><span class="line">  checkArgs = true</span><br><span class="line">&#125; = &#123;&#125;) &#123;</span><br><span class="line">  const tokens = [...lex(text, filename)]; // 先全部展开，方便 next()</span><br><span class="line">  let tokIdx = 0;</span><br><span class="line">  function next() &#123;</span><br><span class="line">    if (tokIdx &gt;= tokens.length) return [null, -1, false];</span><br><span class="line">    return tokens[tokIdx++];</span><br><span class="line">  &#125;</span><br><span class="line">  function peek() &#123;</span><br><span class="line">    if (tokIdx &gt;= tokens.length) return [null, -1, false];</span><br><span class="line">    return tokens[tokIdx];</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  const payload = &#123;</span><br><span class="line">    status: &#x27;ok&#x27;,</span><br><span class="line">    errors: [],</span><br><span class="line">    config: []</span><br><span class="line">  &#125;;</span><br><span class="line"></span><br><span class="line">  function handleError(parsing, e) &#123;</span><br><span class="line">    const file = parsing.file;</span><br><span class="line">    const errObj = &#123; file, error: e.message, line: e.lineno || null &#125;;</span><br><span class="line">    if (onerror) errObj.callback = onerror(e);</span><br><span class="line"></span><br><span class="line">    parsing.status = &#x27;failed&#x27;;</span><br><span class="line">    parsing.errors.push(&#123; error: e.message, line: e.lineno || null &#125;);</span><br><span class="line"></span><br><span class="line">    payload.status = &#x27;failed&#x27;;</span><br><span class="line">    payload.errors.push(errObj);</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  function _parse(parsing, ctx = [], consume = false) &#123;</span><br><span class="line">    const fname = parsing.file;</span><br><span class="line">    const parsed = [];</span><br><span class="line"></span><br><span class="line">    while (true) &#123;</span><br><span class="line">      const [token, lineno, quoted] = next();</span><br><span class="line">      if (!token) break;</span><br><span class="line">      if (token === &#x27;&#125;&#x27; &amp;&amp; !quoted) break;</span><br><span class="line">      if (consume) &#123;</span><br><span class="line">        if (token === &#x27;&#123;&#x27; &amp;&amp; !quoted) _parse(parsing, ctx, true);</span><br><span class="line">        continue;</span><br><span class="line">      &#125;</span><br><span class="line"></span><br><span class="line">      const directive = token;</span><br><span class="line"></span><br><span class="line">      // 注释行</span><br><span class="line">      if (directive.startsWith(&#x27;#&#x27;) &amp;&amp; !quoted) &#123;</span><br><span class="line">        if (comments) &#123;</span><br><span class="line">          parsed.push(&#123; directive: &#x27;#&#x27;, line: lineno, args: [], comment: directive.slice(1).trim() &#125;);</span><br><span class="line">        &#125;</span><br><span class="line">        continue;</span><br><span class="line">      &#125;</span><br><span class="line"></span><br><span class="line">      const stmt = &#123; directive, line: lineno, args: [] &#125;;</span><br><span class="line">      if (!single) stmt.file = fname;</span><br><span class="line"></span><br><span class="line">      // 收集参数</span><br><span class="line">      const commentsInArgs = [];</span><br><span class="line">      let term;</span><br><span class="line">      while (true) &#123;</span><br><span class="line">        const [t, , q] = peek();</span><br><span class="line">        if (!t || (!q &amp;&amp; [&#x27;;&#x27;, &#x27;&#123;&#x27;, &#x27;&#125;&#x27;].includes(t))) &#123; term = t; next(); break; &#125;</span><br><span class="line">        next();</span><br><span class="line">        if (t.startsWith(&#x27;#&#x27;) &amp;&amp; !q) commentsInArgs.push(t.slice(1).trim());</span><br><span class="line">        else stmt.args.push(t);</span><br><span class="line">      &#125;</span><br><span class="line"></span><br><span class="line">      if (ignore.includes(stmt.directive)) &#123;</span><br><span class="line">        if (term === &#x27;&#123;&#x27; &amp;&amp; !quoted) _parse(parsing, ctx, true);</span><br><span class="line">        continue;</span><br><span class="line">      &#125;</span><br><span class="line"></span><br><span class="line">      // if 特殊处理</span><br><span class="line">      if (stmt.directive === &#x27;if&#x27;) &#123;</span><br><span class="line">        const args = stmt.args;</span><br><span class="line">        if (args.length &amp;&amp; args[0].startsWith(&#x27;(&#x27;) &amp;&amp; args[args.length - 1].endsWith(&#x27;)&#x27;)) &#123;</span><br><span class="line">          args[0] = args[0].slice(1).trimLeft();</span><br><span class="line">          args[args.length - 1] = args[args.length - 1].slice(0, -1).trimRight();</span><br><span class="line">        &#125;</span><br><span class="line">      &#125;</span><br><span class="line"></span><br><span class="line">      try &#123;</span><br><span class="line">        analyze(&#123; fname, stmt, term, ctx, strict, check_ctx: checkCtx, check_args: checkArgs &#125;);</span><br><span class="line">      &#125; catch (e) &#123;</span><br><span class="line">        if (catchErrors) &#123;</span><br><span class="line">          handleError(parsing, e);</span><br><span class="line">          if (e.message.includes(&#x27;is not terminated&#x27;) &amp;&amp; term !== &#x27;&#125;&#x27; &amp;&amp; !quoted) &#123;</span><br><span class="line">            _parse(parsing, ctx, true);</span><br><span class="line">          &#125;</span><br><span class="line">          continue;</span><br><span class="line">        &#125; else &#123;</span><br><span class="line">          throw e;</span><br><span class="line">        &#125;</span><br><span class="line">      &#125;</span><br><span class="line"></span><br><span class="line">      // include 处理（浏览器端不做文件 IO，只留空壳）</span><br><span class="line">      if (!single &amp;&amp; stmt.directive === &#x27;include&#x27;) &#123;</span><br><span class="line">        stmt.includes = [];   // 实际文件列表无法获取，留空</span><br><span class="line">      &#125;</span><br><span class="line"></span><br><span class="line">      if (term === &#x27;&#123;&#x27; &amp;&amp; !quoted) &#123;</span><br><span class="line">        const inner = enterBlockCtx(stmt, ctx);</span><br><span class="line">        stmt.block = _parse(parsing, inner);</span><br><span class="line">      &#125;</span><br><span class="line"></span><br><span class="line">      parsed.push(stmt);</span><br><span class="line"></span><br><span class="line">      // 行内注释追加</span><br><span class="line">      commentsInArgs.forEach(c =&gt; parsed.push(&#123; directive: &#x27;#&#x27;, line: stmt.line, args: [], comment: c &#125;));</span><br><span class="line">    &#125;</span><br><span class="line">    return parsed;</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  // 主流程</span><br><span class="line">  const parsing = &#123; file: filename, status: &#x27;ok&#x27;, errors: [], parsed: [] &#125;;</span><br><span class="line">  try &#123;</span><br><span class="line">    parsing.parsed = _parse(parsing, []);</span><br><span class="line">  &#125; catch (e) &#123;</span><br><span class="line">    handleError(parsing, e);</span><br><span class="line">  &#125;</span><br><span class="line">  payload.config.push(parsing);</span><br><span class="line">  return payload;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">// 预留外部解析器注册</span><br><span class="line">export function registerExternalParser(parser, directives) &#123;</span><br><span class="line">  directives.forEach(d =&gt; &#123; EXTERNAL_PARSERS[d] = parser; &#125;);</span><br><span class="line">&#125;</span><br><span class="line"></span><br></pre></td></tr></table></figure>
-
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br></pre></td><td class="code"><pre><span class="line">a.html</span><br><span class="line">&lt;!DOCTYPE html&gt;</span><br><span class="line">&lt;html lang=&quot;en&quot;&gt;</span><br><span class="line">  &lt;head&gt;</span><br><span class="line">    &lt;meta charset=&quot;UTF-8&quot; /&gt;</span><br><span class="line">    &lt;meta name=&quot;viewport&quot; content=&quot;width=device-width, initial-scale=1.0&quot; /&gt;</span><br><span class="line">    &lt;title&gt;Document&lt;/title&gt;</span><br><span class="line">  &lt;/head&gt;</span><br><span class="line">  &lt;body&gt;</span><br><span class="line">    &lt;script type=&quot;module&quot;&gt;</span><br><span class="line">      import &#123; parseNginx &#125; from &quot;./nginx-parser.js&quot;;</span><br><span class="line"></span><br><span class="line">      const conf = `</span><br><span class="line">      user  nginx;</span><br><span class="line">      worker_processes  auto;</span><br><span class="line">      </span><br><span class="line">      events &#123;</span><br><span class="line">          worker_connections  1024;</span><br><span class="line">      &#125;</span><br><span class="line">      </span><br><span class="line">      http &#123;</span><br><span class="line">          include       mime.types;</span><br><span class="line">          default_type  application/octet-stream;</span><br><span class="line">      </span><br><span class="line">          server &#123;</span><br><span class="line">              listen 80;</span><br><span class="line">              location / &#123;</span><br><span class="line">                  root /usr/share/nginx/html;</span><br><span class="line">              &#125;</span><br><span class="line">          &#125;</span><br><span class="line">      &#125;</span><br><span class="line">      `;</span><br><span class="line"></span><br><span class="line">      const payload = parseNginx(conf, &#123; comments: true &#125;);</span><br><span class="line">      console.log(JSON.stringify(payload, null, 2));</span><br><span class="line">    &lt;/script&gt;</span><br><span class="line">  &lt;/body&gt;</span><br><span class="line">&lt;/html&gt;</span><br><span class="line"></span><br><span class="line"></span><br></pre></td></tr></table></figure>
-
-
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br><span class="line">100</span><br><span class="line">101</span><br><span class="line">102</span><br><span class="line">103</span><br><span class="line">104</span><br><span class="line">105</span><br><span class="line">106</span><br><span class="line">107</span><br><span class="line">108</span><br><span class="line">109</span><br><span class="line">110</span><br><span class="line">111</span><br><span class="line">112</span><br><span class="line">113</span><br><span class="line">114</span><br><span class="line">115</span><br><span class="line">116</span><br><span class="line">117</span><br><span class="line">118</span><br><span class="line">119</span><br><span class="line">120</span><br><span class="line">121</span><br><span class="line">122</span><br><span class="line">123</span><br><span class="line">124</span><br><span class="line">125</span><br><span class="line">126</span><br><span class="line">127</span><br><span class="line">128</span><br><span class="line">129</span><br><span class="line">130</span><br><span class="line">131</span><br><span class="line">132</span><br><span class="line">133</span><br><span class="line">134</span><br><span class="line">135</span><br><span class="line">136</span><br><span class="line">137</span><br><span class="line">138</span><br><span class="line">139</span><br><span class="line">140</span><br><span class="line">141</span><br><span class="line">142</span><br><span class="line">143</span><br><span class="line">144</span><br><span class="line">145</span><br><span class="line">146</span><br><span class="line">147</span><br><span class="line">148</span><br><span class="line">149</span><br><span class="line">150</span><br><span class="line">151</span><br><span class="line">152</span><br><span class="line">153</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">nginx-builder.js</span><br><span class="line"></span><br><span class="line">// nginx config builder (browser version)</span><br><span class="line">// 用法：</span><br><span class="line">//   import &#123; build, buildFiles &#125; from &#x27;./nginx-builder.js&#x27;;</span><br><span class="line">//   const txt = build(payload, &#123; indent:4, tabs:false, header:true &#125;);</span><br><span class="line"></span><br><span class="line">const EXTERNAL_BUILDERS = &#123;&#125;;</span><br><span class="line"></span><br><span class="line">// 与 Python 版行为完全一致的转义检测</span><br><span class="line">function* _escape(string) &#123;</span><br><span class="line">  let prev = &#x27;&#x27;, char = &#x27;&#x27;;</span><br><span class="line">  for (let i = 0; i &lt; string.length; i++) &#123;</span><br><span class="line">    char = string[i];</span><br><span class="line">    if (prev === &#x27;\\&#x27; || prev + char === &#x27;$&#123;&#x27;) &#123;</span><br><span class="line">      prev += char;</span><br><span class="line">      yield prev;</span><br><span class="line">      prev = &#x27;&#x27;;</span><br><span class="line">      continue;</span><br><span class="line">    &#125;</span><br><span class="line">    if (prev === &#x27;$&#x27;) yield prev;</span><br><span class="line">    if (char !== &#x27;\\&#x27; &amp;&amp; char !== &#x27;$&#x27;) yield char;</span><br><span class="line">    prev = char;</span><br><span class="line">  &#125;</span><br><span class="line">  if (char === &#x27;\\&#x27; || char === &#x27;$&#x27;) yield char;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">function _needsQuotes(str) &#123;</span><br><span class="line">  if (str === &#x27;&#x27;) return true;</span><br><span class="line">  const gen = _escape(str);</span><br><span class="line">  // 首字符</span><br><span class="line">  let &#123; value: char, done &#125; = gen.next();</span><br><span class="line">  if (done) return false;</span><br><span class="line">  if (/\s/.test(char) || [&#x27;&#123;&#x27;, &#x27;&#125;&#x27;, &#x27;;&#x27;, &#x27;&quot;&#x27;, &quot;&#x27;&quot;, &#x27;$&#123;&#x27;].includes(char)) return true;</span><br><span class="line"></span><br><span class="line">  let expanding = false;</span><br><span class="line">  for (const ch of gen) &#123;</span><br><span class="line">    if (/\s/.test(ch) || [&#x27;&#123;&#x27;, &#x27;;&#x27;, &#x27;&quot;&#x27;, &quot;&#x27;&quot;].includes(ch)) return true;</span><br><span class="line">    if (ch === (expanding ? &#x27;&#125;&#x27; : &#x27;$&#123;&#x27;)) expanding = !expanding;</span><br><span class="line">  &#125;</span><br><span class="line">  return expanding;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">// 把字符串转成 nginx 可识别的带引号格式</span><br><span class="line">function _enquote(arg) &#123;</span><br><span class="line">  if (arg == null) return &#x27;&quot;&quot;&#x27;;          // 新增：空参数直接给 &quot;&quot;</span><br><span class="line">  if (!_needsQuotes(arg)) return arg;</span><br><span class="line">  // 浏览器里 repr 等价 JSON.stringify 后去头尾引号再自己加</span><br><span class="line">  let s = JSON.stringify(arg);</span><br><span class="line">  // JSON 会把 \ 变成 \\，我们需要单 \</span><br><span class="line">  s = s.replace(/\\\\/g, &#x27;\\&#x27;);</span><br><span class="line">  // 再包一层引号</span><br><span class="line">  return `&quot;$&#123;s.slice(1, -1)&#125;&quot;`;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">/**</span><br><span class="line"> * 将 payload 构建成字符串</span><br><span class="line"> * @param &#123;Array&#125; payload  对应 python 里的 parsed 数组</span><br><span class="line"> * @param &#123;Object&#125; opts</span><br><span class="line"> *        indent:number     缩进空格数</span><br><span class="line"> *        tabs:boolean      用 tab 代替空格</span><br><span class="line"> *        header:boolean    是否带生成头注释</span><br><span class="line"> * @returns &#123;string&#125;  nginx 文本</span><br><span class="line"> */</span><br><span class="line">export function build(payload, &#123; indent = 4, tabs = false, header = false &#125; = &#123;&#125;) &#123;</span><br><span class="line">  const padChar = tabs ? &#x27;\t&#x27; : &#x27; &#x27;;</span><br><span class="line">  const padding = (d) =&gt; padChar.repeat(tabs ? d : d * indent);</span><br><span class="line"></span><br><span class="line">  let head = &#x27;&#x27;;</span><br><span class="line">  if (header) &#123;</span><br><span class="line">    head += &#x27;# This config was built from JSON using NGINX crossplane.\n&#x27;;</span><br><span class="line">    head += &#x27;# If you encounter any bugs please report them here:\n&#x27;;</span><br><span class="line">    head += &#x27;# https://github.com/nginxinc/crossplane/issues\n\n&#x27;;</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  function _buildBlock(block, depth, lastLine) &#123;</span><br><span class="line">    let out = &#x27;&#x27;;</span><br><span class="line">    const margin = padding(depth);</span><br><span class="line"></span><br><span class="line">    for (const stmt of block) &#123;</span><br><span class="line">      const dir = _enquote(stmt.directive ?? stmt.cmd ?? &#x27;&#x27;);</span><br><span class="line">      const line = stmt.line || 0;</span><br><span class="line"></span><br><span class="line">      // 行尾注释合并</span><br><span class="line">      if (dir === &#x27;#&#x27; &amp;&amp; line === lastLine) &#123;</span><br><span class="line">        out += &#x27; #&#x27; + stmt.comment;</span><br><span class="line">        continue;</span><br><span class="line">      &#125;</span><br><span class="line">      if (dir === &#x27;#&#x27;) &#123;</span><br><span class="line">        out += (out ? &#x27;\n&#x27; : &#x27;&#x27;) + margin + &#x27;#&#x27; + stmt.comment;</span><br><span class="line">        lastLine = line;</span><br><span class="line">        continue;</span><br><span class="line">      &#125;</span><br><span class="line"></span><br><span class="line">      // 外部自定义构造器</span><br><span class="line">      if (EXTERNAL_BUILDERS[dir]) &#123;</span><br><span class="line">        out += (out ? &#x27;\n&#x27; : &#x27;&#x27;) + margin + EXTERNAL_BUILDERS[dir](stmt, padding, indent, tabs);</span><br><span class="line">        lastLine = line;</span><br><span class="line">        continue;</span><br><span class="line">      &#125;</span><br><span class="line"></span><br><span class="line">      // 普通指令</span><br><span class="line">      const args = (stmt.args ?? stmt.arguments ?? []).map(_enquote);</span><br><span class="line">      let built;</span><br><span class="line">      if (dir === &#x27;if&#x27;) &#123;</span><br><span class="line">        built = `if ($&#123;args.join(&#x27; &#x27;)&#125;)`;</span><br><span class="line">      &#125; else if (args.length) &#123;</span><br><span class="line">        built = `$&#123;dir&#125; $&#123;args.join(&#x27; &#x27;)&#125;`;</span><br><span class="line">      &#125; else &#123;</span><br><span class="line">        built = dir;</span><br><span class="line">      &#125;</span><br><span class="line"></span><br><span class="line">      if (stmt.block == null) &#123;</span><br><span class="line">        built += &#x27;;&#x27;;</span><br><span class="line">      &#125; else &#123;</span><br><span class="line">        built += &#x27; &#123;&#x27;;</span><br><span class="line">        const inner = _buildBlock(stmt.block, depth + 1, line);</span><br><span class="line">        built += inner + &#x27;\n&#x27; + margin + &#x27;&#125;&#x27;;</span><br><span class="line">      &#125;</span><br><span class="line">      out += (out ? &#x27;\n&#x27; : &#x27;&#x27;) + margin + built;</span><br><span class="line">      lastLine = line;</span><br><span class="line">    &#125;</span><br><span class="line">    return out;</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  const body = _buildBlock(payload, 0, 0);</span><br><span class="line">  return head + body;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">/**</span><br><span class="line"> * 为浏览器准备的“写盘”封装：返回 filename =&gt; content 的 Map</span><br><span class="line"> * @param &#123;Object&#125; payload   crossplane.parse 的完整输出</span><br><span class="line"> * @param &#123;Object&#125; opts      同 build 函数</span><br><span class="line"> * @returns &#123;Map&#125;            key=绝对路径，value=文本</span><br><span class="line"> */</span><br><span class="line">export function buildFiles(payload, &#123; indent = 4, tabs = false, header = false &#125; = &#123;&#125;) &#123;</span><br><span class="line">  const map = new Map();</span><br><span class="line">  for (const config of payload.config) &#123;</span><br><span class="line">    const content = build(config.parsed, &#123; indent, tabs, header &#125;);</span><br><span class="line">    map.set(config.file, content.replace(/\n+$/, &#x27;\n&#x27;)); // 保证末尾一个换行</span><br><span class="line">  &#125;</span><br><span class="line">  return map;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">/**</span><br><span class="line"> * 注册第三方构造器</span><br><span class="line"> * @param &#123;Function&#125; builder     function(stmt, padding, indent, tabs)-&gt;string</span><br><span class="line"> * @param &#123;Array&lt;string&gt;&#125; dirs   指令列表</span><br><span class="line"> */</span><br><span class="line">export function registerExternalBuilder(builder, dirs) &#123;</span><br><span class="line">  dirs.forEach(d =&gt; &#123; EXTERNAL_BUILDERS[d] = builder; &#125;);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<p>b.html</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br><span class="line">100</span><br><span class="line">101</span><br><span class="line">102</span><br><span class="line">103</span><br><span class="line">104</span><br><span class="line">105</span><br><span class="line">106</span><br><span class="line">107</span><br><span class="line">108</span><br><span class="line">109</span><br><span class="line">110</span><br><span class="line">111</span><br></pre></td><td class="code"><pre><span class="line">&lt;!DOCTYPE html&gt;</span><br><span class="line">&lt;html lang=&quot;en&quot;&gt;</span><br><span class="line">  &lt;head&gt;</span><br><span class="line">    &lt;meta charset=&quot;UTF-8&quot; /&gt;</span><br><span class="line">    &lt;meta name=&quot;viewport&quot; content=&quot;width=device-width, initial-scale=1.0&quot; /&gt;</span><br><span class="line">    &lt;title&gt;Document&lt;/title&gt;</span><br><span class="line">  &lt;/head&gt;</span><br><span class="line">  &lt;body&gt;</span><br><span class="line">    &lt;script type=&quot;module&quot;&gt;</span><br><span class="line">      import &#123; build, buildFiles &#125; from &quot;./nginx-builder.js&quot;;</span><br><span class="line"></span><br><span class="line">      const payload = &#123;</span><br><span class="line">        config: [</span><br><span class="line">          &#123;</span><br><span class="line">            file: &quot;/etc/nginx/nginx.conf&quot;,</span><br><span class="line">            parsed: [</span><br><span class="line">              &#123;</span><br><span class="line">                directive: &quot;user&quot;,</span><br><span class="line">                line: 2,</span><br><span class="line">                args: [&quot;nginx&quot;],</span><br><span class="line">                file: &quot;nginx.conf&quot;,</span><br><span class="line">              &#125;,</span><br><span class="line">              &#123;</span><br><span class="line">                directive: &quot;worker_processes&quot;,</span><br><span class="line">                line: 3,</span><br><span class="line">                args: [&quot;auto&quot;],</span><br><span class="line">                file: &quot;nginx.conf&quot;,</span><br><span class="line">              &#125;,</span><br><span class="line">              &#123;</span><br><span class="line">                directive: &quot;events&quot;,</span><br><span class="line">                line: 5,</span><br><span class="line">                args: [],</span><br><span class="line">                file: &quot;nginx.conf&quot;,</span><br><span class="line">                block: [</span><br><span class="line">                  &#123;</span><br><span class="line">                    directive: &quot;worker_connections&quot;,</span><br><span class="line">                    line: 6,</span><br><span class="line">                    args: [&quot;1024&quot;],</span><br><span class="line">                    file: &quot;nginx.conf&quot;,</span><br><span class="line">                  &#125;,</span><br><span class="line">                ],</span><br><span class="line">              &#125;,</span><br><span class="line">              &#123;</span><br><span class="line">                directive: &quot;http&quot;,</span><br><span class="line">                line: 9,</span><br><span class="line">                args: [],</span><br><span class="line">                file: &quot;nginx.conf&quot;,</span><br><span class="line">                block: [</span><br><span class="line">                  &#123;</span><br><span class="line">                    directive: &quot;include&quot;,</span><br><span class="line">                    line: 10,</span><br><span class="line">                    args: [&quot;mime.types&quot;],</span><br><span class="line">                    file: &quot;nginx.conf&quot;,</span><br><span class="line">                    includes: [],</span><br><span class="line">                  &#125;,</span><br><span class="line">                  &#123;</span><br><span class="line">                    directive: &quot;default_type&quot;,</span><br><span class="line">                    line: 11,</span><br><span class="line">                    args: [&quot;application/octet-stream&quot;],</span><br><span class="line">                    file: &quot;nginx.conf&quot;,</span><br><span class="line">                  &#125;,</span><br><span class="line">                  &#123;</span><br><span class="line">                    directive: &quot;server&quot;,</span><br><span class="line">                    line: 13,</span><br><span class="line">                    args: [],</span><br><span class="line">                    file: &quot;nginx.conf&quot;,</span><br><span class="line">                    block: [</span><br><span class="line">                      &#123;</span><br><span class="line">                        directive: &quot;listen&quot;,</span><br><span class="line">                        line: 14,</span><br><span class="line">                        args: [&quot;80&quot;],</span><br><span class="line">                        file: &quot;nginx.conf&quot;,</span><br><span class="line">                      &#125;,</span><br><span class="line">                      &#123;</span><br><span class="line">                        directive: &quot;location&quot;,</span><br><span class="line">                        line: 15,</span><br><span class="line">                        args: [&quot;/&quot;],</span><br><span class="line">                        file: &quot;nginx.conf&quot;,</span><br><span class="line">                        block: [</span><br><span class="line">                          &#123;</span><br><span class="line">                            directive: &quot;root&quot;,</span><br><span class="line">                            line: 16,</span><br><span class="line">                            args: [&quot;/usr/share/nginx/html&quot;],</span><br><span class="line">                            file: &quot;nginx.conf&quot;,</span><br><span class="line">                          &#125;,</span><br><span class="line">                        ],</span><br><span class="line">                      &#125;,</span><br><span class="line">                    ],</span><br><span class="line">                  &#125;,</span><br><span class="line">                ],</span><br><span class="line">              &#125;,</span><br><span class="line">            ],</span><br><span class="line">          &#125;,</span><br><span class="line">        ],</span><br><span class="line">      &#125;;</span><br><span class="line"></span><br><span class="line">      // 1. 只拿文本</span><br><span class="line">      const txt = build(payload.config[0].parsed, &#123; header: true &#125;);</span><br><span class="line">      console.log(txt);</span><br><span class="line"></span><br><span class="line">      // 2. 拿全部文件</span><br><span class="line">      const fileMap = buildFiles(payload);</span><br><span class="line">      for (const [name, content] of fileMap) &#123;</span><br><span class="line">        console.log(&quot;===&quot;, name, &quot;===&quot;);</span><br><span class="line">        console.log(content);</span><br><span class="line">      &#125;</span><br><span class="line">    &lt;/script&gt;</span><br><span class="line">  &lt;/body&gt;</span><br><span class="line">&lt;/html&gt;</span><br><span class="line"></span><br><span class="line"></span><br></pre></td></tr></table></figure>
-
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
-      
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="http://example.com/2025/10/23/%E6%8A%93%E5%8C%85/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.gif">
-      <meta itemprop="name" content="wangzhiwei">
-      <meta itemprop="description" content="javascript nodejs web developer...">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="WBlog">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/2025/10/23/%E6%8A%93%E5%8C%85/" class="post-title-link" itemprop="url">抓9000 端口 上的请求</a>
-        </h2>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              <span class="post-meta-item-text">发表于</span>
-
-              <time title="创建时间：2025-10-23 17:03:14" itemprop="dateCreated datePublished" datetime="2025-10-23T17:03:14+08:00">2025-10-23</time>
-            </span>
-              <span class="post-meta-item">
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-calendar-check-o"></i>
-                </span>
-                <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2025-12-10 17:09:56" itemprop="dateModified" datetime="2025-12-10T17:09:56+08:00">2025-12-10</time>
-              </span>
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              <span class="post-meta-item-text">分类于</span>
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/%E6%8A%93%E5%8C%85/" itemprop="url" rel="index"><span itemprop="name">抓包</span></a>
-                </span>
-            </span>
-
-          
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <p>192.168.40.116 机器上</p>
-<p>ip a</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">1: lo: &lt;LOOPBACK,UP,LOWER_UP&gt; mtu 65536 qdisc noqueue state UNKNOWN group default qlen 1000</span><br><span class="line">    link/loopback 00:00:00:00:00:00 brd 00:00:00:00:00:00</span><br><span class="line">    inet 127.0.0.1/8 scope host lo</span><br><span class="line">       valid_lft forever preferred_lft forever</span><br><span class="line">    inet6 ::1/128 scope host</span><br><span class="line">       valid_lft forever preferred_lft forever</span><br><span class="line">2: ens192: &lt;BROADCAST,MULTICAST,UP,LOWER_UP&gt; mtu 1500 qdisc mq state UP group default qlen 1000</span><br><span class="line">    link/ether 00:0c:29:94:5c:7f brd ff:ff:ff:ff:ff:ff</span><br><span class="line">    inet 192.168.40.116/24 brd 192.168.40.255 scope global noprefixroute ens192</span><br><span class="line">       valid_lft forever preferred_lft forever</span><br><span class="line">    inet 172.17.10.10/24 scope global ens192</span><br><span class="line">       valid_lft forever preferred_lft forever</span><br><span class="line">    inet6 2408:8606:8400:30a:6::41/128 scope global noprefixroute dynamic</span><br><span class="line">       valid_lft 6018sec preferred_lft 5718sec</span><br><span class="line">    inet6 fe80::d6f6:f5f6:1e6c:cf29/64 scope link noprefixroute</span><br><span class="line">       valid_lft forever preferred_lft forever</span><br><span class="line">3: virbr0: &lt;NO-CARRIER,BROADCAST,MULTICAST,UP&gt; mtu 1500 qdisc noqueue state DOWN group default qlen 1000</span><br><span class="line">    link/ether 52:54:00:26:ce:e5 brd ff:ff:ff:ff:ff:ff</span><br><span class="line">    inet 192.168.122.1/24 brd 192.168.122.255 scope global virbr0</span><br><span class="line">       valid_lft forever preferred_lft forever</span><br><span class="line"></span><br></pre></td></tr></table></figure>
-
-<p>ens192 为默认网卡</p>
-<p>sudo tcpdump ‘port 9000’ -w a.cap -i ens192</p>
-<p>监听 9000 端口 上的请求，指定 网卡 为 ens192 并将其保存到 a.cap 文件中</p>
-<p>下载 a.cap 文件</p>
-<p>将其 拉入到 wireshark 进行分析</p>
-<p>sudo ln -s &#x2F;Applications&#x2F;Wireshark.app&#x2F;Contents&#x2F;MacOS&#x2F;Wireshark &#x2F;usr&#x2F;local&#x2F;bin&#x2F;wireshark</p>
-<p>wireshark a.cap</p>
-<p>也可以将 a.cap 文件拉入到 wireshark 中进行查看</p>
-<p><img src="/../images/wireshark/01.png"></p>
-<p><img src="/../images/wireshark/02.png"></p>
-<p>sudo tcpdump ‘port 18080’ -w 73_3.cap -i any</p>
-<p>scp <a href="mailto:&#x61;&#x64;&#x6d;&#x69;&#110;&#64;&#x31;&#57;&#50;&#x2e;&#x31;&#x36;&#x38;&#x2e;&#52;&#x30;&#46;&#55;&#51;">&#x61;&#x64;&#x6d;&#x69;&#110;&#64;&#x31;&#57;&#50;&#x2e;&#x31;&#x36;&#x38;&#x2e;&#52;&#x30;&#46;&#55;&#51;</a>:&#x2F;home&#x2F;admin&#x2F;73_3.cap .&#x2F;</p>
-
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
-      
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="http://example.com/2025/08/13/sekiro/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.gif">
-      <meta itemprop="name" content="wangzhiwei">
-      <meta itemprop="description" content="javascript nodejs web developer...">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="WBlog">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/2025/08/13/sekiro/" class="post-title-link" itemprop="url">sekiro - js逆向</a>
-        </h2>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              <span class="post-meta-item-text">发表于</span>
-
-              <time title="创建时间：2025-08-13 15:47:06" itemprop="dateCreated datePublished" datetime="2025-08-13T15:47:06+08:00">2025-08-13</time>
-            </span>
-              <span class="post-meta-item">
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-calendar-check-o"></i>
-                </span>
-                <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2025-10-23 17:02:14" itemprop="dateModified" datetime="2025-10-23T17:02:14+08:00">2025-10-23</time>
-              </span>
-
-          
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <p>安装：sekiro</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">docker run -d --name sekiro -p 5612:5612 \</span><br><span class="line">  registry.cn-beijing.aliyuncs.com/iinti/common:sekiro-all-in-one-latest</span><br><span class="line">  </span><br></pre></td></tr></table></figure>
-
-<p>浏览器中登录：<br><a target="_blank" rel="noopener" href="http://127.0.0.1:5612/#/">http://127.0.0.1:5612/#/</a></p>
-<p>打开某网页，在浏览器 console 中输入：</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">function SekiroClient(e)&#123;if(this.wsURL=e,this.handlers=&#123;&#125;,this.socket=&#123;&#125;,!e)throw new Error(&quot;wsURL can not be empty!!&quot;);this.webSocketFactory=this.resolveWebSocketFactory(),this.connect()&#125;SekiroClient.prototype.resolveWebSocketFactory=function()&#123;if(&quot;object&quot;==typeof window)&#123;var e=window.WebSocket?window.WebSocket:window.MozWebSocket;return function(o)&#123;function t(o)&#123;this.mSocket=new e(o)&#125;return t.prototype.close=function()&#123;this.mSocket.close()&#125;,t.prototype.onmessage=function(e)&#123;this.mSocket.onmessage=e&#125;,t.prototype.onopen=function(e)&#123;this.mSocket.onopen=e&#125;,t.prototype.onclose=function(e)&#123;this.mSocket.onclose=e&#125;,t.prototype.send=function(e)&#123;this.mSocket.send(e)&#125;,new t(o)&#125;&#125;if(&quot;object&quot;==typeof weex)try&#123;console.log(&quot;test webSocket for weex&quot;);var o=weex.requireModule(&quot;webSocket&quot;);return console.log(&quot;find webSocket for weex:&quot;+o),function(e)&#123;try&#123;o.close()&#125;catch(e)&#123;&#125;return o.WebSocket(e,&quot;&quot;),o&#125;&#125;catch(e)&#123;console.log(e)&#125;if(&quot;object&quot;==typeof WebSocket)return function(o)&#123;return new e(o)&#125;;throw new Error(&quot;the js environment do not support websocket&quot;)&#125;,SekiroClient.prototype.connect=function()&#123;console.log(&quot;sekiro: begin of connect to wsURL: &quot;+this.wsURL);var e=this;try&#123;this.socket=this.webSocketFactory(this.wsURL)&#125;catch(o)&#123;return console.log(&quot;sekiro: create connection failed,reconnect after 2s:&quot;+o),void setTimeout(function()&#123;e.connect()&#125;,2e3)&#125;this.socket.onmessage(function(o)&#123;e.handleSekiroRequest(o.data)&#125;),this.socket.onopen(function(e)&#123;console.log(&quot;sekiro: open a sekiro client connection&quot;)&#125;),this.socket.onclose(function(o)&#123;console.log(&quot;sekiro: disconnected ,reconnection after 2s&quot;),setTimeout(function()&#123;e.connect()&#125;,2e3)&#125;)&#125;,SekiroClient.prototype.handleSekiroRequest=function(e)&#123;console.log(&quot;receive sekiro request: &quot;+e);var o=JSON.parse(e),t=o.__sekiro_seq__;if(o.action)&#123;var n=o.action;if(this.handlers[n])&#123;var s=this.handlers[n],i=this;try&#123;s(o,function(e)&#123;try&#123;i.sendSuccess(t,e)&#125;catch(e)&#123;i.sendFailed(t,&quot;e:&quot;+e)&#125;&#125;,function(e)&#123;i.sendFailed(t,e)&#125;)&#125;catch(e)&#123;console.log(&quot;error: &quot;+e),i.sendFailed(t,&quot;:&quot;+e)&#125;&#125;else this.sendFailed(t,&quot;no action handler: &quot;+n+&quot; defined&quot;)&#125;else this.sendFailed(t,&quot;need request param &#123;action&#125;&quot;)&#125;,SekiroClient.prototype.sendSuccess=function(e,o)&#123;var t;if(&quot;string&quot;==typeof o)try&#123;t=JSON.parse(o)&#125;catch(e)&#123;(t=&#123;&#125;).data=o&#125;else&quot;object&quot;==typeof o?t=o:(t=&#123;&#125;).data=o;(Array.isArray(t)||&quot;string&quot;==typeof t)&amp;&amp;(t=&#123;data:t,code:0&#125;),t.code?t.code=0:(t.status,t.status=0),t.__sekiro_seq__=e;var n=JSON.stringify(t);console.log(&quot;response :&quot;+n),this.socket.send(n)&#125;,SekiroClient.prototype.sendFailed=function(e,o)&#123;&quot;string&quot;!=typeof o&amp;&amp;(o=JSON.stringify(o));var t=&#123;&#125;;t.message=o,t.status=-1,t.__sekiro_seq__=e;var n=JSON.stringify(t);console.log(&quot;sekiro: response :&quot;+n),this.socket.send(n)&#125;,SekiroClient.prototype.registerAction=function(e,o)&#123;if(&quot;string&quot;!=typeof e)throw new Error(&quot;an action must be string&quot;);if(&quot;function&quot;!=typeof o)throw new Error(&quot;a handler must be function&quot;);return console.log(&quot;sekiro: register action: &quot;+e),this.handlers[e]=o,this&#125;;</span><br><span class="line">var client = new SekiroClient(&quot;ws://127.0.0.1:5612/business/register?group=testAction&amp;clientId=&quot; + Math.random());</span><br><span class="line">client.registerAction(&quot;testAction&quot;, function (request, resolve, reject) &#123;</span><br><span class="line"></span><br><span class="line">    resolve(Math.random());</span><br><span class="line">&#125;);</span><br><span class="line"></span><br><span class="line"></span><br></pre></td></tr></table></figure>
-
-<p>浏览器中打开：</p>
-<p><a target="_blank" rel="noopener" href="http://localhost:5612/business/invoke?group=testAction&action=testAction&param=testparm">http://localhost:5612/business/invoke?group=testAction&amp;action=testAction&amp;param=testparm</a></p>
-<p>官方文档：<a target="_blank" rel="noopener" href="https://sekiro.iinti.cn/sekiro-doc/">https://sekiro.iinti.cn/sekiro-doc/</a><br>参考视频：<br><a target="_blank" rel="noopener" href="https://www.bilibili.com/video/BV16U4y1B7PA/?spm_id_from=333.1387.favlist.content.click&vd_source=ffda878df0ed45bee1ade91d8f451048">https://www.bilibili.com/video/BV16U4y1B7PA/?spm_id_from=333.1387.favlist.content.click&amp;vd_source=ffda878df0ed45bee1ade91d8f451048</a></p>
-
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
-      
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="http://example.com/2025/08/07/vite-monorepo/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.gif">
-      <meta itemprop="name" content="wangzhiwei">
-      <meta itemprop="description" content="javascript nodejs web developer...">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="WBlog">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/2025/08/07/vite-monorepo/" class="post-title-link" itemprop="url">vite+monorepo</a>
-        </h2>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              <span class="post-meta-item-text">发表于</span>
-              
-
-              <time title="创建时间：2025-08-07 17:54:52 / 修改时间：17:56:44" itemprop="dateCreated datePublished" datetime="2025-08-07T17:54:52+08:00">2025-08-07</time>
-            </span>
-
-          
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <p>混合项目结构，所有相关的工程形成子包进行管理<br>技术栈高度统一，(团队基建项目、业务项目、子服务，技术栈)规范化、自动化、流程化项目间共享<br>依赖管理，版本统-管理<br>部署，docker、docker compose，自动化脚本统-部署流程</p>
-<p>参考：<br><a target="_blank" rel="noopener" href="https://www.bilibili.com/video/BV1UePTeqEu6/?spm_id_from=333.1387.favlist.content.click">https://www.bilibili.com/video/BV1UePTeqEu6/?spm_id_from=333.1387.favlist.content.click</a><br><a target="_blank" rel="noopener" href="https://github.com/robcaldecott/pnpm-vite-monorepo-example">https://github.com/robcaldecott/pnpm-vite-monorepo-example</a></p>
-
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
 
   
   <nav class="pagination">
@@ -2114,16 +2904,16 @@
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">96</span>
+          <span class="site-state-item-count">100</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>
       <div class="site-state-item site-state-categories">
-        <span class="site-state-item-count">59</span>
+        <span class="site-state-item-count">62</span>
         <span class="site-state-item-name">分类</span>
       </div>
       <div class="site-state-item site-state-tags">
-        <span class="site-state-item-count">66</span>
+        <span class="site-state-item-count">68</span>
         <span class="site-state-item-name">标签</span>
       </div>
   </nav>

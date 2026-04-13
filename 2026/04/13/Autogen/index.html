@@ -1,0 +1,561 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 7.3.0">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+<link rel="stylesheet" href="/lib/font-awesome/css/font-awesome.min.css">
+
+<script id="hexo-configurations">
+    var NexT = window.NexT || {};
+    var CONFIG = {"hostname":"example.com","root":"/","scheme":"Muse","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":false,"show_result":false,"style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":false,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}}};
+  </script>
+
+  <meta name="description" content="根据最新时间，我为你详细对比 AutoGen vs LangGraph，帮你面试时清晰表达技术选型思路。  一、核心定位对比   维度 AutoGen LangGraph    设计哲学 对话驱动，Agent 像人一样聊天协作 状态机驱动，流程像 DAG 一样严谨执行   控制粒度 较灵活，框架决定发言顺序 强可控，开发者明确定义每一步流转   交互模式 自然语言对话，多轮协商 结构化状态（Sta">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Autogen">
+<meta property="og:url" content="http://example.com/2026/04/13/Autogen/index.html">
+<meta property="og:site_name" content="WBlog">
+<meta property="og:description" content="根据最新时间，我为你详细对比 AutoGen vs LangGraph，帮你面试时清晰表达技术选型思路。  一、核心定位对比   维度 AutoGen LangGraph    设计哲学 对话驱动，Agent 像人一样聊天协作 状态机驱动，流程像 DAG 一样严谨执行   控制粒度 较灵活，框架决定发言顺序 强可控，开发者明确定义每一步流转   交互模式 自然语言对话，多轮协商 结构化状态（Sta">
+<meta property="og:locale" content="zh_CN">
+<meta property="article:published_time" content="2026-04-12T23:53:30.000Z">
+<meta property="article:modified_time" content="2026-04-12T23:54:00.378Z">
+<meta property="article:author" content="wangzhiwei">
+<meta property="article:tag" content="javascript nodejs web developer fe engineer">
+<meta name="twitter:card" content="summary">
+
+<link rel="canonical" href="http://example.com/2026/04/13/Autogen/">
+
+
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome : false,
+    isPost : true,
+    lang   : 'zh-CN'
+  };
+</script>
+
+  <title>Autogen | WBlog</title>
+  
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div class="container use-motion">
+    <div class="headband"></div>
+
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏">
+      <span class="toggle-line toggle-line-first"></span>
+      <span class="toggle-line toggle-line-middle"></span>
+      <span class="toggle-line toggle-line-last"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <h1 class="site-title">WBlog</h1>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+      <p class="site-subtitle" itemprop="description">wangzhiwei blog</p>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+    </div>
+  </div>
+</div>
+
+
+
+
+<nav class="site-nav">
+  <ul id="menu" class="menu">
+        <li class="menu-item menu-item-home">
+
+    <a href="/" rel="section"><i class="fa fa-fw fa-home"></i>首页</a>
+
+  </li>
+        <li class="menu-item menu-item-archives">
+
+    <a href="/archives/" rel="section"><i class="fa fa-fw fa-archive"></i>归档</a>
+
+  </li>
+  </ul>
+</nav>
+
+
+
+
+</div>
+    </header>
+
+    
+  <div class="back-to-top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+
+
+    <main class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+
+          <div class="content post posts-expand">
+            
+
+    
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="http://example.com/2026/04/13/Autogen/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="wangzhiwei">
+      <meta itemprop="description" content="javascript nodejs web developer...">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="WBlog">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          Autogen
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+              
+
+              <time title="创建时间：2026-04-13 07:53:30 / 修改时间：07:54:00" itemprop="dateCreated datePublished" datetime="2026-04-13T07:53:30+08:00">2026-04-13</time>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+        <p>根据最新时间，我为你详细对比 <strong>AutoGen vs LangGraph</strong>，帮你面试时清晰表达技术选型思路。</p>
+<hr>
+<h2 id="一、核心定位对比"><a href="#一、核心定位对比" class="headerlink" title="一、核心定位对比"></a>一、核心定位对比</h2><table>
+<thead>
+<tr>
+<th>维度</th>
+<th><strong>AutoGen</strong></th>
+<th><strong>LangGraph</strong></th>
+</tr>
+</thead>
+<tbody><tr>
+<td><strong>设计哲学</strong></td>
+<td>对话驱动，Agent 像人一样聊天协作</td>
+<td>状态机驱动，流程像 DAG 一样严谨执行</td>
+</tr>
+<tr>
+<td><strong>控制粒度</strong></td>
+<td>较灵活，框架决定发言顺序</td>
+<td><strong>强可控</strong>，开发者明确定义每一步流转</td>
+</tr>
+<tr>
+<td><strong>交互模式</strong></td>
+<td>自然语言对话，多轮协商</td>
+<td>结构化状态（State），节点间数据传递</td>
+</tr>
+<tr>
+<td><strong>适用场景</strong></td>
+<td>开放探索、创意任务、代码生成</td>
+<td><strong>企业流程、审批链路、合规要求</strong></td>
+</tr>
+<tr>
+<td><strong>学习曲线</strong></td>
+<td>低，几行代码启动多 Agent 对话</td>
+<td>中，需理解状态图、节点、边、条件分支</td>
+</tr>
+<tr>
+<td><strong>生态归属</strong></td>
+<td>微软主推，Azure 集成深</td>
+<td>LangChain 官方，社区最大</td>
+</tr>
+</tbody></table>
+<hr>
+<h2 id="二、架构差异图解"><a href="#二、架构差异图解" class="headerlink" title="二、架构差异图解"></a>二、架构差异图解</h2><h3 id="AutoGen：网状对话"><a href="#AutoGen：网状对话" class="headerlink" title="AutoGen：网状对话"></a>AutoGen：网状对话</h3><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">UserProxy → Planner → Coder → Reviewer</span><br><span class="line">     ↑        ↓         ↓        ↓</span><br><span class="line">     └────────┴─────────┴────────┘</span><br><span class="line">     </span><br><span class="line">框架决定：谁说话、说几句、什么时候停</span><br></pre></td></tr></table></figure>
+
+<h3 id="LangGraph：DAG-状态机"><a href="#LangGraph：DAG-状态机" class="headerlink" title="LangGraph：DAG 状态机"></a>LangGraph：DAG 状态机</h3><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line">          ┌─────────┐</span><br><span class="line">          │  Start  │</span><br><span class="line">          └────┬────┘</span><br><span class="line">               ▼</span><br><span class="line">          ┌─────────┐</span><br><span class="line">          │ Planner │──┐</span><br><span class="line">          └────┬────┘  │</span><br><span class="line">               ▼       │</span><br><span class="line">          ┌─────────┐  │ (需要检索)</span><br><span class="line">          │ Retrieve│◄─┘</span><br><span class="line">          └────┬────┘</span><br><span class="line">               ▼</span><br><span class="line">          ┌─────────┐</span><br><span class="line">          │ Generate│</span><br><span class="line">          └────┬────┘</span><br><span class="line">               ▼</span><br><span class="line">          ┌─────────┐</span><br><span class="line">          │  End    │</span><br><span class="line">          └─────────┘</span><br><span class="line"></span><br><span class="line">你定义：每一步去哪、条件分支、循环、并行</span><br></pre></td></tr></table></figure>
+
+<hr>
+<h2 id="三、代码风格对比"><a href="#三、代码风格对比" class="headerlink" title="三、代码风格对比"></a>三、代码风格对比</h2><h3 id="相同任务：写-RAG-API"><a href="#相同任务：写-RAG-API" class="headerlink" title="相同任务：写 RAG API"></a>相同任务：写 RAG API</h3><p><strong>AutoGen 版本（对话式）</strong></p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">from</span> autogen <span class="keyword">import</span> AssistantAgent, UserProxyAgent, GroupChat</span><br><span class="line"></span><br><span class="line"><span class="comment"># 创建专家 Agent</span></span><br><span class="line">planner = AssistantAgent(<span class="string">&quot;planner&quot;</span>, system_message=<span class="string">&quot;拆解RAG需求&quot;</span>)</span><br><span class="line">coder = AssistantAgent(<span class="string">&quot;coder&quot;</span>, system_message=<span class="string">&quot;写FastAPI代码&quot;</span>)</span><br><span class="line">reviewer = AssistantAgent(<span class="string">&quot;reviewer&quot;</span>, system_message=<span class="string">&quot;审查代码&quot;</span>)</span><br><span class="line"></span><br><span class="line"><span class="comment"># 群聊，自动协调</span></span><br><span class="line">groupchat = GroupChat(agents=[planner, coder, reviewer], messages=[], max_round=<span class="number">10</span>)</span><br><span class="line">manager = GroupChatManager(groupchat=groupchat)</span><br><span class="line"></span><br><span class="line"><span class="comment"># 启动：一句话需求，Agent 自己讨论实现</span></span><br><span class="line">user_proxy.initiate_chat(manager, message=<span class="string">&quot;写个RAG API&quot;</span>)</span><br><span class="line"><span class="comment"># 结果：对话历史，代码在 work_dir 里</span></span><br></pre></td></tr></table></figure>
+
+<p><strong>LangGraph 版本（你的简历，状态机式）</strong></p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">from</span> langgraph.graph <span class="keyword">import</span> StateGraph, END</span><br><span class="line"></span><br><span class="line"><span class="comment"># 明确定义状态</span></span><br><span class="line"><span class="keyword">class</span> <span class="title class_">RAGState</span>(<span class="title class_ inherited__">TypedDict</span>):</span><br><span class="line">    query: <span class="built_in">str</span></span><br><span class="line">    plan: <span class="built_in">dict</span></span><br><span class="line">    documents: <span class="built_in">list</span></span><br><span class="line">    answer: <span class="built_in">str</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 明确定义每个节点做什么</span></span><br><span class="line"><span class="keyword">def</span> <span class="title function_">plan_step</span>(<span class="params">state: RAGState</span>):</span><br><span class="line">    state[<span class="string">&quot;plan&quot;</span>] = planner_agent(state[<span class="string">&quot;query&quot;</span>])</span><br><span class="line">    <span class="keyword">return</span> state</span><br><span class="line"></span><br><span class="line"><span class="keyword">def</span> <span class="title function_">retrieve_step</span>(<span class="params">state: RAGState</span>):</span><br><span class="line">    state[<span class="string">&quot;documents&quot;</span>] = vector_db.search(state[<span class="string">&quot;plan&quot;</span>][<span class="string">&quot;keywords&quot;</span>])</span><br><span class="line">    <span class="keyword">return</span> state</span><br><span class="line"></span><br><span class="line"><span class="keyword">def</span> <span class="title function_">generate_step</span>(<span class="params">state: RAGState</span>):</span><br><span class="line">    state[<span class="string">&quot;answer&quot;</span>] = llm.generate(state[<span class="string">&quot;documents&quot;</span>])</span><br><span class="line">    <span class="keyword">return</span> state</span><br><span class="line"></span><br><span class="line"><span class="comment"># 明确定义流转关系</span></span><br><span class="line">workflow = StateGraph(RAGState)</span><br><span class="line">workflow.add_node(<span class="string">&quot;plan&quot;</span>, plan_step)</span><br><span class="line">workflow.add_node(<span class="string">&quot;retrieve&quot;</span>, retrieve_step)</span><br><span class="line">workflow.add_node(<span class="string">&quot;generate&quot;</span>, generate_step)</span><br><span class="line"></span><br><span class="line">workflow.set_entry_point(<span class="string">&quot;plan&quot;</span>)</span><br><span class="line">workflow.add_edge(<span class="string">&quot;plan&quot;</span>, <span class="string">&quot;retrieve&quot;</span>)</span><br><span class="line">workflow.add_edge(<span class="string">&quot;retrieve&quot;</span>, <span class="string">&quot;generate&quot;</span>)</span><br><span class="line">workflow.add_edge(<span class="string">&quot;generate&quot;</span>, END)</span><br><span class="line"></span><br><span class="line"><span class="comment"># 编译执行</span></span><br><span class="line">app = workflow.<span class="built_in">compile</span>()</span><br><span class="line">result = app.invoke(&#123;<span class="string">&quot;query&quot;</span>: <span class="string">&quot;什么是RAG&quot;</span>&#125;)</span><br><span class="line"><span class="comment"># 结果：结构化状态，每一步可追溯</span></span><br></pre></td></tr></table></figure>
+
+<hr>
+<h2 id="四、关键能力对比表"><a href="#四、关键能力对比表" class="headerlink" title="四、关键能力对比表"></a>四、关键能力对比表</h2><table>
+<thead>
+<tr>
+<th>能力</th>
+<th>AutoGen</th>
+<th>LangGraph</th>
+<th>场景建议</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><strong>多 Agent 协商</strong></td>
+<td>⭐⭐⭐⭐⭐ 原生支持</td>
+<td>⭐⭐⭐ 需自己实现</td>
+<td>开放讨论用 AutoGen</td>
+</tr>
+<tr>
+<td><strong>流程可控性</strong></td>
+<td>⭐⭐ 框架决定</td>
+<td>⭐⭐⭐⭐⭐ 开发者决定</td>
+<td>企业合规用 LangGraph</td>
+</tr>
+<tr>
+<td><strong>循环&#x2F;条件分支</strong></td>
+<td>⭐⭐ 对话隐式</td>
+<td>⭐⭐⭐⭐⭐ 显式定义</td>
+<td>复杂逻辑用 LangGraph</td>
+</tr>
+<tr>
+<td><strong>并行执行</strong></td>
+<td>⭐⭐ 难控制</td>
+<td>⭐⭐⭐⭐ 支持 Map-Reduce</td>
+<td>批量处理用 LangGraph</td>
+</tr>
+<tr>
+<td><strong>人机协作</strong></td>
+<td>⭐⭐⭐⭐⭐ 灵活介入</td>
+<td>⭐⭐⭐ 需节点埋点</td>
+<td>需人类审批用 AutoGen</td>
+</tr>
+<tr>
+<td><strong>调试可追溯</strong></td>
+<td>⭐⭐ 看对话历史</td>
+<td>⭐⭐⭐⭐⭐ 状态快照</td>
+<td>生产排障用 LangGraph</td>
+</tr>
+<tr>
+<td><strong>代码生成执行</strong></td>
+<td>⭐⭐⭐⭐⭐ 内置 Docker</td>
+<td>⭐⭐ 需自己集成</td>
+<td>AI 写代码用 AutoGen</td>
+</tr>
+<tr>
+<td><strong>持久化&#x2F;断点续传</strong></td>
+<td>⭐⭐ 需扩展</td>
+<td>⭐⭐⭐⭐⭐ 内置 Checkpoint</td>
+<td>长流程用 LangGraph</td>
+</tr>
+</tbody></table>
+<hr>
+<h2 id="五、企业级场景选型决策树"><a href="#五、企业级场景选型决策树" class="headerlink" title="五、企业级场景选型决策树"></a>五、企业级场景选型决策树</h2><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">开始</span><br><span class="line"> │</span><br><span class="line"> ├─ 任务是否开放探索型？（写代码、研究、创意）</span><br><span class="line"> │   └─ 是 → AutoGen（快速原型，Agent 自主协商）</span><br><span class="line"> │</span><br><span class="line"> └─ 否 → 任务是否有严格流程？（审批、合规、固定步骤）</span><br><span class="line">     ├─ 是 → LangGraph（状态机可控，审计可追溯）</span><br><span class="line">     │</span><br><span class="line">     └─ 否 → 两者混合</span><br><span class="line">         ├─ LangGraph 管主流程（严格步骤）</span><br><span class="line">         └─ AutoGen 做子任务（某节点内多 Agent 讨论）</span><br></pre></td></tr></table></figure>
+
+<hr>
+<h2 id="六、混合架构设计（面试亮点）"><a href="#六、混合架构设计（面试亮点）" class="headerlink" title="六、混合架构设计（面试亮点）"></a>六、混合架构设计（面试亮点）</h2><blockquote>
+<p>“我的企业级 Agent 平台用 <strong>LangGraph 做主框架</strong>，确保流程合规可追溯。但在 <strong>‘代码生成’节点</strong>内，嵌入 <strong>AutoGen 的 Code-Executor</strong>，让多个 Coder Agent 讨论优化，最后返回结果到主流程。”</p>
+</blockquote>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">from</span> langgraph.graph <span class="keyword">import</span> StateGraph</span><br><span class="line"><span class="keyword">from</span> autogen <span class="keyword">import</span> AssistantAgent, UserProxyAgent</span><br><span class="line"></span><br><span class="line"><span class="comment"># LangGraph 主流程（严格可控）</span></span><br><span class="line"><span class="keyword">def</span> <span class="title function_">code_generation_node</span>(<span class="params">state: RAGState</span>):</span><br><span class="line">    <span class="string">&quot;&quot;&quot;这个节点内部用 AutoGen 多 Agent 协作&quot;&quot;&quot;</span></span><br><span class="line">    </span><br><span class="line">    <span class="comment"># AutoGen 子流程</span></span><br><span class="line">    coder = AssistantAgent(<span class="string">&quot;coder&quot;</span>, system_message=<span class="string">&quot;写Python代码&quot;</span>)</span><br><span class="line">    reviewer = AssistantAgent(<span class="string">&quot;reviewer&quot;</span>, system_message=<span class="string">&quot;审查代码&quot;</span>)</span><br><span class="line">    executor = UserProxyAgent(<span class="string">&quot;executor&quot;</span>, code_execution_config=&#123;<span class="string">&quot;use_docker&quot;</span>: <span class="literal">True</span>&#125;)</span><br><span class="line">    </span><br><span class="line">    groupchat = GroupChat(agents=[coder, reviewer, executor], ...)</span><br><span class="line">    manager = GroupChatManager(groupchat=groupchat)</span><br><span class="line">    </span><br><span class="line">    <span class="comment"># 执行 AutoGen 对话</span></span><br><span class="line">    executor.initiate_chat(</span><br><span class="line">        manager, </span><br><span class="line">        message=<span class="string">f&quot;写代码实现：<span class="subst">&#123;state[<span class="string">&#x27;requirements&#x27;</span>]&#125;</span>&quot;</span></span><br><span class="line">    )</span><br><span class="line">    </span><br><span class="line">    <span class="comment"># 提取最终代码，返回 LangGraph 状态</span></span><br><span class="line">    state[<span class="string">&quot;generated_code&quot;</span>] = extract_final_code(executor.chat_messages)</span><br><span class="line">    <span class="keyword">return</span> state</span><br><span class="line"></span><br><span class="line"><span class="comment"># LangGraph 主流程</span></span><br><span class="line">workflow = StateGraph(RAGState)</span><br><span class="line">workflow.add_node(<span class="string">&quot;plan&quot;</span>, plan_step)</span><br><span class="line">workflow.add_node(<span class="string">&quot;code_gen&quot;</span>, code_generation_node)  <span class="comment"># ← 内部是 AutoGen</span></span><br><span class="line">workflow.add_node(<span class="string">&quot;test&quot;</span>, test_step)</span><br><span class="line">workflow.add_edge(<span class="string">&quot;plan&quot;</span>, <span class="string">&quot;code_gen&quot;</span>)</span><br><span class="line">workflow.add_edge(<span class="string">&quot;code_gen&quot;</span>, <span class="string">&quot;test&quot;</span>)</span><br></pre></td></tr></table></figure>
+
+<hr>
+<h2 id="七、面试金句"><a href="#七、面试金句" class="headerlink" title="七、面试金句"></a>七、面试金句</h2><table>
+<thead>
+<tr>
+<th>场景</th>
+<th>金句</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>技术选型</td>
+<td>“LangGraph 做<strong>流程骨架</strong>，AutoGen 做<strong>灵活血肉</strong>，根据任务特性分层选择。”</td>
+</tr>
+<tr>
+<td>企业优势</td>
+<td>“企业级场景选 LangGraph，因为<strong>状态机比对话更易审计、更易回滚、更易测试</strong>。”</td>
+</tr>
+<tr>
+<td>开放任务</td>
+<td>“探索性任务如代码生成，AutoGen 的<strong>多 Agent 协商 + 真执行</strong>更高效。”</td>
+</tr>
+<tr>
+<td>混合架构</td>
+<td>“我的设计是**’外刚内柔’**：外层 LangGraph 保证合规，关键节点内嵌 AutoGen 提升智能。”</td>
+</tr>
+</tbody></table>
+<hr>
+<h2 id="八、一句话对比"><a href="#八、一句话对比" class="headerlink" title="八、一句话对比"></a>八、一句话对比</h2><table>
+<thead>
+<tr>
+<th></th>
+<th>AutoGen</th>
+<th>LangGraph</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><strong>像什么</strong></td>
+<td>微信群聊，大家讨论出结果</td>
+<td>工作流引擎，每一步按图纸执行</td>
+</tr>
+<tr>
+<td><strong>适合</strong></td>
+<td>创意、探索、代码生成</td>
+<td><strong>企业流程、合规、生产系统</strong></td>
+</tr>
+<tr>
+<td><strong>你的项目</strong></td>
+<td>了解即可</td>
+<td><strong>深入精通，简历重点</strong></td>
+</tr>
+<tr>
+<td><strong>两者关系</strong></td>
+<td>补充工具</td>
+<td><strong>主力框架</strong></td>
+</tr>
+</tbody></table>
+<hr>
+
+    </div>
+
+    
+    
+    
+
+      <footer class="post-footer">
+
+        
+
+
+        
+    <div class="post-nav">
+      <div class="post-nav-item">
+    <a href="/2026/04/12/python/" rel="prev" title="python">
+      <i class="fa fa-chevron-left"></i> python
+    </a></div>
+      <div class="post-nav-item">
+    <a href="/2026/04/13/%E9%87%91%E8%9E%8D%E6%95%B0%E6%8D%AE%E6%99%BA%E8%83%BD%E5%88%86%E6%9E%90%E5%B9%B3%E5%8F%B0/" rel="next" title="金融数据智能分析平台">
+      金融数据智能分析平台 <i class="fa fa-chevron-right"></i>
+    </a></div>
+    </div>
+      </footer>
+    
+  </article>
+  
+  
+  
+
+
+
+          </div>
+          
+
+<script>
+  window.addEventListener('tabs:register', () => {
+    let { activeClass } = CONFIG.comments;
+    if (CONFIG.comments.storage) {
+      activeClass = localStorage.getItem('comments_active') || activeClass;
+    }
+    if (activeClass) {
+      let activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      if (activeTab) {
+        activeTab.click();
+      }
+    }
+  });
+  if (CONFIG.comments.storage) {
+    window.addEventListener('tabs:click', event => {
+      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
+      let commentClass = event.target.classList[1];
+      localStorage.setItem('comments_active', commentClass);
+    });
+  }
+</script>
+
+        </div>
+          
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line toggle-line-first"></span>
+    <span class="toggle-line toggle-line-middle"></span>
+    <span class="toggle-line toggle-line-last"></span>
+  </div>
+
+  <aside class="sidebar">
+    <div class="sidebar-inner">
+
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%B8%80%E3%80%81%E6%A0%B8%E5%BF%83%E5%AE%9A%E4%BD%8D%E5%AF%B9%E6%AF%94"><span class="nav-number">1.</span> <span class="nav-text">一、核心定位对比</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%BA%8C%E3%80%81%E6%9E%B6%E6%9E%84%E5%B7%AE%E5%BC%82%E5%9B%BE%E8%A7%A3"><span class="nav-number">2.</span> <span class="nav-text">二、架构差异图解</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#AutoGen%EF%BC%9A%E7%BD%91%E7%8A%B6%E5%AF%B9%E8%AF%9D"><span class="nav-number">2.1.</span> <span class="nav-text">AutoGen：网状对话</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#LangGraph%EF%BC%9ADAG-%E7%8A%B6%E6%80%81%E6%9C%BA"><span class="nav-number">2.2.</span> <span class="nav-text">LangGraph：DAG 状态机</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%B8%89%E3%80%81%E4%BB%A3%E7%A0%81%E9%A3%8E%E6%A0%BC%E5%AF%B9%E6%AF%94"><span class="nav-number">3.</span> <span class="nav-text">三、代码风格对比</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E7%9B%B8%E5%90%8C%E4%BB%BB%E5%8A%A1%EF%BC%9A%E5%86%99-RAG-API"><span class="nav-number">3.1.</span> <span class="nav-text">相同任务：写 RAG API</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%9B%9B%E3%80%81%E5%85%B3%E9%94%AE%E8%83%BD%E5%8A%9B%E5%AF%B9%E6%AF%94%E8%A1%A8"><span class="nav-number">4.</span> <span class="nav-text">四、关键能力对比表</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%BA%94%E3%80%81%E4%BC%81%E4%B8%9A%E7%BA%A7%E5%9C%BA%E6%99%AF%E9%80%89%E5%9E%8B%E5%86%B3%E7%AD%96%E6%A0%91"><span class="nav-number">5.</span> <span class="nav-text">五、企业级场景选型决策树</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%85%AD%E3%80%81%E6%B7%B7%E5%90%88%E6%9E%B6%E6%9E%84%E8%AE%BE%E8%AE%A1%EF%BC%88%E9%9D%A2%E8%AF%95%E4%BA%AE%E7%82%B9%EF%BC%89"><span class="nav-number">6.</span> <span class="nav-text">六、混合架构设计（面试亮点）</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%B8%83%E3%80%81%E9%9D%A2%E8%AF%95%E9%87%91%E5%8F%A5"><span class="nav-number">7.</span> <span class="nav-text">七、面试金句</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%85%AB%E3%80%81%E4%B8%80%E5%8F%A5%E8%AF%9D%E5%AF%B9%E6%AF%94"><span class="nav-number">8.</span> <span class="nav-text">八、一句话对比</span></a></li></ol></div>
+      </div>
+      <!--/noindex-->
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+  <p class="site-author-name" itemprop="name">wangzhiwei</p>
+  <div class="site-description" itemprop="description">javascript nodejs web developer...</div>
+</div>
+<div class="site-state-wrap motion-element">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">100</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+        <span class="site-state-item-count">62</span>
+        <span class="site-state-item-name">分类</span>
+      </div>
+      <div class="site-state-item site-state-tags">
+        <span class="site-state-item-count">68</span>
+        <span class="site-state-item-name">标签</span>
+      </div>
+  </nav>
+</div>
+
+
+
+      </div>
+
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+    </main>
+
+    <footer class="footer">
+      <div class="footer-inner">
+        
+
+        
+
+<div class="copyright">
+  
+  &copy; 
+  <span itemprop="copyrightYear">2026</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">wangzhiwei</span>
+</div>
+  <div class="powered-by">由 <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> & <a href="https://muse.theme-next.org/" class="theme-link" rel="noopener" target="_blank">NexT.Muse</a> 强力驱动
+  </div>
+
+        
+
+
+
+
+
+
+
+
+      </div>
+    </footer>
+  </div>
+
+  
+  <script src="/lib/anime.min.js"></script>
+  <script src="/lib/velocity/velocity.min.js"></script>
+  <script src="/lib/velocity/velocity.ui.min.js"></script>
+
+<script src="/js/utils.js"></script>
+
+<script src="/js/motion.js"></script>
+
+
+<script src="/js/schemes/muse.js"></script>
+
+
+<script src="/js/next-boot.js"></script>
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  
+
+</body>
+</html>
