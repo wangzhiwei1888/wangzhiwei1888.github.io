@@ -1,0 +1,443 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 7.3.0">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+<link rel="stylesheet" href="/lib/font-awesome/css/font-awesome.min.css">
+
+<script id="hexo-configurations">
+    var NexT = window.NexT || {};
+    var CONFIG = {"hostname":"example.com","root":"/","scheme":"Muse","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":false,"show_result":false,"style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":false,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}}};
+  </script>
+
+  <meta name="description" content="如果面试前有时间，快速做个最小演示：装个Neo4j（免费）扔进去几条数据：比如”张三-同事-李四”、”李四-负责-订单系统”写个查询：问”张三的同事负责什么系统？”这就是知识图谱的核心——把人和事连成网，能顺着关系查。 一句话总结知识图谱&#x3D;把数据连成一张网+顺着网查东西你已经在做”连成网”和”查东西”的事了，只是没用这个名儿。 知识图谱 和 LangGraph是什么关系 好问题，一句话说">
+<meta property="og:type" content="article">
+<meta property="og:title" content="知识图谱">
+<meta property="og:url" content="http://example.com/2026/04/13/%E7%9F%A5%E8%AF%86%E5%9B%BE%E8%B0%B1/index.html">
+<meta property="og:site_name" content="WBlog">
+<meta property="og:description" content="如果面试前有时间，快速做个最小演示：装个Neo4j（免费）扔进去几条数据：比如”张三-同事-李四”、”李四-负责-订单系统”写个查询：问”张三的同事负责什么系统？”这就是知识图谱的核心——把人和事连成网，能顺着关系查。 一句话总结知识图谱&#x3D;把数据连成一张网+顺着网查东西你已经在做”连成网”和”查东西”的事了，只是没用这个名儿。 知识图谱 和 LangGraph是什么关系 好问题，一句话说">
+<meta property="og:locale" content="zh_CN">
+<meta property="article:published_time" content="2026-04-13T13:01:28.000Z">
+<meta property="article:modified_time" content="2026-04-13T13:04:55.067Z">
+<meta property="article:author" content="wangzhiwei">
+<meta property="article:tag" content="javascript nodejs web developer fe engineer">
+<meta name="twitter:card" content="summary">
+
+<link rel="canonical" href="http://example.com/2026/04/13/%E7%9F%A5%E8%AF%86%E5%9B%BE%E8%B0%B1/">
+
+
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome : false,
+    isPost : true,
+    lang   : 'zh-CN'
+  };
+</script>
+
+  <title>知识图谱 | WBlog</title>
+  
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div class="container use-motion">
+    <div class="headband"></div>
+
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏">
+      <span class="toggle-line toggle-line-first"></span>
+      <span class="toggle-line toggle-line-middle"></span>
+      <span class="toggle-line toggle-line-last"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <h1 class="site-title">WBlog</h1>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+      <p class="site-subtitle" itemprop="description">wangzhiwei blog</p>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+    </div>
+  </div>
+</div>
+
+
+
+
+<nav class="site-nav">
+  <ul id="menu" class="menu">
+        <li class="menu-item menu-item-home">
+
+    <a href="/" rel="section"><i class="fa fa-fw fa-home"></i>首页</a>
+
+  </li>
+        <li class="menu-item menu-item-archives">
+
+    <a href="/archives/" rel="section"><i class="fa fa-fw fa-archive"></i>归档</a>
+
+  </li>
+  </ul>
+</nav>
+
+
+
+
+</div>
+    </header>
+
+    
+  <div class="back-to-top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+
+
+    <main class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+
+          <div class="content post posts-expand">
+            
+
+    
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="http://example.com/2026/04/13/%E7%9F%A5%E8%AF%86%E5%9B%BE%E8%B0%B1/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="wangzhiwei">
+      <meta itemprop="description" content="javascript nodejs web developer...">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="WBlog">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          知识图谱
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+              
+
+              <time title="创建时间：2026-04-13 21:01:28 / 修改时间：21:04:55" itemprop="dateCreated datePublished" datetime="2026-04-13T21:01:28+08:00">2026-04-13</time>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+        <p>如果面试前有时间，快速做个最小演示：<br>装个Neo4j（免费）<br>扔进去几条数据：比如”张三-同事-李四”、”李四-负责-订单系统”<br>写个查询：问”张三的同事负责什么系统？”<br>这就是知识图谱的核心——把人和事连成网，能顺着关系查。</p>
+<p>一句话总结<br>知识图谱&#x3D;把数据连成一张网+顺着网查东西<br>你已经在做”连成网”和”查东西”的事了，只是没用这个名儿。</p>
+<p>知识图谱 和 LangGraph是什么关系</p>
+<p>好问题，一句话说清楚：</p>
+<hr>
+<h2 id="核心区别"><a href="#核心区别" class="headerlink" title="核心区别"></a>核心区别</h2><table>
+<thead>
+<tr>
+<th></th>
+<th><strong>知识图谱</strong></th>
+<th><strong>LangGraph</strong></th>
+</tr>
+</thead>
+<tbody><tr>
+<td><strong>是什么</strong></td>
+<td>存数据的<strong>数据库</strong></td>
+<td>管流程的<strong>框架</strong></td>
+</tr>
+<tr>
+<td><strong>存什么</strong></td>
+<td>实体和关系（张三-同事-李四）</td>
+<td>任务步骤和状态（理解→规划→执行）</td>
+</tr>
+<tr>
+<td><strong>干什么用</strong></td>
+<td>查关系、做推理</td>
+<td>管Agent怎么跑、步骤怎么流转</td>
+</tr>
+</tbody></table>
+<hr>
+<h2 id="打个比方"><a href="#打个比方" class="headerlink" title="打个比方"></a>打个比方</h2><ul>
+<li><strong>知识图谱</strong> &#x3D; 地图（告诉你哪条路通哪）</li>
+<li><strong>LangGraph</strong> &#x3D; 导航APP（告诉你现在走到哪步了，下一步往哪走）</li>
+</ul>
+<p><strong>它俩能配合：</strong></p>
+<blockquote>
+<p>LangGraph执行”查天气”任务时，可以去知识图谱里搜”北京-天气-怎么样”这个关系</p>
+</blockquote>
+<hr>
+<h2 id="你简历里怎么扯上关系"><a href="#你简历里怎么扯上关系" class="headerlink" title="你简历里怎么扯上关系"></a>你简历里怎么扯上关系</h2><p><strong>你现在做的：</strong></p>
+<blockquote>
+<p>LangGraph管任务流程（节点A→节点B→节点C）</p>
+</blockquote>
+<p><strong>说成知识图谱：</strong></p>
+<blockquote>
+<p>“基于图结构管理任务状态流转，支持实体关系推理与多跳决策”</p>
+</blockquote>
+<p><strong>本质一样，换个说法就行。</strong></p>
+<hr>
+<h2 id="面试被问”它俩啥关系？”"><a href="#面试被问”它俩啥关系？”" class="headerlink" title="面试被问”它俩啥关系？”"></a>面试被问”它俩啥关系？”</h2><p><strong>标准回答：</strong></p>
+<blockquote>
+<p>“知识图谱是<strong>数据层</strong>的图，存事实关系；LangGraph是<strong>控制层</strong>的图，管执行流程。两者都是<strong>图结构思维</strong>，可以结合——LangGraph做任务调度时，可以查询知识图谱做推理决策。”</p>
+</blockquote>
+<hr>
+<h2 id="一句话总结"><a href="#一句话总结" class="headerlink" title="一句话总结"></a>一句话总结</h2><blockquote>
+<p><strong>知识图谱 &#x3D; 存知识的地图</strong><br><strong>LangGraph &#x3D; 用地图导航的司机</strong></p>
+<p>一个管”知道什么”，一个管”怎么执行”，但都是<strong>图的那套逻辑</strong>。</p>
+</blockquote>
+<p>你简历里写LangGraph经验，等于<strong>间接证明你有图思维</strong>，学知识图谱很快。</p>
+
+    </div>
+
+    
+    
+    
+
+      <footer class="post-footer">
+
+        
+
+
+        
+    <div class="post-nav">
+      <div class="post-nav-item">
+    <a href="/2026/04/13/AI-%E6%99%BA%E8%83%BD%E4%BB%BB%E5%8A%A1%E8%87%AA%E5%8A%A8%E5%8C%96%E5%B9%B3%E5%8F%B0/" rel="prev" title="AI 智能任务自动化平台">
+      <i class="fa fa-chevron-left"></i> AI 智能任务自动化平台
+    </a></div>
+      <div class="post-nav-item">
+    <a href="/2026/04/14/FastGpt/" rel="next" title="FastGpt">
+      FastGpt <i class="fa fa-chevron-right"></i>
+    </a></div>
+    </div>
+      </footer>
+    
+  </article>
+  
+  
+  
+
+
+
+          </div>
+          
+
+<script>
+  window.addEventListener('tabs:register', () => {
+    let { activeClass } = CONFIG.comments;
+    if (CONFIG.comments.storage) {
+      activeClass = localStorage.getItem('comments_active') || activeClass;
+    }
+    if (activeClass) {
+      let activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      if (activeTab) {
+        activeTab.click();
+      }
+    }
+  });
+  if (CONFIG.comments.storage) {
+    window.addEventListener('tabs:click', event => {
+      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
+      let commentClass = event.target.classList[1];
+      localStorage.setItem('comments_active', commentClass);
+    });
+  }
+</script>
+
+        </div>
+          
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line toggle-line-first"></span>
+    <span class="toggle-line toggle-line-middle"></span>
+    <span class="toggle-line toggle-line-last"></span>
+  </div>
+
+  <aside class="sidebar">
+    <div class="sidebar-inner">
+
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%A0%B8%E5%BF%83%E5%8C%BA%E5%88%AB"><span class="nav-number">1.</span> <span class="nav-text">核心区别</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%89%93%E4%B8%AA%E6%AF%94%E6%96%B9"><span class="nav-number">2.</span> <span class="nav-text">打个比方</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%BD%A0%E7%AE%80%E5%8E%86%E9%87%8C%E6%80%8E%E4%B9%88%E6%89%AF%E4%B8%8A%E5%85%B3%E7%B3%BB"><span class="nav-number">3.</span> <span class="nav-text">你简历里怎么扯上关系</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E9%9D%A2%E8%AF%95%E8%A2%AB%E9%97%AE%E2%80%9D%E5%AE%83%E4%BF%A9%E5%95%A5%E5%85%B3%E7%B3%BB%EF%BC%9F%E2%80%9D"><span class="nav-number">4.</span> <span class="nav-text">面试被问”它俩啥关系？”</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%B8%80%E5%8F%A5%E8%AF%9D%E6%80%BB%E7%BB%93"><span class="nav-number">5.</span> <span class="nav-text">一句话总结</span></a></li></ol></div>
+      </div>
+      <!--/noindex-->
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+  <p class="site-author-name" itemprop="name">wangzhiwei</p>
+  <div class="site-description" itemprop="description">javascript nodejs web developer...</div>
+</div>
+<div class="site-state-wrap motion-element">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">104</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+        <span class="site-state-item-count">62</span>
+        <span class="site-state-item-name">分类</span>
+      </div>
+      <div class="site-state-item site-state-tags">
+        <span class="site-state-item-count">68</span>
+        <span class="site-state-item-name">标签</span>
+      </div>
+  </nav>
+</div>
+
+
+
+      </div>
+
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+    </main>
+
+    <footer class="footer">
+      <div class="footer-inner">
+        
+
+        
+
+<div class="copyright">
+  
+  &copy; 
+  <span itemprop="copyrightYear">2026</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">wangzhiwei</span>
+</div>
+  <div class="powered-by">由 <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> & <a href="https://muse.theme-next.org/" class="theme-link" rel="noopener" target="_blank">NexT.Muse</a> 强力驱动
+  </div>
+
+        
+
+
+
+
+
+
+
+
+      </div>
+    </footer>
+  </div>
+
+  
+  <script src="/lib/anime.min.js"></script>
+  <script src="/lib/velocity/velocity.min.js"></script>
+  <script src="/lib/velocity/velocity.ui.min.js"></script>
+
+<script src="/js/utils.js"></script>
+
+<script src="/js/motion.js"></script>
+
+
+<script src="/js/schemes/muse.js"></script>
+
+
+<script src="/js/next-boot.js"></script>
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  
+
+</body>
+</html>

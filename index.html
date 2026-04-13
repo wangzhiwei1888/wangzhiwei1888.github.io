@@ -149,6 +149,407 @@
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="http://example.com/2026/04/14/FastGpt/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="wangzhiwei">
+      <meta itemprop="description" content="javascript nodejs web developer...">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="WBlog">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/2026/04/14/FastGpt/" class="post-title-link" itemprop="url">FastGpt</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+              
+
+              <time title="创建时间：2026-04-14 07:18:44 / 修改时间：07:20:32" itemprop="dateCreated datePublished" datetime="2026-04-14T07:18:44+08:00">2026-04-14</time>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <p>这是一个关于开源 AI Agent&#x2F;工作流平台对比的问题。让我搜索最新的信息来为您提供准确的比较。<br>根据最新搜索结果，我为您详细对比 <strong>FastGPT</strong>、<strong>Dify</strong> 和 <strong>Langflow</strong> 这三个主流开源 AI 平台：</p>
+<h2 id="核心定位对比"><a href="#核心定位对比" class="headerlink" title="核心定位对比"></a>核心定位对比</h2><table>
+<thead>
+<tr>
+<th>平台</th>
+<th>核心定位</th>
+<th>一句话总结</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><strong>Dify</strong></td>
+<td>企业级 LLMOps 平台</td>
+<td>功能最全面，适合构建生产级 AI 应用</td>
+</tr>
+<tr>
+<td><strong>FastGPT</strong></td>
+<td>知识库问答专家</td>
+<td>轻量开箱即用，RAG 效果最好</td>
+</tr>
+<tr>
+<td><strong>Langflow</strong></td>
+<td>可视化 LangChain 编排工具</td>
+<td>面向开发者，深度集成 LangChain</td>
+</tr>
+</tbody></table>
+<hr>
+<h2 id="详细功能对比"><a href="#详细功能对比" class="headerlink" title="详细功能对比"></a>详细功能对比</h2><h3 id="1-知识库与-RAG-能力"><a href="#1-知识库与-RAG-能力" class="headerlink" title="1. 知识库与 RAG 能力"></a>1. 知识库与 RAG 能力</h3><table>
+<thead>
+<tr>
+<th>维度</th>
+<th>Dify</th>
+<th>FastGPT</th>
+<th>Langflow</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><strong>RAG 效果</strong></td>
+<td>⭐⭐⭐ 良好</td>
+<td>⭐⭐⭐⭐⭐ <strong>最佳</strong></td>
+<td>⭐⭐⭐ 依赖自建</td>
+</tr>
+<tr>
+<td><strong>文档解析</strong></td>
+<td>支持常见格式</td>
+<td>多格式导入，OCR+表格提取</td>
+<td>需自行配置</td>
+</tr>
+<tr>
+<td><strong>检索模式</strong></td>
+<td>混合检索+重排序</td>
+<td>向量检索为主，开箱即用</td>
+<td>完全自定义</td>
+</tr>
+<tr>
+<td><strong>知识图谱</strong></td>
+<td>支持</td>
+<td>内置知识图谱</td>
+<td>需扩展实现</td>
+</tr>
+</tbody></table>
+<p><strong>FastGPT</strong> 在 RAG 领域表现突出，被评价为”轻量、简单、好用”，特别适合快速构建高质量知识库 。<strong>Dify</strong> 的 RAG 更侧重可定制性，支持跨知识库检索 。<strong>Langflow</strong> 则需要开发者自行搭建 RAG 流程。</p>
+<h3 id="2-工作流编排"><a href="#2-工作流编排" class="headerlink" title="2. 工作流编排"></a>2. 工作流编排</h3><table>
+<thead>
+<tr>
+<th>特性</th>
+<th>Dify</th>
+<th>FastGPT</th>
+<th>Langflow</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><strong>可视化编排</strong></td>
+<td>✅ Chatflow + Workflow 双模式</td>
+<td>✅ Flow 拖拽界面</td>
+<td>✅ 节点式流程图</td>
+</tr>
+<tr>
+<td><strong>复杂度支持</strong></td>
+<td>高（分支、循环、异常处理）</td>
+<td>中（适合常规流程）</td>
+<td>高（完全自定义）</td>
+</tr>
+<tr>
+<td><strong>Agent 集成</strong></td>
+<td>✅ 50+ 内置工具，ReAct&#x2F;函数调用</td>
+<td>⚠️ 单步工具调用</td>
+<td>✅ 需编码实现</td>
+</tr>
+<tr>
+<td><strong>调试能力</strong></td>
+<td>✅ 节点级调试与监控</td>
+<td>✅ 实时运行查看</td>
+<td>✅ 实时调试</td>
+</tr>
+</tbody></table>
+<p><strong>Dify</strong> 的工作流最完善，区分对话场景（Chatflow）和自动化场景（Workflow）。<strong>FastGPT</strong> 的 Flow 更简洁，适合非技术人员快速搭建 。<strong>Langflow</strong> 提供最大灵活性，但需要熟悉 LangChain 。</p>
+<h3 id="3-模型支持与扩展性"><a href="#3-模型支持与扩展性" class="headerlink" title="3. 模型支持与扩展性"></a>3. 模型支持与扩展性</h3><table>
+<thead>
+<tr>
+<th>特性</th>
+<th>Dify</th>
+<th>FastGPT</th>
+<th>Langflow</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><strong>模型兼容性</strong></td>
+<td>⭐⭐⭐⭐⭐ <strong>最全</strong>（数百种模型）</td>
+<td>⭐⭐⭐⭐ OpenAI API 兼容</td>
+<td>⭐⭐⭐⭐ 依赖 LangChain 生态</td>
+</tr>
+<tr>
+<td><strong>自定义工具</strong></td>
+<td>✅ 丰富插件市场</td>
+<td>⚠️ 需开发新节点</td>
+<td>✅ Python 自定义组件</td>
+</tr>
+<tr>
+<td><strong>二次开发</strong></td>
+<td>中等门槛</td>
+<td>较低（MIT 协议）</td>
+<td>较高（需 Python 基础）</td>
+</tr>
+</tbody></table>
+<p><strong>Dify</strong> 支持最广泛的模型提供商，包括 GPT、Claude、Llama3、文心一言等 。<strong>FastGPT</strong> 采用 OpenAI 兼容方式，集成成本低 。<strong>Langflow</strong> 则深度绑定 LangChain 生态。</p>
+<h3 id="4-部署与资源需求"><a href="#4-部署与资源需求" class="headerlink" title="4. 部署与资源需求"></a>4. 部署与资源需求</h3><table>
+<thead>
+<tr>
+<th>维度</th>
+<th>Dify</th>
+<th>FastGPT</th>
+<th>Langflow</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><strong>部署难度</strong></td>
+<td>中等（多服务架构）</td>
+<td><strong>最简单</strong>（Docker 一键启动）</td>
+<td>简单</td>
+</tr>
+<tr>
+<td><strong>资源要求</strong></td>
+<td>中等</td>
+<td><strong>最低</strong>（2核4G 可运行）</td>
+<td>中等</td>
+</tr>
+<tr>
+<td><strong>扩展性</strong></td>
+<td>微服务架构，K8s 支持</td>
+<td>单体架构，多进程扩容</td>
+<td>灵活部署</td>
+</tr>
+<tr>
+<td><strong>开源协议</strong></td>
+<td>Apache 2.0</td>
+<td><strong>MIT</strong>（最宽松）</td>
+<td>MIT</td>
+</tr>
+</tbody></table>
+<p><strong>FastGPT</strong> 是三者中最轻量的，官方推荐 2核4G 服务器即可运行 。<strong>Dify</strong> 采用微服务架构，更适合企业级大规模部署 。</p>
+<hr>
+<h2 id="社区与生态（2025年数据）"><a href="#社区与生态（2025年数据）" class="headerlink" title="社区与生态（2025年数据）"></a>社区与生态（2025年数据）</h2><table>
+<thead>
+<tr>
+<th>指标</th>
+<th>Dify</th>
+<th>FastGPT</th>
+<th>Langflow</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><strong>GitHub Stars</strong></td>
+<td>~57,000</td>
+<td>~27,000</td>
+<td>~145,000</td>
+</tr>
+<tr>
+<td><strong>社区活跃度</strong></td>
+<td>⭐⭐⭐⭐⭐ <strong>最活跃</strong></td>
+<td>⭐⭐⭐⭐ 中文社区活跃</td>
+<td>⭐⭐⭐⭐⭐ 国际社区庞大</td>
+</tr>
+<tr>
+<td><strong>文档完善度</strong></td>
+<td>中英文俱佳</td>
+<td>中文文档完善</td>
+<td>英文为主</td>
+</tr>
+</tbody></table>
+<p><strong>Langflow</strong> 的 GitHub Stars 最高（14万+），但主要用户群体在海外 。<strong>Dify</strong> 的社区最活跃，功能迭代最快。<strong>FastGPT</strong> 在国内中文支持最好 。</p>
+<hr>
+<h2 id="选型建议"><a href="#选型建议" class="headerlink" title="选型建议"></a>选型建议</h2><h3 id="选择-FastGPT-如果您："><a href="#选择-FastGPT-如果您：" class="headerlink" title="选择 FastGPT 如果您："></a>选择 <strong>FastGPT</strong> 如果您：</h3><ul>
+<li>🎯 首要需求是<strong>知识库问答</strong>（RAG）</li>
+<li>🚀 希望<strong>最快上线</strong>（几小时搭建 FAQ 系统）</li>
+<li>💰 资源有限，需要<strong>轻量部署</strong></li>
+<li>👥 团队<strong>非技术背景</strong>人员较多</li>
+<li>🔌 需要<strong>OpenAI 兼容 API</strong> 快速集成</li>
+</ul>
+<p><strong>典型场景</strong>：企业客服机器人、内部知识库、微信 AI 助理</p>
+<h3 id="选择-Dify-如果您："><a href="#选择-Dify-如果您：" class="headerlink" title="选择 Dify 如果您："></a>选择 <strong>Dify</strong> 如果您：</h3><ul>
+<li>🏢 构建<strong>企业级生产应用</strong></li>
+<li>🤖 需要<strong>复杂 Agent 协作</strong>（多工具调用）</li>
+<li>🌐 应用需要<strong>多模型支持</strong>或<strong>多语言</strong></li>
+<li>📊 需要完善的<strong>监控、日志、权限管理</strong></li>
+<li>👨‍💻 团队有<strong>技术背景</strong>，能接受一定学习成本</li>
+</ul>
+<p><strong>典型场景</strong>：智能客服中台、AI 产品底座、跨境多语言应用</p>
+<h3 id="选择-Langflow-如果您："><a href="#选择-Langflow-如果您：" class="headerlink" title="选择 Langflow 如果您："></a>选择 <strong>Langflow</strong> 如果您：</h3><ul>
+<li>🐍 熟悉 <strong>Python 和 LangChain</strong></li>
+<li>🛠️ 需要<strong>高度定制化</strong>的 AI 流程</li>
+<li>🔬 用于<strong>原型验证</strong>和学习 LLM 编排</li>
+<li>🌍 依赖<strong>国际开源生态</strong></li>
+<li>👨‍💻 团队有<strong>较强开发能力</strong></li>
+</ul>
+<p><strong>典型场景</strong>：AI 研究原型、复杂数据处理流程、LangChain 项目可视化</p>
+<hr>
+<h2 id="2025年趋势：混搭流"><a href="#2025年趋势：混搭流" class="headerlink" title="2025年趋势：混搭流"></a>2025年趋势：混搭流</h2><p>目前业界流行 <strong>“低代码搭界面 + 硬核框架写逻辑”</strong> 的组合方案：</p>
+<ul>
+<li><strong>Dify 前端 + LangGraph 后台</strong> &#x3D; 效率拉满 </li>
+<li><strong>FastGPT 知识库 + Dify Agent</strong> &#x3D; RAG 效果与功能丰富度兼得</li>
+</ul>
+<hr>
+<p><strong>一句话总结</strong>：</p>
+<blockquote>
+<p>要<strong>快速做知识库</strong>选 FastGPT，要<strong>企业级全功能</strong>选 Dify，要<strong>深度定制开发</strong>选 Langflow。</p>
+</blockquote>
+
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="http://example.com/2026/04/13/%E7%9F%A5%E8%AF%86%E5%9B%BE%E8%B0%B1/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="wangzhiwei">
+      <meta itemprop="description" content="javascript nodejs web developer...">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="WBlog">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/2026/04/13/%E7%9F%A5%E8%AF%86%E5%9B%BE%E8%B0%B1/" class="post-title-link" itemprop="url">知识图谱</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+              
+
+              <time title="创建时间：2026-04-13 21:01:28 / 修改时间：21:04:55" itemprop="dateCreated datePublished" datetime="2026-04-13T21:01:28+08:00">2026-04-13</time>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <p>如果面试前有时间，快速做个最小演示：<br>装个Neo4j（免费）<br>扔进去几条数据：比如”张三-同事-李四”、”李四-负责-订单系统”<br>写个查询：问”张三的同事负责什么系统？”<br>这就是知识图谱的核心——把人和事连成网，能顺着关系查。</p>
+<p>一句话总结<br>知识图谱&#x3D;把数据连成一张网+顺着网查东西<br>你已经在做”连成网”和”查东西”的事了，只是没用这个名儿。</p>
+<p>知识图谱 和 LangGraph是什么关系</p>
+<p>好问题，一句话说清楚：</p>
+<hr>
+<h2 id="核心区别"><a href="#核心区别" class="headerlink" title="核心区别"></a>核心区别</h2><table>
+<thead>
+<tr>
+<th></th>
+<th><strong>知识图谱</strong></th>
+<th><strong>LangGraph</strong></th>
+</tr>
+</thead>
+<tbody><tr>
+<td><strong>是什么</strong></td>
+<td>存数据的<strong>数据库</strong></td>
+<td>管流程的<strong>框架</strong></td>
+</tr>
+<tr>
+<td><strong>存什么</strong></td>
+<td>实体和关系（张三-同事-李四）</td>
+<td>任务步骤和状态（理解→规划→执行）</td>
+</tr>
+<tr>
+<td><strong>干什么用</strong></td>
+<td>查关系、做推理</td>
+<td>管Agent怎么跑、步骤怎么流转</td>
+</tr>
+</tbody></table>
+<hr>
+<h2 id="打个比方"><a href="#打个比方" class="headerlink" title="打个比方"></a>打个比方</h2><ul>
+<li><strong>知识图谱</strong> &#x3D; 地图（告诉你哪条路通哪）</li>
+<li><strong>LangGraph</strong> &#x3D; 导航APP（告诉你现在走到哪步了，下一步往哪走）</li>
+</ul>
+<p><strong>它俩能配合：</strong></p>
+<blockquote>
+<p>LangGraph执行”查天气”任务时，可以去知识图谱里搜”北京-天气-怎么样”这个关系</p>
+</blockquote>
+<hr>
+<h2 id="你简历里怎么扯上关系"><a href="#你简历里怎么扯上关系" class="headerlink" title="你简历里怎么扯上关系"></a>你简历里怎么扯上关系</h2><p><strong>你现在做的：</strong></p>
+<blockquote>
+<p>LangGraph管任务流程（节点A→节点B→节点C）</p>
+</blockquote>
+<p><strong>说成知识图谱：</strong></p>
+<blockquote>
+<p>“基于图结构管理任务状态流转，支持实体关系推理与多跳决策”</p>
+</blockquote>
+<p><strong>本质一样，换个说法就行。</strong></p>
+<hr>
+<h2 id="面试被问”它俩啥关系？”"><a href="#面试被问”它俩啥关系？”" class="headerlink" title="面试被问”它俩啥关系？”"></a>面试被问”它俩啥关系？”</h2><p><strong>标准回答：</strong></p>
+<blockquote>
+<p>“知识图谱是<strong>数据层</strong>的图，存事实关系；LangGraph是<strong>控制层</strong>的图，管执行流程。两者都是<strong>图结构思维</strong>，可以结合——LangGraph做任务调度时，可以查询知识图谱做推理决策。”</p>
+</blockquote>
+<hr>
+<h2 id="一句话总结"><a href="#一句话总结" class="headerlink" title="一句话总结"></a>一句话总结</h2><blockquote>
+<p><strong>知识图谱 &#x3D; 存知识的地图</strong><br><strong>LangGraph &#x3D; 用地图导航的司机</strong></p>
+<p>一个管”知道什么”，一个管”怎么执行”，但都是<strong>图的那套逻辑</strong>。</p>
+</blockquote>
+<p>你简历里写LangGraph经验，等于<strong>间接证明你有图思维</strong>，学知识图谱很快。</p>
+
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
     <link itemprop="mainEntityOfPage" href="http://example.com/2026/04/13/AI-%E6%99%BA%E8%83%BD%E4%BB%BB%E5%8A%A1%E8%87%AA%E5%8A%A8%E5%8C%96%E5%B9%B3%E5%8F%B0/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -656,10 +1057,16 @@
                 <i class="fa fa-calendar-o"></i>
               </span>
               <span class="post-meta-item-text">发表于</span>
-              
 
-              <time title="创建时间：2026-04-13 17:13:52 / 修改时间：17:14:23" itemprop="dateCreated datePublished" datetime="2026-04-13T17:13:52+08:00">2026-04-13</time>
+              <time title="创建时间：2026-04-13 17:13:52" itemprop="dateCreated datePublished" datetime="2026-04-13T17:13:52+08:00">2026-04-13</time>
             </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-calendar-check-o"></i>
+                </span>
+                <span class="post-meta-item-text">更新于</span>
+                <time title="修改时间：2026-04-14 07:22:22" itemprop="dateModified" datetime="2026-04-14T07:22:22+08:00">2026-04-14</time>
+              </span>
 
           
 
@@ -746,6 +1153,314 @@
 <h2 id="6-一套“面试可复述”的项目亮点（30秒）"><a href="#6-一套“面试可复述”的项目亮点（30秒）" class="headerlink" title="6) 一套“面试可复述”的项目亮点（30秒）"></a>6) 一套“面试可复述”的项目亮点（30秒）</h2><p>“这个项目不是只搭了个 demo，而是做了企业可用的关键点：多源文档入库、混合检索、重排、自反思、可追溯来源，以及性能&#x2F;可观测性的工程优化。它能在回答质量和稳定性之间做可配置权衡。”</p>
 <hr>
 <p>如果你愿意，我下一步可以给你一份<strong>“按你的实际项目代码定制的面试问答稿（含10个问题+标准答案）”</strong>，你直接背就行。</p>
+<p>知识图谱 和 LangGraph是什么关系</p>
+<p>好问题，一句话说清楚：</p>
+<hr>
+<h2 id="核心区别"><a href="#核心区别" class="headerlink" title="核心区别"></a>核心区别</h2><table>
+<thead>
+<tr>
+<th></th>
+<th><strong>知识图谱</strong></th>
+<th><strong>LangGraph</strong></th>
+</tr>
+</thead>
+<tbody><tr>
+<td><strong>是什么</strong></td>
+<td>存数据的<strong>数据库</strong></td>
+<td>管流程的<strong>框架</strong></td>
+</tr>
+<tr>
+<td><strong>存什么</strong></td>
+<td>实体和关系（张三-同事-李四）</td>
+<td>任务步骤和状态（理解→规划→执行）</td>
+</tr>
+<tr>
+<td><strong>干什么用</strong></td>
+<td>查关系、做推理</td>
+<td>管Agent怎么跑、步骤怎么流转</td>
+</tr>
+</tbody></table>
+<hr>
+<h2 id="打个比方"><a href="#打个比方" class="headerlink" title="打个比方"></a>打个比方</h2><ul>
+<li><strong>知识图谱</strong> &#x3D; 地图（告诉你哪条路通哪）</li>
+<li><strong>LangGraph</strong> &#x3D; 导航APP（告诉你现在走到哪步了，下一步往哪走）</li>
+</ul>
+<p><strong>它俩能配合：</strong></p>
+<blockquote>
+<p>LangGraph执行”查天气”任务时，可以去知识图谱里搜”北京-天气-怎么样”这个关系</p>
+</blockquote>
+<hr>
+<h2 id="你简历里怎么扯上关系"><a href="#你简历里怎么扯上关系" class="headerlink" title="你简历里怎么扯上关系"></a>你简历里怎么扯上关系</h2><p><strong>你现在做的：</strong></p>
+<blockquote>
+<p>LangGraph管任务流程（节点A→节点B→节点C）</p>
+</blockquote>
+<p><strong>说成知识图谱：</strong></p>
+<blockquote>
+<p>“基于图结构管理任务状态流转，支持实体关系推理与多跳决策”</p>
+</blockquote>
+<p><strong>本质一样，换个说法就行。</strong></p>
+<hr>
+<h2 id="面试被问”它俩啥关系？”"><a href="#面试被问”它俩啥关系？”" class="headerlink" title="面试被问”它俩啥关系？”"></a>面试被问”它俩啥关系？”</h2><p><strong>标准回答：</strong></p>
+<blockquote>
+<p>“知识图谱是<strong>数据层</strong>的图，存事实关系；LangGraph是<strong>控制层</strong>的图，管执行流程。两者都是<strong>图结构思维</strong>，可以结合——LangGraph做任务调度时，可以查询知识图谱做推理决策。”</p>
+</blockquote>
+<hr>
+<h2 id="一句话总结"><a href="#一句话总结" class="headerlink" title="一句话总结"></a>一句话总结</h2><blockquote>
+<p><strong>知识图谱 &#x3D; 存知识的地图</strong><br><strong>LangGraph &#x3D; 用地图导航的司机</strong></p>
+<p>一个管”知道什么”，一个管”怎么执行”，但都是<strong>图的那套逻辑</strong>。</p>
+</blockquote>
+<p>你简历里写LangGraph经验，等于<strong>间接证明你有图思维</strong>，学知识图谱很快。</p>
+<p>关于neo4j的面试考点</p>
+<p>好的，Neo4j面试常问的点，我按<strong>出现频率</strong>和<strong>难度</strong>给你排：</p>
+<hr>
+<h2 id="一、必考点（90-会问）"><a href="#一、必考点（90-会问）" class="headerlink" title="一、必考点（90%会问）"></a>一、必考点（90%会问）</h2><h3 id="1-Cypher查询语法"><a href="#1-Cypher查询语法" class="headerlink" title="1. Cypher查询语法"></a>1. Cypher查询语法</h3><p><strong>最常考写法：</strong></p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">// 创建节点</span><br><span class="line">CREATE (p:Person &#123;name: &#x27;张三&#x27;, age: 30&#125;)</span><br><span class="line"></span><br><span class="line">// 创建关系</span><br><span class="line">CREATE (p)-[:WORKS_AT]-&gt;(c:Company &#123;name: &#x27;阿里&#x27;&#125;)</span><br><span class="line"></span><br><span class="line">// 查询张三的同事（多跳查询）</span><br><span class="line">MATCH (zhang:Person &#123;name: &#x27;张三&#x27;&#125;)-[:WORKS_AT]-&gt;(c:Company)&lt;-[:WORKS_AT]-(colleague:Person)</span><br><span class="line">RETURN colleague.name</span><br></pre></td></tr></table></figure>
+
+<p><strong>面试问法：</strong></p>
+<blockquote>
+<p>“写个查询：找张三的同事的同事”</p>
+</blockquote>
+<p><strong>答案：</strong></p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">MATCH (zhang:Person &#123;name: &#x27;张三&#x27;&#125;)-[:WORKS_AT]-&gt;()&lt;-[:WORKS_AT]-()-[:WORKS_AT]-&gt;()&lt;-[:WORKS_AT]-(friend)</span><br><span class="line">RETURN friend.name</span><br></pre></td></tr></table></figure>
+
+<hr>
+<h3 id="2-图数据库-vs-关系数据库"><a href="#2-图数据库-vs-关系数据库" class="headerlink" title="2. 图数据库 vs 关系数据库"></a>2. 图数据库 vs 关系数据库</h3><table>
+<thead>
+<tr>
+<th></th>
+<th>MySQL</th>
+<th>Neo4j</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>存什么</td>
+<td>表（行+列）</td>
+<td>节点+关系</td>
+</tr>
+<tr>
+<td>查关系</td>
+<td>JOIN（慢，越跳越慢）</td>
+<td>遍历（快，多跳也快）</td>
+</tr>
+<tr>
+<td>适合</td>
+<td>固定结构数据</td>
+<td>关系复杂、多跳查询</td>
+</tr>
+</tbody></table>
+<p><strong>面试金句：</strong></p>
+<blockquote>
+<p>“MySQL查3层关系要3个JOIN，性能爆炸；Neo4j遍历3层关系，速度几乎不变”</p>
+</blockquote>
+<hr>
+<h2 id="二、常考点（60-会问）"><a href="#二、常考点（60-会问）" class="headerlink" title="二、常考点（60%会问）"></a>二、常考点（60%会问）</h2><h3 id="3-什么时候用Neo4j？"><a href="#3-什么时候用Neo4j？" class="headerlink" title="3. 什么时候用Neo4j？"></a>3. 什么时候用Neo4j？</h3><p><strong>适合：</strong></p>
+<ul>
+<li>社交网络（好友的好友）</li>
+<li>推荐系统（买过X的人也买Y）</li>
+<li>知识图谱（实体关系推理）</li>
+<li>风控（资金流转路径）</li>
+</ul>
+<p><strong>不适合：</strong></p>
+<ul>
+<li>简单CRUD（用MySQL更简单）</li>
+<li>大量属性、少关系（图的优势发挥不出来）</li>
+</ul>
+<hr>
+<h3 id="4-性能优化"><a href="#4-性能优化" class="headerlink" title="4. 性能优化"></a>4. 性能优化</h3><table>
+<thead>
+<tr>
+<th>手段</th>
+<th>干啥的</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>索引</td>
+<td><code>CREATE INDEX ON :Person(name)</code> 加速查询</td>
+</tr>
+<tr>
+<td>限制遍历深度</td>
+<td><code>[:KNOWS*1..3]</code> 防止无限递归</td>
+</tr>
+<tr>
+<td>方向查询</td>
+<td>有关系方向时指定方向，减少扫描</td>
+</tr>
+</tbody></table>
+<hr>
+<h2 id="三、进阶点（高级岗位会问）"><a href="#三、进阶点（高级岗位会问）" class="headerlink" title="三、进阶点（高级岗位会问）"></a>三、进阶点（高级岗位会问）</h2><h3 id="5-和Python-LLM集成"><a href="#5-和Python-LLM集成" class="headerlink" title="5. 和Python&#x2F;LLM集成"></a>5. 和Python&#x2F;LLM集成</h3><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">from</span> neo4j <span class="keyword">import</span> GraphDatabase</span><br><span class="line"></span><br><span class="line"><span class="comment"># 连接</span></span><br><span class="line">driver = GraphDatabase.driver(<span class="string">&quot;bolt://localhost:7687&quot;</span>, auth=(<span class="string">&quot;neo4j&quot;</span>, <span class="string">&quot;密码&quot;</span>))</span><br><span class="line"></span><br><span class="line"><span class="comment"># 查询</span></span><br><span class="line"><span class="keyword">with</span> driver.session() <span class="keyword">as</span> session:</span><br><span class="line">    result = session.run(<span class="string">&quot;MATCH (p:Person) RETURN p.name&quot;</span>)</span><br><span class="line">    <span class="keyword">for</span> record <span class="keyword">in</span> result:</span><br><span class="line">        <span class="built_in">print</span>(record[<span class="string">&quot;p.name&quot;</span>])</span><br></pre></td></tr></table></figure>
+
+<p><strong>和LLM结合：</strong></p>
+<blockquote>
+<p>“用LLM抽取文档实体关系，自动写入Neo4j构建知识图谱”</p>
+</blockquote>
+<hr>
+<h3 id="6-数据建模"><a href="#6-数据建模" class="headerlink" title="6. 数据建模"></a>6. 数据建模</h3><p><strong>面试题：</strong> “设计一个电商知识图谱”</p>
+<p><strong>答案框架：</strong></p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">节点：用户、商品、品牌、类目</span><br><span class="line">关系：用户-购买-&gt;商品、商品-属于-&gt;类目、商品-品牌-&gt;品牌</span><br><span class="line"></span><br><span class="line">查询：推荐&quot;买了手机的人也买了啥&quot;</span><br><span class="line">MATCH (u:User)-[:BUY]-&gt;(:Phone)&lt;-[:BUY]-(other:User)-[:BUY]-&gt;(rec:Product)</span><br><span class="line">RETURN rec.name, count(*) as score ORDER BY score DESC</span><br></pre></td></tr></table></figure>
+
+<hr>
+<h2 id="四、你可能被问的”坑”"><a href="#四、你可能被问的”坑”" class="headerlink" title="四、你可能被问的”坑”"></a>四、你可能被问的”坑”</h2><table>
+<thead>
+<tr>
+<th>问题</th>
+<th>陷阱</th>
+<th>正确答案</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>“Neo4j能存多少数据？”</td>
+<td>说”无限”就错了</td>
+<td>单机亿级节点，分布式版更大，但太贵</td>
+</tr>
+<tr>
+<td>“和Redis图结构比呢？”</td>
+<td>Redis是缓存，不是图数据库</td>
+<td>Neo4j是持久化图数据库，支持复杂查询</td>
+</tr>
+<tr>
+<td>“为什么不用NetworkX？”</td>
+<td>NetworkX是内存计算，不能持久化</td>
+<td>小数据用NetworkX，生产用Neo4j</td>
+</tr>
+</tbody></table>
+<hr>
+<h2 id="五、一句话准备策略"><a href="#五、一句话准备策略" class="headerlink" title="五、一句话准备策略"></a>五、一句话准备策略</h2><blockquote>
+<p><strong>会写Cypher + 知道啥时候用 + 能扯上LLM&#x2F;Agent</strong>，就够了。</p>
+</blockquote>
+<p>需要我帮你<strong>写几个Cypher查询练习</strong>，或者<strong>模拟面试问答</strong>吗？</p>
+<p>结合我在新奥集团的项目 帮我 想一个知识图谱的应用场景</p>
+<p>好的，给你设计一个<strong>设备故障知识图谱</strong>的具体实体关系模型：</p>
+<hr>
+<h2 id="一、核心实体（节点）"><a href="#一、核心实体（节点）" class="headerlink" title="一、核心实体（节点）"></a>一、核心实体（节点）</h2><table>
+<thead>
+<tr>
+<th>实体类型</th>
+<th>属性</th>
+<th>例子</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><strong>设备</strong></td>
+<td>名称、型号、安装位置、投运时间</td>
+<td>燃气轮机GT-001、阀门V-203</td>
+</tr>
+<tr>
+<td><strong>部件</strong></td>
+<td>名称、型号、寿命周期、供应商</td>
+<td>轴承BR-501、密封圈SR-102</td>
+</tr>
+<tr>
+<td><strong>故障现象</strong></td>
+<td>描述、严重程度、检测方式</td>
+<td>异响、振动超标、温度高</td>
+</tr>
+<tr>
+<td><strong>故障原因</strong></td>
+<td>类型、根因分析</td>
+<td>轴承磨损、润滑不良、老化</td>
+</tr>
+<tr>
+<td><strong>维修措施</strong></td>
+<td>操作类型、工时、所需工具</td>
+<td>更换轴承、清洗油路、校准</td>
+</tr>
+<tr>
+<td><strong>人员</strong></td>
+<td>姓名、工种、技能等级</td>
+<td>张师傅（高级技师）</td>
+</tr>
+<tr>
+<td><strong>文档</strong></td>
+<td>类型、来源、更新时间</td>
+<td>维修手册V2.3、工单#2024-0892</td>
+</tr>
+</tbody></table>
+<hr>
+<h2 id="二、核心关系（边）"><a href="#二、核心关系（边）" class="headerlink" title="二、核心关系（边）"></a>二、核心关系（边）</h2><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br></pre></td><td class="code"><pre><span class="line">┌─────────────────────────────────────────────────────────┐</span><br><span class="line">│                      【设备】                            │</span><br><span class="line">│                   GT-001燃气轮机                         │</span><br><span class="line">│                      /    \                             │</span><br><span class="line">│           【包含部件】    【出现现象】                    │</span><br><span class="line">│            /        \        \                          │</span><br><span class="line">│      【轴承】      【叶片】   【异响】                    │</span><br><span class="line">│      BR-501        BL-202    振动大                      │</span><br><span class="line">│         |            |         |                          │</span><br><span class="line">│    【导致原因】  【导致原因】 【可能原因】                 │</span><br><span class="line">│    润滑不良      疲劳裂纹    轴承磨损                      │</span><br><span class="line">│         \        /           /                            │</span><br><span class="line">│          \      /           /                             │</span><br><span class="line">│       【维修措施】←──────┘                              │</span><br><span class="line">│       更换轴承+清洗油路                                  │</span><br><span class="line">│            |                                              │</span><br><span class="line">│       【需要零件】                                        │</span><br><span class="line">│       轴承BR-501×2 + 润滑油L-10                          │</span><br><span class="line">│            |                                              │</span><br><span class="line">│       【执行人员】                                        │</span><br><span class="line">│       张师傅（高级）                                       │</span><br><span class="line">│            |                                              │</span><br><span class="line">│       【参考文档】                                        │</span><br><span class="line">│       工单#2024-0892 + 维修手册V2.3                        │</span><br><span class="line">└─────────────────────────────────────────────────────────┘</span><br></pre></td></tr></table></figure>
+
+<hr>
+<h2 id="三、完整关系类型表"><a href="#三、完整关系类型表" class="headerlink" title="三、完整关系类型表"></a>三、完整关系类型表</h2><table>
+<thead>
+<tr>
+<th>关系</th>
+<th>方向</th>
+<th>含义</th>
+<th>例子</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><strong>包含部件</strong></td>
+<td>设备→部件</td>
+<td>设备由哪些部件组成</td>
+<td>GT-001→轴承BR-501</td>
+</tr>
+<tr>
+<td><strong>出现现象</strong></td>
+<td>设备→故障现象</td>
+<td>设备表现出什么症状</td>
+<td>GT-001→异响</td>
+</tr>
+<tr>
+<td><strong>可能原因</strong></td>
+<td>故障现象→故障原因</td>
+<td>现象背后的原因</td>
+<td>异响→轴承磨损</td>
+</tr>
+<tr>
+<td><strong>导致原因</strong></td>
+<td>部件→故障原因</td>
+<td>哪个部件出问题</td>
+<td>轴承BR-501→润滑不良</td>
+</tr>
+<tr>
+<td><strong>解决方法</strong></td>
+<td>故障原因→维修措施</td>
+<td>怎么修</td>
+<td>轴承磨损→更换轴承</td>
+</tr>
+<tr>
+<td><strong>需要零件</strong></td>
+<td>维修措施→部件</td>
+<td>用什么备件</td>
+<td>更换轴承→轴承BR-501</td>
+</tr>
+<tr>
+<td><strong>参考文档</strong></td>
+<td>维修措施→文档</td>
+<td>依据什么资料</td>
+<td>更换轴承→维修手册V2.3</td>
+</tr>
+<tr>
+<td><strong>执行人员</strong></td>
+<td>维修措施→人员</td>
+<td>谁干的</td>
+<td>更换轴承→张师傅</td>
+</tr>
+<tr>
+<td><strong>同型号设备</strong></td>
+<td>设备↔设备</td>
+<td>相似设备</td>
+<td>GT-001↔GT-002</td>
+</tr>
+<tr>
+<td><strong>同区域设备</strong></td>
+<td>设备↔设备</td>
+<td>地理位置相近</td>
+<td>GT-001↔阀门V-203</td>
+</tr>
+</tbody></table>
+<hr>
+<h2 id="四、Cypher建图语句（面试可用）"><a href="#四、Cypher建图语句（面试可用）" class="headerlink" title="四、Cypher建图语句（面试可用）"></a>四、Cypher建图语句（面试可用）</h2><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br></pre></td><td class="code"><pre><span class="line">// 1. 创建设备节点</span><br><span class="line">CREATE (gt:设备 &#123;名称: &quot;燃气轮机GT-001&quot;, 型号: &quot;GT-A型&quot;, 位置: &quot;一号厂房&quot;&#125;)</span><br><span class="line"></span><br><span class="line">// 2. 创建部件节点</span><br><span class="line">CREATE (br:部件 &#123;名称: &quot;主轴轴承&quot;, 型号: &quot;BR-501&quot;, 供应商: &quot;SKF&quot;&#125;)</span><br><span class="line">CREATE (bl:部件 &#123;名称: &quot;涡轮叶片&quot;, 型号: &quot;BL-202&quot;, 寿命: &quot;8000小时&quot;&#125;)</span><br><span class="line"></span><br><span class="line">// 3. 创建故障相关节点</span><br><span class="line">CREATE (yx:故障现象 &#123;描述: &quot;异响&quot;, 严重程度: &quot;中&quot;, 检测方式: &quot;人工听诊&quot;&#125;)</span><br><span class="line">CREATE (zm:故障原因 &#123;描述: &quot;轴承磨损&quot;, 根因: &quot;润滑不良&quot;&#125;)</span><br><span class="line">CREATE (wx:维修措施 &#123;操作: &quot;更换轴承&quot;, 工时: 4, 工具: &quot;液压拉马&quot;&#125;)</span><br><span class="line"></span><br><span class="line">// 4. 创建关系</span><br><span class="line">CREATE (gt)-[:包含部件 &#123;数量: 2&#125;]-&gt;(br)</span><br><span class="line">CREATE (gt)-[:包含部件 &#123;数量: 24&#125;]-&gt;(bl)</span><br><span class="line">CREATE (gt)-[:出现现象 &#123;发现时间: &quot;2024-03-15&quot;&#125;]-&gt;(yx)</span><br><span class="line">CREATE (yx)-[:可能原因 &#123;概率: 0.7&#125;]-&gt;(zm)</span><br><span class="line">CREATE (br)-[:导致原因]-&gt;(zm)</span><br><span class="line">CREATE (zm)-[:解决方法]-&gt;(wx)</span><br><span class="line">CREATE (wx)-[:需要零件 &#123;数量: 2&#125;]-&gt;(br)</span><br><span class="line"></span><br><span class="line">// 5. 查询：GT-001异响的可能原因和解决方法</span><br><span class="line">MATCH (gt:设备 &#123;名称: &quot;燃气轮机GT-001&quot;&#125;)-[:出现现象]-&gt;(现象)-[:可能原因]-&gt;(原因)-[:解决方法]-&gt;(方案)</span><br><span class="line">WHERE 现象.描述 = &quot;异响&quot;</span><br><span class="line">RETURN 现象.描述, 原因.描述, 方案.操作</span><br></pre></td></tr></table></figure>
+
+<hr>
+<h2 id="五、面试画这张图"><a href="#五、面试画这张图" class="headerlink" title="五、面试画这张图"></a>五、面试画这张图</h2><p><strong>手绘版（白板面试用）：</strong></p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line">[设备:GT-001] ──包含部件──→ [部件:轴承]</span><br><span class="line">      │                        │</span><br><span class="line">      │                     导致原因</span><br><span class="line">      ↓                        ↓</span><br><span class="line">[现象:异响] ←────可能原因── [原因:磨损]</span><br><span class="line">      │                        │</span><br><span class="line">      └────────────────────────┘</span><br><span class="line">                  │</span><br><span class="line">                  ↓</span><br><span class="line">            [措施:换轴承]</span><br><span class="line">                  │</span><br><span class="line">            ┌─────┴─────┐</span><br><span class="line">            ↓           ↓</span><br><span class="line">       [需要零件]   [参考文档]</span><br><span class="line">       [人员:张师傅]  [工单#0892]</span><br></pre></td></tr></table></figure>
+
+<hr>
+<h2 id="六、简历一句话"><a href="#六、简历一句话" class="headerlink" title="六、简历一句话"></a>六、简历一句话</h2><blockquote>
+<p>“设计设备故障知识图谱，构建<strong>7类实体、10种关系</strong>，支持故障现象→部件→原因→措施的多跳推理，实现维修经验的结构化沉淀与复用”</p>
+</blockquote>
+<p>需要我把这个<strong>画成更正式的架构图</strong>，或者<strong>补充更多查询场景</strong>（比如相似故障推荐、维修人员调度）吗？</p>
 
       
     </div>
@@ -3051,242 +3766,6 @@
   
   
 
-      
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="http://example.com/2025/12/11/yt-dlp-youtube-%E8%A7%86%E9%A2%91%E4%B8%8B%E8%BD%BD/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.gif">
-      <meta itemprop="name" content="wangzhiwei">
-      <meta itemprop="description" content="javascript nodejs web developer...">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="WBlog">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/2025/12/11/yt-dlp-youtube-%E8%A7%86%E9%A2%91%E4%B8%8B%E8%BD%BD/" class="post-title-link" itemprop="url">yt-dlp youtube 视频下载</a>
-        </h2>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              <span class="post-meta-item-text">发表于</span>
-
-              <time title="创建时间：2025-12-11 11:02:52" itemprop="dateCreated datePublished" datetime="2025-12-11T11:02:52+08:00">2025-12-11</time>
-            </span>
-              <span class="post-meta-item">
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-calendar-check-o"></i>
-                </span>
-                <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2025-12-20 14:33:19" itemprop="dateModified" datetime="2025-12-20T14:33:19+08:00">2025-12-20</time>
-              </span>
-
-          
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <h2 id="yt-dlp-youtube-视频下载"><a href="#yt-dlp-youtube-视频下载" class="headerlink" title="yt-dlp youtube 视频下载"></a>yt-dlp youtube 视频下载</h2><p><code>yt-dlp</code> 是 youtube-dl 的一个活跃社区分支，修复速度快、支持的站点更多，且每天都会更新。<br>下面给你一份 30 秒上手教程，以及如果你刚在用 docker-compose，也附带容器化用法。</p>
-<hr>
-<ol>
-<li>安装</li>
-</ol>
-<hr>
-<p>macOS（homebrew）</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">brew install yt-dlp/taps/yt-dlp        # 官方源，永远最新</span><br></pre></td></tr></table></figure>
-<p>或升级</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">brew upgrade yt-dlp</span><br></pre></td></tr></table></figure>
-
-<p>Linux（pip）</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">python3 -m pip install -U yt-dlp</span><br></pre></td></tr></table></figure>
-
-<p>Windows（scoop）</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">scoop install yt-dlp</span><br></pre></td></tr></table></figure>
-
-<hr>
-<ol start="2">
-<li>快速验证</li>
-</ol>
-<hr>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">yt-dlp --version        # 2023.* 或更高</span><br><span class="line">yt-dlp -F &quot;https://www.youtube.com/watch?v=dQw4w9WgXcQ&quot;</span><br></pre></td></tr></table></figure>
-<p>会列出所有可选清晰度，说明安装成功。</p>
-<hr>
-<ol start="3">
-<li>常用一行命令</li>
-</ol>
-<hr>
-<p>最佳画质音视频合一，保存到 ~&#x2F;Downloads</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">yt-dlp -P ~/Downloads -o &quot;%(title)s.%(ext)s&quot; 网址</span><br></pre></td></tr></table></figure>
-
-<p>只要音频（320 k MP3）</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">yt-dlp -x --audio-format mp3 --audio-quality 0 -P ~/Music 网址</span><br></pre></td></tr></table></figure>
-
-<p>整播单，独立文件夹，可断点续跑</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">yt-dlp -P ~/Videos:/MyPlaylist -o &quot;%(playlist_index)03d  %(title)s.%(ext)s&quot; \</span><br><span class="line">       --download-archive archive.txt 播单地址</span><br></pre></td></tr></table></figure>
-
-<p>限速 5 MB&#x2F;s、4 线程、断点续传</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">yt-dlp -r 5M -N 4 -c 网址</span><br></pre></td></tr></table></figure>
-
-<hr>
-<ol start="4">
-<li>容器化用法（可选）</li>
-</ol>
-<hr>
-<p>官方镜像（每晚构建）</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">docker run --rm -u $(id -u):$(id -g) \</span><br><span class="line">  -v &quot;$(pwd)&quot;:/workdir ghcr.io/yt-dlp/yt-dlp:latest \</span><br><span class="line">  -P /workdir -o &quot;%(title)s.%(ext)s&quot; 网址</span><br></pre></td></tr></table></figure>
-
-<p>docker-compose 示例</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">services:</span><br><span class="line">  ytdl:</span><br><span class="line">    image: ghcr.io/yt-dlp/yt-dlp:latest</span><br><span class="line">    volumes:</span><br><span class="line">      - ./downloads:/workdir</span><br><span class="line">    command: [&quot;-P&quot;, &quot;/workdir&quot;, &quot;-o&quot;, &quot;%(title)s.%(ext)s&quot;, &quot;网址&quot;]</span><br></pre></td></tr></table></figure>
-<p>然后</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">docker-compose run --rm ytdl</span><br></pre></td></tr></table></figure>
-
-<hr>
-<ol start="5">
-<li>常见坑</li>
-</ol>
-<hr>
-<ul>
-<li>“Unable to extract uploader id” → 版本太旧，升级即可。  </li>
-<li>“ERROR: Postprocessing: ffprobe not found” → 装 ffmpeg（<code>brew install ffmpeg</code>）。  </li>
-<li>下载慢 → 加 <code>-N 4</code> 或使用代理 <code>--proxy socks5://127.0.0.1:1080</code>。  </li>
-<li>遇到验证码&#x2F;地区限制 → 导出 cookies：<code>--cookies-from-browser chrome</code> 或 cookies.txt。</li>
-</ul>
-<hr>
-<ol start="6">
-<li>查看帮助</li>
-</ol>
-<hr>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">yt-dlp --help | less</span><br><span class="line">yt-dlp --list-extractors | grep -i twitch</span><br></pre></td></tr></table></figure>
-
-<p>换上网址就能下，祝使用愉快。</p>
-<p>yt-dlp -r 5M -N 4 -c “<a target="_blank" rel="noopener" href="https://www.youtube.com/watch?v=BcqPv3aR0lM">https://www.youtube.com/watch?v=BcqPv3aR0lM</a>“ 执行报错</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">yt-dlp -r 5M -N 4 -c &quot;https://www.youtube.com/watch?v=BcqPv3aR0lM &quot;</span><br><span class="line">[youtube] Extracting URL: https://www.youtube.com/watch?v=BcqPv3aR0lM </span><br><span class="line">[youtube] BcqPv3aR0lM: Downloading webpage</span><br><span class="line">WARNING: [youtube] Unable to download webpage: HTTP Error 429: Too Many Requests (caused by &lt;HTTPError 429: Too Many Requests&gt;)</span><br><span class="line">[youtube] BcqPv3aR0lM: Downloading initial data API JSON</span><br><span class="line">[youtube] BcqPv3aR0lM: Downloading tv client config</span><br><span class="line">[youtube] BcqPv3aR0lM: Downloading player a644926e-main</span><br><span class="line">[youtube] BcqPv3aR0lM: Downloading tv player API JSON</span><br><span class="line">[youtube] BcqPv3aR0lM: Downloading android sdkless player API JSON</span><br><span class="line">[youtube] BcqPv3aR0lM: Downloading web player API JSON</span><br><span class="line">WARNING: [youtube] No title found in player responses; falling back to title from initial data. Other metadata may also be missing</span><br><span class="line">ERROR: [youtube] BcqPv3aR0lM: Sign in to confirm you’re not a bot. Use --cookies-from-browser or --cookies for the authentication. See  https://github.com/yt-dlp/yt-dlp/wiki/FAQ#how-do-i-pass-cookies-to-yt-dlp   for how to manually pass cookies. Also see  https://github.com/yt-dlp/yt-dlp/wiki/Extractors#exporting-youtube-cookies   for tips on effectively exporting YouTube cookies</span><br><span class="line"></span><br></pre></td></tr></table></figure>
-
-
-<p>YouTube 已经把你这台 IP 标记成“可疑流量”，所以：</p>
-<ol>
-<li>所有匿名请求都返回 429 &#x2F; “Sign in to confirm you’re not a bot”  </li>
-<li>yt-dlp 再换客户端（web&#x2F;tv&#x2F;android）也拿不到完整数据，只能强制你登录。</li>
-</ol>
-<p>要解决，就得让 yt-dlp“假装”你是浏览器里的已登录用户——把浏览器 Cookie 塞给它。下面给出最简三步，macOS 示例，其他系统同理。</p>
-<hr>
-<h2 id="①-安装浏览器导出插件（一次就行）"><a href="#①-安装浏览器导出插件（一次就行）" class="headerlink" title="① 安装浏览器导出插件（一次就行）"></a>① 安装浏览器导出插件（一次就行）</h2><p>Chrome&#x2F;Edge<br>• Get “Get cookies.txt LOCALLY” （<a target="_blank" rel="noopener" href="https://chrome.google.com/webstore/detail/get-cookiestxt-locally/cclelndahbckbenkjhflpdbgdldlbecc%EF%BC%89">https://chrome.google.com/webstore/detail/get-cookiestxt-locally/cclelndahbckbenkjhflpdbgdldlbecc）</a><br>• 打开 YouTube 并登录账号 → 点插件 → “Export as Netscape” → 保存为 <code>youtube.com_cookies.txt</code></p>
-<p>Firefox<br>• 装 “Export Cookies” （<a target="_blank" rel="noopener" href="https://addons.mozilla.org/firefox/addon/export-cookies-txt/%EF%BC%89">https://addons.mozilla.org/firefox/addon/export-cookies-txt/）</a> → 同样导出 Netscape 格式。</p>
-<hr>
-<h2 id="②-用-cookies-重新下载"><a href="#②-用-cookies-重新下载" class="headerlink" title="② 用 cookies 重新下载"></a>② 用 cookies 重新下载</h2><p>把刚才导出的文件放在当前目录，运行  </p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">yt-dlp --cookies youtube.com_cookies.txt -r 5M -N 4 -c &quot;https://www.youtube.com/watch?v=BcqPv3aR0lM&quot;</span><br></pre></td></tr></table></figure>
-<p>通常就能直接拿到 1080p&#x2F;720p 无需验证码。</p>
-<hr>
-<h2 id="③（可选）更懒的办法：直接读浏览器数据库"><a href="#③（可选）更懒的办法：直接读浏览器数据库" class="headerlink" title="③（可选）更懒的办法：直接读浏览器数据库"></a>③（可选）更懒的办法：直接读浏览器数据库</h2><p>如果你不想每次手动导出，可以让 yt-dlp 自己抽 Cookie（macOS 示例）  </p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">yt-dlp --cookies-from-browser chrome -r 5M -N 4 -c &quot;https://www.youtube.com/watch?v=BcqPv3aR0lM&quot;</span><br></pre></td></tr></table></figure>
-<p>• 会弹框要钥匙串权限，允许即可。<br>• 支持 chrome, chromium, firefox, safari, edge。</p>
-<hr>
-<h2 id="还报错？再加一层伪装"><a href="#还报错？再加一层伪装" class="headerlink" title="还报错？再加一层伪装"></a>还报错？再加一层伪装</h2><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">yt-dlp \</span><br><span class="line">  --cookies youtube.com_cookies.txt \</span><br><span class="line">  -r 5M -N 4 -c \</span><br><span class="line">  --user-agent &quot;Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36&quot; \</span><br><span class="line">  --proxy socks5://127.0.0.1:1080   # 如果你有代理</span><br><span class="line">  &quot;https://www.youtube.com/watch?v=BcqPv3aR0lM&quot;</span><br></pre></td></tr></table></figure>
-
-<hr>
-<h2 id="短期应急方案"><a href="#短期应急方案" class="headerlink" title="短期应急方案"></a>短期应急方案</h2><p>• 换个网络（手机热点、隔壁 Wi-Fi）往往就解除 429，可暂时不用 Cookie。<br>• 降低并发：把 <code>-N 4</code> 改成 <code>-N 1</code> 并加长间隔 <code>--sleep-requests 1 --sleep-interval 5</code>。</p>
-<hr>
-<h2 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h2><p>YouTube 429 ≠ yt-dlp 坏了，只是 IP&#x2F;账号被限。<br>“登录 + 塞 Cookie”是目前最稳的通用解法；导出一次后就能批量下。</p>
-<h2 id="yt-dlp-UI界面"><a href="#yt-dlp-UI界面" class="headerlink" title="yt-dlp + UI界面"></a>yt-dlp + UI界面</h2><p>Media Downloader（Qt 外壳，功能最全）<br>仓库  <a target="_blank" rel="noopener" href="https://github.com/mhogomchungu/media-downloader">https://github.com/mhogomchungu/media-downloader</a><br>特点<br>同时支持 yt-dlp、gallery-dl、aria2、wget…<br>内嵌“格式选择器”，可预览所有清晰度、帧率、码率。<br>自带“引擎管理”：一键更新 yt-dlp 可执行文件。<br>支持“订阅”——定时把播单增量拉到本地。<br>安装<br>Windows：Releases 里 MediaDownloader-Setup.exe<br>macOS：brew install –cask media-downloader<br>Linux：AppImage &#x2F; flatpak 都有。</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">yt-dlp --cookies-from-browser chrome -r 5M -N 4 -c yt-dlp -r 5M -N 4 -c &quot;https://www.bilibili.com/video/BV1u8mcBBEZT/?spm_id_from=333.1007.tianma.1-1-1.click&quot;</span><br><span class="line"></span><br></pre></td></tr></table></figure>
-
-
-<h2 id="高级配置用法，支持任务中断后继续"><a href="#高级配置用法，支持任务中断后继续" class="headerlink" title="高级配置用法，支持任务中断后继续"></a>高级配置用法，支持任务中断后继续</h2><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br><span class="line">100</span><br><span class="line">101</span><br><span class="line">102</span><br><span class="line">103</span><br><span class="line">104</span><br><span class="line">105</span><br><span class="line">106</span><br><span class="line">107</span><br><span class="line">108</span><br><span class="line">109</span><br><span class="line">110</span><br><span class="line">111</span><br><span class="line">112</span><br><span class="line">113</span><br><span class="line">114</span><br><span class="line">115</span><br><span class="line">116</span><br><span class="line">117</span><br><span class="line">118</span><br><span class="line">119</span><br><span class="line">120</span><br><span class="line">121</span><br><span class="line">122</span><br><span class="line">123</span><br><span class="line">124</span><br><span class="line">125</span><br><span class="line">126</span><br><span class="line">127</span><br><span class="line">128</span><br><span class="line">129</span><br><span class="line">130</span><br><span class="line">131</span><br><span class="line">132</span><br><span class="line">133</span><br><span class="line">134</span><br><span class="line">135</span><br><span class="line">136</span><br><span class="line">137</span><br><span class="line">138</span><br><span class="line">139</span><br><span class="line">140</span><br><span class="line">141</span><br></pre></td><td class="code"><pre><span class="line">  yt-dlp \</span><br><span class="line">    --proxy http://127.0.0.1:1081 \</span><br><span class="line">    --ignore-errors --continue --no-overwrites \</span><br><span class="line">    --write-info-json --write-thumbnail --embed-metadata --embed-subs \</span><br><span class="line">    --sub-langs &quot;zh.*,en.*,zh-CN,zh-TW,en&quot; --compat-options no-live-chat \</span><br><span class="line">    --merge-output-format mp4 --remux-video mp4 \</span><br><span class="line">    --format &quot;bv*[ext=mp4][height&lt;=1080]+ba[ext=m4a]/b[ext=mp4][height&lt;=1080]/bv+ba/b&quot; \</span><br><span class="line">    --output &quot;%(upload_date&gt;%Y-%m-%d)s %(title)s [%(id)s].%(ext)s&quot; \</span><br><span class="line">    --download-archive downloaded.txt \</span><br><span class="line">    --sleep-interval 3 --max-sleep-interval 13 \</span><br><span class="line">    https://www.youtube.com/@user-sbxsdsyy/playlists</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">yt-dlp \</span><br><span class="line">  --cookies-from-browser chrome \</span><br><span class="line">  --proxy http://127.0.0.1:1081 \</span><br><span class="line">  --ignore-errors --continue --no-overwrites \</span><br><span class="line">  --write-info-json --write-thumbnail --embed-metadata --embed-subs \</span><br><span class="line">  --sub-langs &quot;zh.*,en.*,zh-CN,zh-TW,en&quot; --compat-options no-live-chat \</span><br><span class="line">  --merge-output-format mp4 --remux-video mp4 \</span><br><span class="line">  --format &quot;bv*[ext=mp4][height&lt;=1080]+ba[ext=m4a]/b[ext=mp4][height&lt;=1080]/bv+ba/b&quot; \</span><br><span class="line">  --output &quot;%(upload_date&gt;%Y-%m-%d)s %(title)s [%(id)s].%(ext)s&quot; \</span><br><span class="line">  --download-archive downloaded.txt \</span><br><span class="line">  --sleep-interval 10 --max-sleep-interval 60 \</span><br><span class="line">  https://www.youtube.com/playlist\?list=PLR1ACzwrLF_3oaoAILcSc7vW6wHX2c1Xd</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"></span><br><span class="line">yt-dlp \</span><br><span class="line">  --cookies-from-browser chrome \</span><br><span class="line">  --proxy http://127.0.0.1:1081 \</span><br><span class="line">  --ignore-errors --continue --no-overwrites \</span><br><span class="line">  --write-info-json --write-thumbnail --embed-metadata --embed-subs \</span><br><span class="line">  --sub-langs &quot;zh.*,en.*,zh-CN,zh-TW,en&quot; --compat-options no-live-chat \</span><br><span class="line">  --merge-output-format mp4 --remux-video mp4 \</span><br><span class="line">  --format &quot;worst[ext=mp4]/22/18/bv[height&lt;=480]+ba/b&quot; \</span><br><span class="line">  --output &quot;%(upload_date&gt;%Y-%m-%d)s %(title)s [%(id)s].%(ext)s&quot; \</span><br><span class="line">  --download-archive downloaded.txt \</span><br><span class="line">  --sleep-interval 10 --max-sleep-interval 60 \</span><br><span class="line">  https://www.youtube.com/playlist\?list=PLR1ACzwrLF_3oaoAILcSc7vW6wHX2c1Xd</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"></span><br><span class="line">yt-dlp \</span><br><span class="line">  --cookies-from-browser chrome \</span><br><span class="line">  --ignore-errors --continue --no-overwrites \</span><br><span class="line">  --write-info-json --write-thumbnail --embed-metadata --embed-subs \</span><br><span class="line">  --sub-langs &quot;zh.*,en.*,zh-CN,zh-TW,en&quot; --compat-options no-live-chat \</span><br><span class="line">  --merge-output-format mp4 --remux-video mp4 \</span><br><span class="line">  --format &quot;worst[ext=mp4]/22/18/bv[height&lt;=480]+ba/b&quot; \</span><br><span class="line">  --output &quot;%(upload_date&gt;%Y-%m-%d)s %(title)s [%(id)s].%(ext)s&quot; \</span><br><span class="line">  --download-archive downloaded.txt \</span><br><span class="line">  --sleep-interval 10 --max-sleep-interval 60 \</span><br><span class="line">  https://www.youtube.com/playlist\?list=PLR1ACzwrLF_3oaoAILcSc7vW6wHX2c1Xd</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"></span><br><span class="line">yt-dlp \</span><br><span class="line">  --ignore-errors --continue --no-overwrites \</span><br><span class="line">  --write-info-json --write-thumbnail --embed-metadata --embed-subs \</span><br><span class="line">  --sub-langs &quot;zh.*,en.*,zh-CN,zh-TW,en&quot; --compat-options no-live-chat \</span><br><span class="line">  --merge-output-format mp4 --remux-video mp4 \</span><br><span class="line">  --format &quot;bv*[ext=mp4][height&lt;=1080]+ba[ext=m4a]/b[ext=mp4][height&lt;=1080]/bv+ba/b&quot; \</span><br><span class="line">  --output &quot;%(upload_date&gt;%Y-%m-%d)s %(title)s [%(id)s].%(ext)s&quot; \</span><br><span class="line">  --download-archive downloaded.txt \</span><br><span class="line">  --sleep-interval 3 --max-sleep-interval 13 \</span><br><span class="line">  https://www.youtube.com/playlist\?list=PLR1ACzwrLF_1hg5xjaX1mbOgPlmShcpjM</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"></span><br><span class="line">yt-dlp \</span><br><span class="line">  --ignore-errors --continue --no-overwrites \</span><br><span class="line">  --write-info-json --write-thumbnail --embed-metadata --embed-subs \</span><br><span class="line">  --sub-langs &quot;zh.*,en.*,zh-CN,zh-TW,en&quot; --compat-options no-live-chat \</span><br><span class="line">  --merge-output-format mp4 --remux-video mp4 \</span><br><span class="line">  --format &quot;bv*[ext=mp4][height&lt;=1080]+ba[ext=m4a]/b[ext=mp4][height&lt;=1080]/bv+ba/b&quot; \</span><br><span class="line">  --output &quot;%(upload_date&gt;%Y-%m-%d)s %(title)s [%(id)s].%(ext)s&quot; \</span><br><span class="line">  --download-archive downloaded.txt \</span><br><span class="line">  --sleep-interval 10 --max-sleep-interval 60 \</span><br><span class="line">  --playlist-reverse --playlist-start 1 --playlist-end 60 \</span><br><span class="line">  &quot;https://www.youtube.com/playlist?list=PLR1ACzwrLF_3tmjscUfjGpawHRKze3pI7&quot;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"></span><br><span class="line"></span><br><span class="line"></span><br><span class="line"></span><br><span class="line"></span><br><span class="line">查询有多少条数据</span><br><span class="line">yt-dlp --flat-playlist --print &quot;%(playlist_index)s&quot; \</span><br><span class="line">  &quot;https://www.youtube.com/playlist\?list=PLR1ACzwrLF_3tmjscUfjGpawHRKze3pI7&quot; | \</span><br><span class="line">tail -n1</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"></span><br><span class="line">yt-dlp \</span><br><span class="line">  --ignore-errors --continue --no-overwrites \</span><br><span class="line">  --write-info-json --write-thumbnail --embed-metadata --embed-subs \</span><br><span class="line">  --sub-langs &quot;zh.*,en.*,zh-CN,zh-TW,en&quot; --compat-options no-live-chat \</span><br><span class="line">  --merge-output-format mp4 --remux-video mp4 \</span><br><span class="line">  --format &quot;bv*[ext=mp4][height&lt;=1080]+ba[ext=m4a]/b[ext=mp4][height&lt;=1080]/bv+ba/b&quot; \</span><br><span class="line">  --output &quot;%(upload_date&gt;%Y-%m-%d)s %(title)s [%(id)s].%(ext)s&quot; \</span><br><span class="line">  --download-archive downloaded.txt \</span><br><span class="line">  --sleep-interval 3 --max-sleep-interval 13 \</span><br><span class="line">  --playlist-start 227 \</span><br><span class="line">  &quot;https://www.youtube.com/playlist\?list=PLR1ACzwrLF_3tmjscUfjGpawHRKze3pI7&quot;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">  yt-dlp --proxy http://127.0.0.1:1081 \</span><br><span class="line">       --flat-playlist \</span><br><span class="line">       --print &quot;%(title)s | %(id)s | %(webpage_url)s&quot; \</span><br><span class="line">       https://www.youtube.com/@user-sbxsdsyy/playlists</span><br><span class="line">       </span><br><span class="line">數學合集 | PLR1ACzwrLF_0LkIfD49gYWamb5chMpKZb | https://www.youtube.com/playlist?list=PLR1ACzwrLF_0LkIfD49gYWamb5chMpKZb</span><br><span class="line">記單詞 | PLR1ACzwrLF_0RhtAElUXqI1ZRC5KLUmze | https://www.youtube.com/playlist?list=PLR1ACzwrLF_0RhtAElUXqI1ZRC5KLUmze</span><br><span class="line">封神演義 | PLR1ACzwrLF_1dMwOPm7aOaoUr-RwUh0gI | https://www.youtube.com/playlist?list=PLR1ACzwrLF_1dMwOPm7aOaoUr-RwUh0gI</span><br><span class="line">紅樓夢 | PLR1ACzwrLF_2VpoCKy4h31uZtDGJrDMuU | https://www.youtube.com/playlist?list=PLR1ACzwrLF_2VpoCKy4h31uZtDGJrDMuU</span><br><span class="line">故宫小故事 | PLR1ACzwrLF_3H_UMEnDAxJozjU5xy_8Yr | https://www.youtube.com/playlist?list=PLR1ACzwrLF_3H_UMEnDAxJozjU5xy_8Yr</span><br><span class="line">中學歷史 | PLR1ACzwrLF_11MxvNZTDBtPs09RwzSZte | https://www.youtube.com/playlist?list=PLR1ACzwrLF_11MxvNZTDBtPs09RwzSZte</span><br><span class="line">物理化學實驗課 | PLR1ACzwrLF_0UFfMfuHN5Ok4HGHnAJICj | https://www.youtube.com/playlist?list=PLR1ACzwrLF_0UFfMfuHN5Ok4HGHnAJICj</span><br><span class="line">中學地理 | PLR1ACzwrLF_0-FvCBkURhCR-xtr06pR0H | https://www.youtube.com/playlist?list=PLR1ACzwrLF_0-FvCBkURhCR-xtr06pR0H</span><br><span class="line">中學英語 | PLR1ACzwrLF_3oaoAILcSc7vW6wHX2c1Xd | https://www.youtube.com/playlist?list=PLR1ACzwrLF_3oaoAILcSc7vW6wHX2c1Xd</span><br><span class="line">中學生物 | PLR1ACzwrLF_1woXE4M6WW39TUKWUtr31r | https://www.youtube.com/playlist?list=PLR1ACzwrLF_1woXE4M6WW39TUKWUtr31r</span><br><span class="line">小學數學 | PLR1ACzwrLF_3tmjscUfjGpawHRKze3pI7 | https://www.youtube.com/playlist?list=PLR1ACzwrLF_3tmjscUfjGpawHRKze3pI7</span><br><span class="line">文言文学习 | PLR1ACzwrLF_3Hghqe7ULVDjc9xvdiemuu | https://www.youtube.com/playlist?list=PLR1ACzwrLF_3Hghqe7ULVDjc9xvdiemuu</span><br><span class="line">初中数学 | PLR1ACzwrLF_1cGgv_lYjkzG3Qca-eA67v | https://www.youtube.com/playlist?list=PLR1ACzwrLF_1cGgv_lYjkzG3Qca-eA67v</span><br><span class="line">高中物理 | PLR1ACzwrLF_1W1nOT0-0WI51VsufIWO3C | https://www.youtube.com/playlist?list=PLR1ACzwrLF_1W1nOT0-0WI51VsufIWO3C</span><br><span class="line">高中化学 | PLR1ACzwrLF_3JEmrFtjdGYHIUtnWtiPCK | https://www.youtube.com/playlist?list=PLR1ACzwrLF_3JEmrFtjdGYHIUtnWtiPCK</span><br><span class="line">高中数学 | PLR1ACzwrLF_09MidJqluugHTHQCErNeSb | https://www.youtube.com/playlist?list=PLR1ACzwrLF_09MidJqluugHTHQCErNeSb</span><br><span class="line">高中語文 | PLR1ACzwrLF_2gwtuI6nYtYrj2id8VpSb2 | https://www.youtube.com/playlist?list=PLR1ACzwrLF_2gwtuI6nYtYrj2id8VpSb2</span><br><span class="line">小学奥数  奥林匹克数学竞赛 | PLR1ACzwrLF_3gjfp4EXD138c7pQ9AMhkR | https://www.youtube.com/playlist?list=PLR1ACzwrLF_3gjfp4EXD138c7pQ9AMhkR</span><br><span class="line">初中化学 | PLR1ACzwrLF_0qe4lqmCAagBIW3SZ4fF2i | https://www.youtube.com/playlist?list=PLR1ACzwrLF_0qe4lqmCAagBIW3SZ4fF2i</span><br><span class="line">初中物理 | PLR1ACzwrLF_3gUJQ701S7E_sapkYgjcHe | https://www.youtube.com/playlist?list=PLR1ACzwrLF_3gUJQ701S7E_sapkYgjcHe</span><br><span class="line">英語語法學習 | PLR1ACzwrLF_1hg5xjaX1mbOgPlmShcpjM | https://www.youtube.com/playlist?list=PLR1ACzwrLF_1hg5xjaX1mbOgPlmShcpjM</span><br><span class="line">趣味詩詞小故事 | PLR1ACzwrLF_0kAYMeYrjQUh6ETgFKBGXw | https://www.youtube.com/playlist?list=PLR1ACzwrLF_0kAYMeYrjQUh6ETgFKBGXw</span><br><span class="line">趣味文學小故事 | PLR1ACzwrLF_1A_KwQuNjHVUWhJsyJvf_4 | https://www.youtube.com/playlist?list=PLR1ACzwrLF_1A_KwQuNjHVUWhJsyJvf_4</span><br><span class="line">趣味唐詩小故事 | PLR1ACzwrLF_1wAMWccHzA_yRWeryWIzcg | https://www.youtube.com/playlist?list=PLR1ACzwrLF_1wAMWccHzA_yRWeryWIzcg</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"></span><br><span class="line"></span><br></pre></td></tr></table></figure>
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
-      
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="http://example.com/2025/12/10/Dify-mcp-%E9%93%BE%E8%B7%AF%E6%89%93%E9%80%9A%E8%B0%83%E6%95%B4/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.gif">
-      <meta itemprop="name" content="wangzhiwei">
-      <meta itemprop="description" content="javascript nodejs web developer...">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="WBlog">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/2025/12/10/Dify-mcp-%E9%93%BE%E8%B7%AF%E6%89%93%E9%80%9A%E8%B0%83%E6%95%B4/" class="post-title-link" itemprop="url">Dify mcp 链路打通调整</a>
-        </h2>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              <span class="post-meta-item-text">发表于</span>
-              
-
-              <time title="创建时间：2025-12-10 17:39:02 / 修改时间：17:47:01" itemprop="dateCreated datePublished" datetime="2025-12-10T17:39:02+08:00">2025-12-10</time>
-            </span>
-
-          
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <h2 id="Dify-mcp-链路打通调整"><a href="#Dify-mcp-链路打通调整" class="headerlink" title="Dify mcp 链路打通调整"></a>Dify mcp 链路打通调整</h2><h3 id="参考文档："><a href="#参考文档：" class="headerlink" title="参考文档："></a>参考文档：</h3><p><a target="_blank" rel="noopener" href="https://github.com/langgenius/dify/issues/28224">https://github.com/langgenius/dify/issues/28224</a><br><a target="_blank" rel="noopener" href="https://www.youtube.com/watch?v=kLKn3_tj70s">https://www.youtube.com/watch?v=kLKn3_tj70s</a></p>
-<h3 id="dify应用的集成"><a href="#dify应用的集成" class="headerlink" title="dify应用的集成"></a>dify应用的集成</h3><p>通过获取登录后接口返回的 user_uuid，进行编码，编码为符合dify要求的格式</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line">user:&#123;&quot;user_uuid&quot;:&quot;c23afa76-c1d0-4980-ab00-9c041409b034&quot;&#125;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">async function compressAndEncodeBase64(input: string) &#123;</span><br><span class="line">  const uint8Array = (new TextEncoder()).encode(input);</span><br><span class="line">  const compressedStream = new Response(</span><br><span class="line">    new Blob([uint8Array]).stream().pipeThrough(new CompressionStream(&quot;gzip&quot;))</span><br><span class="line">  ).arrayBuffer();</span><br><span class="line">  const compressedUint8Array = new Uint8Array(await compressedStream);</span><br><span class="line">  return btoa(String.fromCharCode(...compressedUint8Array));</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">//编码为符合dify要求的格式</span><br><span class="line">compressAndEncodeBase64(&#x27;c23afa76-c1d0-4980-ab00-9c041409b034&#x27;, then(code) =&gt; &#123;</span><br><span class="line">    console.log(code);</span><br><span class="line">&#125;)</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">//根据上一步生成的code,拼接最终的url参数 sys.user_id</span><br><span class="line">https://xxxxxx:8080/chatbot/DpIAYCqQAtgSpHSc?sys.user_id=H4sIAAAAAAAAE0s2Mk5MSzQ30002TDHQNbG0MNBNTDIw0LVMNjAxNDGwTDIwNgEA0UXx2iQAAAA=</span><br><span class="line"></span><br><span class="line"></span><br></pre></td></tr></table></figure>
-
-<h3 id="参考文档：-1"><a href="#参考文档：-1" class="headerlink" title="参考文档："></a>参考文档：</h3><p><a target="_blank" rel="noopener" href="https://github.com/langgenius/dify/pull/27524">https://github.com/langgenius/dify/pull/27524</a><br><a target="_blank" rel="noopener" href="https://github.com/langgenius/dify/issues/27468">https://github.com/langgenius/dify/issues/27468</a></p>
-<h3 id="链路打通的最新抓包文件"><a href="#链路打通的最新抓包文件" class="headerlink" title="链路打通的最新抓包文件"></a>链路打通的最新抓包文件</h3><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br><span class="line">100</span><br><span class="line">101</span><br><span class="line">102</span><br><span class="line">103</span><br><span class="line">104</span><br><span class="line">105</span><br><span class="line">106</span><br><span class="line">107</span><br><span class="line">108</span><br><span class="line">109</span><br><span class="line">110</span><br><span class="line">111</span><br><span class="line">112</span><br><span class="line">113</span><br><span class="line">114</span><br><span class="line">115</span><br><span class="line">116</span><br><span class="line">117</span><br><span class="line">118</span><br><span class="line">119</span><br><span class="line">120</span><br><span class="line">121</span><br><span class="line">122</span><br><span class="line">123</span><br><span class="line">124</span><br><span class="line">125</span><br><span class="line">126</span><br><span class="line">127</span><br><span class="line">128</span><br><span class="line">129</span><br><span class="line">130</span><br><span class="line">131</span><br><span class="line">132</span><br><span class="line">133</span><br><span class="line">134</span><br><span class="line">135</span><br><span class="line">136</span><br><span class="line">137</span><br><span class="line">138</span><br><span class="line">139</span><br><span class="line">140</span><br><span class="line">141</span><br><span class="line">142</span><br><span class="line">143</span><br><span class="line">144</span><br><span class="line">145</span><br><span class="line">146</span><br><span class="line">147</span><br><span class="line">148</span><br><span class="line">149</span><br><span class="line">150</span><br><span class="line">151</span><br><span class="line">152</span><br><span class="line">153</span><br><span class="line">154</span><br><span class="line">155</span><br><span class="line">156</span><br><span class="line">157</span><br><span class="line">158</span><br><span class="line">159</span><br><span class="line">160</span><br><span class="line">161</span><br><span class="line">162</span><br><span class="line">163</span><br><span class="line">164</span><br><span class="line">165</span><br><span class="line">166</span><br><span class="line">167</span><br><span class="line">168</span><br><span class="line">169</span><br><span class="line">170</span><br><span class="line">171</span><br><span class="line">172</span><br><span class="line">173</span><br><span class="line">174</span><br><span class="line">175</span><br><span class="line">176</span><br><span class="line">177</span><br><span class="line">178</span><br><span class="line">179</span><br><span class="line">180</span><br><span class="line">181</span><br><span class="line">182</span><br><span class="line">183</span><br><span class="line">184</span><br><span class="line">185</span><br></pre></td><td class="code"><pre><span class="line">uuid: c23afa76-c1d0-4980-ab00-9c041409b034</span><br><span class="line">POST /mcp HTTP/1.1</span><br><span class="line">Host: 192.168.40.211:18080</span><br><span class="line">Accept-Encoding: gzip, deflate</span><br><span class="line">Connection: keep-alive</span><br><span class="line">User-Agent: python-httpx/0.27.2</span><br><span class="line">uuid: c23afa76-c1d0-4980-ab00-9c041409b034</span><br><span class="line">Content-Type: application/json</span><br><span class="line">Accept: application/json, text/event-stream</span><br><span class="line">Content-Length: 190</span><br><span class="line"></span><br><span class="line">&#123;&quot;jsonrpc&quot;: &quot;2.0&quot;, &quot;id&quot;: 0, &quot;method&quot;: &quot;initialize&quot;, &quot;params&quot;: &#123;&quot;protocolVersion&quot;: &quot;2024-11-05&quot;, &quot;capabilities&quot;: &#123;&#125;, &quot;clientInfo&quot;: &#123;&quot;name&quot;: &quot;MCP Streamable HTTP Client&quot;, &quot;version&quot;: &quot;1.0.0&quot;&#125;&#125;&#125;</span><br><span class="line">HTTP/1.1 200 OK</span><br><span class="line">Server: njet/4.0.0.0</span><br><span class="line">Date: Wed, 10 Dec 2025 06:27:21 GMT</span><br><span class="line">Content-Type: application/json</span><br><span class="line">Connection: keep-alive</span><br><span class="line">Content-Length: 277</span><br><span class="line">Mcp-Session-Id: aTkSyQiJwOoCAAB9</span><br><span class="line"></span><br><span class="line">&#123;&quot;jsonrpc&quot;:&quot;2.0&quot;,&quot;result&quot;:&#123;&quot;protocolVersion&quot;:&quot;2024-11-05&quot;,&quot;serverInfo&quot;:&#123;&quot;name&quot;:&quot;lua-resty-mcp&quot;,&quot;version&quot;:&quot;2.0&quot;&#125;,&quot;capabilities&quot;:&#123;&quot;completions&quot;:&#123;&#125;,&quot;prompts&quot;:&#123;&quot;listChanged&quot;:true&#125;,&quot;logging&quot;:&#123;&#125;,&quot;tools&quot;:&#123;&quot;listChanged&quot;:true&#125;,&quot;resources&quot;:&#123;&quot;listChanged&quot;:true,&quot;subscribe&quot;:true&#125;&#125;&#125;,&quot;id&quot;:0&#125;</span><br><span class="line">POST /mcp HTTP/1.1</span><br><span class="line">Host: 192.168.40.211:18080</span><br><span class="line">Accept-Encoding: gzip, deflate</span><br><span class="line">Connection: keep-alive</span><br><span class="line">User-Agent: python-httpx/0.27.2</span><br><span class="line">uuid: c23afa76-c1d0-4980-ab00-9c041409b034</span><br><span class="line">Content-Type: application/json</span><br><span class="line">Accept: application/json, text/event-stream</span><br><span class="line">Mcp-Session-Id: aTkSyQiJwOoCAAB9</span><br><span class="line">Content-Length: 71</span><br><span class="line"></span><br><span class="line">&#123;&quot;jsonrpc&quot;: &quot;2.0&quot;, &quot;method&quot;: &quot;notifications/initialized&quot;, &quot;params&quot;: &#123;&#125;&#125;</span><br><span class="line">HTTP/1.1 202 Accepted</span><br><span class="line">Server: njet/4.0.0.0</span><br><span class="line">Date: Wed, 10 Dec 2025 06:27:21 GMT</span><br><span class="line">Content-Type: text/plain</span><br><span class="line">Transfer-Encoding: chunked</span><br><span class="line">Connection: keep-alive</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">POST /mcp HTTP/1.1</span><br><span class="line">Host: 192.168.40.211:18080</span><br><span class="line">Accept-Encoding: gzip, deflate</span><br><span class="line">Connection: keep-alive</span><br><span class="line">User-Agent: python-httpx/0.27.2</span><br><span class="line">uuid: c23afa76-c1d0-4980-ab00-9c041409b034</span><br><span class="line">Content-Type: application/json</span><br><span class="line">Accept: application/json, text/event-stream</span><br><span class="line">Mcp-Session-Id: aTkSyQiJwOoCAAB9</span><br><span class="line">Content-Length: 65</span><br><span class="line"></span><br><span class="line">&#123;&quot;jsonrpc&quot;: &quot;2.0&quot;, &quot;id&quot;: 1, &quot;method&quot;: &quot;tools/list&quot;, &quot;params&quot;: &#123;&#125;&#125;</span><br><span class="line">HTTP/1.1 200 OK</span><br><span class="line">Server: njet/4.0.0.0</span><br><span class="line">Date: Wed, 10 Dec 2025 06:27:21 GMT</span><br><span class="line">Content-Type: text/event-stream</span><br><span class="line">Transfer-Encoding: chunked</span><br><span class="line">Connection: keep-alive</span><br><span class="line">Cache-Control: no-store, no-transform</span><br><span class="line">Connection: keep-alive</span><br><span class="line"></span><br><span class="line">data:&#123;&quot;jsonrpc&quot;:&quot;2.0&quot;,&quot;result&quot;:&#123;&quot;tools&quot;:[&#123;&quot;name&quot;:&quot;echo&quot;,&quot;inputSchema&quot;:&#123;&quot;required&quot;:[&quot;message&quot;],&quot;type&quot;:&quot;object&quot;,&quot;properties&quot;:&#123;&quot;message&quot;:&#123;&quot;type&quot;:&quot;string&quot;&#125;&#125;&#125;,&quot;description&quot;:&quot;Echo a message as a tool&quot;&#125;,&#123;&quot;name&quot;:&quot;exp&quot;,&quot;inputSchema&quot;:&#123;&quot;required&quot;:[&quot;inputA&quot;,&quot;oper&quot;,&quot;inputB&quot;],&quot;type&quot;:&quot;object&quot;,&quot;properties&quot;:&#123;&quot;inputB&quot;:&#123;&quot;type&quot;:&quot;number&quot;&#125;,&quot;oper&quot;:&#123;&quot;type&quot;:&quot;string&quot;&#125;,&quot;inputA&quot;:&#123;&quot;type&quot;:&quot;number&quot;&#125;&#125;&#125;,&quot;description&quot;:&quot;a tool to calculate math expressions, like 1+1=?&quot;&#125;]&#125;,&quot;id&quot;:1&#125;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">POST /mcp HTTP/1.1</span><br><span class="line">Host: 192.168.40.211:18080</span><br><span class="line">Accept-Encoding: gzip, deflate</span><br><span class="line">Connection: keep-alive</span><br><span class="line">User-Agent: python-httpx/0.27.2</span><br><span class="line">uuid: c23afa76-c1d0-4980-ab00-9c041409b034</span><br><span class="line">Content-Type: application/json</span><br><span class="line">Accept: application/json, text/event-stream</span><br><span class="line">Mcp-Session-Id: aTkSyQiJwOoCAAB9</span><br><span class="line">Content-Length: 111</span><br><span class="line"></span><br><span class="line">&#123;&quot;jsonrpc&quot;: &quot;2.0&quot;, &quot;id&quot;: 2, &quot;method&quot;: &quot;tools/call&quot;, &quot;params&quot;: &#123;&quot;name&quot;: &quot;echo&quot;, &quot;arguments&quot;: &#123;&quot;message&quot;: &quot;aa&quot;&#125;&#125;&#125;</span><br><span class="line">HTTP/1.1 200 OK</span><br><span class="line">Server: njet/4.0.0.0</span><br><span class="line">Date: Wed, 10 Dec 2025 06:27:24 GMT</span><br><span class="line">Content-Type: text/event-stream</span><br><span class="line">Transfer-Encoding: chunked</span><br><span class="line">Connection: keep-alive</span><br><span class="line">Cache-Control: no-store, no-transform</span><br><span class="line">Connection: keep-alive</span><br><span class="line"></span><br><span class="line">data:&#123;&quot;jsonrpc&quot;:&quot;2.0&quot;,&quot;result&quot;:&#123;&quot;content&quot;:[&#123;&quot;text&quot;:&quot;Tool echo: aa&quot;,&quot;type&quot;:&quot;text&quot;&#125;]&#125;,&quot;id&quot;:2&#125;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">POST /mcp HTTP/1.1</span><br><span class="line">Host: 192.168.40.211:18080</span><br><span class="line">Accept-Encoding: gzip, deflate</span><br><span class="line">Connection: keep-alive</span><br><span class="line">User-Agent: python-httpx/0.27.2</span><br><span class="line">uuid: c23afa76-c1d0-4980-ab00-9c041409b034</span><br><span class="line">Content-Type: application/json</span><br><span class="line">Accept: application/json, text/event-stream</span><br><span class="line">Mcp-Session-Id: aTkSyQiJwOoCAAB9</span><br><span class="line">Content-Length: 111</span><br><span class="line"></span><br><span class="line">&#123;&quot;jsonrpc&quot;: &quot;2.0&quot;, &quot;id&quot;: 3, &quot;method&quot;: &quot;tools/call&quot;, &quot;params&quot;: &#123;&quot;name&quot;: &quot;echo&quot;, &quot;arguments&quot;: &#123;&quot;message&quot;: &quot;aa&quot;&#125;&#125;&#125;</span><br><span class="line">HTTP/1.1 200 OK</span><br><span class="line">Server: njet/4.0.0.0</span><br><span class="line">Date: Wed, 10 Dec 2025 06:27:27 GMT</span><br><span class="line">Content-Type: text/event-stream</span><br><span class="line">Transfer-Encoding: chunked</span><br><span class="line">Connection: keep-alive</span><br><span class="line">Cache-Control: no-store, no-transform</span><br><span class="line">Connection: keep-alive</span><br><span class="line"></span><br><span class="line">data:&#123;&quot;jsonrpc&quot;:&quot;2.0&quot;,&quot;result&quot;:&#123;&quot;content&quot;:[&#123;&quot;text&quot;:&quot;Tool echo: aa&quot;,&quot;type&quot;:&quot;text&quot;&#125;]&#125;,&quot;id&quot;:3&#125;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">POST /mcp HTTP/1.1</span><br><span class="line">Host: 192.168.40.211:18080</span><br><span class="line">Accept-Encoding: gzip, deflate</span><br><span class="line">Connection: keep-alive</span><br><span class="line">User-Agent: python-httpx/0.27.2</span><br><span class="line">uuid: c23afa76-c1d0-4980-ab00-9c041409b034</span><br><span class="line">Content-Type: application/json</span><br><span class="line">Accept: application/json, text/event-stream</span><br><span class="line">Mcp-Session-Id: aTkSyQiJwOoCAAB9</span><br><span class="line">Content-Length: 111</span><br><span class="line"></span><br><span class="line">&#123;&quot;jsonrpc&quot;: &quot;2.0&quot;, &quot;id&quot;: 4, &quot;method&quot;: &quot;tools/call&quot;, &quot;params&quot;: &#123;&quot;name&quot;: &quot;echo&quot;, &quot;arguments&quot;: &#123;&quot;message&quot;: &quot;aa&quot;&#125;&#125;&#125;</span><br><span class="line">HTTP/1.1 200 OK</span><br><span class="line">Server: njet/4.0.0.0</span><br><span class="line">Date: Wed, 10 Dec 2025 06:27:30 GMT</span><br><span class="line">Content-Type: text/event-stream</span><br><span class="line">Transfer-Encoding: chunked</span><br><span class="line">Connection: keep-alive</span><br><span class="line">Cache-Control: no-store, no-transform</span><br><span class="line">Connection: keep-alive</span><br><span class="line"></span><br><span class="line">data:&#123;&quot;jsonrpc&quot;:&quot;2.0&quot;,&quot;result&quot;:&#123;&quot;content&quot;:[&#123;&quot;text&quot;:&quot;Tool echo: aa&quot;,&quot;type&quot;:&quot;text&quot;&#125;]&#125;,&quot;id&quot;:4&#125;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">POST /mcp HTTP/1.1</span><br><span class="line">Host: 192.168.40.211:18080</span><br><span class="line">Accept-Encoding: gzip, deflate</span><br><span class="line">Connection: keep-alive</span><br><span class="line">User-Agent: python-httpx/0.27.2</span><br><span class="line">uuid: c23afa76-c1d0-4980-ab00-9c041409b034</span><br><span class="line">Content-Type: application/json</span><br><span class="line">Accept: application/json, text/event-stream</span><br><span class="line">Mcp-Session-Id: aTkSyQiJwOoCAAB9</span><br><span class="line">Content-Length: 111</span><br><span class="line"></span><br><span class="line">&#123;&quot;jsonrpc&quot;: &quot;2.0&quot;, &quot;id&quot;: 5, &quot;method&quot;: &quot;tools/call&quot;, &quot;params&quot;: &#123;&quot;name&quot;: &quot;echo&quot;, &quot;arguments&quot;: &#123;&quot;message&quot;: &quot;aa&quot;&#125;&#125;&#125;</span><br><span class="line">HTTP/1.1 200 OK</span><br><span class="line">Server: njet/4.0.0.0</span><br><span class="line">Date: Wed, 10 Dec 2025 06:27:33 GMT</span><br><span class="line">Content-Type: text/event-stream</span><br><span class="line">Transfer-Encoding: chunked</span><br><span class="line">Connection: keep-alive</span><br><span class="line">Cache-Control: no-store, no-transform</span><br><span class="line">Connection: keep-alive</span><br><span class="line"></span><br><span class="line">data:&#123;&quot;jsonrpc&quot;:&quot;2.0&quot;,&quot;result&quot;:&#123;&quot;content&quot;:[&#123;&quot;text&quot;:&quot;Tool echo: aa&quot;,&quot;type&quot;:&quot;text&quot;&#125;]&#125;,&quot;id&quot;:5&#125;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">POST /mcp HTTP/1.1</span><br><span class="line">Host: 192.168.40.211:18080</span><br><span class="line">Accept-Encoding: gzip, deflate</span><br><span class="line">Connection: keep-alive</span><br><span class="line">User-Agent: python-httpx/0.27.2</span><br><span class="line">uuid: c23afa76-c1d0-4980-ab00-9c041409b034</span><br><span class="line">Content-Type: application/json</span><br><span class="line">Accept: application/json, text/event-stream</span><br><span class="line">Mcp-Session-Id: aTkSyQiJwOoCAAB9</span><br><span class="line">Content-Length: 111</span><br><span class="line"></span><br><span class="line">&#123;&quot;jsonrpc&quot;: &quot;2.0&quot;, &quot;id&quot;: 6, &quot;method&quot;: &quot;tools/call&quot;, &quot;params&quot;: &#123;&quot;name&quot;: &quot;echo&quot;, &quot;arguments&quot;: &#123;&quot;message&quot;: &quot;aa&quot;&#125;&#125;&#125;</span><br><span class="line">HTTP/1.1 200 OK</span><br><span class="line">Server: njet/4.0.0.0</span><br><span class="line">Date: Wed, 10 Dec 2025 06:27:36 GMT</span><br><span class="line">Content-Type: text/event-stream</span><br><span class="line">Transfer-Encoding: chunked</span><br><span class="line">Connection: keep-alive</span><br><span class="line">Cache-Control: no-store, no-transform</span><br><span class="line">Connection: keep-alive</span><br><span class="line"></span><br><span class="line">data:&#123;&quot;jsonrpc&quot;:&quot;2.0&quot;,&quot;result&quot;:&#123;&quot;content&quot;:[&#123;&quot;text&quot;:&quot;Tool echo: aa&quot;,&quot;type&quot;:&quot;text&quot;&#125;]&#125;,&quot;id&quot;:6&#125;</span><br><span class="line"></span><br><span class="line"></span><br></pre></td></tr></table></figure>
-
-<p>另外一种方法是自己调用一下 dify 的 passport 接口，将 user_id 传给 dify. 待验证。</p>
-<p><img src="/../images/mcp01.png"></p>
-
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
 
   
   <nav class="pagination">
@@ -3356,7 +3835,7 @@
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">102</span>
+          <span class="site-state-item-count">104</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>
