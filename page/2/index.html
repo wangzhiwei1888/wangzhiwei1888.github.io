@@ -149,6 +149,108 @@
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="http://example.com/2026/02/23/%E5%A4%8D%E4%B9%A0/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="wangzhiwei">
+      <meta itemprop="description" content="javascript nodejs web developer...">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="WBlog">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/2026/02/23/%E5%A4%8D%E4%B9%A0/" class="post-title-link" itemprop="url">复习</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2026-02-23 15:49:12" itemprop="dateCreated datePublished" datetime="2026-02-23T15:49:12+08:00">2026-02-23</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-calendar-check-o"></i>
+                </span>
+                <span class="post-meta-item-text">更新于</span>
+                <time title="修改时间：2026-03-01 10:31:59" itemprop="dateModified" datetime="2026-03-01T10:31:59+08:00">2026-03-01</time>
+              </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/%E9%9D%A2%E8%AF%95%E9%A2%98/" itemprop="url" rel="index"><span itemprop="name">面试题</span></a>
+                </span>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <h2 id="闭包"><a href="#闭包" class="headerlink" title="闭包"></a>闭包</h2><p>闭包：是一个函数和其词法环境的组合，它允许函数访问其外部作用域的变量。<br>优点：可以创建私有变量、数据封装、实现柯里化等高级函数式编程<br>潜在问题：主要是内存泄漏（因为外部变量无法被回收）和循环中的变量引用问题。<br>避免内存泄漏的方法：在不需要时手动解除引用（&#x3D; null），以及及时移除事件监听器。</p>
+<p>问题：内存泄露</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line">手动解除引用</span><br><span class="line"></span><br><span class="line">function createLeakyClosure() &#123;</span><br><span class="line"></span><br><span class="line">    let largeData = &#123; // 创建一个非常大的数据对象&#125;;</span><br><span class="line"></span><br><span class="line">    return function () &#123;</span><br><span class="line">        // ... use largeData</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">let myClosure = createLeakyClosure();</span><br><span class="line">myClosure = null;</span><br><span class="line"></span><br><span class="line">// Dom 事件监听器用的比较多的地方 要及时移除事件监听器</span><br><span class="line"></span><br><span class="line">例如 react 中的 useEffect 中 </span><br><span class="line"></span><br><span class="line">return () =&gt; &#123;</span><br><span class="line">    document.removeEventListener(&#x27;click&#x27;, handleClick);</span><br><span class="line">&#125;</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<h2 id="函数柯里化"><a href="#函数柯里化" class="headerlink" title="函数柯里化"></a>函数柯里化</h2><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br></pre></td><td class="code"><pre><span class="line">const sumFn = (...args) =&gt; &#123;</span><br><span class="line">    return args.reduce((a, b) =&gt; a + b);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">const sortFn = (...args) =&gt; &#123;</span><br><span class="line">    return args.sort((a, b) =&gt; a - b);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">var currying = function (fn) &#123;</span><br><span class="line">    const args = [];</span><br><span class="line"></span><br><span class="line">    return function result(...rest) &#123;</span><br><span class="line">        if (rest.length === 0) &#123;</span><br><span class="line">            //return fn.apply(this, args);</span><br><span class="line">            return fn(...args);</span><br><span class="line">        &#125; else &#123;</span><br><span class="line">            args.push(...rest);</span><br><span class="line">            return result;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">currying(sortFn)(10)(2,7)(3)(4)(5)()</span><br><span class="line"></span><br><span class="line">currying(sumFn)(1)(2)(3)(4)(5)()</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">// 应用</span><br><span class="line"></span><br><span class="line">function curry(fn) &#123;</span><br><span class="line">    return function curried(...args) &#123;</span><br><span class="line">        </span><br><span class="line">        debugger</span><br><span class="line">        // 如果参数够了，直接执行</span><br><span class="line">        if (args.length &gt;= fn.length) &#123;</span><br><span class="line">            return fn.apply(this, args);</span><br><span class="line">        &#125;</span><br><span class="line">        // 参数不够，返回新函数继续收集参数</span><br><span class="line">        return function(...nextArgs) &#123;</span><br><span class="line">            return curried.apply(this, args.concat(nextArgs));</span><br><span class="line">        &#125;;</span><br><span class="line">    &#125;;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">// 使用示例</span><br><span class="line">function sum(a, b, c, d) &#123;</span><br><span class="line">    return a + b + c + d;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">const curriedSum = curry(sum);</span><br><span class="line"></span><br><span class="line">// 多种调用方式</span><br><span class="line">curriedSum(1)(2)(3)(4);      // 10</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">// API 请求配置</span><br><span class="line">const request = curry((baseURL, endpoint, method, data) =&gt; </span><br><span class="line">    fetch(`$&#123;baseURL&#125;$&#123;endpoint&#125;`, &#123;</span><br><span class="line">        method,</span><br><span class="line">        headers: &#123; &#x27;Content-Type&#x27;: &#x27;application/json&#x27; &#125;,</span><br><span class="line">        body: JSON.stringify(data)</span><br><span class="line">    &#125;)</span><br><span class="line">);</span><br><span class="line"></span><br><span class="line">const api = request(&#x27;https://api.example.com&#x27;);</span><br><span class="line">const getUser = api(&#x27;/users&#x27;);</span><br><span class="line">const createUser = getUser(&#x27;POST&#x27;);</span><br><span class="line"></span><br><span class="line">// 使用</span><br><span class="line">createUser(&#123; name: &#x27;张三&#x27;, age: 25 &#125;);</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+
+<h2 id="类型转换"><a href="#类型转换" class="headerlink" title="类型转换"></a>类型转换</h2><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">String.prototype.valueOf = function () &#123;</span><br><span class="line">    return &#x27;hello world&#x27;;</span><br><span class="line">&#125;</span><br><span class="line">Number.prototype.valueOf = function () &#123;</span><br><span class="line">    return 123;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">隐式类型转换会调用 valueOf() 和 toString() 方法.</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">console.log(&#x27;[] == ![]&#x27;, [] == ![]) // true</span><br><span class="line"></span><br><span class="line">// [] == false</span><br><span class="line">// [] == 0</span><br><span class="line">// &#x27;&#x27; == 0</span><br><span class="line"></span><br><span class="line">console.log(&#x27;[] == []&#x27;, [] == []) // false</span><br><span class="line">console.log(&#x27;&#123;&#125; == &#123;&#125;&#x27;, &#123;&#125; == &#123;&#125;) // false</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"></span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+
+<h2 id="浅拷贝和深拷贝"><a href="#浅拷贝和深拷贝" class="headerlink" title="浅拷贝和深拷贝"></a>浅拷贝和深拷贝</h2><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">var obj = &#123;</span><br><span class="line">    a: 1,</span><br><span class="line">    b: 2</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">const obj2 = &#123;</span><br><span class="line">    ...obj</span><br><span class="line">&#125;</span><br><span class="line">console.log(obj2)</span><br><span class="line">//&#123;a: 1, b: 2&#125;</span><br><span class="line">obj.a = 3</span><br><span class="line">console.log(obj2)</span><br><span class="line">// &#123;a: 1, b: 2&#125;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">const arr = [&#123;info: 1&#125;]</span><br><span class="line"></span><br><span class="line">const arr_clone = [...arr]</span><br><span class="line"></span><br><span class="line">arr_clone[0].info = 2</span><br><span class="line"></span><br><span class="line">console.log(arr)</span><br><span class="line">// [&#123;info: 2&#125;]</span><br><span class="line">console.log(arr_clone)</span><br><span class="line">// [&#123;info: 2&#125;]</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">// 参考： https://www.kimi.com/share/19c8f33f-5102-8ea4-8000-00001e463675</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<h2 id="特斯拉面试"><a href="#特斯拉面试" class="headerlink" title="特斯拉面试"></a>特斯拉面试</h2><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line"></span><br><span class="line"></span><br><span class="line"></span><br></pre></td></tr></table></figure>
+<p><a target="_blank" rel="noopener" href="https://max.book118.com/html/2025/1212/8036122044010021.shtm">https://max.book118.com/html/2025/1212/8036122044010021.shtm</a></p>
+<p><a target="_blank" rel="noopener" href="https://blog.csdn.net/weixin_48350747/article/details/146115307">https://blog.csdn.net/weixin_48350747/article/details/146115307</a></p>
+<p><a target="_blank" rel="noopener" href="https://blog.csdn.net/2401_86373285/article/details/157695139">https://blog.csdn.net/2401_86373285/article/details/157695139</a></p>
+<p><a target="_blank" rel="noopener" href="https://zhuanlan.zhihu.com/p/694840096">https://zhuanlan.zhihu.com/p/694840096</a></p>
+<p>完<br><a target="_blank" rel="noopener" href="https://www.renrendoc.com/paper/510088715.html">https://www.renrendoc.com/paper/510088715.html</a></p>
+<p>手写一个hooks、手写实现 reduce、算法等<br>比如React Fiber、性能优化、工程化、网络安全等<br>面试题也都偏基础，比如 React Hook 基础、Redux、CSS、JS基础等</p>
+<h2 id="京东面试"><a href="#京东面试" class="headerlink" title="京东面试"></a>京东面试</h2><p>js中的数据类型有哪些</p>
+<p>Number 、String 、Boolean 、Null 、Undefined 、Symbol 、Object、Array</p>
+<p>闭包</p>
+<p>递归实现一个什么东西</p>
+<p>深拷贝</p>
+<p>类型判断</p>
+<p>宏任务和微任务<br>宏任务<br>包含：setTimeout, setInterval, I&#x2F;O 操作, UI 渲染, setImmediate<br>微任务<br>包含：Promise.then, process.nextTick, Object.observe(已废弃), MutationObserver</p>
+<p>javascript 高级程序设计</p>
+<p><a target="_blank" rel="noopener" href="https://juejin.cn/post/7077400026670399495">https://juejin.cn/post/7077400026670399495</a></p>
+<p>【有道云笔记】京东<br><a target="_blank" rel="noopener" href="https://share.note.youdao.com/s/GMVGkMIY">https://share.note.youdao.com/s/GMVGkMIY</a></p>
+
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
     <link itemprop="mainEntityOfPage" href="http://example.com/2025/12/11/yt-dlp-youtube-%E8%A7%86%E9%A2%91%E4%B8%8B%E8%BD%BD/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -904,83 +1006,6 @@
   
   
 
-      
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="http://example.com/2025/05/10/tfjs-study6/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.gif">
-      <meta itemprop="name" content="wangzhiwei">
-      <meta itemprop="description" content="javascript nodejs web developer...">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="WBlog">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/2025/05/10/tfjs-study6/" class="post-title-link" itemprop="url">tfjs-study6</a>
-        </h2>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              <span class="post-meta-item-text">发表于</span>
-              
-
-              <time title="创建时间：2025-05-10 15:31:07 / 修改时间：16:48:31" itemprop="dateCreated datePublished" datetime="2025-05-10T15:31:07+08:00">2025-05-10</time>
-            </span>
-
-          
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <h2 id="python-与-javascript-互转"><a href="#python-与-javascript-互转" class="headerlink" title="python 与 javascript 互转"></a>python 与 javascript 互转</h2><p>python 模型：<br>通过 python 版 TensorFlow&#x2F;Keras 生成模型</p>
-<p>包括： TensorFlow SavedModel、Keras HDF5 模型 等</p>
-<p>获取：开源网站下载&#x2F;算法同事提供</p>
-<p>javascript 模型：</p>
-<p>可以在 TensorFlowJS中运行的模型</p>
-<p>包括： tfjs_layers_model.json、tfjs_graph_model.json、tfjs_weights.bin 等</p>
-<p>获取：开源网站下载&#x2F;通过TFJS生成&#x2F;由python 模型转换而来</p>
-<p>为何要进行互转?<br>Python to JavaScript:JavaScript模型可以在浏览器中运行</p>
-<p>JavaScript to Python:少见,为了在更多平台运行</p>
-<p>JavaScript to JavaScript:分片&#x2F;量化&#x2F;加速</p>
-<p>如何进行互转?<br>安装Tensorflow.js Converter<br>在命令行指定输入输出的路径和模型格式即可</p>
-<p>操作步骤<br>安装Tensorflow.js Converter<br>Python与JavaScript模型互转<br>JavaScript模型的互转:分片、量化、加速</p>
-<p>安装Tensorflow.js Converter</p>
-<p>操作步骤<br>安装Conda<br>使用Conda安装Python虚拟环境<br>使用Python虚拟环境安装Tensorflow.jsConverter</p>
-<p><img src="/../images/tfjs/69.png"></p>
-<p><img src="/../images/tfjs/70.png"></p>
-<p><img src="/../images/tfjs/71.png"></p>
-<p><img src="/../images/tfjs/72.png"></p>
-<p><img src="/../images/tfjs/73.png"></p>
-
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
 
   
   <nav class="pagination">
@@ -1050,7 +1075,7 @@
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">104</span>
+          <span class="site-state-item-count">105</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>
